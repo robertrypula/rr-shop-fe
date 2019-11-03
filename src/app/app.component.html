@@ -1,3 +1,17 @@
-<h1>Hello World - app component</h1>
+<h1>Hello World!</h1>
+
+<select [(ngModel)]="image">
+  <option value="01">01</option>
+  <option value="02">02</option>
+  <option value="03">03</option>
+  <option value="04">04</option>
+</select>
+<br/>
+<img src="{{ 'https://static.waleriana.pl/kolejkowo-' + image + '.jpg' }}" />
+
+<div>
+  <button (click)="onClick()">Load product test</button>
+  <pre>{{ data | json }}</pre>
+</div>
 
 <router-outlet></router-outlet>

@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "ng build",
+    "build:prod": "ng build --prod",
     "lint": "ng lint",
     "ng": "ng",
     "prettier:check": "prettier src/**/*.{html,js,scss,ts} *.{js,json,yml} --check",

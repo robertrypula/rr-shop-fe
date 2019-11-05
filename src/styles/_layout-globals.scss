@@ -1,0 +1,56 @@
+//@font-face {
+//  font-family: 'Roboto';
+//  src: url('../font/roboto-regular-webfont.woff2') format('woff2'),
+//  url('../font/roboto-regular-webfont.woff') format('woff');
+//  font-weight: normal;
+//  font-style: normal;
+//}
+
+body,
+html {
+  background-color: darkgray;
+  font-size: 16px;
+  line-height: 1em;
+  color: gray;
+  font-family: 'Tahoma', sans-serif;
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 22px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+.wrapper {
+  width: 100%;
+  min-width: 320px;
+  overflow: hidden;
+}
+
+.container {
+  background-color: yellow;
+}
+
+* {
+  box-sizing: border-box;
+  text-rendering: optimizelegibility;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+}
+
+a {
+  text-decoration: none;
+  color: blue;
+}

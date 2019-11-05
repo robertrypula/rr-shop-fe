@@ -10,14 +10,7 @@ import { HeaderModule } from './components/header/header.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    AppRoutingModule,
-    BreadcrumbsModule,
-    BrowserModule,
-    ContentModule,
-    FooterModule,
-    HeaderModule
-  ],
+  imports: [AppRoutingModule, BreadcrumbsModule, BrowserModule, ContentModule, FooterModule, HeaderModule],
   providers: [],
   bootstrap: [AppComponent]
 })

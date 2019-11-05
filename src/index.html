@@ -2,12 +2,30 @@
 <html lang="pl">
   <head>
     <meta charset="utf-8" />
-    <title>RrShopFe</title>
+    <title>Waleriana.pl</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
   </head>
   <body>
-    <app-root></app-root>
+    <div id="weak-password-container">
+      <input id="weak-password" placeholder="password" />
+      <button type="button" onClick="enter()">Enter</button>
+    </div>
+    <script>
+      if (window.localStorage.getItem('bootstrapApp') === 'yes') {
+        document.getElementById('weak-password-container').style.display = 'none';
+      }
+
+      function enter() {
+        // Yep... this is super easy to break but sufficient in my case ;)
+        if (document.getElementById('weak-password').value === 'ziolo') {
+          window.localStorage.setItem('bootstrapApp', 'yes');
+          document.getElementById('weak-password-container').style.display = 'none';
+        }
+      }
+    </script>
+
+    <rr-shop-root></rr-shop-root>
   </body>
 </html>

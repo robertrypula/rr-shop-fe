@@ -1,14 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { BreadcrumbsModule } from './components/breadcrumbs/breadcrumbs.module';
+import { ContentModule } from './components/content/content.module';
+import { FooterModule } from './components/footer/footer.module';
+import { HeaderModule } from './components/header/header.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    AppRoutingModule,
+    BreadcrumbsModule,
+    BrowserModule,
+    ContentModule,
+    FooterModule,
+    HeaderModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

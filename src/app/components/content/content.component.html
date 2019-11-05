@@ -1,0 +1,35 @@
+<div class="Content">
+  <div class="container">
+    <div class="row margin-bottom">
+      <div class="col col-xs-12">
+        <router-outlet></router-outlet>
+
+        <select [(ngModel)]="image">
+          <option value="01">01</option>
+          <option value="02">02</option>
+          <option value="03">03</option>
+          <option value="04">04</option>
+        </select>
+        <br />
+        <img src="{{ 'https://static.waleriana.pl/kolejkowo-' + image + '.jpg' }}" width="320" height="180" />
+
+        <div>
+          <button (click)="onClick()">Load product test</button>
+          <pre>{{ data | json }}</pre>
+        </div>
+
+        <p>
+          Lorem ipsum
+        </p>
+        <ul>
+          <li>
+            test
+          </li>
+        </ul>
+        <p>
+          dolor
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

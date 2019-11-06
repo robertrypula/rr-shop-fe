@@ -5,10 +5,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { ContentComponent } from './content.component';
+import { CategoriesModule } from '../categories/categories.module';
 
 @NgModule({
   declarations: [ContentComponent],
   exports: [ContentComponent],
-  imports: [CommonModule, RouterModule, FormsModule, HttpClientModule]
+  imports: [CommonModule, RouterModule, FormsModule, HttpClientModule, CategoriesModule]
 })
 export class ContentModule {}

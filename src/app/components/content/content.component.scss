@@ -1,4 +1,12 @@
 .Content {
   background-color: aqua;
   margin-bottom: 10px;
+
+  .Content-minorArea {
+    outline: 1px solid red;
+  }
+
+  .Content-mainArea {
+    outline: 1px solid orange;
+  }
 }

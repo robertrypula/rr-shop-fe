@@ -54,6 +54,10 @@ $screen-lg-min: 1200px;
   }
 }
 
+.margin-bottom {
+  margin-bottom: 15px;
+}
+
 // Extra small devices (phones, less than 768px)
 @for $i from 1 to $grid-columns + 1 {
   .col-xs-#{$i} {

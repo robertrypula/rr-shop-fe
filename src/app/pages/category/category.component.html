@@ -1,3 +1,8 @@
 <h2>Category</h2>
 
 <pre>{{ text$ | async }}</pre>
+
+<div *ngFor="let product of products$ | async" style="outline: 1px solid black;">
+  <pre>{{ product | json }}</pre>
+  <button type="button" (click)="addToBasket(product)">Add to basket</button>
+</div>

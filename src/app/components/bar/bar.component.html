@@ -1,0 +1,14 @@
+<div class="Bar" *ngIf="bars$ | async as bars">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+        <div class="Bar-message" *ngFor="let bar of bars" [ngStyle]="{ zIndex: 1000 + bar.id }">
+          {{ bar.message }}
+          <div class="Bar-closeWrapper">
+            <rr-shop-icon [icon]="['far', 'times-circle']" (click)="close(bar.id)"></rr-shop-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

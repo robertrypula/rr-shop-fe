@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { Action, combineReducers, createReducer, on } from '@ngrx/store';
 
 import * as fromBasketActions from '../actions/basket.actions';
 

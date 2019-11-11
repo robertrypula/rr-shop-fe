@@ -1,10 +1,11 @@
-import * as fromIndex from '../reducers';
 import { createSelector } from '@ngrx/store';
+
+import { State } from '../reducers';
 import { Product } from '../../models/product.model';
 
-export const selectProduct = (state: fromIndex.State) => state.product;
+export const selectProductFeature = (state: State) => state.product;
 
 export const selectProducts = createSelector(
-  selectProduct,
+  selectProductFeature,
   (product): Product[] => Object.keys(product).map(key => product[key])
 );

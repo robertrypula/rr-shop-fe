@@ -27,6 +27,18 @@ $screen-lg-min: 1200px;
   @include col();
 }
 
+@mixin col-offset-i($i) {
+  margin-left: percentage($i / $grid-columns);
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
 .row {
   margin-right: -15px;
   margin-left: -15px;
@@ -63,6 +75,9 @@ $screen-lg-min: 1200px;
   .col-xs-#{$i} {
     @include col-i($i);
   }
+  .col-xs-offset-#{$i} {
+    @include col-offset-i($i);
+  }
 }
 
 // Small devices (tablets, 768px and up)
@@ -74,6 +89,9 @@ $screen-lg-min: 1200px;
   @for $i from 1 to $grid-columns + 1 {
     .col-sm-#{$i} {
       @include col-i($i);
+    }
+    .col-sm-offset-#{$i} {
+      @include col-offset-i($i);
     }
   }
 }
@@ -88,6 +106,9 @@ $screen-lg-min: 1200px;
     .col-md-#{$i} {
       @include col-i($i);
     }
+    .col-md-offset-#{$i} {
+      @include col-offset-i($i);
+    }
   }
 }
 
@@ -100,6 +121,9 @@ $screen-lg-min: 1200px;
   @for $i from 1 to $grid-columns + 1 {
     .col-lg-#{$i} {
       @include col-i($i);
+    }
+    .col-lg-offset-#{$i} {
+      @include col-offset-i($i);
     }
   }
 }

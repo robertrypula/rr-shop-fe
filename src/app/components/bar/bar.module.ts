@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TopSearchComponent } from './top-search.component';
+import { BarComponent } from './bar.component';
 import { IconModule } from '../icon/icon.module';
 
 @NgModule({
-  declarations: [TopSearchComponent],
-  exports: [TopSearchComponent],
+  declarations: [BarComponent],
+  exports: [BarComponent],
   imports: [CommonModule, IconModule]
 })
-export class TopSearchModule {}
+export class BarModule {}

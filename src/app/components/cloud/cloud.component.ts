@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CLOUD_HIDE_DELAY, CLOUD_SHOW_DELAY } from './cloud.config';
+import { CLOUD_HIDE_DELAY, CLOUD_SHOW_DELAY } from '../../config/cloud.config';
 
 @Component({
   selector: 'rr-shop-cloud',

@@ -8,17 +8,23 @@ import * as fromReducers from '../../store/reducers';
 import * as fromProductSelectors from '../../store/selectors/product.selectors';
 import { Product } from '../../models/product.model';
 import { addProduct } from '../../store/actions/basket.actions';
+import { CategoryService } from './category.service';
 
 @Component({
   selector: 'rr-shop-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss']
+  styleUrls: ['./category.component.scss'],
+  providers: [CategoryService]
 })
 export class CategoryComponent implements OnInit {
   public text$: Observable<string>;
   public products$: Observable<Product[]>;
 
-  public constructor(protected activatedRoute: ActivatedRoute, protected store: Store<fromReducers.State>) {}
+  public constructor(
+    protected activatedRoute: ActivatedRoute,
+    protected store: Store<fromReducers.State>,
+    protected categoryService: CategoryService
+  ) {}
 
   public ngOnInit(): void {
     this.text$ = this.activatedRoute.paramMap.pipe(switchMap((params: ParamMap) => this.getDelayed(params.get('id'))));
@@ -31,5 +37,6 @@ export class CategoryComponent implements OnInit {
 
   public addToBasket(product: Product): void {
     this.store.dispatch(addProduct({ productId: product.id }));
+    this.categoryService.addToBasket(product);
   }
 }

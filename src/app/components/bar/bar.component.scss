@@ -1,0 +1,25 @@
+$padding: 10px;
+$closeButtonWidth: 32px;
+
+.Bar {
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+
+  .Bar-message {
+    background-color: lightblue;
+    box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.33);
+    padding: $padding (2 * $padding + $closeButtonWidth) $padding $padding;
+    position: relative;
+  }
+
+  .Bar-closeWrapper {
+    position: absolute;
+    right: $padding;
+    text-align: right;
+    top: $padding;
+    width: $closeButtonWidth;
+  }
+}

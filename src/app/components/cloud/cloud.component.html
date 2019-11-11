@@ -1,0 +1,7 @@
+<div (mouseenter)="show()" (mouseleave)="hide()">
+  <ng-content></ng-content>
+</div>
+
+<div *ngIf="isVisible">
+  <ng-content select="[cloudContent]"></ng-content>
+</div>

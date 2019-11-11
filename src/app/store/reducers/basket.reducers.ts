@@ -12,7 +12,7 @@ export const initialState: State = {
 
 const basketReducer = createReducer(
   initialState,
-  on(fromBasketActions.addProduct, (state, { productId }) => ({ ...state, productId }))
+  on(fromBasketActions.add, (state, { id, quantity }): State => ({ ...state, productId: id }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

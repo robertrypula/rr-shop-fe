@@ -4,10 +4,10 @@ import { delay, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
-import * as fromReducers from '../../store/reducers';
-import * as fromProductSelectors from '../../store/selectors/product.selectors';
+import * as fromReducers from '../../store/reducers'; // TODO remove
+import * as fromProductSelectors from '../../store/selectors/product.selectors'; // TODO remove
 import { Product } from '../../models/product.model';
-import { addProduct } from '../../store/actions/basket.actions';
+import { add } from '../../store/actions/basket.actions';
 import { CategoryService } from './category.service';
 
 @Component({
@@ -22,13 +22,13 @@ export class CategoryComponent implements OnInit {
 
   public constructor(
     protected activatedRoute: ActivatedRoute,
-    protected store: Store<fromReducers.State>,
+    protected store: Store<fromReducers.State>, // TODO remove
     protected categoryService: CategoryService
   ) {}
 
   public ngOnInit(): void {
     this.text$ = this.activatedRoute.paramMap.pipe(switchMap((params: ParamMap) => this.getDelayed(params.get('id'))));
-    this.products$ = this.store.pipe(select(fromProductSelectors.selectProducts));
+    this.products$ = this.store.pipe(select(fromProductSelectors.selectProducts)); // TODO remove
   }
 
   public getDelayed(id: string): Observable<string> {
@@ -36,7 +36,7 @@ export class CategoryComponent implements OnInit {
   }
 
   public addToBasket(product: Product): void {
-    this.store.dispatch(addProduct({ productId: product.id }));
+    this.store.dispatch(add({ id: product.id, quantity: 1 })); // TODO remove
     this.categoryService.addToBasket(product);
   }
 }

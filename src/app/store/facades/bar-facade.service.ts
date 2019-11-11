@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 import { State } from '../reducers';
 import { Bar } from '../../models/bar.model';
-import { close, showSuccess } from '../actions/bar.actions';
-import { selectBars } from '../selectors/bar.selectors';
+import * as fromActions from '../actions/bar.actions';
+import * as fromSelectors from '../selectors/bar.selectors';
 import { barId as lastId } from '../reducers/bar.reducers';
 
 @Injectable({
@@ -15,11 +15,11 @@ export class BarFacadeService {
   public bars$: Observable<Bar[]>;
 
   public constructor(protected store: Store<State>) {
-    this.bars$ = store.pipe(select(selectBars));
+    this.bars$ = store.pipe(select(fromSelectors.selectBars));
   }
 
   public showSuccess(message: string): void {
-    this.store.dispatch(showSuccess({ message }));
+    this.store.dispatch(fromActions.showSuccess({ message }));
   }
 
   public getLastId(): number {
@@ -27,6 +27,6 @@ export class BarFacadeService {
   }
 
   public close(id: number): void {
-    this.store.dispatch(close({ id }));
+    this.store.dispatch(fromActions.close({ id }));
   }
 }

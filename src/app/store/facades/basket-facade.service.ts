@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import { State } from '../reducers';
 import * as fromActions from '../actions/basket.actions';
 import * as fromSelectors from '../selectors/basket.selectors';
 import { Product } from '../../models/product.model';
+import { Observable } from 'rxjs';
+import { BasketEntry } from '../../models/basket.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasketFacadeService {
-  public constructor(protected store: Store<State>) {}
+  public basketEntries$: Observable<BasketEntry[]>;
+
+  public constructor(protected store: Store<State>) {
+    this.basketEntries$ = store.pipe(select(fromSelectors.selectBasketEntries));
+  }
 
   public add(product: Product, quantity): void {
     this.store.dispatch(fromActions.add({ id: product.id, quantity }));

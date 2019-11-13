@@ -1,1 +1,6 @@
-<pre>{{ basketEntries$ | async | json }}</pre>
+<rr-shop-basket-overview-item
+  *ngFor="let basketEntry of basketEntries$ | async"
+  [basketEntry]="basketEntry"
+  (remove)="remove($event)"
+>
+</rr-shop-basket-overview-item>

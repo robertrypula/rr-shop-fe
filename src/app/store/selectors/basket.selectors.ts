@@ -8,17 +8,28 @@ import { BasketSimpleEntry, BasketEntry } from '../../models/basket.model';
 
 export const selectBasketFeature = (state: State) => state.basket;
 
-export const selectBasketEntries = createSelector(
+export const selectBasketSimpleEntries = createSelector(
   selectBasketFeature,
+  (basket: fromBasketReducers.State): BasketSimpleEntry[] =>
+    Object.keys(basket).map((key: string): BasketSimpleEntry => basket[+key])
+);
+
+export const selectBasketSimpleEntryByProductId = createSelector(
+  selectBasketSimpleEntries,
+  (basketSimpleEntries: BasketSimpleEntry[], props: { productId: number }) =>
+    basketSimpleEntries.find(
+      (basketSimpleEntry: BasketSimpleEntry): boolean => basketSimpleEntry.productId === props.productId
+    )
+);
+
+export const selectBasketEntries = createSelector(
+  selectBasketSimpleEntries,
   selectProductFeature,
-  (basket: fromBasketReducers.State, product: fromProductReducers.State): BasketEntry[] => {
-    return Object.keys(basket)
-      .map((key: string): BasketSimpleEntry => basket[+key])
-      .map(
-        (basketEntry: BasketSimpleEntry): BasketEntry => ({
-          ...basketEntry,
-          product: product[basketEntry.productId] || null
-        })
-      );
-  }
+  (basketSimpleEntries: BasketSimpleEntry[], product: fromProductReducers.State): BasketEntry[] =>
+    basketSimpleEntries.map(
+      (basketEntry: BasketSimpleEntry): BasketEntry => ({
+        ...basketEntry,
+        product: product[basketEntry.productId] || null
+      })
+    )
 );

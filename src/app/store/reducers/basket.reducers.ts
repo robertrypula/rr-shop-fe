@@ -20,6 +20,42 @@ const basketReducer = createReducer(
 
       return { ...state, [basketSimpleEntryId]: { id: basketSimpleEntryId, productId: id, quantity } };
     }
+  ),
+  on(
+    fromBasketActions.quantityIncrement,
+    (state: State, { id }): State => {
+      const basketSimpleEntry = state[id];
+
+      return basketSimpleEntry
+        ? { ...state, [id]: { ...basketSimpleEntry, quantity: basketSimpleEntry.quantity + 1 } }
+        : state;
+    }
+  ),
+  on(
+    fromBasketActions.quantityDecrement,
+    (state: State, { id }): State => {
+      const basketSimpleEntry = state[id];
+
+      return basketSimpleEntry
+        ? { ...state, [id]: { ...basketSimpleEntry, quantity: basketSimpleEntry.quantity - 1 } }
+        : state;
+    }
+  ),
+  on(
+    fromBasketActions.quantitySetTo,
+    (state: State, { id, quantity }): State => {
+      const basketSimpleEntry = state[id];
+
+      return basketSimpleEntry ? { ...state, [id]: { ...basketSimpleEntry, quantity } } : state;
+    }
+  ),
+  on(
+    fromBasketActions.remove,
+    (state: State, { id }): State => {
+      const { [id]: toDelete, ...rest } = state;
+
+      return toDelete ? rest : state;
+    }
   )
 );
 

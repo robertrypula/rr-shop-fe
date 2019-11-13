@@ -17,4 +17,8 @@ export class BasketOverviewComponent implements OnInit {
   }
 
   public ngOnInit(): void {}
+
+  public remove(id: number): void {
+    this.basketOverviewService.remove(id);
+  }
 }

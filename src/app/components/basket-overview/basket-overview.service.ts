@@ -9,7 +9,11 @@ import { BasketService } from '../../services/basket.service';
 export class BasketOverviewService {
   public basketEntries$: Observable<BasketEntry[]>;
 
-  public constructor(basketService: BasketService) {
+  public constructor(protected basketService: BasketService) {
     this.basketEntries$ = basketService.basketEntries$;
+  }
+
+  public remove(id: number) {
+    this.basketService.remove(id);
   }
 }

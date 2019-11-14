@@ -11,18 +11,21 @@ export const initialState: State = {
     description: '',
     id: 1,
     name: 'Propolis',
+    price: 14.99,
     quantity: 432
   },
   2: {
     description: '',
     id: 2,
     name: 'Balsam jerozolimski',
+    price: 25.0,
     quantity: 32
   },
   3: {
     description: '',
     id: 3,
     name: 'Krwiściąg',
+    price: 9.99,
     quantity: 3
   }
 };

@@ -8,9 +8,13 @@ import { BasketService } from '../../services/basket.service';
 })
 export class BasketOverviewService {
   public basketEntries$: Observable<BasketEntry[]>;
+  public priceTotal$: Observable<number>;
+  public quantityTotal$: Observable<number>;
 
   public constructor(protected basketService: BasketService) {
     this.basketEntries$ = basketService.basketEntries$;
+    this.priceTotal$ = basketService.priceTotal$;
+    this.quantityTotal$ = basketService.quantityTotal$;
   }
 
   public remove(id: number) {

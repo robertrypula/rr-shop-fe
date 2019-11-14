@@ -14,9 +14,13 @@ import { take, tap } from 'rxjs/operators';
 })
 export class BasketFacadeService {
   public basketEntries$: Observable<BasketEntry[]>;
+  public priceTotal$: Observable<number>;
+  public quantityTotal$: Observable<number>;
 
   public constructor(protected store: Store<State>) {
     this.basketEntries$ = store.pipe(select(fromSelectors.selectBasketEntries));
+    this.priceTotal$ = store.pipe(select(fromSelectors.selectPriceTotal));
+    this.quantityTotal$ = store.pipe(select(fromSelectors.selectQuantityTotal));
   }
 
   public add(product: Product, quantity): void {

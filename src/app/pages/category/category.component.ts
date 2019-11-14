@@ -33,8 +33,4 @@ export class CategoryComponent implements OnInit {
   public getDelayed(id: string): Observable<string> {
     return of(`Loaded category: ${id}`).pipe(delay(250));
   }
-
-  public addToBasket(product: Product): void {
-    this.categoryService.addToBasket(product);
-  }
 }

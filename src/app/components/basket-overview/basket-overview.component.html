@@ -4,3 +4,6 @@
   (remove)="remove($event)"
 >
 </rr-shop-basket-overview-item>
+---
+<div>Sztuk w koszyku: {{ quantityTotal$ | async }}</div>
+<div>Wartość zamówienia: {{ priceTotal$ | async | price }}</div>

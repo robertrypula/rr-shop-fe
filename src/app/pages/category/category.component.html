@@ -3,6 +3,9 @@
 <pre>{{ text$ | async }}</pre>
 
 <div *ngFor="let product of products$ | async" style="outline: 1px solid black;">
-  <pre>{{ product | json }}</pre>
-  <button type="button" (click)="addToBasket(product)">Add to basket</button>
+  <rr-shop-product-box-compact [product]="product"></rr-shop-product-box-compact>
+</div>
+
+<div *ngFor="let product of products$ | async" style="outline: 1px solid blue;">
+  <rr-shop-product-box-full [product]="product"></rr-shop-product-box-full>
 </div>

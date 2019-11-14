@@ -1,2 +1,5 @@
-<pre>{{ basketEntry | json }}</pre>
-<button type="button" (click)="remove.emit(basketEntry.id)">Remove</button>
+<div>
+  {{ basketEntry.product?.name }}
+  {{ basketEntry.quantity }} x {{ basketEntry.product.price | price }}
+  <button type="button" (click)="remove.emit(basketEntry.id)">Remove</button>
+</div>

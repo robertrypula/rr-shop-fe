@@ -6,12 +6,12 @@ import * as fromBasketReducers from '../reducers/basket.reducers';
 import * as fromProductReducers from '../reducers/product.reducers';
 import { BasketSimpleEntry, BasketEntry } from '../../models/basket.model';
 
-export const selectBasketFeature = (state: State) => state.basket;
+export const selectBasketFeature = (state: State): fromBasketReducers.State => state.basket;
 
 export const selectBasketSimpleEntries = createSelector(
   selectBasketFeature,
-  (basket: fromBasketReducers.State): BasketSimpleEntry[] =>
-    Object.keys(basket).map((key: string): BasketSimpleEntry => basket[+key])
+  (basketFeature: fromBasketReducers.State): BasketSimpleEntry[] =>
+    Object.keys(basketFeature).map((key: string): BasketSimpleEntry => basketFeature[+key])
 );
 
 export const selectBasketSimpleEntryByProductId = createSelector(

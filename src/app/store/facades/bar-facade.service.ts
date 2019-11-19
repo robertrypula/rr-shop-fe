@@ -6,7 +6,7 @@ import { State } from '../reducers';
 import { Bar } from '../../models/bar.model';
 import * as fromActions from '../actions/bar.actions';
 import * as fromSelectors from '../selectors/bar.selectors';
-import { barId as lastId } from '../reducers/bar.reducers';
+import { barId } from '../reducers/bar.reducers';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class BarFacadeService {
   }
 
   public getLastId(): number {
-    return lastId;
+    return barId;
   }
 
   public close(id: number): void {

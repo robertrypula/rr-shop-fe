@@ -1,4 +1,19 @@
-COMPACT
+<div class="col-xs-12 col-sm-6 col-md-4 ProductBoxCompact">
+  COMPACT
+  <img alt="{{ product.name }}" class="ProductBoxCompact-image" />
 
-<pre>{{ product | json }}</pre>
-<button type="button" (click)="addToBasket(product)">Add to basket</button>
+  <div>
+    <a routerLink="/product/{{ product.id }}">{{ product.name }}</a>
+  </div>
+
+  <div>
+    {{ product.description }}
+  </div>
+
+  <div>
+    {{ product.price | price }}
+  </div>
+
+  <pre>{{ product | json }}</pre>
+  <button type="button" (click)="addToBasket(product)">Add to basket</button>
+</div>

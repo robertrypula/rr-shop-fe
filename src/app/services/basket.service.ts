@@ -21,19 +21,14 @@ export class BasketService {
   }
 
   public add(product: Product, quantity = 1): void {
-    this.basketFacadeService
-      .getBasketSimpleEntryByProductId(product.id)
-      .pipe(
-        tap((basketSimpleEntry: BasketSimpleEntry): void => {
-          if (basketSimpleEntry) {
-            this.basketFacadeService.quantitySetTo(basketSimpleEntry.id, basketSimpleEntry.quantity + quantity);
-          } else {
-            this.basketFacadeService.add(product, quantity);
-          }
-          this.barService.showSuccess(`Produkt '${product.name}' dodany do koszyka`); // TODO translations
-        })
-      )
-      .subscribe();
+    const basketSimpleEntry: BasketSimpleEntry = this.basketFacadeService.getBasketSimpleEntryByProductId(product.id);
+
+    if (basketSimpleEntry) {
+      this.basketFacadeService.quantitySetTo(basketSimpleEntry.id, basketSimpleEntry.quantity + quantity);
+    } else {
+      this.basketFacadeService.add(product, quantity);
+    }
+    this.barService.showSuccess(`Produkt '${product.name}' dodany do koszyka`); // TODO translations
   }
 
   public quantityDecrement(id: number): void {

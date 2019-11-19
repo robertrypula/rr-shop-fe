@@ -27,11 +27,20 @@ export class BasketFacadeService {
     this.store.dispatch(fromActions.add({ id: product.id, quantity }));
   }
 
-  public getBasketSimpleEntryByProductId(productId: number): Observable<BasketSimpleEntry> {
-    return this.store.pipe(
-      select(fromSelectors.selectBasketSimpleEntryByProductId, { productId }),
-      take(1)
-    );
+  public getBasketSimpleEntryByProductId(productId: number): BasketSimpleEntry {
+    let result: BasketSimpleEntry = null;
+
+    this.store
+      .pipe(
+        select(fromSelectors.selectBasketSimpleEntryByProductId, { productId }),
+        take(1),
+        tap((basketSimpleEntry: BasketSimpleEntry) => {
+          result = basketSimpleEntry;
+        })
+      )
+      .subscribe();
+
+    return result;
   }
 
   public quantityDecrement(id: number): void {

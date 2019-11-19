@@ -8,6 +8,7 @@ export interface State {
 
 export const initialState: State = {
   1: {
+    categoryIds: [2],
     description: '',
     id: 1,
     name: 'Propolis',
@@ -15,6 +16,7 @@ export const initialState: State = {
     quantity: 432
   },
   2: {
+    categoryIds: [2],
     description: '',
     id: 2,
     name: 'Balsam jerozolimski',
@@ -22,11 +24,20 @@ export const initialState: State = {
     quantity: 32
   },
   3: {
+    categoryIds: [2, 10],
     description: '',
     id: 3,
     name: 'Krwiściąg',
     price: 9.99,
     quantity: 3
+  },
+  4: {
+    categoryIds: [2, 10],
+    description: '',
+    id: 4,
+    name: 'Podbiał',
+    price: 5.99,
+    quantity: 30
   }
 };
 

@@ -8,6 +8,5 @@ import { BasketService } from '../../../services/basket.service';
 export class ProductBoxCompactService extends ProductBoxAbstractService {
   public constructor(basketService: BasketService) {
     super(basketService);
-    console.log('ProductBoxCompactService');
   }
 }

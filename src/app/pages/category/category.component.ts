@@ -4,13 +4,12 @@ import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { Product } from '../../models/product.model';
-import { CategoryService } from './category.service';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'rr-shop-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss'],
-  providers: [CategoryService]
+  styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
   public products$: Observable<Product[]>;

@@ -6,7 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./content.component.scss']
 })
 export class ContentComponent {
-  public image = '01';
-
   public constructor() {}
 }

@@ -1,15 +1,15 @@
 import { Input } from '@angular/core';
 
 import { Product } from '../../models/product.model';
-import { ProductBoxAbstractService } from './product-box-abstract.service';
+import { BasketService } from '../../services/basket.service';
 
 export abstract class ProductBoxAbstractComponent {
   @Input()
   public product: Product;
 
-  protected constructor(protected productBoxAbstractService: ProductBoxAbstractService) {}
+  protected constructor(protected basketService: BasketService) {}
 
   public addToBasket(product: Product): void {
-    this.productBoxAbstractService.addToBasket(product);
+    this.basketService.add(product);
   }
 }

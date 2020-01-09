@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { BarService } from './bar.service';
 import { Observable } from 'rxjs';
+
 import { Bar } from '../../models/bar.model';
+import { BarService } from '../../services/bar.service';
 
 @Component({
   selector: 'rr-shop-bar',
   templateUrl: './bar.component.html',
-  styleUrls: ['./bar.component.scss'],
-  providers: [BarService]
+  styleUrls: ['./bar.component.scss']
 })
 export class BarComponent implements OnInit {
   public bars$: Observable<Bar[]>;

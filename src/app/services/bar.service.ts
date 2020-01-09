@@ -1,12 +1,22 @@
 import { Injectable } from '@angular/core';
-import { BASKET_BAR_SUCCESS_MESSAGE_HIDE_DELAY } from '../config/basket.config';
 import { BarFacadeService } from '../store/facades/bar-facade.service';
+import { Observable } from 'rxjs';
+import { Bar } from '../models/bar.model';
+import { BASKET_BAR_SUCCESS_MESSAGE_HIDE_DELAY } from '../config/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BarService {
-  public constructor(protected barFacade: BarFacadeService) {}
+  public bars$: Observable<Bar[]>;
+
+  public constructor(protected barFacade: BarFacadeService) {
+    this.bars$ = barFacade.bars$;
+  }
+
+  public close(id: number): void {
+    this.barFacade.close(id);
+  }
 
   public showSuccess(message: string): void {
     let lastId: number;

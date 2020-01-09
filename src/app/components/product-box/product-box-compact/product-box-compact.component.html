@@ -1,6 +1,6 @@
 <div class="col-xs-12 col-sm-6 col-md-4 ProductBoxCompact">
   COMPACT
-  <img alt="{{ product.name }}" class="ProductBoxCompact-image" />
+  <img alt="{{ product.name }}" src="{{ product.images | image }}" class="ProductBoxCompact-image" />
 
   <div>
     <a routerLink="/product/{{ product.id }}">{{ product.name }}</a>

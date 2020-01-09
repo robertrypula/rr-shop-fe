@@ -18,7 +18,7 @@ export class ProductComponent implements OnInit {
 
   public onClick(): void {
     this.data = null;
-    this.http.get(environment.api + 'product').subscribe((data: any[]) => {
+    this.http.get(environment.urlApi + 'product').subscribe((data: any[]) => {
       this.data = data;
     });
   }

@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  api: 'https://api.waleriana.pl/'
+  urlApi: 'https://api.waleriana.pl/',
+  urlStatic: 'https://static.waleriana.pl/'
 };

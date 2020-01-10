@@ -1,14 +1,31 @@
 <div class="Header">
   <div class="container">
-    <h1>{{ h1Text }}</h1>
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        <div class="Header-logoContainer">
+          <a href="/">
+            <h1>{{ h1Text }}</h1>
+          </a>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="Header-headerImageContainer">
+          <div class="Header-headerImage">&nbsp;</div>
+        </div>
+      </div>
+    </div>
 
-    <rr-shop-top-menu></rr-shop-top-menu>
+    <div class="row">
+      <rr-shop-top-menu></rr-shop-top-menu>
+      <rr-shop-top-search></rr-shop-top-search>
+      <rr-shop-cloud>
+        <rr-shop-icon [icon]="['fas', 'shopping-basket']"></rr-shop-icon>
+        <rr-shop-basket-overview cloudContent></rr-shop-basket-overview>
+      </rr-shop-cloud>
+    </div>
+  </div>
 
-    <rr-shop-top-search></rr-shop-top-search>
-
-    <rr-shop-cloud>
-      <rr-shop-icon [icon]="['fas', 'shopping-basket']"></rr-shop-icon>
-      <rr-shop-basket-overview cloudContent></rr-shop-basket-overview>
-    </rr-shop-cloud>
+  <div class="Header-separatorImageContainer">
+    <div class="Header-separatorImage">&nbsp;</div>
   </div>
 </div>

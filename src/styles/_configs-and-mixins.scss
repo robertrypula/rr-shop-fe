@@ -1,0 +1,36 @@
+$min-viewport-width: 320px;
+
+$container-lg: 1170px;
+$container-md: 970px;
+$container-sm: 750px;
+
+$grid-columns: 12;
+$gutter-width: 15px;
+
+$screen-lg-min: 1200px;
+$screen-md-min: 992px;
+$screen-sm-min: 768px;
+
+@mixin clear() {
+  content: ' ';
+  display: table;
+  clear: both;
+}
+
+@mixin col() {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+@mixin col-i($i) {
+  float: left;
+  width: percentage($i / $grid-columns);
+  @include col();
+}
+
+@mixin col-offset-i($i) {
+  margin-left: percentage($i / $grid-columns);
+}
+

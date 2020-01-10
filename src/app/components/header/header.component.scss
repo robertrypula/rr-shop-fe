@@ -1,4 +1,112 @@
+@import 'configs-and-mixins';
+
 .Header {
-  background-color: lightgreen;
+  background-color: white;
   margin-bottom: 10px;
+
+  .Header-logoContainer {
+    $logo-width: 355px;
+    $logo-height: 140px;
+
+    a {
+      margin: 15px auto 0 auto;
+    }
+    a,
+    h1 {
+      display: block;
+      width: $logo-width;
+      height: $logo-height;
+    }
+    h1 {
+      background: url('../../../assets/logo.png') no-repeat top left;
+      background-size: $logo-width $logo-height;
+      overflow: hidden;
+      text-indent: -99em;
+    }
+
+    @media (max-width: $logo-width + 2 * $gutter-width) {
+      $logo-smallest-width: $min-viewport-width - 2 * $gutter-width;
+      $logo-smallest-height: $logo-smallest-width * ($logo-height / $logo-width);
+      a,
+      h1 {
+        width: $logo-smallest-width;
+        height: $logo-smallest-height;
+      }
+      h1 {
+        background-size: $logo-smallest-width $logo-smallest-height;
+      }
+    }
+
+    @media (min-width: $screen-md-min) {
+      a {
+        margin: 20px 0 0 0;
+      }
+    }
+  }
+
+  .Header-headerImageContainer {
+    $header-image-width: 480px;
+    $header-image-height: 170px;
+
+    .Header-headerImage {
+      display: none;
+    }
+
+    @media (min-width: $screen-md-min) {
+      .Header-headerImage {
+        display: block;
+        background: url('../../../assets/header-image.png') no-repeat top left;
+        background-size: $header-image-width $header-image-height;
+        float: right;
+        width: $header-image-width;
+        height: $header-image-height;
+      }
+    }
+  }
+
+  .Header-separatorImageContainer {
+    $separator-image-width: 2120px;
+    $separator-image-height: 120px;
+
+    height: $separator-image-height * 0.5;
+    position: relative;
+    background-color: #1c2f01;
+
+    .Header-separatorImage {
+      background: url('../../../assets/separator-image.jpg') no-repeat top center;
+      background-size: $separator-image-width * 0.5 $separator-image-height * 0.5;
+      height: $separator-image-height * 0.5;
+    }
+
+    @media (min-width: $screen-sm-min) {
+      height: $separator-image-height;
+      .Header-separatorImage {
+        background: url('../../../assets/separator-image.jpg') no-repeat top center;
+        background-size: $separator-image-width $separator-image-height;
+        // width: $separator-image-width;
+        height: $separator-image-height;
+      }
+    }
+
+    @media (min-width: $screen-sm-min) {
+      // width: $container-sm;
+      .Header-separatorImage {
+        // left: -0.5 * ($separator-image-width - $container-sm);
+      }
+    }
+
+    @media (min-width: $screen-md-min) {
+      // width: $container-md;
+      .Header-separatorImage {
+        // left: -0.5 * ($separator-image-width - $container-md);
+      }
+    }
+
+    @media (min-width: $screen-lg-min) {
+      // width: $container-lg;
+      .Header-separatorImage {
+        // left: -0.5 * ($separator-image-width - $container-lg);
+      }
+    }
+  }
 }

@@ -1,9 +1,6 @@
 @import 'configs-and-mixins';
 
 .Header {
-  background-color: white;
-  margin-bottom: 10px;
-
   .Header-logoContainer {
     $logo-width: 355px;
     $logo-height: 140px;
@@ -65,47 +62,28 @@
   }
 
   .Header-separatorImageContainer {
-    $separator-image-width: 2120px;
-    $separator-image-height: 120px;
+    $separator-image-mobile-width: 800px;
+    $separator-image-mobile-height: 60px;
 
-    height: $separator-image-height * 0.5;
+    height: $separator-image-mobile-height;
     position: relative;
     background-color: #1c2f01;
 
     .Header-separatorImage {
-      background: url('../../../assets/separator-image.jpg') no-repeat top center;
-      background-size: $separator-image-width * 0.5 $separator-image-height * 0.5;
-      height: $separator-image-height * 0.5;
+      background: url('../../../assets/separator-image-mobile.jpg') no-repeat top center;
+      height: $separator-image-mobile-height;
     }
+
+    // ----
+
+    $separator-image-width: 2120px;
+    $separator-image-height: 120px;
 
     @media (min-width: $screen-sm-min) {
       height: $separator-image-height;
       .Header-separatorImage {
         background: url('../../../assets/separator-image.jpg') no-repeat top center;
-        background-size: $separator-image-width $separator-image-height;
-        // width: $separator-image-width;
         height: $separator-image-height;
-      }
-    }
-
-    @media (min-width: $screen-sm-min) {
-      // width: $container-sm;
-      .Header-separatorImage {
-        // left: -0.5 * ($separator-image-width - $container-sm);
-      }
-    }
-
-    @media (min-width: $screen-md-min) {
-      // width: $container-md;
-      .Header-separatorImage {
-        // left: -0.5 * ($separator-image-width - $container-md);
-      }
-    }
-
-    @media (min-width: $screen-lg-min) {
-      // width: $container-lg;
-      .Header-separatorImage {
-        // left: -0.5 * ($separator-image-width - $container-lg);
       }
     }
   }

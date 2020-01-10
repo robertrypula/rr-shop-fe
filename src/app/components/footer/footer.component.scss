@@ -1,4 +1,38 @@
-footer {
-  background-color: orange;
-  margin-bottom: 10px;
+@import 'configs-and-mixins';
+
+.Footer {
+  .Footer-imageContainer {
+    $footer-image-mobile-width: 800px;
+    $footer-image-mobile-height: 60px;
+
+    height: $footer-image-mobile-height;
+    position: relative;
+    background-color: #1c2f01;
+
+    .Footer-image {
+      // background: url('../../../assets/footer-mobile.jpg') no-repeat top center;
+      height: $footer-image-mobile-height;
+    }
+
+    // ----
+
+    $footer-image-width: 2120px;
+    $footer-image-height: 300px;
+
+    @media (min-width: $screen-sm-min) {
+      height: $footer-image-height;
+      .Footer-image {
+        background: url('../../../assets/footer.jpg') no-repeat top center;
+        height: $footer-image-height;
+      }
+    }
+
+    // ----
+
+    .Footer-content {
+      background-color: rgba(0, 0, 0, 0.5);
+      margin-top: $gutter-width;
+      height: $footer-image-height - $gutter-width * 2;
+    }
+  }
 }

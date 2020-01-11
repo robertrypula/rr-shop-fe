@@ -16,12 +16,17 @@
     </div>
 
     <div class="row">
-      <rr-shop-top-menu></rr-shop-top-menu>
-      <rr-shop-top-search></rr-shop-top-search>
-      <rr-shop-cloud>
-        <rr-shop-icon [icon]="['fas', 'shopping-basket']"></rr-shop-icon>
-        <rr-shop-basket-overview cloudContent></rr-shop-basket-overview>
-      </rr-shop-cloud>
+      <div class="col-md-6">
+        <rr-shop-top-menu></rr-shop-top-menu>
+      </div>
+
+      <div class="col-md-6">
+        <rr-shop-top-search></rr-shop-top-search>
+        <rr-shop-cloud>
+          <rr-shop-icon [icon]="['fas', 'shopping-basket']"></rr-shop-icon>
+          <rr-shop-basket-overview cloudContent></rr-shop-basket-overview>
+        </rr-shop-cloud>
+      </div>
     </div>
   </div>
 

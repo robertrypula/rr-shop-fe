@@ -1,0 +1,24 @@
+@import 'configs-and-mixins';
+
+.TopMenu {
+  ul,
+  li {
+    display: block;
+  }
+
+  li {
+    float: left;
+    margin: 0 22px;
+    a {
+      color: $top-menu-color-default;
+      font-size: $top-menu-font-size;
+      font-weight: bold;
+      &:hover {
+        color: $top-menu-color-hover;
+      }
+      &.TopMenu-link--active {
+        color: $top-menu-color-active;
+      }
+    }
+  }
+}

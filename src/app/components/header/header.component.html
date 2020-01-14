@@ -1,6 +1,6 @@
 <div class="Header">
   <div class="container">
-    <div class="row">
+    <div class="row margin-bottom">
       <div class="col-xs-12 col-md-6">
         <div class="Header-logoContainer">
           <a href="/">
@@ -15,17 +15,21 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row margin-bottom">
       <div class="col-md-6">
         <rr-shop-top-menu></rr-shop-top-menu>
       </div>
 
       <div class="col-md-6">
-        <rr-shop-top-search></rr-shop-top-search>
-        <rr-shop-cloud>
-          <rr-shop-icon [icon]="['fas', 'shopping-basket']"></rr-shop-icon>
-          <rr-shop-basket-overview cloudContent></rr-shop-basket-overview>
-        </rr-shop-cloud>
+        <div style="float: left;">
+          <rr-shop-top-search></rr-shop-top-search>
+        </div>
+        <div style="float: left;">
+          <rr-shop-cloud>
+            <rr-shop-icon [icon]="['fas', 'shopping-basket']"></rr-shop-icon>
+            <rr-shop-basket-overview cloudContent></rr-shop-basket-overview>
+          </rr-shop-cloud>
+        </div>
       </div>
     </div>
   </div>

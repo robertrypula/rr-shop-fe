@@ -9,4 +9,8 @@ export class TopSearchComponent implements OnInit {
   public constructor() {}
 
   public ngOnInit(): void {}
+
+  public onSearchClick(): void {
+    alert('search click');
+  }
 }

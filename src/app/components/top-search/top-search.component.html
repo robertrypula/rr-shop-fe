@@ -1,2 +1,6 @@
-<input placeholder="Search" />
-<rr-shop-icon [icon]="['fas', 'search']"></rr-shop-icon>
+<div class="TopSearch">
+  <input placeholder="Search" class="TopSearch-form" />
+  <button (click)="onSearchClick()" class="TopSearch-button">
+    <rr-shop-icon [icon]="['fas', 'search']"></rr-shop-icon>
+  </button>
+</div>

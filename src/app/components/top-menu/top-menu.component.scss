@@ -1,14 +1,17 @@
 @import 'configs-and-mixins';
 
 .TopMenu {
+  text-align: center;
+
   ul,
   li {
-    display: block;
+    display: inline-block;
   }
 
   li {
-    float: left;
     margin: 0 22px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     a {
       color: $top-menu-color-default;
       font-size: $top-menu-font-size;
@@ -20,5 +23,11 @@
         color: $top-menu-color-active;
       }
     }
+  }
+}
+
+@media (min-width: $screen-md-min) {
+  .TopMenu {
+    text-align: left;
   }
 }

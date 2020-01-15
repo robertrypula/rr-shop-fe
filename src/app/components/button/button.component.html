@@ -1,0 +1,7 @@
+<button
+  (click)="onButtonClick($event)"
+  (keyup.enter)="onButtonClick($event)"
+>
+  <ng-content></ng-content>
+  <rr-shop-icon *ngIf="icon" [icon]="icon"></rr-shop-icon>
+</button>

@@ -10,7 +10,8 @@ import { NotFoundModule } from './pages/not-found/not-found.module';
 
 const routes: Routes = [
   { path: 'product/:productIdWithSlug', component: ProductComponent },
-  { path: 'category/:categoryIdWithSlug', component: CategoryComponent },
+  { path: 'search/:keywords', component: CategoryComponent },
+  { path: ':categoryIdWithSlug', component: CategoryComponent },
   { path: '', redirectTo: '/category/', pathMatch: 'full' },
   // {
   //   path: 'heroes',

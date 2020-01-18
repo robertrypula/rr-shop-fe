@@ -1,0 +1,78 @@
+@import 'configs-and-mixins';
+
+.ClickableAction {
+  display: inline-block;
+
+  .ClickableAction-button,
+  .ClickableAction-anchor,
+  .ClickableAction-routerLink {
+    display: block;
+    height: 40px;
+    min-width: 40px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    padding: 0 8px 0 8px;
+
+    &:hover {
+      opacity: 0.9;
+    }
+    > span {
+      display: inline-block;
+      &.ClickableAction-label {
+        font-size: 16px;
+      }
+      &.ClickableAction-icon {
+      }
+    }
+  }
+
+  .ClickableAction-anchor,
+  .ClickableAction-routerLink {
+    > span {
+      &.ClickableAction-label {
+        padding: 11px 12px 0 12px;
+      }
+      &.ClickableAction-icon {
+        padding: 8px 0 0 0;
+      }
+    }
+  }
+
+  .ClickableAction-button {
+    > span {
+      position: relative;
+      &.ClickableAction-label {
+        top: 0;
+        padding: 0 12px;
+      }
+      &.ClickableAction-icon {
+        top: 0;
+        padding: 0 0 0 0;
+      }
+    }
+  }
+
+  &.ClickableAction--iconOnRight {
+    .ClickableAction-button,
+    .ClickableAction-anchor,
+    .ClickableAction-routerLink {
+      padding-right: 20px;
+    }
+  }
+
+  &.ClickableAction--primary {
+    > * {
+      background-color: $clickable-action-primary-background-color;
+      color: $clickable-action-primary-color;
+    }
+  }
+
+  &.ClickableAction--transparent {
+    > * {
+      background-color: $clickable-action-primary-background-color;
+      color: $clickable-action-primary-color;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClickableActionType } from '../button/clickable-action.model';
 
 @Component({
   selector: 'rr-shop-top-search',
@@ -7,13 +8,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./top-search.component.scss']
 })
 export class TopSearchComponent implements OnInit {
-  public query: string;
+  public query = '';
+
+  public readonly ClickableActionType = ClickableActionType;
 
   public constructor(protected router: Router) {}
 
   public ngOnInit(): void {}
 
   public search(): void {
-    this.router.navigate(['/search', this.query]).then(() => undefined);
+    this.query && this.router.navigate(['/search', this.query]).then(() => undefined);
   }
 }

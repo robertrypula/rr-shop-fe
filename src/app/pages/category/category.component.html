@@ -16,7 +16,12 @@
     </div>
   </div>
 
+
+
+
   <div class="row">
-    <rr-shop-product-box-compact *ngFor="let product of products" [product]="product"></rr-shop-product-box-compact>
+    <div class="col-sx-12">
+      <rr-shop-product-box-compact *ngFor="let product of products" [product]="product"></rr-shop-product-box-compact>
+    </div>
   </div>
 </ng-template>

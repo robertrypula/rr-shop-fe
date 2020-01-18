@@ -1,0 +1,36 @@
+<div
+  [ngSwitch]="clickableActionType"
+  class="ClickableAction"
+  [ngClass]="{
+    'ClickableAction--primary': clickableActionTheme === ClickableActionTheme.Primary,
+    'ClickableAction--secondary': clickableActionTheme === ClickableActionTheme.Secondary,
+    'ClickableAction--transparent': clickableActionTheme === ClickableActionTheme.Transparent,
+    'ClickableAction--iconOnRight': icon && label
+  }"
+>
+  <a *ngSwitchCase="ClickableActionType.Anchor" class="ClickableAction-anchor" [href]="link" target="_blank">
+    <ng-container [ngTemplateOutlet]="content"></ng-container>
+  </a>
+
+  <button
+    (click)="onActionClick($event)"
+    (keyup.enter)="onActionClick($event)"
+    *ngSwitchCase="ClickableActionType.Button"
+    class="ClickableAction-button"
+  >
+    <ng-container [ngTemplateOutlet]="content"></ng-container>
+  </button>
+
+  <a *ngSwitchCase="ClickableActionType.RouterLink" class="ClickableAction-routerLink" [routerLink]="link">
+    <ng-container [ngTemplateOutlet]="content"></ng-container>
+  </a>
+</div>
+
+<ng-template #content>
+  <span *ngIf="label" class="ClickableAction-label">
+    {{ label }}
+  </span>
+  <span *ngIf="icon" class="ClickableAction-icon">
+    <rr-shop-icon [icon]="icon"></rr-shop-icon>
+  </span>
+</ng-template>

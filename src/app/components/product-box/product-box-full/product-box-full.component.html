@@ -1,4 +1,5 @@
 FULL1!
 
 <pre>{{ product | json }}</pre>
-<button type="button" (click)="addToBasket(product)">Add to basket</button>
+
+<rr-shop-clickable-action (actionClick)="addToBasket(product)" [label]="'Add to basket'"></rr-shop-clickable-action>

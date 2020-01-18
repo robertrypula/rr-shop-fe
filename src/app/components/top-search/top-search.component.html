@@ -1,5 +1,10 @@
 <div class="TopSearch">
   <input placeholder="Szukaj produktu..." [(ngModel)]="query" class="TopSearch-form" (keyup.enter)="search()" />
 
-  <rr-shop-button (click)="search()" [icon]="['fas', 'search']" class="TopSearch-button"></rr-shop-button>
+  <rr-shop-clickable-action
+    [clickableActionType]="ClickableActionType.RouterLink"
+    (actionClick)="search()"
+    [icon]="['fas', 'search']"
+    class="TopSearch-button"
+  ></rr-shop-clickable-action>
 </div>

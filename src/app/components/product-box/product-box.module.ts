@@ -6,7 +6,7 @@ import { ProductBoxFullComponent } from './product-box-full/product-box-full.com
 import { ProductBoxCompactComponent } from './product-box-compact/product-box-compact.component';
 import { PipesModule } from '../../pipes/pipes.module';
 import { BasketService } from '../../services/basket.service';
-import { ClickableActionModule } from '../button/clickable-action.module';
+import { ClickableActionModule } from '../clickable-action/clickable-action.module';
 
 @NgModule({
   declarations: [ProductBoxFullComponent, ProductBoxCompactComponent],

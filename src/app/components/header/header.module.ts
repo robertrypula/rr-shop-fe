@@ -5,7 +5,7 @@ import { BasketOverviewModule } from '../basket-overview/basket-overview.module'
 import { TopMenuModule } from '../top-menu/top-menu.module';
 import { TopSearchModule } from '../top-search/top-search.module';
 import { CloudModule } from '../cloud/cloud.module';
-import { ClickableActionModule } from '../button/clickable-action.module';
+import { ClickableActionModule } from '../clickable-action/clickable-action.module';
 
 @NgModule({
   declarations: [HeaderComponent],

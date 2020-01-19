@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ClickableActionType } from '../button/clickable-action.model';
+import { ClickableActionType } from '../clickable-action/clickable-action.model';
 
 @Component({
   selector: 'rr-shop-top-search',

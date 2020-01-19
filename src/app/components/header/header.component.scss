@@ -1,6 +1,8 @@
 @import 'configs-and-mixins';
 
 .Header {
+  background-color: $background-color;
+
   .Header-logoContainer {
     $logo-width: 355px;
     $logo-height: 140px;

@@ -3,6 +3,7 @@
 .Breadcrumbs {
   border-bottom: 1px solid $border-color;
   padding: 17px 0;
+  background-color: $background-color;
 
   .Breadcrumbs-linksContainer {
     white-space: nowrap;
@@ -15,5 +16,12 @@
 
   .Breadcrumbs-link--primary {
     font-weight: bold;
+  }
+}
+
+.Breadcrumbs-separator {
+  .Breadcrumbs-separatorBackground {
+    background-color: $background-color;
+    height: 15px;
   }
 }

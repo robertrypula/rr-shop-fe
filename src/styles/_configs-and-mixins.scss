@@ -5,7 +5,7 @@ $clickable-action-primary-background-color: #8bbf4e;
 $clickable-action-primary-color: white;
 
 $clickable-action-transparent-background-color: transparent;
-$clickable-action-transparent-color: black;
+$clickable-action-transparent-color: #3e3e3e;
 
 $a-color: #8bbf4e;
 $background-color: white;
@@ -13,7 +13,7 @@ $border-color: #d4d4d4;
 $color: #909090;
 $font-size: 16px;
 $input-background-color: #ebebeb;
-$input-border-color: #cdcdcd;
+$input-border-color: #d7d7d7;
 $input-color: #909090;
 
 $category-box-background-color: #ebebeb;
@@ -22,6 +22,12 @@ $top-menu-font-size: 14px;
 $top-menu-color-default: #3e3e3e;
 $top-menu-color-hover: $a-color;
 $top-menu-color-active: $a-color;
+
+$categories-font-size: 14px;
+$categories-color-default: #656565;
+$categories-color-hover: $a-color;
+$categories-color-active: $a-color;
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 // grid
@@ -48,8 +54,8 @@ $screen-sm-min: 768px;
 @mixin col() {
   position: relative;
   min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: $gutter-width;
+  padding-left: $gutter-width;
 }
 
 @mixin col-i($i) {

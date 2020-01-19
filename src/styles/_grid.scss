@@ -38,7 +38,15 @@
 }
 
 .margin-bottom {
-  margin-bottom: 15px;
+  margin-bottom: $gutter-width;
+}
+
+.padding-bottom {
+  padding-bottom: $gutter-width;
+}
+
+.padding {
+  padding: $gutter-width;
 }
 
 // Extra small devices (phones, less than 768px)

@@ -1,8 +1,23 @@
+@import 'configs-and-mixins';
+
 .Categories {
-  padding: 24px;
+  background-color: $category-box-background-color;
+
+  ul, li {
+    display: block;
+    list-style: none;
+  }
 
   a {
-    color: #656565;
-    font-size: 14px;
+    color: $categories-color-default;
+    font-size: $categories-font-size;
+
+    &.Categories-link--active {
+      color: $categories-color-active;
+    }
+
+    &:hover {
+      color: $categories-color-hover;
+    }
   }
 }

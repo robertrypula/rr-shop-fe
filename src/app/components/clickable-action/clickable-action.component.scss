@@ -69,10 +69,12 @@
     }
   }
 
+  // TODO implement ClickableAction--secondary
+
   &.ClickableAction--transparent {
     > * {
-      background-color: $clickable-action-primary-background-color;
-      color: $clickable-action-primary-color;
+      background-color: $clickable-action-transparent-background-color;
+      color: $clickable-action-transparent-color;
     }
   }
 }

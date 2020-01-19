@@ -26,9 +26,11 @@
         </div>
         <div style="display: inline-block;">
           <rr-shop-cloud>
-            <rr-shop-clickable-action [icon]="['fas', 'shopping-basket']" [clickableActionType]="ClickableActionType.RouterLink">
-              Koszyk
-            </rr-shop-clickable-action>
+            <rr-shop-clickable-action
+              [clickableActionTheme]="ClickableActionTheme.Transparent"
+              [clickableActionType]="ClickableActionType.RouterLink"
+              [icon]="['fas', 'shopping-basket']"
+            ></rr-shop-clickable-action>
             <rr-shop-basket-overview cloudContent></rr-shop-basket-overview>
           </rr-shop-cloud>
         </div>

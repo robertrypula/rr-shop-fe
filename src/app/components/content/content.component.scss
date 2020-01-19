@@ -1,10 +1,7 @@
 @import 'configs-and-mixins';
 
 .Content {
-  .Content-minorArea {
-    background-color: $category-box-background-color;
-  }
-
-  .Content-mainArea {
+  .Content-background {
+    background-color: $background-color;
   }
 }

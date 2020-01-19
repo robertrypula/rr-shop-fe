@@ -7,6 +7,6 @@ import { ProductBoxModule } from '../../components/product-box/product-box.modul
 
 @NgModule({
   declarations: [CategoryComponent],
-    imports: [CommonModule, RouterModule, ProductModule, ProductBoxModule]
+  imports: [CommonModule, RouterModule, ProductModule, ProductBoxModule]
 })
 export class CategoryModule {}

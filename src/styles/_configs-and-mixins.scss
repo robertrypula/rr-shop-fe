@@ -28,7 +28,6 @@ $categories-color-default: #656565;
 $categories-color-hover: $a-color;
 $categories-color-active: $a-color;
 
-
 // ---------------------------------------------------------------------------------------------------------------------
 // grid
 
@@ -67,4 +66,3 @@ $screen-sm-min: 768px;
 @mixin col-offset-i($i) {
   margin-left: percentage($i / $grid-columns);
 }
-

@@ -11,7 +11,7 @@ import { ClickableActionModule } from '../clickable-action/clickable-action.modu
 @NgModule({
   declarations: [ProductBoxFullComponent, ProductBoxCompactComponent],
   exports: [ProductBoxFullComponent, ProductBoxCompactComponent],
-    imports: [CommonModule, PipesModule, RouterModule, ClickableActionModule],
+  imports: [CommonModule, PipesModule, RouterModule, ClickableActionModule],
   providers: [BasketService]
 })
 export class ProductBoxModule {}

@@ -19,7 +19,7 @@
     $footer-image-width: 2120px;
     $footer-image-height: 300px;
 
-    @media (min-width: $screen-sm-min) {
+    @include viewport-tablet-and-up {
       min-height: $footer-image-height;
       .Footer-image {
         background: url('../../../assets/footer.jpg') no-repeat top center;

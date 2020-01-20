@@ -1,11 +1,17 @@
 <div class="Breadcrumbs">
   <div class="container">
     <div class="Breadcrumbs-linksContainer">
-      <a href="/" class="Breadcrumbs-link--secondary">Strona główna</a> /
-      <a href="/" class="Breadcrumbs-link--secondary">Herbatki</a> /
-      <a href="/" class="Breadcrumbs-link--secondary">Expresowe</a> /
-      <a href="/" class="Breadcrumbs-link--secondary">ziołowe</a> /
-      <a href="/" class="Breadcrumbs-link--primary">Herbatka rumiankowa</a>
+      <a routerLink="/" routerLinkActive="Breadcrumbs-link--active">Strona główna</a>
+      <a routerLink="/1,herbatki" routerLinkActive="Breadcrumbs-link--active">Herbatki</a>
+      <a routerLink="/2,expresowe" routerLinkActive="Breadcrumbs-link--active">Expresowe</a>
+      <a routerLink="/3,ziolowe" routerLinkActive="Breadcrumbs-link--active">ziołowe</a>
+      <a
+        routerLink="/4,herbatka rumiankowa"
+        routerLinkActive="Breadcrumbs-link--active"
+        class="Breadcrumbs-link--active"
+      >
+        Herbatka rumiankowa
+      </a>
     </div>
   </div>
 </div>

@@ -43,7 +43,7 @@ html {
   text-decoration: none;
 }
 
-@media (min-width: $screen-sm-min) {
+@include viewport-tablet-and-up {
   html {
     background: url('../assets/page-background.png') repeat top center $background-color;
   }
@@ -62,19 +62,24 @@ body {
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 27px;
+  line-height: 1.1em;
 }
 
 h2 {
-  font-size: 22px;
+  font-size: 25px;
+  line-height: 1.1em;
+  color: $h2-color;
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 23px;
+  line-height: 1.1em;
 }
 
 h4 {
-  font-size: 18px;
+  font-size: 21px;
+  line-height: 1.1em;
 }
 
 .wrapper {

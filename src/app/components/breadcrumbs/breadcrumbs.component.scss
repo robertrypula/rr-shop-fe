@@ -7,14 +7,24 @@
 
   .Breadcrumbs-linksContainer {
     white-space: nowrap;
-    font-size: 13px;
+    font-size: $breadcrumbs-font-size;
+
+    > * {
+      display: inline-block;
+      margin-right: $breadcrumbs-links-separator;
+      &:not(:last-child):after {
+        content: '/';
+        margin-left: $breadcrumbs-links-separator;
+        display: inline-block;
+      }
+
+      &:not(.Breadcrumbs-link--active) {
+        color: $color;
+      }
+    }
   }
 
-  .Breadcrumbs-link--secondary {
-    color: $color;
-  }
-
-  .Breadcrumbs-link--primary {
+  .Breadcrumbs-link--active {
     font-weight: bold;
   }
 }

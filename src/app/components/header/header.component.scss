@@ -4,11 +4,11 @@
   background-color: $background-color;
 
   .Header-logoContainer {
-    $logo-width: 355px;
-    $logo-height: 140px;
-
     a {
       margin: 15px auto 0 auto;
+      @include viewport-desktop-medium-and-up {
+        margin: 20px 0 0 0;
+      }
     }
     a,
     h1 {
@@ -23,9 +23,7 @@
       text-indent: -99em;
     }
 
-    @media (max-width: $logo-width + 2 * $gutter-width) {
-      $logo-smallest-width: $min-viewport-width - 2 * $gutter-width;
-      $logo-smallest-height: $logo-smallest-width * ($logo-height / $logo-width);
+    @include viewport-x-and-down($logo-width + 2 * $gutter-width) {
       a,
       h1 {
         width: $logo-smallest-width;
@@ -35,18 +33,9 @@
         background-size: $logo-smallest-width $logo-smallest-height;
       }
     }
-
-    @media (min-width: $screen-md-min) {
-      a {
-        margin: 20px 0 0 0;
-      }
-    }
   }
 
   .Header-headerImageContainer {
-    $header-image-width: 480px;
-    $header-image-height: 170px;
-
     .Header-headerImage {
       background: url('../../../assets/header-image.png') no-repeat top left;
       background-size: $header-image-width $header-image-height;
@@ -57,9 +46,6 @@
   }
 
   .Header-separatorImageContainer {
-    $separator-image-mobile-width: 800px;
-    $separator-image-mobile-height: 60px;
-
     height: $separator-image-mobile-height;
     position: relative;
     background-color: #1c2f01;
@@ -71,10 +57,7 @@
 
     // ----
 
-    $separator-image-width: 2120px;
-    $separator-image-height: 120px;
-
-    @media (min-width: $screen-sm-min) {
+    @include viewport-tablet-and-up {
       height: $separator-image-height;
       .Header-separatorImage {
         background: url('../../../assets/separator-image.jpg') no-repeat top center;

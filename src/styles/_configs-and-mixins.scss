@@ -1,5 +1,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
-// colors
+// colors and fonts
+
+$h2-color: #3e3e3e;
 
 $clickable-action-primary-background-color: #8bbf4e;
 $clickable-action-primary-color: white;
@@ -27,6 +29,9 @@ $categories-font-size: 14px;
 $categories-color-default: #656565;
 $categories-color-hover: $a-color;
 $categories-color-active: $a-color;
+
+$breadcrumbs-links-separator: 15px;
+$breadcrumbs-font-size: 13px;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // grid
@@ -62,6 +67,8 @@ $screen-sm-min: 768px;
   margin-left: percentage($i / $grid-columns);
 }
 
+// -----------
+
 @mixin viewport-phone-only {
   @media (max-width: $screen-sm-min) {
     @content;
@@ -79,11 +86,14 @@ $screen-sm-min: 768px;
     @content;
   }
 }
+
 @mixin viewport-desktop-large-only {
   @media (min-width: $screen-lg-min) {
     @content;
   }
 }
+
+// -----------
 
 @mixin viewport-phone-and-up {
   @content;
@@ -100,11 +110,42 @@ $screen-sm-min: 768px;
     @content;
   }
 }
+
 @mixin viewport-desktop-large-and-up {
   @media (min-width: $screen-lg-min) {
     @content;
   }
 }
+
+@mixin viewport-x-and-up($min) {
+  @media (min-width: $min) {
+    @content;
+  }
+}
+
+@mixin viewport-x-and-down($max) {
+  @media (max-width: $max) {
+    @content;
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// layout images
+
+$logo-width: 355px;
+$logo-height: 140px;
+
+$logo-smallest-width: $min-viewport-width - 2 * $gutter-width;
+$logo-smallest-height: $logo-smallest-width * ($logo-height / $logo-width);
+
+$header-image-width: 480px;
+$header-image-height: 170px;
+
+$separator-image-mobile-width: 800px;
+$separator-image-mobile-height: 60px;
+
+$separator-image-width: 2120px;
+$separator-image-height: 120px;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // other

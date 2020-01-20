@@ -23,7 +23,7 @@ export class ClickableActionComponent implements OnInit {
 
   public constructor() {}
 
-  public ngOnInit() {}
+  public ngOnInit(): void {}
 
   public onActionClick($event: Event): void {
     this.actionClick.emit($event);

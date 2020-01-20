@@ -7,13 +7,15 @@
   "
 ></ng-container>
 <ng-template #template let-products="products">
-  <h2>Category</h2>
+  <div class="Category">
+    <h2 class="margin-bottom">Kategoria nazwa blabla</h2>
 
-  <div class="row">
-    <rr-shop-product-box-compact
-      *ngFor="let product of products"
-      [product]="product"
-      class="col-xs-12 col-sm-6 col-md-4 margin-bottom"
-    ></rr-shop-product-box-compact>
+    <div class="row">
+      <rr-shop-product-box-compact
+        *ngFor="let product of products"
+        [product]="product"
+        class="col-xs-12 col-sm-6 col-md-4 margin-bottom"
+      ></rr-shop-product-box-compact>
+    </div>
   </div>
 </ng-template>

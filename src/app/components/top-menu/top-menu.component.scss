@@ -23,10 +23,14 @@
         color: $top-menu-color-active;
       }
     }
+
+    @include viewport-x-and-down($logo-width + 2 * $gutter-width) {
+      margin: 0 10px;
+    }
   }
 }
 
-@media (min-width: $screen-md-min) {
+@include viewport-desktop-medium-and-up {
   .TopMenu {
     text-align: left;
   }

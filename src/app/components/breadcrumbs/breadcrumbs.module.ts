@@ -6,6 +6,6 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [BreadcrumbsComponent],
   exports: [BreadcrumbsComponent],
-    imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule]
 })
 export class BreadcrumbsModule {}

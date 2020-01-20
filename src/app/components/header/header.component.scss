@@ -48,18 +48,11 @@
     $header-image-height: 170px;
 
     .Header-headerImage {
-      display: none;
-    }
-
-    @media (min-width: $screen-md-min) {
-      .Header-headerImage {
-        display: block;
-        background: url('../../../assets/header-image.png') no-repeat top left;
-        background-size: $header-image-width $header-image-height;
-        float: right;
-        width: $header-image-width;
-        height: $header-image-height;
-      }
+      background: url('../../../assets/header-image.png') no-repeat top left;
+      background-size: $header-image-width $header-image-height;
+      float: right;
+      width: $header-image-width;
+      height: $header-image-height;
     }
   }
 

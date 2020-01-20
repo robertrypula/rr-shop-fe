@@ -2,14 +2,6 @@
 
 // Based on: https://getbootstrap.com/docs/3.4/css/#grid
 
-.text-right {
-  text-align: right;
-}
-
-.text-center {
-  text-align: center;
-}
-
 .row {
   margin-right: -$gutter-width;
   margin-left: -$gutter-width;
@@ -41,6 +33,10 @@
   margin-bottom: $gutter-width;
 }
 
+.padding-top {
+  padding-top: $gutter-width;
+}
+
 .padding-bottom {
   padding-bottom: $gutter-width;
 }
@@ -49,18 +45,30 @@
   padding: $gutter-width;
 }
 
-// Extra small devices (phones, less than 768px)
-@for $i from 1 to $grid-columns + 1 {
-  .col-xs-#{$i} {
-    @include col-i($i);
-  }
-  .col-xs-offset-#{$i} {
-    @include col-offset-i($i);
+.hidden {
+  display: none;
+}
+
+// ----------------------------------------------------------------
+
+@include viewport-phone-and-up {
+  @for $i from 1 to $grid-columns + 1 {
+    .col-xs-#{$i} {
+      @include col-i($i);
+    }
+    .col-xs-offset-#{$i} {
+      @include col-offset-i($i);
+    }
   }
 }
 
-// Small devices (tablets, 768px and up)
-@media (min-width: $screen-sm-min) {
+@include viewport-phone-only {
+  @include display('xs');
+}
+
+// ----------------------------------------------------------------
+
+@include viewport-tablet-and-up {
   .container {
     width: $container-sm;
   }
@@ -75,8 +83,13 @@
   }
 }
 
-// Medium devices (desktops, 992px and up)
-@media (min-width: $screen-md-min) {
+@include viewport-tablet-only {
+  @include display('sm');
+}
+
+// ----------------------------------------------------------------
+
+@include viewport-desktop-medium-and-up {
   .container {
     width: $container-md;
   }
@@ -91,8 +104,13 @@
   }
 }
 
-// Large devices (large desktops, 1200px and up)
-@media (min-width: $screen-lg-min) {
+@include viewport-desktop-medium-only {
+  @include display('md');
+}
+
+// ----------------------------------------------------------------
+
+@include viewport-desktop-large-and-up {
   .container {
     width: $container-lg;
   }
@@ -105,4 +123,8 @@
       @include col-offset-i($i);
     }
   }
+}
+
+@include viewport-desktop-large-only {
+  @include display('lg');
 }

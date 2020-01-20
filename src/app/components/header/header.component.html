@@ -3,7 +3,7 @@
     <div class="row margin-bottom">
       <div class="col-xs-12 col-md-6">
         <div class="Header-logoContainer">
-          <a href="/">
+          <a routerLink="/">
             <h1>{{ h1Text }}</h1>
           </a>
         </div>
@@ -29,6 +29,7 @@
             <rr-shop-clickable-action
               [clickableActionTheme]="ClickableActionTheme.Transparent"
               [clickableActionType]="ClickableActionType.RouterLink"
+              [link]="'/basket'"
               [icon]="['fas', 'shopping-basket']"
             ></rr-shop-clickable-action>
             <rr-shop-basket-overview cloudContent></rr-shop-basket-overview>

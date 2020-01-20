@@ -1,18 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ProductComponent } from './pages/product/product.component';
+import { BasketComponent } from './pages/basket/basket.component';
+import { BasketModule } from './pages/basket/basket.module';
 import { CategoryComponent } from './pages/category/category.component';
-import { ProductModule } from './pages/product/product.module';
 import { CategoryModule } from './pages/category/category.module';
+import { MainComponent } from './pages/main/main.component';
+import { MainModule } from './pages/main/main.module';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { NotFoundModule } from './pages/not-found/not-found.module';
+import { ProductComponent } from './pages/product/product.component';
+import { ProductModule } from './pages/product/product.module';
 
 const routes: Routes = [
+  { path: '', component: MainComponent, pathMatch: 'full' },
+  { path: 'basket', component: BasketComponent },
   { path: 'product/:productIdWithSlug', component: ProductComponent },
   { path: 'search/:keywords', component: CategoryComponent },
   { path: ':categoryIdWithSlug', component: CategoryComponent },
-  { path: '', redirectTo: '/category/', pathMatch: 'full' },
   // {
   //   path: 'heroes',
   //   component: HeroListComponent,
@@ -22,7 +27,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), ProductModule, CategoryModule, NotFoundModule],
+  imports: [RouterModule.forRoot(routes), ProductModule, CategoryModule, NotFoundModule, MainModule, BasketModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

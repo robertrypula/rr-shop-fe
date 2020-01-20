@@ -6,10 +6,19 @@ import { TopMenuModule } from '../top-menu/top-menu.module';
 import { TopSearchModule } from '../top-search/top-search.module';
 import { CloudModule } from '../cloud/cloud.module';
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [HeaderComponent],
   exports: [HeaderComponent],
-  imports: [CommonModule, BasketOverviewModule, TopMenuModule, TopSearchModule, CloudModule, ClickableActionModule]
+  imports: [
+    BasketOverviewModule,
+    ClickableActionModule,
+    CloudModule,
+    CommonModule,
+    RouterModule,
+    TopMenuModule,
+    TopSearchModule
+  ]
 })
 export class HeaderModule {}

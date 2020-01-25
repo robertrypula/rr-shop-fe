@@ -37,32 +37,13 @@
 
   .Header-headerImageContainer {
     .Header-headerImage {
+      $header-image-width: 480px;
+      $header-image-height: 170px;
+
       background: url('../../../assets/header-image.png') no-repeat top left;
-      background-size: $header-image-width $header-image-height;
       float: right;
       width: $header-image-width;
       height: $header-image-height;
-    }
-  }
-
-  .Header-separatorImageContainer {
-    height: $separator-image-mobile-height;
-    position: relative;
-    background-color: #1c2f01;
-
-    .Header-separatorImage {
-      background: url('../../../assets/separator-image-mobile.jpg') no-repeat top center;
-      height: $separator-image-mobile-height;
-    }
-
-    // ----
-
-    @include viewport-tablet-and-up {
-      height: $separator-image-height;
-      .Header-separatorImage {
-        background: url('../../../assets/separator-image.jpg') no-repeat top center;
-        height: $separator-image-height;
-      }
     }
   }
 }

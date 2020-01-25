@@ -17,6 +17,7 @@ export class TopSearchComponent implements OnInit {
   public ngOnInit(): void {}
 
   public search(): void {
+    console.log('test');
     this.query && this.router.navigate(['/search', this.query]).then(() => undefined);
   }
 }

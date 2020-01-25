@@ -1,0 +1,14 @@
+@import 'configs-and-mixins';
+
+.HeaderImageSeparator {
+  $header-image-separator-height-mobile: 60px;
+  $header-image-separator-height: $header-image-separator-height-mobile * 2;
+
+  background: url('../../../assets/bg-mobile.jpg') no-repeat top center;
+  height: $header-image-separator-height-mobile;
+
+  @include viewport-tablet-and-up {
+    height: $header-image-separator-height;
+    background-image: url('../../../assets/bg.jpg');
+  }
+}

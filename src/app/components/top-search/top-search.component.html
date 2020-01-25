@@ -2,7 +2,7 @@
   <input placeholder="Szukaj produktu..." [(ngModel)]="query" class="TopSearch-form" (keyup.enter)="search()" />
 
   <rr-shop-clickable-action
-    [clickableActionType]="ClickableActionType.RouterLink"
+    [clickableActionType]="ClickableActionType.Button"
     (actionClick)="search()"
     [icon]="['fas', 'search']"
     class="TopSearch-button"

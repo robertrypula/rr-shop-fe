@@ -8,7 +8,5 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderImageSeparatorComponent implements OnInit {
   public constructor() {}
 
-  public ngOnInit(): void {
-
-  }
+  public ngOnInit(): void {}
 }

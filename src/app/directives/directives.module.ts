@@ -4,9 +4,7 @@ import { ParalaxDirective } from './paralax/paralax.directive';
 
 @NgModule({
   declarations: [ParalaxDirective],
-  exports: [
-    ParalaxDirective
-  ],
+  exports: [ParalaxDirective],
   imports: [CommonModule]
 })
 export class DirectivesModule {}

@@ -1,13 +1,88 @@
 <div class="Categories padding">
   <ul>
     <li>
-      <a routerLink="/2,propolis" routerLinkActive="Categories-link--active">Category propolis (4)</a>
+      <a routerLink="/2,propolis" routerLinkActive="Categories-link--active">Propolis (4)</a>
     </li>
     <li>
-      <a routerLink="/10,ziola" routerLinkActive="Categories-link--active">Category ziola (2)</a>
+      <a routerLink="/10,ziola" routerLinkActive="Categories-link--active">Ziola (2)</a>
     </li>
     <li>
-      <a routerLink="/123" routerLinkActive="Categories-link--active">Category test (0)</a>
+      <a routerLink="/123" routerLinkActive="Categories-link--active">test (0)</a>
+    </li>
+    <li>
+      <a routerLink="/1111112,propolis" routerLinkActive="Categories-link--active">
+        loreum ipsum dolor samet bardzo dluga nazwa ktorej nie da sie zmiescic w jednej linii (0)
+      </a>
+      <ul>
+        <li>
+          <a routerLink="/11111111111112,propolis" routerLinkActive="Categories-link--active">Propolis (4)</a>
+        </li>
+        <li>
+          <a routerLink="/11111111111111110,ziola" routerLinkActive="Categories-link--active">Ziola (2)</a>
+        </li>
+        <li>
+          <a routerLink="/11111111111111123" routerLinkActive="Categories-link--active">test (0)</a>
+        </li>
+        <li>
+          <a routerLink="/1111111111111111112,propolis" routerLinkActive="Categories-link--active">
+            loreum ipsum dolor samet bardzo dluga nazwa ktorej nie da sie zmiescic w jednej linii (0)
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a routerLink="/11111110,ziola" routerLinkActive="Categories-link--active">inne takie (2)</a>
+      <ul>
+        <li>
+          <a routerLink="/8811111111111112,propolis" routerLinkActive="Categories-link--active">Propolis (4)</a>
+        </li>
+        <li>
+          <a routerLink="/811111111111111110,ziola" routerLinkActive="Categories-link--active">Ziola (2)</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a routerLink="/111111123" routerLinkActive="Categories-link--active">costam (0)</a>
+    </li>
+    <li>
+      <a routerLink="/222222222,propolis" routerLinkActive="Categories-link--active">ciekawe rzeczy (4)</a>
+    </li>
+    <li>
+      <a routerLink="/2222222210,ziola" routerLinkActive="Categories-link--active">najlepsze mieszanki (2)</a>
+    </li>
+    <li>
+      <a routerLink="/2222222222222123" routerLinkActive="Categories-link--active">jeszcze cos innego (0)</a>
+    </li>
+    <li>
+      <a routerLink="/333333333332,propolis" routerLinkActive="Categories-link--active">Category propolis (4)</a>
+    </li>
+    <li>
+      <a routerLink="/33333333310,ziola" routerLinkActive="Categories-link--active">Category ziola (2)</a>
+    </li>
+    <li>
+      <a routerLink="/3333333123" routerLinkActive="Categories-link--active">Category test (0)</a>
+    </li>
+    <li>
+      <a routerLink="/44444444444442,propolis" routerLinkActive="Categories-link--active">Category propolis (4)</a>
+    </li>
+    <li>
+      <a routerLink="/144444440,ziola" routerLinkActive="Categories-link--active">Category ziola (2)</a>
+    </li>
+    <li>
+      <a routerLink="/44444123" routerLinkActive="Categories-link--active">Category test (0)</a>
     </li>
   </ul>
+
+  <div class="Categories-expandCollapseContainer">
+    <rr-shop-clickable-action
+      [clickableActionTheme]="ClickableActionTheme.Transparent"
+      [icon]="['fas', 'angle-double-down']"
+      [label]="'rozwiń kategorie'"
+    ></rr-shop-clickable-action>
+    <rr-shop-clickable-action
+      [clickableActionTheme]="ClickableActionTheme.Transparent"
+      [icon]="['fas', 'angle-double-up']"
+      [label]="'zwiń kategorie'"
+    ></rr-shop-clickable-action>
+  </div>
 </div>

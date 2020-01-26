@@ -10,13 +10,13 @@ $clickable-action-transparent-background-color: transparent;
 $clickable-action-transparent-color: #3e3e3e;
 
 $a-color: #8bbf4e;
-$background-color: white;
 $border-color: #d4d4d4;
 $color: #909090;
 $font-size: 16px;
 $input-background-color: #ebebeb;
 $input-border-color: #d7d7d7;
 $input-color: #909090;
+$primary-background-color: white;
 
 $category-box-background-color: #ebebeb;
 
@@ -144,8 +144,10 @@ $screen-sm-min: 768px;
 $logo-width: 355px;
 $logo-height: 140px;
 
-$logo-smallest-width: $min-viewport-width - 2 * $gutter-width;
-$logo-smallest-height: $logo-smallest-width * ($logo-height / $logo-width);
+$logo-smaller-width: $min-viewport-width - 2 * $gutter-width;
+$logo-smaller-height: $logo-smaller-width * ($logo-height / $logo-width);
+
+$logo-smaller-threshold-width: $logo-width + 2 * $gutter-width;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // other

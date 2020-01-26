@@ -9,9 +9,6 @@
   }
 
   li {
-    margin: 0 22px;
-    padding-top: 12px;
-    padding-bottom: 12px;
     a {
       color: $top-menu-color-default;
       font-size: $top-menu-font-size;
@@ -24,7 +21,11 @@
       }
     }
 
-    @include viewport-x-and-down($logo-width + 2 * $gutter-width) {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin: 0 22px;
+
+    @include viewport-x-and-down($logo-smaller-threshold-width) {
       margin: 0 10px;
     }
   }

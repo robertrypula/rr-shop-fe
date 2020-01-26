@@ -3,7 +3,7 @@
 .Breadcrumbs {
   border-bottom: 1px solid $border-color;
   padding: 17px 0;
-  background-color: $background-color;
+  background-color: $primary-background-color;
 
   .Breadcrumbs-linksContainer {
     white-space: nowrap;
@@ -16,6 +16,8 @@
         content: '/';
         margin-left: $breadcrumbs-links-separator;
         display: inline-block;
+        color: $color;
+        font-weight: normal;
       }
 
       &:not(.Breadcrumbs-link--active) {

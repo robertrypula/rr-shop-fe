@@ -28,23 +28,23 @@ export class ParalaxDirective implements OnInit, OnDestroy {
     // changeDetectorRef.detach();
   }
 
-  // TODO check on better days if the 'Angular way' of registering listeners could be passive...
+  // TODO check if the 'Angular way' of registering listeners could be passive...
   // @HostListener('window:scroll')
   // public onWindowScroll(): void {}
 
   public ngOnInit(): void {
-    // this.resizeSubscription = fromEvent(window, 'scroll', { passive: true })
-    //   .pipe(tap(this.update.bind(this)))
-    //   .subscribe();
-    //
-    // this.resizeSubscription = fromEvent(window, 'resize', { passive: true })
-    //   .pipe(
-    //     debounceTime(RESIZE_DEBOUNCE_TIME),
-    //     tap(this.update.bind(this))
-    //   )
-    //   .subscribe();
-    //
-    // this.update();
+    this.resizeSubscription = fromEvent(window, 'scroll', { passive: true })
+      .pipe(tap(this.update.bind(this)))
+      .subscribe();
+
+    this.resizeSubscription = fromEvent(window, 'resize', { passive: true })
+      .pipe(
+        debounceTime(RESIZE_DEBOUNCE_TIME),
+        tap(this.update.bind(this))
+      )
+      .subscribe();
+
+    this.update();
   }
 
   public ngOnDestroy(): void {

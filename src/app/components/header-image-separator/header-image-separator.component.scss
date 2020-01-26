@@ -5,10 +5,12 @@
   $header-image-separator-height: $header-image-separator-height-mobile * 2;
 
   background: url('../../../assets/bg-mobile.jpg') no-repeat top center;
+  background-position-y: -195px;
   height: $header-image-separator-height-mobile;
 
   @include viewport-tablet-and-up {
     height: $header-image-separator-height;
     background-image: url('../../../assets/bg.jpg');
+    background-position-y: -170px;
   }
 }

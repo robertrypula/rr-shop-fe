@@ -8,6 +8,6 @@ import { ClickableActionModule } from '../clickable-action/clickable-action.modu
 @NgModule({
   declarations: [CategoriesComponent],
   exports: [CategoriesComponent],
-    imports: [CommonModule, RouterModule, ClickableActionModule]
+  imports: [CommonModule, RouterModule, ClickableActionModule]
 })
 export class CategoriesModule {}

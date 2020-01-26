@@ -16,7 +16,12 @@
 </div>
 
 <div class="Header-stickyContainer">
-  <div class="Header-sticky">
+  <div
+    class="Header-sticky"
+    [ngClass]="{
+      'Header-sticky--active': scrolledDownThatHeaderIsNotVisible$ | async
+    }"
+  >
     <div class="container">
       <div class="row padding-top padding-bottom">
         <div class="col-xs-12 col-md-6  hidden-xs hidden-sm">

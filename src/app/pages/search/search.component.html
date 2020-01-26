@@ -1,3 +1,36 @@
 <div class="NotFound">
   <h2 class="margin-bottom">Znaleziono 0 produktów</h2>
+
+  <div class="margin-bottom">
+    <pre>{{ viewportService.scrolledDownThatHeaderIsNotVisible$ | async | json }}</pre>
+    <pre>{{ viewportService.device$ | async | json }}</pre>
+  </div>
+
+  <p>
+    Mobile: <span class="hidden display-xs-inline-block">Mobile</span>
+    <br />
+
+    Tablet: <span class="hidden display-sm-inline-block">Tablet</span>
+    <br />
+
+    Desktop medium: <span class="hidden display-md-inline-block">Desktop medium</span>
+    <br />
+
+    Desktop large: <span class="hidden display-lg-inline-block">Desktop large</span>
+    <br />
+  </p>
+
+  <p>
+    Mobile: <span class="hidden-xs">Mobile</span>
+    <br />
+
+    Tablet: <span class="hidden-sm">Tablet</span>
+    <br />
+
+    Desktop medium: <span class="hidden-md">Desktop medium</span>
+    <br />
+
+    Desktop large: <span class="hidden-lg">Desktop large</span>
+    <br />
+  </p>
 </div>

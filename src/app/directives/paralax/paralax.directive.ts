@@ -1,12 +1,13 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { fromEvent, Subscription } from 'rxjs';
-import { debounceTime, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import {
   DEFAULT_PARALAX_AMOUNT,
   DEFAULT_PARALAX_OFFSET,
-  DEFAULT_PARALAX_VIEWPORT_WIDTH_THRESHOLD,
-  RESIZE_DEBOUNCE_TIME
+  DEFAULT_PARALAX_VIEWPORT_WIDTH_THRESHOLD
 } from './paralax.config';
+import { ViewportService } from '../../services/viewport.service';
+import { tap } from 'rxjs/operators';
+import { ViewportStatus } from '../../models/viewport.model';
 
 @Directive({
   selector: '[rrShopParalax]'
@@ -17,61 +18,46 @@ export class ParalaxDirective implements OnInit, OnDestroy {
   @Input() public parallaxViewportWidthThreshold = DEFAULT_PARALAX_VIEWPORT_WIDTH_THRESHOLD;
 
   protected animationFrameRequest: number = null;
-  protected resizeSubscription: Subscription;
-  protected scrollSubscription: Subscription;
+  protected viewportStatusSubscription: Subscription;
   protected top: number;
 
-  public constructor(protected elementRef: ElementRef) {
+  public constructor(protected elementRef: ElementRef, protected viewportService: ViewportService) {
     // TODO investigate change detection, currently it consumes 40% of CPU when scrolling fast
     // , protected zone: NgZone
     // , protected changeDetectorRef: ChangeDetectorRef
     // changeDetectorRef.detach();
   }
 
-  // TODO check if the 'Angular way' of registering listeners could be passive...
-  // @HostListener('window:scroll')
-  // public onWindowScroll(): void {}
-
   public ngOnInit(): void {
-    this.resizeSubscription = fromEvent(window, 'scroll', { passive: true })
+    this.viewportStatusSubscription = this.viewportService.viewportStatus$
       .pipe(tap(this.update.bind(this)))
       .subscribe();
 
-    this.resizeSubscription = fromEvent(window, 'resize', { passive: true })
-      .pipe(
-        debounceTime(RESIZE_DEBOUNCE_TIME),
-        tap(this.update.bind(this))
-      )
-      .subscribe();
-
-    this.update();
+    this.update(this.viewportService.getViewportStatus());
   }
 
   public ngOnDestroy(): void {
-    this.resizeSubscription.unsubscribe();
-    this.scrollSubscription.unsubscribe();
+    this.viewportStatusSubscription.unsubscribe();
   }
 
-  protected update(): void {
+  protected update(viewportStatus: ViewportStatus): void {
     const nativeElement: HTMLElement = this.elementRef.nativeElement;
     const boundingClientRect: ClientRect | DOMRect = nativeElement.getBoundingClientRect();
-    const viewportWidth: number = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
-    if (viewportWidth < this.parallaxViewportWidthThreshold) {
+    if (viewportStatus.width < this.parallaxViewportWidthThreshold) {
       return;
     }
 
-    const viewportHeight: number = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     const isOutsideViewport: boolean =
       (boundingClientRect.top < 0 && boundingClientRect.bottom < 0) ||
-      (boundingClientRect.top > viewportHeight && boundingClientRect.bottom > viewportHeight);
+      (boundingClientRect.top > viewportStatus.height && boundingClientRect.bottom > viewportStatus.height);
 
     if (isOutsideViewport) {
       return;
     }
 
     const positionInViewport: number = boundingClientRect.top + nativeElement.clientHeight * 0.5;
-    const unitPosition: number = -2 * (positionInViewport / viewportHeight - 0.5);
+    const unitPosition: number = -2 * (positionInViewport / viewportStatus.height - 0.5);
 
     this.top = this.parallaxOffset + unitPosition * this.parallaxAmount;
 

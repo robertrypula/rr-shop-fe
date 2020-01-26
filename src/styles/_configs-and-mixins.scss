@@ -79,19 +79,19 @@ $screen-sm-min: 768px;
 // -----------
 
 @mixin viewport-phone-only {
-  @media (max-width: $screen-sm-min) {
+  @media (max-width: $screen-sm-min - 1) {
     @content;
   }
 }
 
 @mixin viewport-tablet-only {
-  @media (min-width: $screen-sm-min) and (max-width: $screen-md-min) {
+  @media (min-width: $screen-sm-min) and (max-width: $screen-md-min - 1) {
     @content;
   }
 }
 
 @mixin viewport-desktop-medium-only {
-  @media (min-width: $screen-md-min) and (max-width: $screen-lg-min) {
+  @media (min-width: $screen-md-min) and (max-width: $screen-lg-min - 1) {
     @content;
   }
 }
@@ -133,7 +133,7 @@ $screen-sm-min: 768px;
 }
 
 @mixin viewport-x-and-down($max) {
-  @media (max-width: $max) {
+  @media (max-width: $max - 1) {
     @content;
   }
 }

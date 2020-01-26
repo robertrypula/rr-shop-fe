@@ -42,10 +42,8 @@ export const selectQuantityTotal = createSelector(
     }, 0)
 );
 
-export const selectPriceTotal = createSelector(
-  selectBasketEntries,
-  (basketEntries: BasketEntry[]): number =>
-    basketEntries.reduce((previousValue: number, currentValue: BasketEntry): number => {
-      return previousValue + currentValue.quantity * (currentValue.product ? currentValue.product.price : 0);
-    }, 0)
+export const selectPriceTotal = createSelector(selectBasketEntries, (basketEntries: BasketEntry[]): number =>
+  basketEntries.reduce((previousValue: number, currentValue: BasketEntry): number => {
+    return previousValue + currentValue.quantity * (currentValue.product ? currentValue.product.price : 0);
+  }, 0)
 );

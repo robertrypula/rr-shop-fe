@@ -6,10 +6,12 @@ import { Device, ViewportStatus } from '../models/viewport.model';
 import {
   GRID_DESKTOP_LARGE,
   GRID_DESKTOP_MEDIUM,
+  GRID_MOBILE,
   GRID_TABLET,
   HEADER_FIXED_DESKTOP_LARGE_THRESHOLD,
   HEADER_FIXED_DESKTOP_MEDIUM_THRESHOLD,
   HEADER_FIXED_MOBILE_THRESHOLD,
+  HEADER_FIXED_MOBILE_VERTICAL_THRESHOLD,
   HEADER_FIXED_TABLET_THRESHOLD
 } from '../config/config';
 
@@ -34,7 +36,7 @@ export class ViewportService {
 
   protected update(): void {
     const viewportStatus: ViewportStatus = this.getViewportStatus();
-    const device: Device = this.getDevice(viewportStatus);
+    const device: Device = this.getDevice(viewportStatus.width);
     const scrolledDownThatHeaderIsNotVisible: boolean = this.getScrolledDownThatHeaderIsNotVisible(
       viewportStatus.scrollTop,
       device
@@ -45,17 +47,19 @@ export class ViewportService {
     this.viewportStatus$.next(viewportStatus);
   }
 
-  protected getDevice(viewportStatus: ViewportStatus): Device {
+  protected getDevice(width: number): Device {
     let device: Device;
 
-    if (viewportStatus.width >= GRID_DESKTOP_LARGE) {
-      device = Device.DesktopLarge;
-    } else if (viewportStatus.width >= GRID_DESKTOP_MEDIUM) {
-      device = Device.DesktopMedium;
-    } else if (viewportStatus.width >= GRID_TABLET) {
-      device = Device.Tablet;
-    } else {
+    if (width < GRID_MOBILE) {
+      device = Device.MobileVertical;
+    } else if (width < GRID_TABLET) {
       device = Device.Mobile;
+    } else if (width < GRID_DESKTOP_MEDIUM) {
+      device = Device.Tablet;
+    } else if (width < GRID_DESKTOP_LARGE) {
+      device = Device.DesktopMedium;
+    } else {
+      device = Device.DesktopLarge;
     }
 
     return device;
@@ -65,6 +69,9 @@ export class ViewportService {
     let result = false;
 
     switch (device) {
+      case Device.MobileVertical:
+        result = scrollTop > HEADER_FIXED_MOBILE_VERTICAL_THRESHOLD;
+        break;
       case Device.Mobile:
         result = scrollTop > HEADER_FIXED_MOBILE_THRESHOLD;
         break;

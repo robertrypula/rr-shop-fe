@@ -47,16 +47,21 @@ $footer-links-color-hover: white;
 
 $min-viewport-width: 320px;
 
-$container-lg: 1170px;
-$container-md: 970px;
+$container-xxs: 100%;
+$container-xs: 100%;
 $container-sm: 750px;
+$container-md: 970px;
+$container-lg: 1170px;
 
 $grid-columns: 12;
 $gutter-width: 15px;
 
-$screen-lg-min: 1200px;
-$screen-md-min: 992px;
+$screen-xxs-min: 1px;
+$screen-xs-min: 390px;
 $screen-sm-min: 768px;
+$screen-md-min: 992px;
+$screen-lg-min: 1200px;
+$screen-max: 100000px;
 
 @mixin col() {
   position: relative;
@@ -78,76 +83,88 @@ $screen-sm-min: 768px;
 
 // -----------
 
-@mixin viewport-phone-only {
-  @media (max-width: $screen-sm-min - 1) {
-    @content;
+@mixin generate-cols($container-width, $breakpoint) {
+  .container {
+    width: $container-width;
+  }
+
+  @for $i from 1 to $grid-columns + 1 {
+    .col-#{$breakpoint}-#{$i} {
+      @include col-i($i);
+    }
+    .col-#{$breakpoint}-offset-#{$i} {
+      @include col-offset-i($i);
+    }
   }
 }
 
-@mixin viewport-tablet-only {
-  @media (min-width: $screen-sm-min) and (max-width: $screen-md-min - 1) {
-    @content;
-  }
-}
-
-@mixin viewport-desktop-medium-only {
-  @media (min-width: $screen-md-min) and (max-width: $screen-lg-min - 1) {
-    @content;
-  }
-}
-
-@mixin viewport-desktop-large-only {
-  @media (min-width: $screen-lg-min) {
+@mixin viewport-min-max($min, $max) {
+  @media (min-width: $min) and (max-width: $max - 1) {
     @content;
   }
 }
 
 // -----------
 
-@mixin viewport-phone-and-up {
+@mixin viewport-phone-vertical-only {
+  @include viewport-min-max($screen-xxs-min, $screen-xs-min) {
+    @content;
+  }
+}
+
+@mixin viewport-phone-only {
+  @include viewport-min-max($screen-xs-min, $screen-sm-min) {
+    @content;
+  }
+}
+
+@mixin viewport-tablet-only {
+  @include viewport-min-max($screen-sm-min, $screen-md-min) {
+    @content;
+  }
+}
+
+@mixin viewport-desktop-medium-only {
+  @include viewport-min-max($screen-md-min, $screen-lg-min) {
+    @content;
+  }
+}
+
+@mixin viewport-desktop-large-only {
+  @include viewport-min-max($screen-lg-min, $screen-max) {
+    @content;
+  }
+}
+
+// -----------
+
+@mixin viewport-phone-vertical-and-up {
   @content;
 }
 
+@mixin viewport-phone-and-up {
+  @include viewport-min-max($screen-xs-min, $screen-max) {
+    @content;
+  }
+}
+
 @mixin viewport-tablet-and-up {
-  @media (min-width: $screen-sm-min) {
+  @include viewport-min-max($screen-sm-min, $screen-max) {
     @content;
   }
 }
 
 @mixin viewport-desktop-medium-and-up {
-  @media (min-width: $screen-md-min) {
+  @include viewport-min-max($screen-md-min, $screen-max) {
     @content;
   }
 }
 
 @mixin viewport-desktop-large-and-up {
-  @media (min-width: $screen-lg-min) {
+  @include viewport-min-max($screen-lg-min, $screen-max) {
     @content;
   }
 }
-
-@mixin viewport-x-and-up($min) {
-  @media (min-width: $min) {
-    @content;
-  }
-}
-
-@mixin viewport-x-and-down($max) {
-  @media (max-width: $max - 1) {
-    @content;
-  }
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
-// layout images
-
-$logo-width: 355px;
-$logo-height: 140px;
-
-$logo-smaller-width: $min-viewport-width - 2 * $gutter-width;
-$logo-smaller-height: $logo-smaller-width * ($logo-height / $logo-width);
-
-$logo-smaller-threshold-width: $logo-width + 2 * $gutter-width;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // other
@@ -168,15 +185,15 @@ $logo-smaller-threshold-width: $logo-width + 2 * $gutter-width;
 
 @mixin display($breakpoint) {
   .hidden-#{$breakpoint} {
-    display: none;
+    display: none !important;
   }
   .display-#{$breakpoint}-block {
-    display: block;
+    display: block !important;
   }
   .display-#{$breakpoint}-inline {
-    display: inline;
+    display: inline !important;
   }
   .display-#{$breakpoint}-inline-block {
-    display: inline-block;
+    display: inline-block !important;
   }
 }

@@ -46,20 +46,22 @@
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 // ----------------------------------------------------------------
 
+@include viewport-phone-vertical-and-up {
+  @include generate-cols($container-xxs, 'xxs');
+}
+
+@include viewport-phone-vertical-only {
+  @include display('xxs');
+}
+// ----------------------------------------------------------------
+
 @include viewport-phone-and-up {
-  @for $i from 1 to $grid-columns + 1 {
-    .col-xs-#{$i} {
-      @include col-i($i);
-    }
-    .col-xs-offset-#{$i} {
-      @include col-offset-i($i);
-    }
-  }
+  @include generate-cols($container-xs, 'xs');
 }
 
 @include viewport-phone-only {
@@ -69,18 +71,7 @@
 // ----------------------------------------------------------------
 
 @include viewport-tablet-and-up {
-  .container {
-    width: $container-sm;
-  }
-
-  @for $i from 1 to $grid-columns + 1 {
-    .col-sm-#{$i} {
-      @include col-i($i);
-    }
-    .col-sm-offset-#{$i} {
-      @include col-offset-i($i);
-    }
-  }
+  @include generate-cols($container-sm, 'sm');
 }
 
 @include viewport-tablet-only {
@@ -90,18 +81,7 @@
 // ----------------------------------------------------------------
 
 @include viewport-desktop-medium-and-up {
-  .container {
-    width: $container-md;
-  }
-
-  @for $i from 1 to $grid-columns + 1 {
-    .col-md-#{$i} {
-      @include col-i($i);
-    }
-    .col-md-offset-#{$i} {
-      @include col-offset-i($i);
-    }
-  }
+  @include generate-cols($container-md, 'md');
 }
 
 @include viewport-desktop-medium-only {
@@ -111,18 +91,7 @@
 // ----------------------------------------------------------------
 
 @include viewport-desktop-large-and-up {
-  .container {
-    width: $container-lg;
-  }
-
-  @for $i from 1 to $grid-columns + 1 {
-    .col-lg-#{$i} {
-      @include col-i($i);
-    }
-    .col-lg-offset-#{$i} {
-      @include col-offset-i($i);
-    }
-  }
+  @include generate-cols($container-lg, 'lg');
 }
 
 @include viewport-desktop-large-only {

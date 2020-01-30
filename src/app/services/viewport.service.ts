@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { fromEvent, Observable, Subject } from 'rxjs';
+import { distinctUntilChanged, tap } from 'rxjs/operators';
 
 import { Device, ViewportStatus } from '../models/viewport.model';
 import {
@@ -19,11 +19,21 @@ import {
   providedIn: 'root'
 })
 export class ViewportService {
-  public device$: Subject<Device> = new Subject();
-  public scrolledDownThatHeaderIsNotVisible$: Subject<boolean> = new Subject();
-  public viewportStatus$: Subject<ViewportStatus> = new Subject();
+  public device$: Observable<Device>;
+  public scrolledDownThatHeaderIsNotVisible$: Observable<boolean>;
+  public viewportStatus$: Observable<ViewportStatus>;
+
+  protected deviceSubject$: Subject<Device> = new Subject();
+  protected scrolledDownThatHeaderIsNotVisibleSubject$: Subject<boolean> = new Subject();
+  protected viewportStatusSubject$: Subject<ViewportStatus> = new Subject();
 
   public constructor() {
+    this.device$ = this.deviceSubject$.asObservable().pipe(distinctUntilChanged());
+    this.scrolledDownThatHeaderIsNotVisible$ = this.scrolledDownThatHeaderIsNotVisibleSubject$
+      .asObservable()
+      .pipe(distinctUntilChanged());
+    this.viewportStatus$ = this.viewportStatusSubject$.asObservable().pipe(distinctUntilChanged());
+
     fromEvent(window, 'scroll', { passive: true })
       .pipe(tap(this.update.bind(this)))
       .subscribe();
@@ -42,9 +52,9 @@ export class ViewportService {
       device
     );
 
-    this.device$.next(device);
-    this.scrolledDownThatHeaderIsNotVisible$.next(scrolledDownThatHeaderIsNotVisible);
-    this.viewportStatus$.next(viewportStatus);
+    this.deviceSubject$.next(device);
+    this.scrolledDownThatHeaderIsNotVisibleSubject$.next(scrolledDownThatHeaderIsNotVisible);
+    this.viewportStatusSubject$.next(viewportStatus);
   }
 
   protected getDevice(width: number): Device {

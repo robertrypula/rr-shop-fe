@@ -15,10 +15,6 @@ export class CategoriesComponent implements OnInit {
 
   public constructor(protected categoryService: CategoryService) {
     this.isCategoryBoxCollapsed$ = categoryService.isCategoryBoxCollapsed$;
-
-    this.isCategoryBoxCollapsed$.subscribe((v: boolean): void => {
-      console.log(v);
-    });
   }
 
   public ngOnInit(): void {}

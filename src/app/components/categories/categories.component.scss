@@ -58,10 +58,26 @@
     }
   }
 
+  ul {
+    // transition: max-height ease-in-out 100ms;
+    // max-height: 100px;
+    overflow: hidden;
+  }
+
   .Categories-expandCollapseContainer {
     text-align: center;
     > * {
       display: inline-block;
     }
   }
+}
+
+.Categories--collapsed {
+  padding-top: 0;
+  ul {
+    max-height: 0;
+  }
+}
+.Categories--collapseExpandButtonVisible {
+  padding-bottom: 0;
 }

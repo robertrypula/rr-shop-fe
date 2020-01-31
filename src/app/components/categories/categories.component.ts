@@ -10,12 +10,23 @@ import { Observable } from 'rxjs';
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
-  public isCategoryBoxCollapsed$: Observable<boolean>;
+  public isCollapseExpandButtonVisible$: Observable<boolean>;
+  public isListCollapsed$: Observable<boolean>;
+
   public readonly ClickableActionTheme = ClickableActionTheme;
 
   public constructor(protected categoryService: CategoryService) {
-    this.isCategoryBoxCollapsed$ = categoryService.isCategoryBoxCollapsed$;
+    this.isCollapseExpandButtonVisible$ = categoryService.isCollapseExpandButtonVisible$;
+    this.isListCollapsed$ = categoryService.isListCollapsed$;
   }
 
   public ngOnInit(): void {}
+
+  public onCollapseClick(): void {
+    this.categoryService.collapse();
+  }
+
+  public onExpandClick(): void {
+    this.categoryService.expand();
+  }
 }

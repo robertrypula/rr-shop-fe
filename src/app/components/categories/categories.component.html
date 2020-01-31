@@ -1,4 +1,10 @@
-<div class="Categories padding">
+<div
+  class="Categories padding"
+  [ngClass]="{
+    'Categories--collapsed': isListCollapsed$ | async,
+    'Categories--collapseExpandButtonVisible': isCollapseExpandButtonVisible$ | async
+  }"
+>
   <ul>
     <li>
       <a routerLink="/2,propolis" routerLinkActive="Categories-link--active">Propolis (4)</a>
@@ -73,15 +79,17 @@
     </li>
   </ul>
 
-  <pre>{{ isCategoryBoxCollapsed$ | async | json }}</pre>
-
-  <div class="Categories-expandCollapseContainer">
+  <div class="Categories-expandCollapseContainer" *ngIf="isCollapseExpandButtonVisible$ | async">
     <rr-shop-clickable-action
+      *ngIf="isListCollapsed$ | async"
+      (actionClick)="onExpandClick()"
       [clickableActionTheme]="ClickableActionTheme.Transparent"
       [icon]="['fas', 'angle-double-down']"
       [label]="'rozwiń kategorie'"
     ></rr-shop-clickable-action>
     <rr-shop-clickable-action
+      *ngIf="!(isListCollapsed$ | async)"
+      (actionClick)="onCollapseClick()"
       [clickableActionTheme]="ClickableActionTheme.Transparent"
       [icon]="['fas', 'angle-double-up']"
       [label]="'zwiń kategorie'"

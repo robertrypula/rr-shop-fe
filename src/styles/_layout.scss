@@ -1,5 +1,9 @@
 @import 'configs-and-mixins';
 
+html {
+  scroll-behavior: smooth;
+}
+
 body,
 html {
   color: $color;

@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NavigationStart, Router, RouterEvent } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { filter, tap, withLatestFrom } from 'rxjs/operators';
 
 import { CategoryService } from './services/category.service';
+import { ViewportService } from './services/viewport.service';
+import { Observable } from 'rxjs';
+import { Device } from './models/viewport.model';
 
 @Component({
   selector: 'rr-shop-root',
@@ -10,22 +13,43 @@ import { CategoryService } from './services/category.service';
   styleUrls: ['./root.component.scss']
 })
 export class RootComponent {
-  protected routeNavigationStartCount = 0;
+  @ViewChild('content', { static: false })
+  public content: ElementRef<HTMLElement>;
 
-  public constructor(protected router: Router, protected categoryService: CategoryService) {
+  protected routeNavigationStartCount = 0;
+  protected routerNavigationStart$: Observable<RouterEvent>;
+
+  public constructor(
+    protected router: Router,
+    protected categoryService: CategoryService,
+    protected viewportService: ViewportService
+  ) {
     this.handleRouteEvents();
   }
 
   protected handleRouteEvents(): void {
-    this.router.events.pipe(tap(this.collapseCategoriesAfterRouteChange.bind(this))).subscribe();
+    this.routerNavigationStart$ = this.router.events.pipe(
+      filter((routerEvent: RouterEvent) => routerEvent instanceof NavigationStart)
+    );
+
+    this.routerNavigationStart$.pipe(tap(this.collapseCategoriesAfterRouteChange.bind(this))).subscribe();
+    this.routerNavigationStart$
+      .pipe(
+        withLatestFrom(this.viewportService.device$),
+        filter(([routerEvent, device]) => [Device.Mobile, Device.MobileVertical].includes(device)),
+        tap(this.scrollToContentOnMobile.bind(this))
+      )
+      .subscribe();
   }
 
-  protected collapseCategoriesAfterRouteChange(routerEvent: RouterEvent): void {
-    if (routerEvent instanceof NavigationStart) {
-      this.routeNavigationStartCount++;
-      if (this.routeNavigationStartCount > 1) {
-        this.categoryService.collapse();
-      }
+  protected collapseCategoriesAfterRouteChange(): void {
+    this.routeNavigationStartCount++;
+    if (this.routeNavigationStartCount > 1) {
+      this.categoryService.collapse();
     }
+  }
+
+  protected scrollToContentOnMobile(): void {
+    this.content.nativeElement && this.content.nativeElement.scrollIntoView({});
   }
 }

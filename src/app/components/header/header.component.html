@@ -33,16 +33,22 @@
             <rr-shop-top-search></rr-shop-top-search>
           </div>
           <div style="display: inline-block;">
-            <rr-shop-cloud>
-              <rr-shop-clickable-action
-                [clickableActionTheme]="ClickableActionTheme.Primary"
-                [clickableActionType]="ClickableActionType.RouterLink"
-                [link]="'/basket'"
-                [icon]="['fas', 'shopping-basket']"
-                [label]="'Twój koszyk (' + (quantityTotal$ | async) + ' sztuk)'"
-              ></rr-shop-clickable-action>
-              <rr-shop-basket-overview cloudContent></rr-shop-basket-overview>
-            </rr-shop-cloud>
+            <rr-shop-clickable-action
+              [clickableActionTheme]="ClickableActionTheme.Primary"
+              [clickableActionType]="ClickableActionType.RouterLink"
+              [link]="'/basket'"
+              [icon]="['fas', 'shopping-basket']"
+              [label]="'Twój koszyk (' + (quantityTotal$ | async) + ' sztuk)'"
+            ></rr-shop-clickable-action>
+          </div>
+          -
+          <div style="display: inline-block;">
+            <rr-shop-clickable-action
+              [clickableActionTheme]="ClickableActionTheme.Primary"
+              [clickableActionType]="ClickableActionType.RouterLink"
+              [link]="'/basket'"
+              [icon]="['fas', 'shopping-basket']"
+            ></rr-shop-clickable-action>
           </div>
         </div>
       </div>

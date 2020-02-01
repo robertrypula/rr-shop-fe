@@ -8,7 +8,7 @@ import { ViewportService } from '../../services/viewport.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  public constructor(protected viewportService: ViewportService) {
+  public constructor(public viewportService: ViewportService) {
     viewportService.device$.subscribe(d => console.log(d));
     viewportService.scrolledDownThatHeaderIsNotVisible$.subscribe(d => console.log(d));
     // viewportService.viewportStatus$.subscribe(d => console.log(d));

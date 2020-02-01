@@ -50,14 +50,85 @@
 
 .Header-sticky {
   background-color: $primary-background-color;
-  min-height: 70px;
 
-  &.Header-sticky--active {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
+  @include viewport-phone-vertical-only {
+    .Header-topSearch {
+      padding-right: 50px;
+    }
+
+    .Header-basketButtonSmall {
+      position: absolute;
+      top: 0;
+      right: 15px;
+      transition: box-shadow ease-in-out 500ms;
+    }
+
+    &.Header-sticky--active {
+      .Header-basketButtonSmall {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 1000;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.75);
+      }
+    }
+  }
+
+  @include viewport-phone-only {
+    .Header-topSearch {
+      width: 50%;
+    }
+
+    .Header-basketButtonBig, .Header-basketButtonSmall {
+      position: absolute;
+      top: 0;
+    }
+    .Header-basketButtonBig {
+      right: 15px;
+    }
+    .Header-basketButtonSmall {
+      right: 27px;
+      display: none;
+    }
+
+    &.Header-sticky--active {
+      .Header-basketButtonBig {
+        display: none;
+      }
+      .Header-basketButtonSmall {
+        position: fixed;
+        top: 15px;
+        z-index: 1000;
+        display: block;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.75);
+      }
+    }
+  }
+
+  @include viewport-tablet-and-up {
+    .Header-topSearchAndBasketButtonsContainer {
+      text-align: right;
+    }
+    .Header-topSearch, .Header-basketButtonBig {
+      display: inline-block;
+    }
+    .Header-topSearch {
+      margin-right: $gutter-width;
+      width: 190px;
+    }
+    &.Header-sticky--active {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1000;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
+    }
+  }
+  
+  @include viewport-desktop-medium-and-up {
+    .Header-topSearch {
+      width: 250px;
+    }
   }
 }

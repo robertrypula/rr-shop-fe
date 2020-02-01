@@ -24,30 +24,32 @@
   >
     <div class="container">
       <div class="row padding-top padding-bottom">
-        <div class="col-xxs-12 col-lg-6 hidden-xxs hidden-xs hidden-sm hidden-md">
+        <div class="col-xxs-12 col-sm-5 col-md-6">
           <rr-shop-top-menu></rr-shop-top-menu>
         </div>
 
-        <div class="col-xxs-12 col-lg-6" style="text-align: right;">
-          <div class="hidden-xxs" style="display: inline-block; margin-right: 15px;">
+        <div class="Header-topSearchAndBasketButtonsContainer col-xxs-12 col-sm-7 col-md-6">
+          <div class="Header-topSearch">
             <rr-shop-top-search></rr-shop-top-search>
           </div>
-          <div style="display: inline-block;">
+
+          <div class="Header-basketButtonBig hidden-xxs">
             <rr-shop-clickable-action
               [clickableActionTheme]="ClickableActionTheme.Primary"
               [clickableActionType]="ClickableActionType.RouterLink"
               [link]="'/basket'"
               [icon]="['fas', 'shopping-basket']"
-              [label]="'Twój koszyk (' + (quantityTotal$ | async) + ' sztuk)'"
+              [label]="'Twój koszyk'"
+              [number]="quantityTotal$ | async"
             ></rr-shop-clickable-action>
           </div>
-          -
-          <div style="display: inline-block;">
+          <div class="Header-basketButtonSmall hidden-sm hidden-md hidden-lg">
             <rr-shop-clickable-action
               [clickableActionTheme]="ClickableActionTheme.Primary"
               [clickableActionType]="ClickableActionType.RouterLink"
-              [link]="'/basket'"
               [icon]="['fas', 'shopping-basket']"
+              [link]="'/basket'"
+              [number]="quantityTotal$ | async"
             ></rr-shop-clickable-action>
           </div>
         </div>

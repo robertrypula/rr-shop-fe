@@ -2,6 +2,7 @@
 
 .TopMenu {
   text-align: center;
+  padding-bottom: $gutter-width;
 
   ul,
   li {
@@ -26,13 +27,21 @@
     margin: 0 10px;
 
     @include viewport-phone-and-up {
-      margin: 0 22px;
+      margin: 0 20px;
     }
   }
-}
 
-@include viewport-desktop-medium-and-up {
-  .TopMenu {
+  @include viewport-tablet-and-up {
     text-align: left;
+    padding-bottom: 0;
+    li {
+      margin: 0 25px 0 0;
+    }
+  }
+
+  @include viewport-desktop-medium-and-up {
+    li {
+      margin: 0 50px 0 0;
+    }
   }
 }

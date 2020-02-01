@@ -24,6 +24,28 @@
         font-size: 16px;
       }
       &.ClickableAction-icon {
+        position: relative;
+      }
+
+      .ClickableAction-number {
+        position: absolute;
+        bottom: -3px;
+        right: -3px;
+        min-width: 14px;
+        height: 14px;
+        background-color: #bf4e4e;
+        border-radius: 7px;
+        font-size: 8px;
+        line-height: 1em;
+        display: block;
+        b {
+          display: block;
+          padding-top: 3px;
+          font-weight: normal;
+          color: white;
+          text-align: center;
+          @include font-secondary;
+        }
       }
     }
   }

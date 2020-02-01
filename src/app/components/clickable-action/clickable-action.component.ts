@@ -15,6 +15,7 @@ export class ClickableActionComponent implements OnInit {
   @Input() public iconSize: SizeProp = 'lg';
   @Input() public label: string = null;
   @Input() public link: string = null;
+  @Input() public number: number = null;
 
   @Output() public actionClick: EventEmitter<Event> = new EventEmitter();
 

@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header.component';
-import { TopMenuModule } from '../top-menu/top-menu.module';
-import { TopSearchModule } from '../top-search/top-search.module';
-import { CloudModule } from '../cloud/cloud.module';
-import { ClickableActionModule } from '../clickable-action/clickable-action.module';
 import { RouterModule } from '@angular/router';
+
+import { HeaderComponent } from './header.component';
 
 @NgModule({
   declarations: [HeaderComponent],
   exports: [HeaderComponent],
-  imports: [ClickableActionModule, CloudModule, CommonModule, RouterModule, TopMenuModule, TopSearchModule]
+  imports: [CommonModule, RouterModule]
 })
 export class HeaderModule {}

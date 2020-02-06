@@ -1,63 +1,18 @@
 <footer class="Footer">
   <div class="container">
     <div class="row Footer-content padding-top">
-      <div class="col-xxs-12 col-sm-6 col-md-3 margin-bottom">
+      <div *ngFor="let category of categories$ | async" class="col-xxs-12 col-sm-6 col-md-3 margin-bottom">
         <div class="clearfix">
-          <h3>Pomoc</h3>
+          <h3>{{ category.name }}</h3>
         </div>
 
-        <ul>
-          <li><a routerLink="/100,strona" routerLinkActive="Footer-link--active">Czas realizacji zamówień</a></li>
-          <li><a routerLink="/200,strona" routerLinkActive="Footer-link--active">Czas dostawy</a></li>
-          <li><a routerLink="/300,strona" routerLinkActive="Footer-link--active">Dla sklepów</a></li>
-          <li><a routerLink="/400,strona" routerLinkActive="Footer-link--active">Wysyłka za granice</a></li>
-          <li><a routerLink="/500,strona" routerLinkActive="Footer-link--active">Faktury i paragony</a></li>
-          <li><a routerLink="/600,strona" routerLinkActive="Footer-link--active">Koszty dostawy</a></li>
-          <li><a routerLink="/700,strona" routerLinkActive="Footer-link--active">Sposoby płatności</a></li>
-        </ul>
-      </div>
-      <div class="col-xxs-12 col-sm-6 col-md-3 margin-bottom">
-        <div class="clearfix">
-          <h3>Cośtam innego</h3>
-        </div>
+        <ng-container *ngIf="category.structuralNode === StructuralNode.FooterMap">
+          <div [innerHTML]="category.content"></div>
 
-        <ul>
-          <li><a routerLink="/800,strona" routerLinkActive="Footer-link--active">Czas realizacji zamówień</a></li>
-          <li><a routerLink="/900,strona" routerLinkActive="Footer-link--active">Czas dostawy</a></li>
-          <li><a routerLink="/1000,strona" routerLinkActive="Footer-link--active">Dla sklepów</a></li>
-          <li><a routerLink="/1100,strona" routerLinkActive="Footer-link--active">Wysyłka za granice</a></li>
-          <li><a routerLink="/1200,strona" routerLinkActive="Footer-link--active">Faktury i paragony</a></li>
-        </ul>
-      </div>
+          <a href="https://www.google.pl/maps/@51.0807088,17.063309,17.21z" target="_blank" class="Footer-imageMap"></a>
+        </ng-container>
 
-      <div class="col-xxs-12 hidden-md hidden-lg"></div>
-
-      <div class="col-xxs-12 col-sm-6 col-md-3 margin-bottom">
-        <div class="clearfix">
-          <h3>Pomoc</h3>
-        </div>
-
-        <ul>
-          <li><a routerLink="/1500,strona" routerLinkActive="Footer-link--active">Czas realizacji zamówień</a></li>
-          <li><a routerLink="/1600,strona" routerLinkActive="Footer-link--active">Czas dostawy</a></li>
-          <li><a routerLink="/1700,strona" routerLinkActive="Footer-link--active">Dla sklepów</a></li>
-          <li><a routerLink="/1800,strona" routerLinkActive="Footer-link--active">Wysyłka za granice</a></li>
-          <li><a routerLink="/1900,strona" routerLinkActive="Footer-link--active">Faktury i paragony</a></li>
-          <li><a routerLink="/2000,strona" routerLinkActive="Footer-link--active">Koszty dostawy</a></li>
-        </ul>
-      </div>
-
-      <div class="col-xxs-12 col-sm-6 col-md-3 margin-bottom">
-        <div class="clearfix">
-          <h3>Gdzie nas znaleźć?</h3>
-        </div>
-
-        <p>
-          Tarnogajska ??/??<br />
-          50-515 Wrocław
-        </p>
-
-        <a href="https://www.google.pl/maps/@51.0807088,17.063309,17.21z" target="_blank" class="Footer-imageMap"></a>
+        <rr-shop-footer-group [parentId]="category.id"></rr-shop-footer-group>
       </div>
     </div>
   </div>

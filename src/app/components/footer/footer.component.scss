@@ -14,14 +14,8 @@
     font-size: $footer-font-size;
     text-align: center;
 
-    a {
-      color: $footer-links-color-default;
-      &:hover {
-        color: $footer-links-color-hover;
-      }
-      &.Footer-link--active {
-        color: $footer-links-color-active;
-      }
+    ::ng-deep p {
+      padding-bottom: $gutter-width;
     }
 
     h3 {
@@ -51,23 +45,10 @@
       }
     }
 
-    ul {
-      list-style: none;
-      @include font-secondary();
-      @include viewport-tablet-and-up {
-        padding-left: $gutter-width;
-      }
-    }
-    ul,
-    li {
-      display: block;
-    }
-    li {
-      padding: 0 0 10px 0;
-    }
-
-    p {
-      padding-bottom: $gutter-width;
+    @include viewport-tablet-and-up {
+      margin-top: $gutter-width;
+      margin-bottom: $gutter-width;
+      text-align: left;
     }
 
     .Footer-imageMap {
@@ -89,12 +70,6 @@
       @include viewport-tablet-and-up {
         margin: 0;
       }
-    }
-
-    @include viewport-tablet-and-up {
-      margin-top: $gutter-width;
-      margin-bottom: $gutter-width;
-      text-align: left;
     }
   }
 }

@@ -1,0 +1,9 @@
+<div class="FooterGroup" *ngIf="(categories$ | async).length">
+  <ul>
+    <li *ngFor="let category of categories$ | async">
+      <a [routerLink]="'/' + category.id + ',' + category.slug" routerLinkActive="Footer-link--active">
+        {{ category.name }}
+      </a>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,28 @@
+@import 'configs-and-mixins';
+
+.FooterGroup {
+  ul {
+    list-style: none;
+    @include font-secondary();
+    @include viewport-tablet-and-up {
+      padding-left: $gutter-width;
+    }
+  }
+  ul,
+  li {
+    display: block;
+  }
+  li {
+    padding: 0 0 10px 0;
+  }
+
+  a {
+    color: $footer-links-color-default;
+    &:hover {
+      color: $footer-links-color-hover;
+    }
+    &.Footer-link--active {
+      color: $footer-links-color-active;
+    }
+  }
+}

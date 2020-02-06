@@ -1,26 +1,22 @@
 @import 'configs-and-mixins';
 
-.Header-stickyContainer {
-  min-height: 70px;
-}
-
-.Header-sticky {
+.HeaderSticky {
   background-color: $primary-background-color;
 
   @include viewport-phone-vertical-only {
-    .Header-topSearch {
+    .HeaderSticky-topSearch {
       padding-right: 50px;
     }
 
-    .Header-basketButtonSmall {
+    .HeaderSticky-basketButtonSmall {
       position: absolute;
       top: 0;
       right: 15px;
       transition: box-shadow ease-in-out 500ms;
     }
 
-    &.Header-sticky--active {
-      .Header-basketButtonSmall {
+    &.HeaderSticky--active {
+      .HeaderSticky-basketButtonSmall {
         position: fixed;
         top: 15px;
         right: 15px;
@@ -31,28 +27,28 @@
   }
 
   @include viewport-phone-only {
-    .Header-topSearch {
+    .HeaderSticky-topSearch {
       width: 50%;
     }
 
-    .Header-basketButtonBig,
-    .Header-basketButtonSmall {
+    .HeaderSticky-basketButtonBig,
+    .HeaderSticky-basketButtonSmall {
       position: absolute;
       top: 0;
     }
-    .Header-basketButtonBig {
+    .HeaderSticky-basketButtonBig {
       right: 15px;
     }
-    .Header-basketButtonSmall {
+    .HeaderSticky-basketButtonSmall {
       right: 27px;
       display: none;
     }
 
-    &.Header-sticky--active {
-      .Header-basketButtonBig {
+    &.HeaderSticky--active {
+      .HeaderSticky-basketButtonBig {
         display: none;
       }
-      .Header-basketButtonSmall {
+      .HeaderSticky-basketButtonSmall {
         position: fixed;
         top: 15px;
         z-index: 1000;
@@ -63,18 +59,18 @@
   }
 
   @include viewport-tablet-and-up {
-    .Header-topSearchAndBasketButtonsContainer {
+    .HeaderSticky-topSearchAndBasketButtonsContainer {
       text-align: right;
     }
-    .Header-topSearch,
-    .Header-basketButtonBig {
+    .HeaderSticky-topSearch,
+    .HeaderSticky-basketButtonBig {
       display: inline-block;
     }
-    .Header-topSearch {
+    .HeaderSticky-topSearch {
       margin-right: $gutter-width;
       width: 190px;
     }
-    &.Header-sticky--active {
+    &.HeaderSticky--active {
       position: fixed;
       top: 0;
       right: 0;
@@ -85,7 +81,7 @@
   }
 
   @include viewport-desktop-medium-and-up {
-    .Header-topSearch {
+    .HeaderSticky-topSearch {
       width: 250px;
     }
   }

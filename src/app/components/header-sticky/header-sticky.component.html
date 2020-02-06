@@ -1,40 +1,38 @@
-<div class="Header-stickyContainer">
-  <div
-    class="Header-sticky"
-    [ngClass]="{
-      'Header-sticky--active': scrolledDownThatHeaderIsNotVisible$ | async
-    }"
-  >
-    <div class="container">
-      <div class="row padding-top padding-bottom">
-        <div class="col-xxs-12 col-sm-5 col-md-6">
-          <rr-shop-top-menu></rr-shop-top-menu>
+<div
+  [ngClass]="{
+    HeaderSticky: true,
+    'HeaderSticky--active': scrolledDownThatHeaderIsNotVisible$ | async
+  }"
+>
+  <div class="container">
+    <div class="row padding-top padding-bottom">
+      <div class="col-xxs-12 col-sm-5 col-md-6">
+        <rr-shop-top-menu></rr-shop-top-menu>
+      </div>
+
+      <div class="HeaderSticky-topSearchAndBasketButtonsContainer col-xxs-12 col-sm-7 col-md-6">
+        <div class="HeaderSticky-topSearch">
+          <rr-shop-top-search></rr-shop-top-search>
         </div>
 
-        <div class="Header-topSearchAndBasketButtonsContainer col-xxs-12 col-sm-7 col-md-6">
-          <div class="Header-topSearch">
-            <rr-shop-top-search></rr-shop-top-search>
-          </div>
-
-          <div class="Header-basketButtonBig hidden-xxs">
-            <rr-shop-clickable-action
-              [clickableActionTheme]="ClickableActionTheme.Primary"
-              [clickableActionType]="ClickableActionType.RouterLink"
-              [link]="'/basket'"
-              [icon]="['fas', 'shopping-basket']"
-              [label]="'Twój koszyk'"
-              [number]="quantityTotal$ | async"
-            ></rr-shop-clickable-action>
-          </div>
-          <div class="Header-basketButtonSmall hidden-sm hidden-md hidden-lg">
-            <rr-shop-clickable-action
-              [clickableActionTheme]="ClickableActionTheme.Primary"
-              [clickableActionType]="ClickableActionType.RouterLink"
-              [icon]="['fas', 'shopping-basket']"
-              [link]="'/basket'"
-              [number]="quantityTotal$ | async"
-            ></rr-shop-clickable-action>
-          </div>
+        <div class="HeaderSticky-basketButtonBig hidden-xxs">
+          <rr-shop-clickable-action
+            [clickableActionTheme]="ClickableActionTheme.Primary"
+            [clickableActionType]="ClickableActionType.RouterLink"
+            [link]="'/basket'"
+            [icon]="['fas', 'shopping-basket']"
+            [label]="'Twój koszyk'"
+            [number]="quantityTotal$ | async"
+          ></rr-shop-clickable-action>
+        </div>
+        <div class="HeaderSticky-basketButtonSmall hidden-sm hidden-md hidden-lg">
+          <rr-shop-clickable-action
+            [clickableActionTheme]="ClickableActionTheme.Primary"
+            [clickableActionType]="ClickableActionType.RouterLink"
+            [icon]="['fas', 'shopping-basket']"
+            [link]="'/basket'"
+            [number]="quantityTotal$ | async"
+          ></rr-shop-clickable-action>
         </div>
       </div>
     </div>

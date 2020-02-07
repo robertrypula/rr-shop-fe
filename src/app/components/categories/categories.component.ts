@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClickableActionTheme } from '../clickable-action/clickable-action.model';
 import { CategoryService } from '../../services/category.service';
 import { Observable } from 'rxjs';
+import { Category, StructuralNode } from '../../models/category.model';
 
 @Component({
   selector: 'rr-shop-categories',
@@ -10,12 +11,14 @@ import { Observable } from 'rxjs';
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
+  public categories$: Observable<Category[]>;
   public isCollapseExpandButtonVisible$: Observable<boolean>;
   public isListCollapsed$: Observable<boolean>;
 
   public readonly ClickableActionTheme = ClickableActionTheme;
 
   public constructor(protected categoryService: CategoryService) {
+    this.categories$ = this.categoryService.categoriesByStructuralNode$(StructuralNode.ShopCategories);
     this.isCollapseExpandButtonVisible$ = categoryService.isCollapseExpandButtonVisible$;
     this.isListCollapsed$ = categoryService.isListCollapsed$;
   }

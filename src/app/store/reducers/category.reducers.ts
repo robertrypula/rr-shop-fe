@@ -8,6 +8,10 @@ export interface State {
 
 export const initialState: State = {
   1: { id: 1, name: 'Shop categories', structuralNode: StructuralNode.ShopCategories, parentId: null },
+  1000: { id: 1000, name: 'Herbaty', slug: 'herbaty', parentId: 1 },
+  1001: { id: 1001, name: 'Kawy', slug: 'kawy', parentId: 1 },
+  1002: { id: 1002, name: 'Dla seniora', slug: 'dla-seniora', parentId: 1 },
+
   2: { id: 2, name: 'Pages', parentId: null },
 
   3: { id: 3, name: 'Header', structuralNode: StructuralNode.Header, parentId: 2 },

@@ -5,6 +5,8 @@
     'Categories--collapseExpandButtonVisible': isCollapseExpandButtonVisible$ | async
   }"
 >
+  <pre>{{ categories$ | async | json }}</pre>
+
   <ul>
     <li>
       <a routerLink="/2,propolis" routerLinkActive="Categories-link--active">Propolis (4)</a>

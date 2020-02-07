@@ -1,5 +1,9 @@
 @import 'configs-and-mixins';
 
+.HeaderSticky-container {
+  min-height: 70px;
+}
+
 .HeaderSticky {
   background-color: $primary-background-color;
 

@@ -8,8 +8,8 @@ export const selectCategoryFeature = (state: State): fromCategoryReducers.State 
 
 export const selectCategory = createSelector(
   selectCategoryFeature,
-  (productFeature: fromCategoryReducers.State, props: { id: number; structuralNode: StructuralNode }): Category => {
-    const categories: Category[] = Object.keys(productFeature).map(key => productFeature[key]);
+  (categoryFeature: fromCategoryReducers.State, props: { id: number; structuralNode: StructuralNode }): Category => {
+    const categories: Category[] = Object.keys(categoryFeature).map(key => categoryFeature[key]);
     let foundCategory: Category = null;
 
     if (props) {
@@ -29,10 +29,10 @@ export const selectCategory = createSelector(
 export const selectCategories = createSelector(
   selectCategoryFeature,
   (
-    productFeature: fromCategoryReducers.State,
+    categoryFeature: fromCategoryReducers.State,
     props: { parentId: number; structuralNode: StructuralNode }
   ): Category[] => {
-    const categories: Category[] = Object.keys(productFeature).map(key => productFeature[key]);
+    const categories: Category[] = Object.keys(categoryFeature).map(key => categoryFeature[key]);
     let parentId: number = null;
 
     if (props) {
@@ -52,9 +52,9 @@ export const selectCategories = createSelector(
 
 export const selectCategoriesWithActiveLevel = createSelector(
   selectCategoryFeature,
-  (productFeature: fromCategoryReducers.State): Category[] => {
-    return Object.keys(productFeature)
-      .map(key => productFeature[key])
+  (categoryFeature: fromCategoryReducers.State): Category[] => {
+    return Object.keys(categoryFeature)
+      .map(key => categoryFeature[key])
       .filter((category: Category): boolean => !!category.activeLevel);
   }
 );

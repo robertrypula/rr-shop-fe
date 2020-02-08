@@ -9,6 +9,7 @@ import { Device } from '../models/viewport.model';
 import { CategoryFacadeService } from '../store/facades/category-facade.service';
 import { Category, StructuralNode } from '../models/category.model';
 import { getCategoryId } from '../utils/routing.util';
+import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,8 @@ export class CategoryService {
     return this.categoryFacadeService.categoryByStructuralNode$(structuralNode);
   }
 
-  public categoryByParentId$(id: number): Observable<Category> {
-    return this.categoryFacadeService.categoryByParentId$(id);
+  public categoryById$(id: number): Observable<Category> {
+    return this.categoryFacadeService.categoryById$(id);
   }
 
   public categoriesByStructuralNode$(structuralNode: StructuralNode): Observable<Category[]> {
@@ -51,16 +52,39 @@ export class CategoryService {
     this.isCollapsedSubject$.next(false);
   }
 
+  public getCategoriesFromLeafToRoot(
+    leafId: number,
+    structuralNodeLimit: StructuralNode[] = BREADCRUMBS_STRUCTURAL_NODES_LIMIT
+  ): Category[] {
+    const categoriesFromLeafToRoot: Category[] = [];
+    let category: Category;
+    let id: number = leafId;
+
+    while (true) {
+      category = this.categoryFacadeService.getCategoryById(id);
+      if (!category || structuralNodeLimit.includes(category.structuralNode)) {
+        break;
+      }
+      categoriesFromLeafToRoot.push(category);
+      id = category.parentId;
+    }
+
+    return categoriesFromLeafToRoot;
+  }
+
   public productsByCategoryIdWithSlug$(categoryIdWithSlug: string): Observable<Product[]> {
     return this.productService.productsByCategoryId$(getCategoryId(categoryIdWithSlug));
   }
 
   public setActiveCategory(id: number): void {
     const categoriesWithActiveLevel: Category[] = this.categoryFacadeService.getCategoriesWithActiveLevel();
-    const categoriesUpToRoot: Category[] = [];
+    const categoriesFromLeafToRoot: Category[] = this.getCategoriesFromLeafToRoot(id);
 
     categoriesWithActiveLevel.forEach((categoryWithActiveLevel: Category): void => {
       this.categoryFacadeService.setActiveLevel(categoryWithActiveLevel.id, null);
+    });
+    categoriesFromLeafToRoot.forEach((categoryWithActiveLevel: Category, index: number): void => {
+      this.categoryFacadeService.setActiveLevel(categoryWithActiveLevel.id, index + 1);
     });
   }
 

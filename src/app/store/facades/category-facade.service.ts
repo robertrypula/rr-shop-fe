@@ -22,7 +22,7 @@ export class CategoryFacadeService {
     return this.store.pipe(select(fromCategorySelectors.selectCategory, { structuralNode }));
   }
 
-  public categoryByParentId$(id: number): Observable<Category> {
+  public categoryById$(id: number): Observable<Category> {
     return this.store.pipe(select(fromCategorySelectors.selectCategory, { id }));
   }
 
@@ -43,6 +43,22 @@ export class CategoryFacadeService {
         take(1),
         tap((categories: Category[]): void => {
           result = categories;
+        })
+      )
+      .subscribe();
+
+    return result;
+  }
+
+  public getCategoryById(id: number): Category {
+    let result: Category = null;
+
+    this.store
+      .pipe(
+        select(fromCategorySelectors.selectCategory, { id }),
+        take(1),
+        tap((category: Category): void => {
+          result = category;
         })
       )
       .subscribe();

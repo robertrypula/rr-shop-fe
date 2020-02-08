@@ -11,6 +11,8 @@ export const initialState: State = {
   1: { id: 1, name: 'Shop categories', structuralNode: StructuralNode.ShopCategories, parentId: null },
   1000: { id: 1000, name: 'Herbaty', slug: 'herbaty', parentId: 1 },
   1001: { id: 1001, name: 'Kawy', slug: 'kawy', parentId: 1 },
+  100100: { id: 100100, name: 'Sypane', slug: 'sypane', parentId: 1001 },
+  100101: { id: 100101, name: 'Mielone', slug: 'mielone', parentId: 1001 },
   1002: { id: 1002, name: 'Dla seniora', slug: 'dla-seniora', parentId: 1 },
   1003: { id: 1003, name: 'Jakaś długa nazwa kategorii, która wychodzi poza jedną linię', slug: 'jakas', parentId: 1 },
   1004: { id: 1004, name: 'Zioła', slug: 'ziola', parentId: 1 },
@@ -18,7 +20,7 @@ export const initialState: State = {
   100401: { id: 100401, name: 'Pakowane', slug: 'pakowane', parentId: 1004 },
   100401000: { id: 100401000, name: 'Dobrze', slug: 'dobrze', parentId: 100401 },
   100401001: { id: 100401001, name: 'Bardzo dobrze', slug: 'bardzo-dobrze', parentId: 100401 },
-  100402: { id: 100402, name: 'Odmłądzające', slug: 'odmladzajace', parentId: 1004 },
+  100402: { id: 100402, name: 'Odmładzające', slug: 'odmladzajace', parentId: 1004 },
   1005: { id: 1005, name: 'Przyprawy', slug: 'przyprawy', parentId: 1 },
   1006: { id: 1006, name: 'Miody', slug: 'miody', parentId: 1 },
 

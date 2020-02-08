@@ -1,3 +1,5 @@
+import { StructuralNode } from '../models/category.model';
+
 export const CURRENCY = 'zł'; // TODO make it dynamic in future
 export const CLOUD_HIDE_DELAY = 2000;
 export const CLOUD_SHOW_DELAY = 250;
@@ -15,3 +17,9 @@ export const HEADER_FIXED_MOBILE_THRESHOLD = 210;
 export const HEADER_FIXED_TABLET_THRESHOLD = 155;
 export const HEADER_FIXED_DESKTOP_MEDIUM_THRESHOLD = 170;
 export const HEADER_FIXED_DESKTOP_LARGE_THRESHOLD = 170;
+
+export const BREADCRUMBS_STRUCTURAL_NODES_LIMIT = [
+  StructuralNode.Footer,
+  StructuralNode.Header,
+  StructuralNode.ShopCategories
+];

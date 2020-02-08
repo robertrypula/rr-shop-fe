@@ -5,7 +5,7 @@
         {{ category.name }}
       </a>
 
-      <rr-shop-category-node [parentId]="category.id"></rr-shop-category-node>
+      <rr-shop-category-node *ngIf="category.activeLevel" [parentId]="category.id"></rr-shop-category-node>
     </li>
   </ul>
 </div>

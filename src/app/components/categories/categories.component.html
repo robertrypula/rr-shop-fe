@@ -6,6 +6,7 @@
   }"
 >
   <rr-shop-category-node
+    class="Categories-list"
     *ngIf="shopCategoryRoot$ | async"
     [parentId]="(shopCategoryRoot$ | async).id"
   ></rr-shop-category-node>

@@ -75,7 +75,7 @@ export class CategoryFacadeService {
       select(fromCategorySelectors.selectCategoriesWithActiveLevel),
       map((categoriesWithActiveLevel: Category[]): Category[] => {
         return categoriesWithActiveLevel.sort((a: Category, b: Category): number =>
-          a.activeLevel === b.activeLevel ? 0 : a.activeLevel > b.activeLevel ? 1 : -1
+          a.activeLevel === b.activeLevel ? 0 : a.activeLevel < b.activeLevel ? 1 : -1
         );
       })
     );

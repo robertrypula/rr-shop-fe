@@ -15,6 +15,7 @@ import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../config/config';
   providedIn: 'root'
 })
 export class CategoryService {
+  public categoriesWithActiveLevelSorted$: Observable<Category[]>;
   public isCollapseExpandButtonVisible$: Observable<boolean>;
   public isListCollapsed$: Observable<boolean>;
 
@@ -25,6 +26,7 @@ export class CategoryService {
     protected categoryFacadeService: CategoryFacadeService,
     protected viewportService: ViewportService
   ) {
+    this.categoriesWithActiveLevelSorted$ = categoryFacadeService.categoriesWithActiveLevelSorted$;
     this.setupObservables();
   }
 

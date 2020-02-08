@@ -1,16 +1,15 @@
 <div class="Breadcrumbs">
   <div class="container">
     <div class="Breadcrumbs-linksContainer">
-      <a routerLink="/" routerLinkActive="Breadcrumbs-link--active">Strona główna</a>
-      <a routerLink="/1,herbatki" routerLinkActive="Breadcrumbs-link--active">Herbatki</a>
-      <a routerLink="/2,expresowe" routerLinkActive="Breadcrumbs-link--active">Expresowe</a>
-      <a routerLink="/3,ziolowe" routerLinkActive="Breadcrumbs-link--active">ziołowe</a>
+      <a routerLink="/" [ngClass]="{ 'Breadcrumbs-link--active': (categories$ | async).length === 0 }">
+        Strona główna
+      </a>
       <a
-        routerLink="/4,herbatka rumiankowa"
+        *ngFor="let category of categories$ | async"
+        [routerLink]="'/' + category.id + ',' + category.slug"
         routerLinkActive="Breadcrumbs-link--active"
-        class="Breadcrumbs-link--active"
       >
-        Herbatka rumiankowa
+        {{ category.name }}
       </a>
     </div>
   </div>

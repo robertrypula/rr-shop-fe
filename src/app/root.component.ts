@@ -45,6 +45,7 @@ export class RootComponent {
   }
 
   protected setActiveCategory(navigationStart: NavigationStart): void {
+    // console.log(navigationStart);
     this.categoryService.setActiveCategory(getCategoryId(navigationStart.url.replace('/', '')));
   }
 

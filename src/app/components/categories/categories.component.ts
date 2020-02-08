@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { ClickableActionTheme } from '../clickable-action/clickable-action.model';
 import { CategoryService } from '../../services/category.service';
@@ -8,7 +8,8 @@ import { Category, StructuralNode } from '../../models/category.model';
 @Component({
   selector: 'rr-shop-categories',
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+  styleUrls: ['./categories.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriesComponent implements OnInit {
   public shopCategoryRoot$: Observable<Category>;

@@ -5,7 +5,7 @@
         Strona główna
       </a>
       <a
-        *ngFor="let category of categories$ | async"
+        *ngFor="let category of categories$ | async; trackBy: trackBy"
         [routerLink]="'/' + category.id + ',' + category.slug"
         routerLinkActive="Breadcrumbs-link--active"
       >

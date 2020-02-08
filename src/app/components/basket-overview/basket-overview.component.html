@@ -1,5 +1,5 @@
 <rr-shop-basket-overview-item
-  *ngFor="let basketEntry of basketEntries$ | async"
+  *ngFor="let basketEntry of basketEntries$ | async; trackBy: trackBy"
   [basketEntry]="basketEntry"
   (remove)="remove($event)"
 >

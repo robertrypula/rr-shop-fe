@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-common-types';
 import { SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { ClickableActionTheme, ClickableActionType } from './clickable-action.model';
@@ -6,7 +6,8 @@ import { ClickableActionTheme, ClickableActionType } from './clickable-action.mo
 @Component({
   selector: 'rr-shop-clickable-action',
   templateUrl: './clickable-action.component.html',
-  styleUrls: ['./clickable-action.component.scss']
+  styleUrls: ['./clickable-action.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClickableActionComponent implements OnInit {
   @Input() public clickableActionTheme: ClickableActionTheme = ClickableActionTheme.Primary;

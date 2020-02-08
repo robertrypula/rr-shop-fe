@@ -1,6 +1,6 @@
 <div class="CategoryNode" *ngIf="(categories$ | async).length">
   <ul>
-    <li *ngFor="let category of categories$ | async">
+    <li *ngFor="let category of (categories$ | async); trackBy: trackBy">
       <a [routerLink]="'/' + category.id + ',' + category.slug" routerLinkActive="CategoryNode-link--active">
         {{ category.name }}
       </a>

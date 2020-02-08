@@ -1,7 +1,10 @@
 <footer class="Footer">
   <div class="container">
     <div class="row Footer-content padding-top">
-      <div *ngFor="let category of categories$ | async" class="col-xxs-12 col-sm-6 col-md-3 margin-bottom">
+      <div
+        *ngFor="let category of categories$ | async; trackBy: trackBy"
+        class="col-xxs-12 col-sm-6 col-md-3 margin-bottom"
+      >
         <div class="clearfix">
           <h3>{{ category.name }}</h3>
         </div>

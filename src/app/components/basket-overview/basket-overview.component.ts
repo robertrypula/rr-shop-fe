@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BasketEntry } from '../../models/basket.model';
 import { BasketService } from '../../services/basket.service';
@@ -6,7 +6,8 @@ import { BasketService } from '../../services/basket.service';
 @Component({
   selector: 'rr-shop-basket-overview',
   templateUrl: './basket-overview.component.html',
-  styleUrls: ['./basket-overview.component.scss']
+  styleUrls: ['./basket-overview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BasketOverviewComponent implements OnInit {
   public basketEntries$: Observable<BasketEntry[]>;
@@ -23,5 +24,9 @@ export class BasketOverviewComponent implements OnInit {
 
   public remove(id: number): void {
     this.basketService.remove(id);
+  }
+
+  public trackBy(index: number, item: BasketEntry): string {
+    return item.id + '';
   }
 }

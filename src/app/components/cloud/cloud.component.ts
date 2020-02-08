@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CLOUD_HIDE_DELAY, CLOUD_SHOW_DELAY } from '../../config/config';
 
 @Component({
   selector: 'rr-shop-cloud',
   templateUrl: './cloud.component.html',
-  styleUrls: ['./cloud.component.scss']
+  styleUrls: ['./cloud.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CloudComponent implements OnInit {
   public isVisible = false;

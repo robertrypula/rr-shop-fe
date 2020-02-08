@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'rr-shop-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.scss']
+  styleUrls: ['./basket.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BasketComponent implements OnInit {
   public constructor() {}

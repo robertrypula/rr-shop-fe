@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Category } from '../../../models/category.model';
@@ -7,7 +7,8 @@ import { CategoryService } from '../../../services/category.service';
 @Component({
   selector: 'rr-shop-category-node',
   templateUrl: './category-node.component.html',
-  styleUrls: ['./category-node.component.scss']
+  styleUrls: ['./category-node.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryNodeComponent implements OnInit {
   @Input()
@@ -19,5 +20,9 @@ export class CategoryNodeComponent implements OnInit {
 
   public ngOnInit(): void {
     this.categories$ = this.categoryService.categoriesByParentId$(this.parentId);
+  }
+
+  public trackBy(index: number, item: Category): string {
+    return item.id + '';
   }
 }

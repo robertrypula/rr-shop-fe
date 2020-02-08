@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClickableActionType } from '../clickable-action/clickable-action.model';
 
 @Component({
   selector: 'rr-shop-top-search',
   templateUrl: './top-search.component.html',
-  styleUrls: ['./top-search.component.scss']
+  styleUrls: ['./top-search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TopSearchComponent implements OnInit {
   public query = '';

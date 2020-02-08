@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import { NavigationStart, Router, RouterEvent } from '@angular/router';
 import { filter, tap, withLatestFrom } from 'rxjs/operators';
 
@@ -11,7 +11,8 @@ import { getCategoryId } from './utils/routing.util';
 @Component({
   selector: 'rr-shop-root',
   templateUrl: './root.component.html',
-  styleUrls: ['./root.component.scss']
+  styleUrls: ['./root.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RootComponent {
   @ViewChild('content', { static: false })

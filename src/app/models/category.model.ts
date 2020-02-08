@@ -13,5 +13,5 @@ export interface Category {
   content?: string;
   parentId: number;
   activeLevel?: number;
-  isUnaccesible?: boolean;
+  isUnAccessible?: boolean;
 }

@@ -33,7 +33,7 @@ export const initialState: State = {
 
   10: { id: 10, name: 'Footer', structuralNode: StructuralNode.Footer, parentId: 2 },
 
-  11: { id: 11, name: 'Dostawa i płatności', parentId: 10 },
+  11: { id: 11, name: 'Dostawa i płatności', parentId: 10, isUnAccessible: true },
   110: { id: 110, name: 'Czas realizacji zamówień', slug: 'czas-realizacji-zamowien', parentId: 11 },
   111: { id: 111, name: 'Czas dostawy', slug: 'czas-dostawy', parentId: 11 },
   112: { id: 112, name: 'Dla sklepów', slug: 'dla-sklepow', parentId: 11 },
@@ -41,12 +41,12 @@ export const initialState: State = {
   114: { id: 114, name: 'Koszty dostawy', slug: 'koszty-dostawy', parentId: 11 },
   115: { id: 115, name: 'Sposoby płatności', slug: 'sposoby-platnosci', parentId: 11 },
 
-  12: { id: 12, name: 'Pomoc', parentId: 10 },
+  12: { id: 12, name: 'Pomoc', parentId: 10, isUnAccessible: true },
   120: { id: 120, name: 'Regulamin', slug: 'regulamin', parentId: 12 },
   121: { id: 121, name: 'Rabaty', slug: 'rabaty', parentId: 12 },
   122: { id: 122, name: 'Polityka prywatności', slug: 'polityka-prywatnosci', parentId: 12 },
 
-  13: { id: 13, name: 'O formie', parentId: 10 },
+  13: { id: 13, name: 'O formie', parentId: 10, isUnAccessible: true },
   130: { id: 130, name: 'Informacje o firmie', slug: 'informacje-o-firmie', parentId: 13 },
   131: { id: 131, name: 'Opinie klientów', slug: 'opinie-klientow', parentId: 13 },
   132: { id: 132, name: 'Kontakt', slug: 'kontakt', parentId: 13 },

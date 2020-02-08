@@ -1,13 +1,9 @@
 <div class="TopMenu">
-  <ul>
-    <li>
-      <a routerLink="/43,nowosci" routerLinkActive="TopMenu-link--active">Nowości</a>
-    </li>
-    <li>
-      <a routerLink="/44,best-sellers" routerLinkActive="TopMenu-link--active">Best sellers</a>
-    </li>
-    <li>
-      <a routerLink="/22,kontakt" routerLinkActive="TopMenu-link--active">Kontakt</a>
+  <ul *ngIf="(categories$ | async).length">
+    <li *ngFor="let category of categories$ | async; trackBy: trackBy">
+      <a [routerLink]="'/' + category.id + ',' + category.slug" routerLinkActive="TopMenu-link--active">
+        {{ category.name }}
+      </a>
     </li>
   </ul>
 </div>

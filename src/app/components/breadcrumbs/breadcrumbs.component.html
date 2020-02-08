@@ -4,13 +4,18 @@
       <a routerLink="/" [ngClass]="{ 'Breadcrumbs-link--active': (categories$ | async).length === 0 }">
         Strona główna
       </a>
-      <a
-        *ngFor="let category of categories$ | async; trackBy: trackBy"
-        [routerLink]="'/' + category.id + ',' + category.slug"
-        routerLinkActive="Breadcrumbs-link--active"
-      >
-        {{ category.name }}
-      </a>
+      <ng-container *ngFor="let category of categories$ | async; trackBy: trackBy">
+        <ng-container *ngIf="category.isUnAccessible; else accessible">
+          <span>
+            {{ category.name }}
+          </span>
+        </ng-container>
+        <ng-template #accessible>
+          <a [routerLink]="'/' + category.id + ',' + category.slug" routerLinkActive="Breadcrumbs-link--active">
+            {{ category.name }}
+          </a>
+        </ng-template>
+      </ng-container>
     </div>
   </div>
 </div>

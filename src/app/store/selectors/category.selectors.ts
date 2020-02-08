@@ -6,6 +6,26 @@ import { Category, StructuralNode } from '../../models/category.model';
 
 export const selectCategoryFeature = (state: State): fromCategoryReducers.State => state.category;
 
+export const selectCategory = createSelector(
+  selectCategoryFeature,
+  (productFeature: fromCategoryReducers.State, props: { id: number; structuralNode: StructuralNode }): Category => {
+    const categories: Category[] = Object.keys(productFeature).map(key => productFeature[key]);
+    let foundCategory: Category = null;
+
+    if (props) {
+      if (props.structuralNode) {
+        foundCategory = categories.find(
+          (category: Category): boolean => category.structuralNode === props.structuralNode
+        );
+      } else if (props.id) {
+        foundCategory = categories.find((category: Category): boolean => category.id === props.id);
+      }
+    }
+
+    return foundCategory;
+  }
+);
+
 export const selectCategories = createSelector(
   selectCategoryFeature,
   (
@@ -27,5 +47,14 @@ export const selectCategories = createSelector(
     }
 
     return props ? categories.filter((category: Category): boolean => category.parentId === parentId) : categories;
+  }
+);
+
+export const selectCategoriesWithActiveLevel = createSelector(
+  selectCategoryFeature,
+  (productFeature: fromCategoryReducers.State): Category[] => {
+    return Object.keys(productFeature)
+      .map(key => productFeature[key])
+      .filter((category: Category): boolean => !!category.activeLevel);
   }
 );

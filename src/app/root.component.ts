@@ -6,6 +6,7 @@ import { CategoryService } from './services/category.service';
 import { ViewportService } from './services/viewport.service';
 import { Observable } from 'rxjs';
 import { Device } from './models/viewport.model';
+import { getCategoryId } from './utils/routing.util';
 
 @Component({
   selector: 'rr-shop-root',
@@ -32,6 +33,7 @@ export class RootComponent {
       filter((routerEvent: RouterEvent) => routerEvent instanceof NavigationStart)
     );
 
+    this.routerNavigationStart$.pipe(tap(this.setActiveCategory.bind(this))).subscribe();
     this.routerNavigationStart$.pipe(tap(this.collapseCategoriesAfterRouteChange.bind(this))).subscribe();
     this.routerNavigationStart$
       .pipe(
@@ -40,6 +42,10 @@ export class RootComponent {
         tap(this.scrollToContentOnMobile.bind(this))
       )
       .subscribe();
+  }
+
+  protected setActiveCategory(navigationStart: NavigationStart): void {
+    this.categoryService.setActiveCategory(getCategoryId(navigationStart.url.replace('/', '')));
   }
 
   protected collapseCategoriesAfterRouteChange(): void {

@@ -4,9 +4,10 @@ import { RouterModule } from '@angular/router';
 
 import { CategoriesComponent } from './categories.component';
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
+import { CategoryNodeComponent } from './category-node/category-node.component';
 
 @NgModule({
-  declarations: [CategoriesComponent],
+  declarations: [CategoriesComponent, CategoryNodeComponent],
   exports: [CategoriesComponent],
   imports: [CommonModule, RouterModule, ClickableActionModule]
 })

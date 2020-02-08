@@ -11,14 +11,14 @@ import { Category, StructuralNode } from '../../models/category.model';
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
-  public categories$: Observable<Category[]>;
+  public shopCategoryRoot$: Observable<Category>;
   public isCollapseExpandButtonVisible$: Observable<boolean>;
   public isListCollapsed$: Observable<boolean>;
 
   public readonly ClickableActionTheme = ClickableActionTheme;
 
   public constructor(protected categoryService: CategoryService) {
-    this.categories$ = this.categoryService.categoriesByStructuralNode$(StructuralNode.ShopCategories);
+    this.shopCategoryRoot$ = this.categoryService.categoryByStructuralNode$(StructuralNode.ShopCategories);
     this.isCollapseExpandButtonVisible$ = categoryService.isCollapseExpandButtonVisible$;
     this.isListCollapsed$ = categoryService.isListCollapsed$;
   }

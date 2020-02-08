@@ -8,6 +8,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { Device } from '../models/viewport.model';
 import { CategoryFacadeService } from '../store/facades/category-facade.service';
 import { Category, StructuralNode } from '../models/category.model';
+import { getCategoryId } from '../utils/routing.util';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,14 @@ export class CategoryService {
     protected viewportService: ViewportService
   ) {
     this.setupObservables();
+  }
+
+  public categoryByStructuralNode$(structuralNode: StructuralNode): Observable<Category> {
+    return this.categoryFacadeService.categoryByStructuralNode$(structuralNode);
+  }
+
+  public categoryByParentId$(id: number): Observable<Category> {
+    return this.categoryFacadeService.categoryByParentId$(id);
   }
 
   public categoriesByStructuralNode$(structuralNode: StructuralNode): Observable<Category[]> {
@@ -43,10 +52,16 @@ export class CategoryService {
   }
 
   public productsByCategoryIdWithSlug$(categoryIdWithSlug: string): Observable<Product[]> {
-    const categoryIdWithSlugSplit: string[] = categoryIdWithSlug.split(',');
-    const categoryId: number = categoryIdWithSlugSplit.length === 2 ? +categoryIdWithSlugSplit[0] : null;
+    return this.productService.productsByCategoryId$(getCategoryId(categoryIdWithSlug));
+  }
 
-    return this.productService.productsByCategoryId$(categoryId);
+  public setActiveCategory(id: number): void {
+    const categoriesWithActiveLevel: Category[] = this.categoryFacadeService.getCategoriesWithActiveLevel();
+    const categoriesUpToRoot: Category[] = [];
+
+    categoriesWithActiveLevel.forEach((categoryWithActiveLevel: Category): void => {
+      this.categoryFacadeService.setActiveLevel(categoryWithActiveLevel.id, null);
+    });
   }
 
   protected setupObservables(): void {

@@ -34,7 +34,7 @@ export class BasketFacadeService {
       .pipe(
         select(fromSelectors.selectBasketSimpleEntryByProductId, { productId }),
         take(1),
-        tap((basketSimpleEntry: BasketSimpleEntry) => {
+        tap((basketSimpleEntry: BasketSimpleEntry): void => {
           result = basketSimpleEntry;
         })
       )

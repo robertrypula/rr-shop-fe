@@ -1,5 +1,6 @@
-import { Action, createReducer } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 
+import * as fromCategoryActions from '../actions/category.actions';
 import { Category, StructuralNode } from '../../models/category.model';
 
 export interface State {
@@ -11,6 +12,15 @@ export const initialState: State = {
   1000: { id: 1000, name: 'Herbaty', slug: 'herbaty', parentId: 1 },
   1001: { id: 1001, name: 'Kawy', slug: 'kawy', parentId: 1 },
   1002: { id: 1002, name: 'Dla seniora', slug: 'dla-seniora', parentId: 1 },
+  1003: { id: 1003, name: 'Jakaś długa nazwa kategorii, która wychodzi poza jedną linię', slug: 'jakas', parentId: 1 },
+  1004: { id: 1004, name: 'Zioła', slug: 'ziola', parentId: 1 },
+  100400: { id: 100400, name: 'Sypane', slug: 'sypane', parentId: 1004 },
+  100401: { id: 100401, name: 'Pakowane', slug: 'pakowane', parentId: 1004 },
+  100401000: { id: 100401000, name: 'Dobrze', slug: 'dobrze', parentId: 100401 },
+  100401001: { id: 100401001, name: 'Bardzo dobrze', slug: 'bardzo-dobrze', parentId: 100401 },
+  100402: { id: 100402, name: 'Odmłądzające', slug: 'odmladzajace', parentId: 1004 },
+  1005: { id: 1005, name: 'Przyprawy', slug: 'przyprawy', parentId: 1 },
+  1006: { id: 1006, name: 'Miody', slug: 'miody', parentId: 1 },
 
   2: { id: 2, name: 'Pages', parentId: null },
 
@@ -48,7 +58,15 @@ export const initialState: State = {
   }
 };
 
-const categoryReducer = createReducer(initialState);
+const categoryReducer = createReducer(
+  initialState,
+  on(
+    fromCategoryActions.setActiveLevel,
+    (state, { id, activeLevel }): State => {
+      return { ...state, [id]: { ...state[id], activeLevel } };
+    }
+  )
+);
 
 export function reducer(state: State | undefined, action: Action) {
   return categoryReducer(state, action);

@@ -1,0 +1,11 @@
+<div class="CategoryNode" *ngIf="(categories$ | async).length">
+  <ul>
+    <li *ngFor="let category of categories$ | async">
+      <a [routerLink]="'/' + category.id + ',' + category.slug" routerLinkActive="CategoryNode-link--active">
+        {{ category.name }}
+      </a>
+
+      <rr-shop-category-node [parentId]="category.id"></rr-shop-category-node>
+    </li>
+  </ul>
+</div>

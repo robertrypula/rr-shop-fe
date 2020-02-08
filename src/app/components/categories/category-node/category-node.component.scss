@@ -1,0 +1,54 @@
+@import 'configs-and-mixins';
+
+.CategoryNode {
+  ul,
+  li {
+    display: block;
+    list-style: none;
+  }
+
+  li {
+    padding-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+    &:after,
+    &:before {
+      display: block;
+      content: '';
+      position: absolute;
+    }
+    &:after {
+      top: 1px;
+      left: 6px;
+      width: 0;
+      height: 0;
+      transform: scale(1, 0.5);
+      border: solid transparent 7px;
+      border-left-color: $a-color;
+    }
+    &:before {
+      top: 7px;
+      left: 0;
+      width: 7px;
+      height: 2px;
+      background-color: #8bbf4e;
+    }
+    ul {
+      padding-top: 8px;
+    }
+  }
+
+  a {
+    display: block;
+    color: $categories-color-default;
+    font-size: $categories-font-size;
+
+    &.CategoryNode-link--active {
+      color: $categories-color-active;
+    }
+
+    &:hover {
+      color: $categories-color-hover;
+    }
+  }
+}

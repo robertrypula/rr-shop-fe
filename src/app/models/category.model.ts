@@ -11,6 +11,6 @@ export interface Category {
   structuralNode?: StructuralNode;
   slug?: string;
   content?: string;
-  childrenIds?: number[];
   parentId: number;
+  activeLevel?: number;
 }

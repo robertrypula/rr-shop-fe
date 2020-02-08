@@ -16,7 +16,7 @@ export const selectBasketSimpleEntries = createSelector(
 
 export const selectBasketSimpleEntryByProductId = createSelector(
   selectBasketSimpleEntries,
-  (basketSimpleEntries: BasketSimpleEntry[], props: { productId: number }) =>
+  (basketSimpleEntries: BasketSimpleEntry[], props: { productId: number }): BasketSimpleEntry =>
     basketSimpleEntries.find(
       (basketSimpleEntry: BasketSimpleEntry): boolean => basketSimpleEntry.productId === props.productId
     )

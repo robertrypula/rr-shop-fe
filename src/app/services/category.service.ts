@@ -82,6 +82,7 @@ export class CategoryService {
     const categoriesWithActiveLevel: Category[] = this.categoryFacadeService.getCategoriesWithActiveLevel();
     const categoriesFromLeafToRoot: Category[] = this.getCategoriesFromLeafToRoot(id);
 
+    // TODO make it single change in the store (like batch update to reduce number of actions to 1)
     categoriesWithActiveLevel.forEach((categoryWithActiveLevel: Category): void => {
       this.categoryFacadeService.setActiveLevel(categoryWithActiveLevel.id, null);
     });

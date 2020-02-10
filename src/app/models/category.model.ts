@@ -20,4 +20,3 @@ export interface CategorySetActiveLevel {
   id: number;
   activeLevel: number;
 }
-

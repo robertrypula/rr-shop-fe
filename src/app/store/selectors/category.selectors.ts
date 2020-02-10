@@ -15,6 +15,29 @@ export const selectActiveCategory = createSelector(
   }
 );
 
+const findChildren = (categories: Category[], parentId: number, result: Category[]): void => {
+  const children: Category[] = categories.filter((category: Category): boolean => category.parentId === parentId);
+
+  children.forEach((child: Category): void => {
+    result.push(child);
+    findChildren(categories, child.id, result);
+  });
+};
+
+export const selectActiveCategoryAndItsChildren = createSelector(
+  selectCategoryFeature,
+  selectActiveCategory,
+  (categoryFeature: fromCategoryReducers.State, activeCategory: Category): Category[] => {
+    const categories: Category[] = Object.keys(categoryFeature).map((key: string): Category => categoryFeature[key]);
+    const result: Category[] = [];
+
+    result.push(activeCategory);
+    findChildren(categories, activeCategory.id, result);
+
+    return result;
+  }
+);
+
 export const selectCategory = createSelector(
   selectCategoryFeature,
   (categoryFeature: fromCategoryReducers.State, props: { id: number; structuralNode: StructuralNode }): Category => {

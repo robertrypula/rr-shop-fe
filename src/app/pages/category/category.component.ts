@@ -13,11 +13,11 @@ import { Category } from '../../models/category.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryComponent implements OnInit {
-  public productsFromActiveCategory$: Observable<Product[]>;
+  public productsFromActiveCategoryAndItsChildren$: Observable<Product[]>;
   public activeCategory$: Observable<Category>;
 
   public constructor(protected productService: ProductService, protected categoryService: CategoryService) {
-    this.productsFromActiveCategory$ = productService.productsFromActiveCategory$();
+    this.productsFromActiveCategoryAndItsChildren$ = productService.productsFromActiveCategoryAndItsChildren$();
     this.activeCategory$ = categoryService.activeCategory$();
   }
 

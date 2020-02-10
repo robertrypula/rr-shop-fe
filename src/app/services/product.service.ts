@@ -14,7 +14,7 @@ export class ProductService {
     return this.productFacadeService.productsByCategoryId$(categoryId);
   }
 
-  public productsFromActiveCategory$(): Observable<Product[]> {
-    return this.productFacadeService.productsFromActiveCategory$();
+  public productsFromActiveCategoryAndItsChildren$(): Observable<Product[]> {
+    return this.productFacadeService.productsFromActiveCategoryAndItsChildren$();
   }
 }

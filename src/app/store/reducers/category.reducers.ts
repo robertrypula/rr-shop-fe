@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromCategoryActions from '../actions/category.actions';
-import { Category, StructuralNode } from '../../models/category.model';
+import { Category, CategorySetActiveLevel, StructuralNode } from '../../models/category.model';
 
 export interface State {
   [id: number]: Category;
@@ -47,7 +47,25 @@ export const initialState: State = {
   122: { id: 122, name: 'Polityka prywatności', slug: 'polityka-prywatnosci', parentId: 12 },
 
   13: { id: 13, name: 'O formie', parentId: 10, isUnAccessible: true },
-  130: { id: 130, name: 'Informacje o firmie', slug: 'informacje-o-firmie', parentId: 13 },
+  130: {
+    id: 130,
+    name: 'Informacje o firmie',
+    slug: 'informacje-o-firmie',
+    parentId: 13,
+    content: `
+      <p>
+        Nasza firma jest bardzo fajna choć jest na rynku od niedawna. Zalety:
+      </p>
+      <ul>
+        <li>Szybko</li>
+        <li>Sprawnie</li>
+        <li>Świetnie</li>
+      </ul>
+      <p>
+        Zapraszamy do zakupów
+      </p>
+    `
+  },
   131: { id: 131, name: 'Opinie klientów', slug: 'opinie-klientow', parentId: 13 },
   132: { id: 132, name: 'Kontakt', slug: 'kontakt', parentId: 13 },
 
@@ -64,8 +82,17 @@ const categoryReducer = createReducer(
   initialState,
   on(
     fromCategoryActions.setActiveLevel,
-    (state, { id, activeLevel }): State => {
-      return { ...state, [id]: { ...state[id], activeLevel } };
+    (state, { categorySetActiveLevels }): State => {
+      const newState: State = {};
+
+      categorySetActiveLevels.forEach((categorySetActiveLevel: CategorySetActiveLevel): void => {
+        newState[categorySetActiveLevel.id] = {
+          ...state[categorySetActiveLevel.id],
+          activeLevel: categorySetActiveLevel.activeLevel
+        };
+      });
+
+      return { ...state, ...newState };
     }
   )
 );

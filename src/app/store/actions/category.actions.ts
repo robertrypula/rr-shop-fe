@@ -1,3 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 
-export const setActiveLevel = createAction('[Category] Set active level', props<{ id: number; activeLevel: number }>());
+import { CategorySetActiveLevel } from '../../models/category.model';
+
+export const setActiveLevel = createAction(
+  '[Category] Set active level',
+  props<{ categorySetActiveLevels: CategorySetActiveLevel[] }>()
+);

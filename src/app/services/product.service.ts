@@ -13,4 +13,8 @@ export class ProductService {
   public productsByCategoryId$(categoryId: number): Observable<Product[]> {
     return this.productFacadeService.productsByCategoryId$(categoryId);
   }
+
+  public productsFromActiveCategory$(): Observable<Product[]> {
+    return this.productFacadeService.productsFromActiveCategory$();
+  }
 }

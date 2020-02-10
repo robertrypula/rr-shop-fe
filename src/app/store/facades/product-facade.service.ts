@@ -15,4 +15,8 @@ export class ProductFacadeService {
   public productsByCategoryId$(categoryId: number): Observable<Product[]> {
     return this.store.pipe(select(fromSelectors.selectProducts, { categoryId }));
   }
+
+  public productsFromActiveCategory$(): Observable<Product[]> {
+    return this.store.pipe(select(fromSelectors.selectProductsFromActiveCategory));
+  }
 }

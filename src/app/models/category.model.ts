@@ -15,3 +15,9 @@ export interface Category {
   activeLevel?: number;
   isUnAccessible?: boolean;
 }
+
+export interface CategorySetActiveLevel {
+  id: number;
+  activeLevel: number;
+}
+

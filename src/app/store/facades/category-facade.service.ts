@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 
 import * as fromCategoryActions from '../actions/category.actions';
 import * as fromCategorySelectors from '../selectors/category.selectors';
-import { Category, StructuralNode } from '../../models/category.model';
+import { Category, CategorySetActiveLevel, StructuralNode } from '../../models/category.model';
 import { State } from '../reducers';
 import { map, take, tap } from 'rxjs/operators';
 
@@ -16,6 +16,10 @@ export class CategoryFacadeService {
 
   public constructor(protected store: Store<State>) {
     this.categoriesWithActiveLevelSorted$ = this.getCategoriesWithActiveLevelSorted$();
+  }
+
+  public activeCategory$(): Observable<Category> {
+    return this.store.pipe(select(fromCategorySelectors.selectActiveCategory));
   }
 
   public categoryByStructuralNode$(structuralNode: StructuralNode): Observable<Category> {
@@ -66,8 +70,8 @@ export class CategoryFacadeService {
     return result;
   }
 
-  public setActiveLevel(id: number, activeLevel: number): void {
-    this.store.dispatch(fromCategoryActions.setActiveLevel({ id, activeLevel }));
+  public setActiveLevel(categorySetActiveLevels: CategorySetActiveLevel[]): void {
+    this.store.dispatch(fromCategoryActions.setActiveLevel({ categorySetActiveLevels }));
   }
 
   public getCategoriesWithActiveLevelSorted$(): Observable<Category[]> {

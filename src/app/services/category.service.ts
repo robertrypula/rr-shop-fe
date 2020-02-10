@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 
-import { Product } from '../models/product.model';
-import { ProductService } from './product.service';
 import { ViewportService } from './viewport.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Device } from '../models/viewport.model';
 import { CategoryFacadeService } from '../store/facades/category-facade.service';
-import { Category, StructuralNode } from '../models/category.model';
-import { getCategoryId } from '../utils/routing.util';
+import { Category, CategorySetActiveLevel, StructuralNode } from '../models/category.model';
 import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../config/config';
 
 @Injectable({
@@ -22,12 +19,15 @@ export class CategoryService {
   protected isCollapsedSubject$: Subject<boolean> = new BehaviorSubject(false);
 
   public constructor(
-    protected productService: ProductService,
     protected categoryFacadeService: CategoryFacadeService,
     protected viewportService: ViewportService
   ) {
     this.categoriesWithActiveLevelSorted$ = categoryFacadeService.categoriesWithActiveLevelSorted$;
     this.setupObservables();
+  }
+
+  public activeCategory$(): Observable<Category> {
+    return this.categoryFacadeService.activeCategory$();
   }
 
   public categoryByStructuralNode$(structuralNode: StructuralNode): Observable<Category> {
@@ -74,21 +74,19 @@ export class CategoryService {
     return categoriesFromLeafToRoot;
   }
 
-  public productsByCategoryIdWithSlug$(categoryIdWithSlug: string): Observable<Product[]> {
-    return this.productService.productsByCategoryId$(getCategoryId(categoryIdWithSlug));
-  }
-
   public setActiveCategory(id: number): void {
     const categoriesWithActiveLevel: Category[] = this.categoryFacadeService.getCategoriesWithActiveLevel();
     const categoriesFromLeafToRoot: Category[] = this.getCategoriesFromLeafToRoot(id);
+    const categorySetActiveLevels: CategorySetActiveLevel[] = [];
 
-    // TODO make it single change in the store (like batch update to reduce number of actions to 1)
     categoriesWithActiveLevel.forEach((categoryWithActiveLevel: Category): void => {
-      this.categoryFacadeService.setActiveLevel(categoryWithActiveLevel.id, null);
+      categorySetActiveLevels.push({ id: categoryWithActiveLevel.id, activeLevel: null });
     });
     categoriesFromLeafToRoot.forEach((categoryWithActiveLevel: Category, index: number): void => {
-      this.categoryFacadeService.setActiveLevel(categoryWithActiveLevel.id, index + 1);
+      categorySetActiveLevels.push({ id: categoryWithActiveLevel.id, activeLevel: index + 1 });
     });
+
+    this.categoryFacadeService.setActiveLevel(categorySetActiveLevels);
   }
 
   protected setupObservables(): void {

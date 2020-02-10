@@ -1,21 +1,15 @@
-<ng-container
-  *ngTemplateOutlet="
-    template;
-    context: {
-      products: products$ | async
-    }
-  "
-></ng-container>
-<ng-template #template let-products="products">
-  <div class="Category">
-    <h2 class="margin-bottom">Kategoria nazwa blabla</h2>
+<div class="Category">
+  <h2 class="margin-bottom">
+    {{ (activeCategory$ | async).name }}
+  </h2>
 
-    <div class="row">
-      <rr-shop-product-box-compact
-        *ngFor="let product of products; trackBy: trackBy"
-        [product]="product"
-        class="col-xxs-12 col-sm-6 col-md-4 margin-bottom"
-      ></rr-shop-product-box-compact>
-    </div>
+  <div [innerHTML]="(activeCategory$ | async).content"></div>
+
+  <div class="row">
+    <rr-shop-product-box-compact
+      *ngFor="let product of productsFromActiveCategory$ | async; trackBy: trackBy"
+      [product]="product"
+      class="col-xxs-12 col-sm-6 col-md-4 margin-bottom"
+    ></rr-shop-product-box-compact>
   </div>
-</ng-template>
+</div>

@@ -74,6 +74,10 @@ export class CategoryService {
     return categoriesFromLeafToRoot;
   }
 
+  public loadCategories(): void {
+    this.categoryFacadeService.loadCategories();
+  }
+
   public setActiveCategory(id: number): void {
     const categoriesWithActiveLevel: Category[] = this.categoryFacadeService.getCategoriesWithActiveLevel();
     const categoriesFromLeafToRoot: Category[] = this.getCategoriesFromLeafToRoot(id);

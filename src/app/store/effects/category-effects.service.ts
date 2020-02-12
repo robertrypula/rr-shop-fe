@@ -1,23 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, of } from 'rxjs';
-import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-import { effectTest, setActiveLevel } from '../actions/category.actions';
+import { catchError, map, mergeMap } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { of } from 'rxjs';
+
+import { categoriesFailure, categoriesRequest, categoriesSuccess } from '../actions/category.actions';
+import { ApiCategoryService } from '../../api-services/api-category.service';
+import { Category } from '../../models/category.model';
 
 @Injectable()
 export class CategoryEffects {
-  public loadTest$ = createEffect(() =>
+  public loadCategories$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(setActiveLevel),
+      ofType(categoriesRequest),
       mergeMap(() =>
-        of([1, 2, 3]).pipe(
-          map(dataTest => effectTest({ dataTest })),
-          tap(test => console.log(test)),
-          catchError(() => EMPTY)
+        this.apiCategoryService.getCategories().pipe(
+          map((categories: Category[]) => categoriesSuccess({ categories })),
+          catchError((httpErrorResponse: HttpErrorResponse) => of(categoriesFailure({ httpErrorResponse })))
         )
       )
     )
   );
 
-  public constructor(private actions$: Actions) {}
+  public constructor(private actions$: Actions, protected apiCategoryService: ApiCategoryService) {}
 }

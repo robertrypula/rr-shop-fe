@@ -1,9 +1,9 @@
 <div class="Category">
   <h2 class="margin-bottom">
-    {{ (activeCategory$ | async).name }}
+    {{ (activeCategory$ | async)?.name }}
   </h2>
 
-  <div [innerHTML]="(activeCategory$ | async).content"></div>
+  <div [innerHTML]="(activeCategory$ | async)?.content"></div>
 
   <div class="row">
     <rr-shop-product-box-compact

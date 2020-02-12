@@ -31,11 +31,11 @@ export class CategoryFacadeService {
   }
 
   public categoriesByStructuralNode$(structuralNode: StructuralNode): Observable<Category[]> {
-    return this.store.pipe(select(fromCategorySelectors.selectCategories, { structuralNode }));
+    return this.store.pipe(select(fromCategorySelectors.selectCategoriesBy, { structuralNode }));
   }
 
   public categoriesByParentId$(parentId: number): Observable<Category[]> {
-    return this.store.pipe(select(fromCategorySelectors.selectCategories, { parentId }));
+    return this.store.pipe(select(fromCategorySelectors.selectCategoriesBy, { parentId }));
   }
 
   public getCategoriesWithActiveLevel(): Category[] {
@@ -70,10 +70,6 @@ export class CategoryFacadeService {
     return result;
   }
 
-  public setActiveLevel(categorySetActiveLevels: CategorySetActiveLevel[]): void {
-    this.store.dispatch(fromCategoryActions.setActiveLevel({ categorySetActiveLevels }));
-  }
-
   public getCategoriesWithActiveLevelSorted$(): Observable<Category[]> {
     return this.store.pipe(
       select(fromCategorySelectors.selectCategoriesWithActiveLevel),
@@ -83,5 +79,13 @@ export class CategoryFacadeService {
         );
       })
     );
+  }
+
+  public loadCategories(): void {
+    this.store.dispatch(fromCategoryActions.categoriesRequest());
+  }
+
+  public setActiveLevel(categorySetActiveLevels: CategorySetActiveLevel[]): void {
+    this.store.dispatch(fromCategoryActions.setActiveLevel({ categorySetActiveLevels }));
   }
 }

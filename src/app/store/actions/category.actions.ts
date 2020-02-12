@@ -1,16 +1,15 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 
-import { CategorySetActiveLevel } from '../../models/category.model';
+import { Category, CategorySetActiveLevel } from '../../models/category.model';
 
 export const setActiveLevel = createAction(
   '[Category] Set active level',
   props<{ categorySetActiveLevels: CategorySetActiveLevel[] }>()
 );
 
-export const effectTest = createAction('[Category] Effect test', props<{ dataTest: number[] }>());
+export const categoriesRequest = createAction('[Category] Request');
 
-/*
-REQUEST
-SUCCESS
-FAILURE
-*/
+export const categoriesSuccess = createAction('[Category] Success', props<{ categories: Category[] }>());
+
+export const categoriesFailure = createAction('[Category] Failure', props<{ httpErrorResponse: HttpErrorResponse }>());

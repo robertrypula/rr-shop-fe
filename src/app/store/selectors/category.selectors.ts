@@ -6,18 +6,22 @@ import { Category, StructuralNode } from '../../models/category.model';
 
 export const selectCategoryFeature = (state: State): fromCategoryReducers.State => state.category;
 
-export const selectActiveCategory = createSelector(
+export const selectCategories = createSelector(
   selectCategoryFeature,
-  (categoryFeature: fromCategoryReducers.State): Category => {
-    return Object.keys(categoryFeature)
-      .map((key: string): Category => categoryFeature[key])
-      .find((category: Category): boolean => category.activeLevel === 1);
+  (categoryFeature: fromCategoryReducers.State): Category[] => {
+    return Object.keys(categoryFeature.list).map((key: string): Category => categoryFeature.list[key]);
+  }
+);
+
+export const selectActiveCategory = createSelector(
+  selectCategories,
+  (categories: Category[]): Category => {
+    return categories.find((category: Category): boolean => category.activeLevel === 1);
   }
 );
 
 const findChildren = (categories: Category[], parentId: number, result: Category[]): void => {
   const children: Category[] = categories.filter((category: Category): boolean => category.parentId === parentId);
-
   children.forEach((child: Category): void => {
     result.push(child);
     findChildren(categories, child.id, result);
@@ -25,23 +29,23 @@ const findChildren = (categories: Category[], parentId: number, result: Category
 };
 
 export const selectActiveCategoryAndItsChildren = createSelector(
-  selectCategoryFeature,
+  selectCategories,
   selectActiveCategory,
-  (categoryFeature: fromCategoryReducers.State, activeCategory: Category): Category[] => {
-    const categories: Category[] = Object.keys(categoryFeature).map((key: string): Category => categoryFeature[key]);
+  (categories: Category[], activeCategory: Category): Category[] => {
     const result: Category[] = [];
 
-    result.push(activeCategory);
-    findChildren(categories, activeCategory.id, result);
+    if (activeCategory) {
+      result.push(activeCategory);
+      findChildren(categories, activeCategory.id, result);
+    }
 
     return result;
   }
 );
 
 export const selectCategory = createSelector(
-  selectCategoryFeature,
-  (categoryFeature: fromCategoryReducers.State, props: { id: number; structuralNode: StructuralNode }): Category => {
-    const categories: Category[] = Object.keys(categoryFeature).map((key: string): Category => categoryFeature[key]);
+  selectCategories,
+  (categories: Category[], props: { id: number; structuralNode: StructuralNode }): Category => {
     let foundCategory: Category = null;
 
     if (props) {
@@ -58,13 +62,9 @@ export const selectCategory = createSelector(
   }
 );
 
-export const selectCategories = createSelector(
-  selectCategoryFeature,
-  (
-    categoryFeature: fromCategoryReducers.State,
-    props: { parentId: number; structuralNode: StructuralNode }
-  ): Category[] => {
-    const categories: Category[] = Object.keys(categoryFeature).map((key: string): Category => categoryFeature[key]);
+export const selectCategoriesBy = createSelector(
+  selectCategories,
+  (categories: Category[], props: { parentId: number; structuralNode: StructuralNode }): Category[] => {
     let parentId: number = null;
 
     if (props) {
@@ -83,10 +83,8 @@ export const selectCategories = createSelector(
 );
 
 export const selectCategoriesWithActiveLevel = createSelector(
-  selectCategoryFeature,
-  (categoryFeature: fromCategoryReducers.State): Category[] => {
-    return Object.keys(categoryFeature)
-      .map((key: string): Category => categoryFeature[key])
-      .filter((category: Category): boolean => !!category.activeLevel);
+  selectCategories,
+  (categories: Category[]): Category[] => {
+    return categories.filter((category: Category): boolean => !!category.activeLevel);
   }
 );

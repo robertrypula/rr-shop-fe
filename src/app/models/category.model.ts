@@ -1,3 +1,13 @@
+export interface CategoryDto {
+  content?: string;
+  id: number;
+  isUnAccessible?: boolean;
+  name: string;
+  parentId: number;
+  slug?: string;
+  structuralNode?: StructuralNode;
+}
+
 export enum StructuralNode {
   Footer = 'Footer',
   FooterMap = 'FooterMap',
@@ -6,17 +16,17 @@ export enum StructuralNode {
 }
 
 export interface Category {
-  id: number;
-  name: string;
-  structuralNode?: StructuralNode;
-  slug?: string;
-  content?: string;
-  parentId: number;
   activeLevel?: number;
+  content?: string;
+  id: number;
   isUnAccessible?: boolean;
+  name: string;
+  parentId: number;
+  slug?: string;
+  structuralNode?: StructuralNode;
 }
 
 export interface CategorySetActiveLevel {
-  id: number;
   activeLevel: number;
+  id: number;
 }

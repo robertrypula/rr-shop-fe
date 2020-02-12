@@ -27,6 +27,7 @@ export class RootComponent {
     protected viewportService: ViewportService
   ) {
     this.handleRouteEvents();
+    this.categoryService.loadCategories();
   }
 
   protected handleRouteEvents(): void {

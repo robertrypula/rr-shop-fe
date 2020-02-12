@@ -6,3 +6,11 @@ export const setActiveLevel = createAction(
   '[Category] Set active level',
   props<{ categorySetActiveLevels: CategorySetActiveLevel[] }>()
 );
+
+export const effectTest = createAction('[Category] Effect test', props<{ dataTest: number[] }>());
+
+/*
+REQUEST
+SUCCESS
+FAILURE
+*/

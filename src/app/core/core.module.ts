@@ -6,6 +6,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CategoryEffects } from '../store/effects/category-effects.service';
 import { metaReducers, reducers } from '../store/reducers';
 import { environment } from '../../environments/environment';
+import { NgrxRouterStoreModule } from '../router-store.module';
 
 @NgModule({
   declarations: [],
@@ -21,7 +22,8 @@ import { environment } from '../../environments/environment';
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production
-    })
+    }),
+    NgrxRouterStoreModule
   ]
 })
 export class CoreModule {}

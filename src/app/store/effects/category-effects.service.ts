@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 
@@ -13,12 +13,12 @@ export class CategoryEffects {
   public loadCategories$ = createEffect(() =>
     this.actions$.pipe(
       ofType(categoriesRequest),
-      mergeMap(() =>
-        this.apiCategoryService.getCategories().pipe(
-          map((categories: Category[]) => categoriesSuccess({ categories })),
-          catchError((httpErrorResponse: HttpErrorResponse) => of(categoriesFailure({ httpErrorResponse })))
-        )
-      )
+      switchMap(() => this.apiCategoryService.getCategories()),
+      switchMap((categories: Category[]) => [
+        categoriesSuccess({ categories }),
+        // setA
+      ]),
+      catchError((httpErrorResponse: HttpErrorResponse) => of(categoriesFailure({ httpErrorResponse })))
     )
   );
 

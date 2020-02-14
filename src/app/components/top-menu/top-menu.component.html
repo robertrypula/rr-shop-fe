@@ -1,4 +1,6 @@
 <div class="TopMenu">
+  <strong>{{ url$ | async | json }}</strong>
+
   <ul *ngIf="(categories$ | async).length">
     <li *ngFor="let category of categories$ | async; trackBy: trackBy">
       <a [routerLink]="'/' + category.id + ',' + category.slug" routerLinkActive="TopMenu-link--active">

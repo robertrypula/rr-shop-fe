@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category, StructuralNode } from '../../models/category.model';
 import { CategoryService } from '../../services/category.service';
+import { RouterFacadeService } from '../../store/facades/router-facade.service';
 
 @Component({
   selector: 'rr-shop-top-menu',
@@ -11,9 +12,11 @@ import { CategoryService } from '../../services/category.service';
 })
 export class TopMenuComponent implements OnInit {
   public categories$: Observable<Category[]>;
+  public url$: Observable<string>;
 
-  public constructor(protected categoryService: CategoryService) {
+  public constructor(protected categoryService: CategoryService, protected routerFacadeService: RouterFacadeService) {
     this.categories$ = this.categoryService.categoriesByStructuralNode$(StructuralNode.Header);
+    this.url$ = this.routerFacadeService.url$();
   }
 
   public ngOnInit(): void {}

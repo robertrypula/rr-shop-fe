@@ -12,7 +12,7 @@ export interface State {
   basket: fromBasket.State;
   category: fromCategory.State;
   product: fromProduct.State;
-  router: fromRouter.State;
+  [fromRouter.featureKey]: fromRouter.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -20,7 +20,7 @@ export const reducers: ActionReducerMap<State> = {
   basket: fromBasket.reducer,
   category: fromCategory.reducer,
   product: fromProduct.reducer,
-  router: fromRouter.reducer
+  [fromRouter.featureKey]: fromRouter.reducer
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];

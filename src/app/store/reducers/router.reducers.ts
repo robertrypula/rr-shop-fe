@@ -1,6 +1,9 @@
 import { Params, RouterStateSnapshot } from '@angular/router';
 import { RouterReducerState, routerReducer, RouterStateSerializer } from '@ngrx/router-store';
 import { Action } from '@ngrx/store';
+import { StoreRouterConfig } from '@ngrx/router-store/src/router_store_module';
+
+export const featureKey = 'router';
 
 export interface InnerState {
   url: string;
@@ -14,9 +17,13 @@ export function reducer(state: State | undefined, action: Action) {
   return routerReducer(state, action);
 }
 
+// -----------------------------------------------------------------------------
+
 export class CustomRouterStateSerializer implements RouterStateSerializer<InnerState> {
   public serialize(routerState: RouterStateSnapshot): InnerState {
     let route = routerState.root;
+
+    console.log(routerState);
 
     while (route.firstChild) {
       route = route.firstChild;
@@ -31,6 +38,11 @@ export class CustomRouterStateSerializer implements RouterStateSerializer<InnerS
     return { url, params, queryParams };
   }
 }
+
+export const routerStateConfig: StoreRouterConfig = {
+  stateKey: featureKey,
+  serializer: CustomRouterStateSerializer
+};
 
 /*
 export interface MergedRoute {

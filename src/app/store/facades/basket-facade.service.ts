@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { State } from '../reducers';
-import * as fromActions from '../actions/basket.actions';
-import * as fromSelectors from '../selectors/basket.selectors';
+import * as fromBasketActions from '../actions/basket.actions';
+import * as fromBasketSelectors from '../selectors/basket.selectors';
 import { Product } from '../../models/product.model';
-import { Observable } from 'rxjs';
 import { BasketEntry, BasketSimpleEntry } from '../../models/basket.model';
-import { take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +18,13 @@ export class BasketFacadeService {
   public quantityTotal$: Observable<number>;
 
   public constructor(protected store: Store<State>) {
-    this.basketEntries$ = store.pipe(select(fromSelectors.selectBasketEntries));
-    this.priceTotal$ = store.pipe(select(fromSelectors.selectPriceTotal));
-    this.quantityTotal$ = store.pipe(select(fromSelectors.selectQuantityTotal));
+    this.basketEntries$ = store.pipe(select(fromBasketSelectors.selectBasketEntries));
+    this.priceTotal$ = store.pipe(select(fromBasketSelectors.selectPriceTotal));
+    this.quantityTotal$ = store.pipe(select(fromBasketSelectors.selectQuantityTotal));
   }
 
   public add(product: Product, quantity): void {
-    this.store.dispatch(fromActions.add({ id: product.id, quantity }));
+    this.store.dispatch(fromBasketActions.add({ id: product.id, quantity }));
   }
 
   public getBasketSimpleEntryByProductId(productId: number): BasketSimpleEntry {
@@ -32,7 +32,7 @@ export class BasketFacadeService {
 
     this.store
       .pipe(
-        select(fromSelectors.selectBasketSimpleEntryByProductId, { productId }),
+        select(fromBasketSelectors.selectBasketSimpleEntryByProductId, { productId }),
         take(1),
         tap((basketSimpleEntry: BasketSimpleEntry): void => {
           result = basketSimpleEntry;
@@ -44,18 +44,18 @@ export class BasketFacadeService {
   }
 
   public quantityDecrement(id: number): void {
-    this.store.dispatch(fromActions.quantityDecrement({ id }));
+    this.store.dispatch(fromBasketActions.quantityDecrement({ id }));
   }
 
   public quantityIncrement(id: number): void {
-    this.store.dispatch(fromActions.quantityIncrement({ id }));
+    this.store.dispatch(fromBasketActions.quantityIncrement({ id }));
   }
 
   public quantitySetTo(id: number, quantity: number): void {
-    this.store.dispatch(fromActions.quantitySetTo({ id, quantity }));
+    this.store.dispatch(fromBasketActions.quantitySetTo({ id, quantity }));
   }
 
   public remove(id: number): void {
-    this.store.dispatch(fromActions.remove({ id }));
+    this.store.dispatch(fromBasketActions.remove({ id }));
   }
 }

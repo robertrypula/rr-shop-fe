@@ -19,7 +19,7 @@ export class HeaderStickyComponent implements OnInit {
 
   public constructor(protected basketService: BasketService, protected viewportService: ViewportService) {
     this.quantityTotal$ = this.basketService.quantityTotal$;
-    this.scrolledDownThatHeaderIsNotVisible$ = this.viewportService.scrolledDownThatHeaderIsNotVisible$;
+    this.scrolledDownThatHeaderIsNotVisible$ = this.viewportService.isScrolledDownThatHeaderIsNotVisible$;
   }
 
   public ngOnInit(): void {}

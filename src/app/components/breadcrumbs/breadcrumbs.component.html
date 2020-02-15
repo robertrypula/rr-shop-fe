@@ -1,10 +1,13 @@
 <div class="Breadcrumbs">
   <div class="container">
     <div class="Breadcrumbs-linksContainer">
-      <a routerLink="/" [ngClass]="{ 'Breadcrumbs-link--active': (categories$ | async).length === 0 }">
+      <a
+        routerLink="/"
+        [ngClass]="{ 'Breadcrumbs-link--active': (categoriesWithActiveLevelSorted$ | async).length === 0 }"
+      >
         Strona główna
       </a>
-      <ng-container *ngFor="let category of categories$ | async; trackBy: trackBy">
+      <ng-container *ngFor="let category of categoriesWithActiveLevelSorted$ | async; trackBy: trackBy">
         <ng-container *ngIf="category.isUnAccessible; else accessible">
           <span>
             {{ category.name }}

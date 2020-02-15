@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, concatMap, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of, EMPTY } from 'rxjs';
 
@@ -15,8 +15,9 @@ import { ApiCategoryService } from '../../api-services/api-category.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
 import { routerNavigatedAction } from '@ngrx/router-store';
 import { RouterFacadeService } from '../facades/router-facade.service';
-import { ViewportService } from '../../services/viewport.service';
-import { Device } from '../../models/viewport.model';
+import { setDevice } from '../actions/viewport.actions';
+import { ViewportFacadeService } from '../facades/viewport-facade.service';
+import { SMALL_DEVICE_DEFINITION } from '../../config/config';
 
 /*
   https://www.freecodecamp.org/news/best-practices-for-a-clean-and-performant-angular-application-288e7b39eb6f/
@@ -61,32 +62,34 @@ export class CategoryEffects {
     )
   );
 
-  // public expandOrCollapseListWhenViewportChange$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(routerNavigatedAction),
-  //     concatMap(action => of(action).pipe(withLatestFrom(this.viewportService.device$))),
-  //     tap(([action, device]) => {
-  //       console.log(action, device);
-  //     }),
-  //     map(([action, device]) =>
-  //       setIsListCollapsed({ newValue: ![Device.Mobile, Device.MobileVertical].includes(device) })
-  //     )
-  //   )
-  // );
+  public expandListOnBiggerDevices$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(setDevice),
+      mergeMap(action =>
+        !SMALL_DEVICE_DEFINITION.includes(action.newValue) ? of(setIsListCollapsed({ newValue: false })) : EMPTY
+      )
+    )
+  );
 
-  // public collapseListAfterFirstNavigation$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(routerNavigatedAction),
-  //     concatMap(action => of(action).pipe(withLatestFrom(this.routerFacadeService.navigationId$))),
-  //     map(([action, navigationID]) => (navigationID === 1 ? categoriesRequest() : { type: 'empty' }))
-  //   )
-  // );
+  public collapseListAfterFirstNavigationOnSmallerDevices$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(routerNavigatedAction),
+      concatMap(action =>
+        of(action).pipe(withLatestFrom(this.routerFacadeService.navigationId$, this.viewportFacadeService.device$))
+      ),
+      mergeMap(([action, navigationId, device]) =>
+        navigationId > 1 && SMALL_DEVICE_DEFINITION.includes(device)
+          ? of(setIsListCollapsed({ newValue: true }))
+          : EMPTY
+      )
+    )
+  );
 
   public constructor(
     private actions$: Actions,
     protected apiCategoryService: ApiCategoryService,
     protected categoryFacadeService: CategoryFacadeService,
     protected routerFacadeService: RouterFacadeService,
-    protected viewportService: ViewportService
+    protected viewportFacadeService: ViewportFacadeService
   ) {}
 }

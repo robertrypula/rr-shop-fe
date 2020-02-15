@@ -14,26 +14,42 @@ import {
   HEADER_FIXED_MOBILE_VERTICAL_THRESHOLD,
   HEADER_FIXED_TABLET_THRESHOLD
 } from '../config/config';
+import { ViewportFacadeService } from '../store/facades/viewport-facade.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ViewportService {
   public device$: Observable<Device>;
-  public scrolledDownThatHeaderIsNotVisible$: Observable<boolean>;
+  public isScrolledDownThatHeaderIsNotVisible$: Observable<boolean>;
   public viewportStatus$: Observable<ViewportStatus>;
 
   protected deviceSubject$: Subject<Device> = new Subject();
-  protected scrolledDownThatHeaderIsNotVisibleSubject$: Subject<boolean> = new Subject();
+  protected isScrolledDownThatHeaderIsNotVisibleSubject$: Subject<boolean> = new Subject();
   protected viewportStatusSubject$: Subject<ViewportStatus> = new Subject();
 
-  public constructor() {
-    this.device$ = this.deviceSubject$.asObservable().pipe(distinctUntilChanged());
-    this.scrolledDownThatHeaderIsNotVisible$ = this.scrolledDownThatHeaderIsNotVisibleSubject$
-      .asObservable()
-      .pipe(distinctUntilChanged());
+  public constructor(protected viewportFacadeService: ViewportFacadeService) {
+    this.device$ = this.viewportFacadeService.device$;
+    this.isScrolledDownThatHeaderIsNotVisible$ = viewportFacadeService.isScrolledDownThatHeaderIsNotVisible$;
     this.viewportStatus$ = this.viewportStatusSubject$.asObservable().pipe(distinctUntilChanged());
 
+    this.configureStoreActionsDispatching();
+    this.attachWindowEvents();
+  }
+
+  public getViewportStatus(): ViewportStatus {
+    const scrollTop: number = window.pageYOffset || document.documentElement.scrollTop;
+    const width: number = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    const height: number = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+    return {
+      height,
+      width,
+      scrollTop
+    };
+  }
+
+  protected attachWindowEvents(): void {
     fromEvent(window, 'scroll', { passive: true })
       .pipe(tap(this.update.bind(this)))
       .subscribe();
@@ -44,17 +60,18 @@ export class ViewportService {
     this.update();
   }
 
-  protected update(): void {
-    const viewportStatus: ViewportStatus = this.getViewportStatus();
-    const device: Device = this.getDevice(viewportStatus.width);
-    const scrolledDownThatHeaderIsNotVisible: boolean = this.getScrolledDownThatHeaderIsNotVisible(
-      viewportStatus.scrollTop,
-      device
-    );
+  protected configureStoreActionsDispatching(): void {
+    this.deviceSubject$
+      .asObservable()
+      .pipe(distinctUntilChanged())
+      .subscribe((device: Device): void => this.viewportFacadeService.setDevice(device));
 
-    this.deviceSubject$.next(device);
-    this.scrolledDownThatHeaderIsNotVisibleSubject$.next(scrolledDownThatHeaderIsNotVisible);
-    this.viewportStatusSubject$.next(viewportStatus);
+    this.isScrolledDownThatHeaderIsNotVisibleSubject$
+      .asObservable()
+      .pipe(distinctUntilChanged())
+      .subscribe((isScrolledDownThatHeaderIsNotVisible: boolean): void =>
+        this.viewportFacadeService.setIsScrolledDownThatHeaderIsNotVisible(isScrolledDownThatHeaderIsNotVisible)
+      );
   }
 
   protected getDevice(width: number): Device {
@@ -99,15 +116,16 @@ export class ViewportService {
     return result;
   }
 
-  public getViewportStatus(): ViewportStatus {
-    const scrollTop: number = window.pageYOffset || document.documentElement.scrollTop;
-    const width: number = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    const height: number = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+  protected update(): void {
+    const viewportStatus: ViewportStatus = this.getViewportStatus();
+    const device: Device = this.getDevice(viewportStatus.width);
+    const scrolledDownThatHeaderIsNotVisible: boolean = this.getScrolledDownThatHeaderIsNotVisible(
+      viewportStatus.scrollTop,
+      device
+    );
 
-    return {
-      height,
-      width,
-      scrollTop
-    };
+    this.deviceSubject$.next(device);
+    this.isScrolledDownThatHeaderIsNotVisibleSubject$.next(scrolledDownThatHeaderIsNotVisible);
+    this.viewportStatusSubject$.next(viewportStatus);
   }
 }

@@ -1,4 +1,5 @@
 import { StructuralNode } from '../models/category.model';
+import { Device } from '../models/viewport.model';
 
 export const CURRENCY = 'zł'; // TODO make it dynamic in future
 export const CLOUD_HIDE_DELAY = 2000;
@@ -23,3 +24,5 @@ export const BREADCRUMBS_STRUCTURAL_NODES_LIMIT = [
   StructuralNode.Header,
   StructuralNode.ShopCategories
 ];
+
+export const SMALL_DEVICE_DEFINITION = [Device.MobileVertical, Device.Mobile];

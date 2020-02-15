@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { State } from '../reducers';
 import { Product } from '../../models/product.model';
-import * as fromSelectors from '../selectors/product.selectors';
+import * as fromProductSelectors from '../selectors/product.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +13,10 @@ export class ProductFacadeService {
   public constructor(protected store: Store<State>) {}
 
   public productsByCategoryId$(categoryId: number): Observable<Product[]> {
-    return this.store.pipe(select(fromSelectors.selectProducts, { categoryId }));
+    return this.store.pipe(select(fromProductSelectors.selectProducts, { categoryId }));
   }
 
   public productsFromActiveCategoryAndItsChildren$(): Observable<Product[]> {
-    return this.store.pipe(select(fromSelectors.selectProductsFromActiveCategoryAndItsChildren));
+    return this.store.pipe(select(fromProductSelectors.selectProductsFromActiveCategoryAndItsChildren));
   }
 }

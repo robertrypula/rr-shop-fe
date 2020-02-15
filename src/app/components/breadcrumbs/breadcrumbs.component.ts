@@ -11,10 +11,10 @@ import { Category } from '../../models/category.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbsComponent implements OnInit {
-  public categories$: Observable<Category[]>;
+  public categoriesWithActiveLevelSorted$: Observable<Category[]>;
 
   public constructor(protected categoryService: CategoryService) {
-    this.categories$ = categoryService.categoriesWithActiveLevelSorted$;
+    this.categoriesWithActiveLevelSorted$ = categoryService.categoriesWithActiveLevelSorted$;
   }
 
   public ngOnInit(): void {}

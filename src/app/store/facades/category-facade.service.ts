@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
+import { map, take, tap } from 'rxjs/operators';
 
 import * as fromCategoryActions from '../actions/category.actions';
 import * as fromCategorySelectors from '../selectors/category.selectors';
 import { Category, ActiveLevelUpdateEntry, StructuralNode } from '../../models/category.model';
 import { State } from '../reducers';
-import { map, take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,7 @@ import { map, take, tap } from 'rxjs/operators';
 export class CategoryFacadeService {
   public activeLevelUpdateEntriesBasedOnRoute$: Observable<ActiveLevelUpdateEntry[]>;
   public categoriesWithActiveLevelSorted$: Observable<Category[]>;
+  public isCollapseExpandButtonVisible$: Observable<boolean>;
   public isListCollapsed$: Observable<boolean>;
 
   public constructor(protected store: Store<State>) {
@@ -21,6 +22,9 @@ export class CategoryFacadeService {
       select(fromCategorySelectors.selectActiveLevelUpdateEntriesBasedOnRoute)
     );
     this.categoriesWithActiveLevelSorted$ = this.getCategoriesWithActiveLevelSorted$();
+    this.isCollapseExpandButtonVisible$ = this.store.pipe(
+      select(fromCategorySelectors.selectIsCollapseExpandButtonVisible)
+    );
     this.isListCollapsed$ = this.store.pipe(select(fromCategorySelectors.selectIsListCollapsed));
   }
 

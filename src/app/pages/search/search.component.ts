@@ -11,7 +11,7 @@ import { ViewportService } from '../../services/viewport.service';
 export class SearchComponent implements OnInit {
   public constructor(public viewportService: ViewportService) {
     viewportService.device$.subscribe(d => console.log(d));
-    viewportService.scrolledDownThatHeaderIsNotVisible$.subscribe(d => console.log(d));
+    viewportService.isScrolledDownThatHeaderIsNotVisible$.subscribe(d => console.log(d));
     // viewportService.viewportStatus$.subscribe(d => console.log(d));
   }
 

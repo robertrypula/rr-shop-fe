@@ -15,6 +15,11 @@ export enum StructuralNode {
   ShopCategories = 'ShopCategories'
 }
 
+export interface ActiveLevelUpdateEntry {
+  activeLevel: number;
+  id: number;
+}
+
 export interface Category {
   activeLevel?: number;
   content?: string;
@@ -24,9 +29,4 @@ export interface Category {
   parentId: number;
   slug?: string;
   structuralNode?: StructuralNode;
-}
-
-export interface CategorySetActiveLevel {
-  activeLevel: number;
-  id: number;
 }

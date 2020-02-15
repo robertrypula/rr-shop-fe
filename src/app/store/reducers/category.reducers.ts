@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromCategoryActions from '../actions/category.actions';
-import { Category, CategorySetActiveLevel } from '../../models/category.model';
+import { Category, ActiveLevelUpdateEntry } from '../../models/category.model';
 
 export interface State {
   list: {
@@ -29,10 +29,10 @@ const categoryReducer = createReducer(
   ),
   on(
     fromCategoryActions.setActiveLevel,
-    (state: State, { categorySetActiveLevels }): State => {
+    (state: State, { activeLevelUpdateEntries }): State => {
       const newState: State = { ...state, list: { ...state.list } };
 
-      categorySetActiveLevels.forEach((categorySetActiveLevel: CategorySetActiveLevel): void => {
+      activeLevelUpdateEntries.forEach((categorySetActiveLevel: ActiveLevelUpdateEntry): void => {
         newState.list[categorySetActiveLevel.id] = {
           ...state.list[categorySetActiveLevel.id],
           activeLevel: categorySetActiveLevel.activeLevel

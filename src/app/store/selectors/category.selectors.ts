@@ -2,41 +2,108 @@ import { createSelector } from '@ngrx/store';
 
 import { State } from '../reducers';
 import * as fromCategoryReducers from '../reducers/category.reducers';
-import { Category, StructuralNode } from '../../models/category.model';
+import { ActiveLevelUpdateEntry, Category, StructuralNode } from '../../models/category.model';
+import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../../config/config';
+import { selectUrl } from './router.selectors';
+import { getCategoryId } from '../../utils/routing.util';
 
 export const selectCategoryFeature = (state: State): fromCategoryReducers.State => state.category;
 
-export const selectCategories = createSelector(
+export const selectCategoriesAsArray = createSelector(
   selectCategoryFeature,
   (categoryFeature: fromCategoryReducers.State): Category[] => {
     return Object.keys(categoryFeature.list).map((key: string): Category => categoryFeature.list[key]);
   }
 );
 
-export const selectActiveCategory = createSelector(
-  selectCategories,
-  (categories: Category[]): Category => {
-    return categories.find((category: Category): boolean => category.activeLevel === 1);
+export const selectCategoriesAsKeyValue = createSelector(
+  selectCategoryFeature,
+  (categoryFeature: fromCategoryReducers.State): { [id: number]: Category } => {
+    return categoryFeature.list;
   }
 );
 
-const findChildren = (categories: Category[], parentId: number, result: Category[]): void => {
-  const children: Category[] = categories.filter((category: Category): boolean => category.parentId === parentId);
+export const selectActiveCategory = createSelector(
+  selectCategoriesAsArray,
+  (categoriesAsArray: Category[]): Category => {
+    return categoriesAsArray.find((category: Category): boolean => category.activeLevel === 1);
+  }
+);
+
+export const getCategoriesFromLeafToRoot = (
+  categoriesAsKeyValue: { [key: string]: Category },
+  leafId: number,
+  structuralNodeLimit: StructuralNode[] = BREADCRUMBS_STRUCTURAL_NODES_LIMIT
+): Category[] => {
+  const categoriesFromLeafToRoot: Category[] = [];
+  let category: Category;
+  let id: number = leafId;
+
+  while (true) {
+    category = categoriesAsKeyValue[id];
+    if (!category || structuralNodeLimit.includes(category.structuralNode)) {
+      break;
+    }
+    categoriesFromLeafToRoot.push(category);
+    id = category.parentId;
+  }
+
+  return categoriesFromLeafToRoot;
+};
+
+export const selectActiveCategoryId = createSelector(selectUrl, (url: string): number => {
+  return getCategoryId(url); // TODO get category id also from product route
+});
+
+export const selectCategoriesWithActiveLevel = createSelector(
+  selectCategoriesAsArray,
+  (categoriesAsArray: Category[]): Category[] => {
+    return categoriesAsArray.filter((category: Category): boolean => !!category.activeLevel);
+  }
+);
+
+export const selectActiveLevelUpdateEntriesBasedOnRoute = createSelector(
+  selectActiveCategoryId,
+  selectCategoriesWithActiveLevel,
+  selectCategoriesAsKeyValue,
+  (
+    activeCategoryId: number,
+    categoriesWithActiveLevel: Category[],
+    categoriesAsKeyValue: { [key: string]: Category }
+  ): ActiveLevelUpdateEntry[] => {
+    const categoriesFromLeafToRoot: Category[] = getCategoriesFromLeafToRoot(categoriesAsKeyValue, activeCategoryId);
+    const result: ActiveLevelUpdateEntry[] = [];
+
+    categoriesWithActiveLevel.forEach((categoryWithActiveLevel: Category): void => {
+      result.push({ id: categoryWithActiveLevel.id, activeLevel: null });
+    });
+    categoriesFromLeafToRoot.forEach((categoryWithActiveLevel: Category, index: number): void => {
+      result.push({ id: categoryWithActiveLevel.id, activeLevel: index + 1 });
+    });
+
+    return result;
+  }
+);
+
+const findChildren = (categoriesAsArray: Category[], parentId: number, result: Category[]): void => {
+  const children: Category[] = categoriesAsArray.filter(
+    (category: Category): boolean => category.parentId === parentId
+  );
   children.forEach((child: Category): void => {
     result.push(child);
-    findChildren(categories, child.id, result);
+    findChildren(categoriesAsArray, child.id, result);
   });
 };
 
 export const selectActiveCategoryAndItsChildren = createSelector(
-  selectCategories,
+  selectCategoriesAsArray,
   selectActiveCategory,
-  (categories: Category[], activeCategory: Category): Category[] => {
+  (categoriesAsArray: Category[], activeCategory: Category): Category[] => {
     const result: Category[] = [];
 
     if (activeCategory) {
       result.push(activeCategory);
-      findChildren(categories, activeCategory.id, result);
+      findChildren(categoriesAsArray, activeCategory.id, result);
     }
 
     return result;
@@ -44,17 +111,17 @@ export const selectActiveCategoryAndItsChildren = createSelector(
 );
 
 export const selectCategory = createSelector(
-  selectCategories,
-  (categories: Category[], props: { id: number; structuralNode: StructuralNode }): Category => {
+  selectCategoriesAsArray,
+  (categoriesAsArray: Category[], props: { id: number; structuralNode: StructuralNode }): Category => {
     let foundCategory: Category = null;
 
     if (props) {
       if (props.structuralNode) {
-        foundCategory = categories.find(
+        foundCategory = categoriesAsArray.find(
           (category: Category): boolean => category.structuralNode === props.structuralNode
         );
       } else if (props.id) {
-        foundCategory = categories.find((category: Category): boolean => category.id === props.id);
+        foundCategory = categoriesAsArray.find((category: Category): boolean => category.id === props.id);
       }
     }
 
@@ -63,13 +130,13 @@ export const selectCategory = createSelector(
 );
 
 export const selectCategoriesBy = createSelector(
-  selectCategories,
-  (categories: Category[], props: { parentId: number; structuralNode: StructuralNode }): Category[] => {
+  selectCategoriesAsArray,
+  (categoriesAsArray: Category[], props: { parentId: number; structuralNode: StructuralNode }): Category[] => {
     let parentId: number = null;
 
     if (props) {
       if (props.structuralNode) {
-        const structuralNodeCategory: Category = categories.find(
+        const structuralNodeCategory: Category = categoriesAsArray.find(
           (category: Category): boolean => category.structuralNode === props.structuralNode
         );
         parentId = structuralNodeCategory ? structuralNodeCategory.id : null;
@@ -78,13 +145,8 @@ export const selectCategoriesBy = createSelector(
       }
     }
 
-    return props ? categories.filter((category: Category): boolean => category.parentId === parentId) : categories;
-  }
-);
-
-export const selectCategoriesWithActiveLevel = createSelector(
-  selectCategories,
-  (categories: Category[]): Category[] => {
-    return categories.filter((category: Category): boolean => !!category.activeLevel);
+    return props
+      ? categoriesAsArray.filter((category: Category): boolean => category.parentId === parentId)
+      : categoriesAsArray;
   }
 );

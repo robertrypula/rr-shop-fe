@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 
 import * as fromCategoryActions from '../actions/category.actions';
 import * as fromCategorySelectors from '../selectors/category.selectors';
-import { Category, CategorySetActiveLevel, StructuralNode } from '../../models/category.model';
+import { Category, ActiveLevelUpdateEntry, StructuralNode } from '../../models/category.model';
 import { State } from '../reducers';
 import { map, take, tap } from 'rxjs/operators';
 
@@ -12,9 +12,14 @@ import { map, take, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CategoryFacadeService {
+  public activeLevelUpdateEntriesBasedOnRoute$: Observable<ActiveLevelUpdateEntry[]>;
   public categoriesWithActiveLevelSorted$: Observable<Category[]>;
 
   public constructor(protected store: Store<State>) {
+    this.activeLevelUpdateEntriesBasedOnRoute$ = this.store.pipe(
+      select(fromCategorySelectors.selectActiveLevelUpdateEntriesBasedOnRoute)
+    );
+    this.activeLevelUpdateEntriesBasedOnRoute$.subscribe();
     this.categoriesWithActiveLevelSorted$ = this.getCategoriesWithActiveLevelSorted$();
   }
 
@@ -38,22 +43,6 @@ export class CategoryFacadeService {
     return this.store.pipe(select(fromCategorySelectors.selectCategoriesBy, { parentId }));
   }
 
-  public getCategoriesWithActiveLevel(): Category[] {
-    let result: Category[] = [];
-
-    this.store
-      .pipe(
-        select(fromCategorySelectors.selectCategoriesWithActiveLevel),
-        take(1),
-        tap((categories: Category[]): void => {
-          result = categories;
-        })
-      )
-      .subscribe();
-
-    return result;
-  }
-
   public getCategoryById(id: number): Category {
     let result: Category = null;
 
@@ -63,6 +52,22 @@ export class CategoryFacadeService {
         take(1),
         tap((category: Category): void => {
           result = category;
+        })
+      )
+      .subscribe();
+
+    return result;
+  }
+
+  public getActiveLevelUpdateEntriesBasedOnRoute(): ActiveLevelUpdateEntry[] {
+    let result: ActiveLevelUpdateEntry[] = [];
+
+    this.store
+      .pipe(
+        select(fromCategorySelectors.selectActiveLevelUpdateEntriesBasedOnRoute),
+        take(1),
+        tap((activeLevelUpdateEntries: ActiveLevelUpdateEntry[]): void => {
+          result = activeLevelUpdateEntries;
         })
       )
       .subscribe();
@@ -85,7 +90,7 @@ export class CategoryFacadeService {
     this.store.dispatch(fromCategoryActions.categoriesRequest());
   }
 
-  public setActiveLevel(categorySetActiveLevels: CategorySetActiveLevel[]): void {
-    this.store.dispatch(fromCategoryActions.setActiveLevel({ categorySetActiveLevels }));
+  public setActiveLevel(activeLevelUpdateEntries: ActiveLevelUpdateEntry[]): void {
+    this.store.dispatch(fromCategoryActions.setActiveLevel({ activeLevelUpdateEntries }));
   }
 }

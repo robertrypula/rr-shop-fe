@@ -1,4 +1,5 @@
 <div class="TopMenu">
+  <strong>{{ activeLevelUpdateEntriesBasedOnRoute$ | async | json }}</strong>
   <strong>{{ url$ | async | json }}</strong>
 
   <ul *ngIf="(categories$ | async).length">

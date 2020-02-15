@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
-import { NavigationStart, Router, RouterEvent } from '@angular/router';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { filter, tap, withLatestFrom } from 'rxjs/operators';
 
 import { CategoryService } from './services/category.service';
 import { ViewportService } from './services/viewport.service';
 import { Observable } from 'rxjs';
 import { Device } from './models/viewport.model';
-import { getCategoryId } from './utils/routing.util';
 
 @Component({
   selector: 'rr-shop-root',
@@ -19,7 +18,7 @@ export class RootComponent {
   public content: ElementRef<HTMLElement>;
 
   protected routeNavigationStartCount = 0;
-  protected routerNavigationStart$: Observable<RouterEvent>;
+  protected routerNavigationEnd$: Observable<RouterEvent>;
 
   public constructor(
     protected router: Router,
@@ -31,13 +30,13 @@ export class RootComponent {
   }
 
   protected handleRouteEvents(): void {
-    this.routerNavigationStart$ = this.router.events.pipe(
-      filter((routerEvent: RouterEvent) => routerEvent instanceof NavigationStart)
+    this.routerNavigationEnd$ = this.router.events.pipe(
+      filter((routerEvent: RouterEvent) => routerEvent instanceof NavigationEnd)
     );
 
-    this.routerNavigationStart$.pipe(tap(this.setActiveCategory.bind(this))).subscribe();
-    this.routerNavigationStart$.pipe(tap(this.collapseCategoriesAfterRouteChange.bind(this))).subscribe();
-    this.routerNavigationStart$
+    this.routerNavigationEnd$.pipe(tap(this.setActiveCategory.bind(this))).subscribe();
+    this.routerNavigationEnd$.pipe(tap(this.collapseCategoriesAfterRouteChange.bind(this))).subscribe();
+    this.routerNavigationEnd$
       .pipe(
         withLatestFrom(this.viewportService.device$),
         filter(([routerEvent, device]) => [Device.Mobile, Device.MobileVertical].includes(device)),
@@ -46,9 +45,8 @@ export class RootComponent {
       .subscribe();
   }
 
-  protected setActiveCategory(navigationStart: NavigationStart): void {
-    // console.log(navigationStart);
-    this.categoryService.setActiveCategory(getCategoryId(navigationStart.url.replace('/', '')));
+  protected setActiveCategory(): void {
+    this.categoryService.setActiveLevel(this.categoryService.getActiveLevelUpdateEntriesBasedOnRoute());
   }
 
   protected collapseCategoriesAfterRouteChange(): void {

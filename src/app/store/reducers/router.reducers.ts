@@ -3,8 +3,6 @@ import { RouterReducerState, routerReducer, RouterStateSerializer } from '@ngrx/
 import { Action } from '@ngrx/store';
 import { StoreRouterConfig } from '@ngrx/router-store/src/router_store_module';
 
-export const featureKey = 'router';
-
 export interface InnerState {
   url: string;
   params: Params;
@@ -23,8 +21,6 @@ export class CustomRouterStateSerializer implements RouterStateSerializer<InnerS
   public serialize(routerState: RouterStateSnapshot): InnerState {
     let route = routerState.root;
 
-    console.log(routerState);
-
     while (route.firstChild) {
       route = route.firstChild;
     }
@@ -40,7 +36,7 @@ export class CustomRouterStateSerializer implements RouterStateSerializer<InnerS
 }
 
 export const routerStateConfig: StoreRouterConfig = {
-  stateKey: featureKey,
+  stateKey: 'router',
   serializer: CustomRouterStateSerializer
 };
 

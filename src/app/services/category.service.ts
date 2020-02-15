@@ -5,13 +5,14 @@ import { ViewportService } from './viewport.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Device } from '../models/viewport.model';
 import { CategoryFacadeService } from '../store/facades/category-facade.service';
-import { Category, CategorySetActiveLevel, StructuralNode } from '../models/category.model';
+import { Category, ActiveLevelUpdateEntry, StructuralNode } from '../models/category.model';
 import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../config/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
+  public activeLevelUpdateEntriesBasedOnRoute$: Observable<ActiveLevelUpdateEntry[]>;
   public categoriesWithActiveLevelSorted$: Observable<Category[]>;
   public isCollapseExpandButtonVisible$: Observable<boolean>;
   public isListCollapsed$: Observable<boolean>;
@@ -22,6 +23,7 @@ export class CategoryService {
     protected categoryFacadeService: CategoryFacadeService,
     protected viewportService: ViewportService
   ) {
+    this.activeLevelUpdateEntriesBasedOnRoute$ = categoryFacadeService.activeLevelUpdateEntriesBasedOnRoute$;
     this.categoriesWithActiveLevelSorted$ = categoryFacadeService.categoriesWithActiveLevelSorted$;
     this.setupObservables();
   }
@@ -54,43 +56,16 @@ export class CategoryService {
     this.isCollapsedSubject$.next(false);
   }
 
-  public getCategoriesFromLeafToRoot(
-    leafId: number,
-    structuralNodeLimit: StructuralNode[] = BREADCRUMBS_STRUCTURAL_NODES_LIMIT
-  ): Category[] {
-    const categoriesFromLeafToRoot: Category[] = [];
-    let category: Category;
-    let id: number = leafId;
-
-    while (true) {
-      category = this.categoryFacadeService.getCategoryById(id);
-      if (!category || structuralNodeLimit.includes(category.structuralNode)) {
-        break;
-      }
-      categoriesFromLeafToRoot.push(category);
-      id = category.parentId;
-    }
-
-    return categoriesFromLeafToRoot;
+  public getActiveLevelUpdateEntriesBasedOnRoute(): ActiveLevelUpdateEntry[] {
+    return this.categoryFacadeService.getActiveLevelUpdateEntriesBasedOnRoute();
   }
 
   public loadCategories(): void {
     this.categoryFacadeService.loadCategories();
   }
 
-  public setActiveCategory(id: number): void {
-    const categoriesWithActiveLevel: Category[] = this.categoryFacadeService.getCategoriesWithActiveLevel();
-    const categoriesFromLeafToRoot: Category[] = this.getCategoriesFromLeafToRoot(id);
-    const categorySetActiveLevels: CategorySetActiveLevel[] = [];
-
-    categoriesWithActiveLevel.forEach((categoryWithActiveLevel: Category): void => {
-      categorySetActiveLevels.push({ id: categoryWithActiveLevel.id, activeLevel: null });
-    });
-    categoriesFromLeafToRoot.forEach((categoryWithActiveLevel: Category, index: number): void => {
-      categorySetActiveLevels.push({ id: categoryWithActiveLevel.id, activeLevel: index + 1 });
-    });
-
-    this.categoryFacadeService.setActiveLevel(categorySetActiveLevels);
+  public setActiveLevel(activeLevelUpdateEntries: ActiveLevelUpdateEntry[]): void {
+    this.categoryFacadeService.setActiveLevel(activeLevelUpdateEntries);
   }
 
   protected setupObservables(): void {

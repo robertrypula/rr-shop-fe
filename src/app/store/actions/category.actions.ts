@@ -1,11 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 
-import { Category, CategorySetActiveLevel } from '../../models/category.model';
+import { Category, ActiveLevelUpdateEntry } from '../../models/category.model';
 
 export const setActiveLevel = createAction(
   '[Category] Set active level',
-  props<{ categorySetActiveLevels: CategorySetActiveLevel[] }>()
+  props<{ activeLevelUpdateEntries: ActiveLevelUpdateEntry[] }>()
 );
 
 export const categoriesRequest = createAction('[Category] Request');

@@ -9,9 +9,9 @@ import * as fromSelectors from '../selectors/router.selectors';
   providedIn: 'root'
 })
 export class RouterFacadeService {
-  public constructor(protected store: Store<State>) {}
+  public url$: Observable<string>;
 
-  public url$(): Observable<string> {
-    return this.store.pipe(select(fromSelectors.selectUrl));
+  public constructor(protected store: Store<State>) {
+    this.url$ = store.pipe(select(fromSelectors.selectUrl));
   }
 }

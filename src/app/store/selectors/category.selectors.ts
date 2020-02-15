@@ -150,3 +150,8 @@ export const selectCategoriesBy = createSelector(
       : categoriesAsArray;
   }
 );
+
+export const selectIsListCollapsed = createSelector(
+  selectCategoryFeature,
+  (categoryFeature: fromCategoryReducers.State): boolean => categoryFeature.isListCollapsed
+);

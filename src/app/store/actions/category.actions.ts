@@ -8,6 +8,8 @@ export const setActiveLevel = createAction(
   props<{ activeLevelUpdateEntries: ActiveLevelUpdateEntry[] }>()
 );
 
+export const setIsListCollapsed = createAction('[Category] Set is list collapsed', props<{ newValue: boolean }>());
+
 export const categoriesRequest = createAction('[Category] Request');
 
 export const categoriesSuccess = createAction('[Category] Success', props<{ categories: Category[] }>());

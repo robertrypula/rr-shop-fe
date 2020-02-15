@@ -27,10 +27,10 @@ export class CategoriesComponent implements OnInit {
   public ngOnInit(): void {}
 
   public onCollapseClick(): void {
-    this.categoryService.collapse();
+    this.categoryService.setIsCollapsed(true);
   }
 
   public onExpandClick(): void {
-    this.categoryService.expand();
+    this.categoryService.setIsCollapsed(false);
   }
 }

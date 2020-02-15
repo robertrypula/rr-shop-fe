@@ -4,7 +4,6 @@ import { Product } from '../models/product.model';
 import { BasketFacadeService } from '../store/facades/basket-facade.service';
 import { Observable } from 'rxjs';
 import { BasketEntry, BasketSimpleEntry } from '../models/basket.model';
-import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

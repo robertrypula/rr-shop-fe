@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angu
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { filter, tap, withLatestFrom } from 'rxjs/operators';
 
-import { CategoryService } from './services/category.service';
 import { ViewportService } from './services/viewport.service';
 import { Observable } from 'rxjs';
 import { Device } from './models/viewport.model';
@@ -17,16 +16,10 @@ export class RootComponent {
   @ViewChild('content', { static: false })
   public content: ElementRef<HTMLElement>;
 
-  protected routeNavigationStartCount = 0;
   protected routerNavigationEnd$: Observable<RouterEvent>;
 
-  public constructor(
-    protected router: Router,
-    protected categoryService: CategoryService,
-    protected viewportService: ViewportService
-  ) {
+  public constructor(protected router: Router, protected viewportService: ViewportService) {
     this.handleRouteEvents();
-    this.categoryService.loadCategories();
   }
 
   protected handleRouteEvents(): void {
@@ -34,7 +27,6 @@ export class RootComponent {
       filter((routerEvent: RouterEvent) => routerEvent instanceof NavigationEnd)
     );
 
-    this.routerNavigationEnd$.pipe(tap(this.collapseCategoriesAfterRouteChange.bind(this))).subscribe();
     this.routerNavigationEnd$
       .pipe(
         withLatestFrom(this.viewportService.device$),
@@ -42,13 +34,6 @@ export class RootComponent {
         tap(this.scrollToContentOnMobile.bind(this))
       )
       .subscribe();
-  }
-
-  protected collapseCategoriesAfterRouteChange(): void {
-    this.routeNavigationStartCount++;
-    if (this.routeNavigationStartCount > 1) {
-      this.categoryService.collapse();
-    }
   }
 
   protected scrollToContentOnMobile(): void {

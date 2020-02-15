@@ -6,7 +6,6 @@ import { map, switchMap } from 'rxjs/operators';
 import { Device } from '../models/viewport.model';
 import { CategoryFacadeService } from '../store/facades/category-facade.service';
 import { Category, ActiveLevelUpdateEntry, StructuralNode } from '../models/category.model';
-import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +16,13 @@ export class CategoryService {
   public isCollapseExpandButtonVisible$: Observable<boolean>;
   public isListCollapsed$: Observable<boolean>;
 
-  protected isCollapsedSubject$: Subject<boolean> = new BehaviorSubject(false);
-
   public constructor(
     protected categoryFacadeService: CategoryFacadeService,
     protected viewportService: ViewportService
   ) {
     this.activeLevelUpdateEntriesBasedOnRoute$ = categoryFacadeService.activeLevelUpdateEntriesBasedOnRoute$;
     this.categoriesWithActiveLevelSorted$ = categoryFacadeService.categoriesWithActiveLevelSorted$;
+    this.isListCollapsed$ = categoryFacadeService.isListCollapsed$;
     this.setupObservables();
   }
 
@@ -48,26 +46,19 @@ export class CategoryService {
     return this.categoryFacadeService.categoriesByParentId$(parentId);
   }
 
-  public collapse(): void {
-    this.isCollapsedSubject$.next(true);
-  }
-
-  public expand(): void {
-    this.isCollapsedSubject$.next(false);
-  }
-
-  public loadCategories(): void {
-    this.categoryFacadeService.loadCategories();
+  public setIsCollapsed(newValue: boolean): void {
+    this.categoryFacadeService.setIsCollapsed(newValue);
   }
 
   protected setupObservables(): void {
     this.isCollapseExpandButtonVisible$ = this.viewportService.device$.pipe(
       switchMap((device: Device): Observable<boolean> => of([Device.MobileVertical, Device.Mobile].includes(device)))
     );
-    this.isListCollapsed$ = combineLatest([this.isCollapseExpandButtonVisible$, this.isCollapsedSubject$]).pipe(
+    // TODO move somewhere
+    /* combineLatest([this.isCollapseExpandButtonVisible$, this.isCollapsedSubject$]).pipe(
       map(([isCollapseExpandButtonVisible, isCollapsed]): boolean =>
         isCollapseExpandButtonVisible ? isCollapsed : false
       )
-    );
+    );*/
   }
 }

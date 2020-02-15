@@ -14,12 +14,14 @@ import { map, take, tap } from 'rxjs/operators';
 export class CategoryFacadeService {
   public activeLevelUpdateEntriesBasedOnRoute$: Observable<ActiveLevelUpdateEntry[]>;
   public categoriesWithActiveLevelSorted$: Observable<Category[]>;
+  public isListCollapsed$: Observable<boolean>;
 
   public constructor(protected store: Store<State>) {
     this.activeLevelUpdateEntriesBasedOnRoute$ = this.store.pipe(
       select(fromCategorySelectors.selectActiveLevelUpdateEntriesBasedOnRoute)
     );
     this.categoriesWithActiveLevelSorted$ = this.getCategoriesWithActiveLevelSorted$();
+    this.isListCollapsed$ = this.store.pipe(select(fromCategorySelectors.selectIsListCollapsed));
   }
 
   public activeCategory$(): Observable<Category> {
@@ -69,7 +71,7 @@ export class CategoryFacadeService {
     );
   }
 
-  public loadCategories(): void {
-    this.store.dispatch(fromCategoryActions.categoriesRequest());
+  public setIsCollapsed(newValue: boolean): void {
+    this.store.dispatch(fromCategoryActions.setIsListCollapsed({ newValue }));
   }
 }

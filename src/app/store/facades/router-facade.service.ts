@@ -9,9 +9,11 @@ import * as fromSelectors from '../selectors/router.selectors';
   providedIn: 'root'
 })
 export class RouterFacadeService {
+  public navigationId$: Observable<number>;
   public url$: Observable<string>;
 
   public constructor(protected store: Store<State>) {
+    this.navigationId$ = store.pipe(select(fromSelectors.selectNavigationId));
     this.url$ = store.pipe(select(fromSelectors.selectUrl));
   }
 }

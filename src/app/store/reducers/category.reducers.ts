@@ -4,12 +4,14 @@ import * as fromCategoryActions from '../actions/category.actions';
 import { Category, ActiveLevelUpdateEntry } from '../../models/category.model';
 
 export interface State {
+  isListCollapsed: boolean;
   list: {
     [id: number]: Category;
   };
 }
 
 export const initialState: State = {
+  isListCollapsed: false,
   list: {}
 };
 
@@ -40,6 +42,12 @@ const categoryReducer = createReducer(
       });
 
       return newState;
+    }
+  ),
+  on(
+    fromCategoryActions.setIsListCollapsed,
+    (state: State, { newValue }): State => {
+      return { ...state, isListCollapsed: newValue };
     }
   )
 );

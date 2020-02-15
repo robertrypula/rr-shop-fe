@@ -19,7 +19,6 @@ export class CategoryFacadeService {
     this.activeLevelUpdateEntriesBasedOnRoute$ = this.store.pipe(
       select(fromCategorySelectors.selectActiveLevelUpdateEntriesBasedOnRoute)
     );
-    this.activeLevelUpdateEntriesBasedOnRoute$.subscribe();
     this.categoriesWithActiveLevelSorted$ = this.getCategoriesWithActiveLevelSorted$();
   }
 
@@ -59,22 +58,6 @@ export class CategoryFacadeService {
     return result;
   }
 
-  public getActiveLevelUpdateEntriesBasedOnRoute(): ActiveLevelUpdateEntry[] {
-    let result: ActiveLevelUpdateEntry[] = [];
-
-    this.store
-      .pipe(
-        select(fromCategorySelectors.selectActiveLevelUpdateEntriesBasedOnRoute),
-        take(1),
-        tap((activeLevelUpdateEntries: ActiveLevelUpdateEntry[]): void => {
-          result = activeLevelUpdateEntries;
-        })
-      )
-      .subscribe();
-
-    return result;
-  }
-
   public getCategoriesWithActiveLevelSorted$(): Observable<Category[]> {
     return this.store.pipe(
       select(fromCategorySelectors.selectCategoriesWithActiveLevel),
@@ -88,9 +71,5 @@ export class CategoryFacadeService {
 
   public loadCategories(): void {
     this.store.dispatch(fromCategoryActions.categoriesRequest());
-  }
-
-  public setActiveLevel(activeLevelUpdateEntries: ActiveLevelUpdateEntry[]): void {
-    this.store.dispatch(fromCategoryActions.setActiveLevel({ activeLevelUpdateEntries }));
   }
 }

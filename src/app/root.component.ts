@@ -34,7 +34,6 @@ export class RootComponent {
       filter((routerEvent: RouterEvent) => routerEvent instanceof NavigationEnd)
     );
 
-    this.routerNavigationEnd$.pipe(tap(this.setActiveCategory.bind(this))).subscribe();
     this.routerNavigationEnd$.pipe(tap(this.collapseCategoriesAfterRouteChange.bind(this))).subscribe();
     this.routerNavigationEnd$
       .pipe(
@@ -43,10 +42,6 @@ export class RootComponent {
         tap(this.scrollToContentOnMobile.bind(this))
       )
       .subscribe();
-  }
-
-  protected setActiveCategory(): void {
-    this.categoryService.setActiveLevel(this.categoryService.getActiveLevelUpdateEntriesBasedOnRoute());
   }
 
   protected collapseCategoriesAfterRouteChange(): void {

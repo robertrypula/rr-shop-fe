@@ -56,16 +56,8 @@ export class CategoryService {
     this.isCollapsedSubject$.next(false);
   }
 
-  public getActiveLevelUpdateEntriesBasedOnRoute(): ActiveLevelUpdateEntry[] {
-    return this.categoryFacadeService.getActiveLevelUpdateEntriesBasedOnRoute();
-  }
-
   public loadCategories(): void {
     this.categoryFacadeService.loadCategories();
-  }
-
-  public setActiveLevel(activeLevelUpdateEntries: ActiveLevelUpdateEntry[]): void {
-    this.categoryFacadeService.setActiveLevel(activeLevelUpdateEntries);
   }
 
   protected setupObservables(): void {

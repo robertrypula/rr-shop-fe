@@ -1,7 +1,7 @@
 <div class="FooterGroup" *ngIf="(categories$ | async).length">
   <ul>
     <li *ngFor="let category of categories$ | async; trackBy: trackBy">
-      <a [routerLink]="'/' + category.id + ',' + category.slug" routerLinkActive="Footer-link--active">
+      <a [routerLink]="category | categoryUrl" [ngClass]="{ 'Footer-link--active': category.activeLevel === 1 }">
         {{ category.name }}
       </a>
     </li>

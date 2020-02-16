@@ -8,25 +8,27 @@ export interface State {
 
 export const initialState: State = {
   1: {
-    categoryIds: [1000],
+    categoryIds: [2],
     description: '',
     id: 1,
     name: 'Propolis',
     images: [{ id: 1, name: 'propolis-front.jpg', order: 1 }],
     price: 14.99,
-    quantity: 432
+    quantity: 432,
+    slug: 'propolis'
   },
   2: {
-    categoryIds: [1000, 100400],
+    categoryIds: [2, 10],
     description: '',
     id: 2,
     name: 'Balsam jerozolimski',
     images: [{ id: 2, name: 'balsam-jerozolimski-front.jpg', order: 1 }],
     price: 25.0,
-    quantity: 32
+    quantity: 32,
+    slug: 'balsam-jerozolimski'
   },
   3: {
-    categoryIds: [1000, 100401000],
+    categoryIds: [2, 11],
     description: '',
     id: 3,
     name: 'Krwiściąg',
@@ -36,16 +38,18 @@ export const initialState: State = {
       { id: 5, name: 'krwisciag-2.jpg', order: 2 }
     ],
     price: 9.99,
-    quantity: 3
+    quantity: 3,
+    slug: 'krwisciag'
   },
   4: {
-    categoryIds: [1000, 100401001],
+    categoryIds: [2, 12],
     description: '',
     id: 4,
     name: 'Podbiał',
     images: [],
     price: 5.99,
-    quantity: 30
+    quantity: 30,
+    slug: 'podbial'
   }
 };
 

@@ -1,7 +1,7 @@
 <div class="TopMenu">
   <ul *ngIf="(categories$ | async).length">
     <li *ngFor="let category of categories$ | async; trackBy: trackBy">
-      <a [routerLink]="'/' + category.id + ',' + category.slug" routerLinkActive="TopMenu-link--active">
+      <a [routerLink]="category | categoryUrl" [ngClass]="{ 'TopMenu-link--active': category.activeLevel === 1 }">
         {{ category.name }}
       </a>
     </li>

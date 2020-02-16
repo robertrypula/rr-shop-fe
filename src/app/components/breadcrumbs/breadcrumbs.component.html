@@ -14,7 +14,10 @@
           </span>
         </ng-container>
         <ng-template #accessible>
-          <a [routerLink]="'/' + category.id + ',' + category.slug" routerLinkActive="Breadcrumbs-link--active">
+          <a
+            [routerLink]="category | categoryUrl"
+            [ngClass]="{ 'Breadcrumbs-link--active': category.activeLevel === 1 }"
+          >
             {{ category.name }}
           </a>
         </ng-template>

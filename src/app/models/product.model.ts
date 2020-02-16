@@ -8,10 +8,12 @@ export interface Product {
   name: string;
   price?: number;
   quantity?: number;
+  slug: string;
 }
 
 export interface ProductDto {
   categoryIds: number[];
   id: number;
   name: string;
+  slug: string;
 }

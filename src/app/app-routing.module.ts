@@ -17,9 +17,9 @@ import { SearchModule } from './pages/search/search.module';
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full' },
   { path: 'basket', component: BasketComponent },
-  { path: 'product/:productIdWithSlug', component: ProductComponent },
+  { path: 'c/:id/:slug', component: CategoryComponent },
+  { path: 'p/:id/:slug', component: ProductComponent },
   { path: 'search/:keywords', component: SearchComponent },
-  { path: ':categoryIdWithSlug', component: CategoryComponent },
   // {
   //   path: 'heroes',
   //   component: HeroListComponent,

@@ -54,7 +54,7 @@ export const getCategoriesFromLeafToRoot = (
 };
 
 export const selectActiveCategoryId = createSelector(selectUrl, (url: string): number => {
-  return getCategoryId(url); // TODO get category id also from product route
+  return getCategoryId(url);
 });
 
 export const selectCategoriesWithActiveLevel = createSelector(

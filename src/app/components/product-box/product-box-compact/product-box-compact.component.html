@@ -3,7 +3,7 @@
   <img alt="{{ product.name }}" src="{{ product.images | image }}" class="ProductBoxCompact-image" />
 
   <div>
-    <a routerLink="/product/{{ product.id }}">{{ product.name }}</a>
+    <a [routerLink]="product | productUrl: activeCategory">{{ product.name }}</a>
   </div>
 
   <div>

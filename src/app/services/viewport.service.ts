@@ -21,7 +21,9 @@ import { ViewportFacadeService } from '../store/facades/viewport-facade.service'
 })
 export class ViewportService {
   public device$: Observable<Device>;
+  public getFurtherNavigationIdOnlyAtSmallerDevices$: Observable<number>;
   public isScrolledDownThatHeaderIsNotVisible$: Observable<boolean>;
+  public isSmallDevice$: Observable<boolean>;
   public viewportStatus$: Observable<ViewportStatus>;
 
   protected deviceSubject$: Subject<Device> = new Subject();
@@ -30,7 +32,10 @@ export class ViewportService {
 
   public constructor(protected viewportFacadeService: ViewportFacadeService) {
     this.device$ = this.viewportFacadeService.device$;
+    this.getFurtherNavigationIdOnlyAtSmallerDevices$ =
+      viewportFacadeService.getFurtherNavigationIdOnlyAtSmallerDevices$;
     this.isScrolledDownThatHeaderIsNotVisible$ = viewportFacadeService.isScrolledDownThatHeaderIsNotVisible$;
+    this.isSmallDevice$ = viewportFacadeService.isSmallDevice$;
     this.viewportStatus$ = this.viewportStatusSubject$.asObservable().pipe(distinctUntilChanged());
 
     this.configureStoreActionsDispatching();

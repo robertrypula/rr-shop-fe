@@ -1,10 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
-import { NavigationEnd, Router, RouterEvent } from '@angular/router';
-import { filter, tap, withLatestFrom } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { ViewportService } from './services/viewport.service';
-import { SMALL_DEVICE_DEFINITION } from './config/config';
 
 @Component({
   selector: 'rr-shop-root',
@@ -16,28 +13,20 @@ export class RootComponent {
   @ViewChild('content', { static: false })
   public content: ElementRef<HTMLElement>;
 
-  protected routerNavigationEnd$: Observable<RouterEvent>;
-
-  public constructor(protected router: Router, protected viewportService: ViewportService) {
-    this.handleRouteEvents();
+  public constructor(protected viewportService: ViewportService) {
+    this.handleScrollIntoContent();
   }
 
-  protected handleRouteEvents(): void {
-    this.routerNavigationEnd$ = this.router.events.pipe(
-      filter((routerEvent: RouterEvent) => routerEvent instanceof NavigationEnd)
-    );
-
-    // TODO move to effects
-    this.routerNavigationEnd$
+  protected handleScrollIntoContent(): void {
+    this.viewportService.getFurtherNavigationIdOnlyAtSmallerDevices$
       .pipe(
-        withLatestFrom(this.viewportService.device$),
-        filter(([routerEvent, device]) => SMALL_DEVICE_DEFINITION.includes(device)),
-        tap(this.scrollToContentOnMobile.bind(this))
+        tap((furtherNavigationIdOnlyAtSmallerDevices: number): void => {
+          furtherNavigationIdOnlyAtSmallerDevices &&
+            this.content &&
+            this.content.nativeElement &&
+            this.content.nativeElement.scrollIntoView({});
+        })
       )
       .subscribe();
-  }
-
-  protected scrollToContentOnMobile(): void {
-    this.content.nativeElement && this.content.nativeElement.scrollIntoView({});
   }
 }

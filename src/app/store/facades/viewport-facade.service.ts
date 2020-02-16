@@ -12,13 +12,19 @@ import { Device } from '../../models/viewport.model';
 })
 export class ViewportFacadeService {
   public device$: Observable<Device>;
+  public getFurtherNavigationIdOnlyAtSmallerDevices$: Observable<number>;
   public isScrolledDownThatHeaderIsNotVisible$: Observable<boolean>;
+  public isSmallDevice$: Observable<boolean>;
 
   public constructor(protected store: Store<State>) {
     this.device$ = store.pipe(select(fromViewportSelectors.selectDevice));
+    this.getFurtherNavigationIdOnlyAtSmallerDevices$ = store.pipe(
+      select(fromViewportSelectors.selectGetFurtherNavigationIdOnlyAtSmallerDevices)
+    );
     this.isScrolledDownThatHeaderIsNotVisible$ = store.pipe(
       select(fromViewportSelectors.selectIsScrolledDownThatHeaderIsNotVisible)
     );
+    this.isSmallDevice$ = store.pipe(select(fromViewportSelectors.selectIsSmallDevice));
   }
 
   public setDevice(newValue: Device): void {

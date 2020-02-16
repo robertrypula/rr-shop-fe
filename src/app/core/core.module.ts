@@ -8,6 +8,7 @@ import { CategoryEffects } from '../store/effects/category-effects.service';
 import { metaReducers, reducers } from '../store/reducers';
 import { environment } from '../../environments/environment';
 import { routerStateConfig } from '../store/reducers/router.reducers';
+import { ViewportEffects } from '../store/effects/viewport-effects.service';
 
 @NgModule({
   declarations: [],
@@ -20,7 +21,7 @@ import { routerStateConfig } from '../store/reducers/router.reducers';
       }
     }),
     StoreRouterConnectingModule.forRoot(routerStateConfig),
-    EffectsModule.forRoot([CategoryEffects]),
+    EffectsModule.forRoot([CategoryEffects, ViewportEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production

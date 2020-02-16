@@ -6,7 +6,7 @@ import { ActiveLevelUpdateEntry, Category, StructuralNode } from '../../models/c
 import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT, SMALL_DEVICE_DEFINITION } from '../../config/config';
 import { selectUrl } from './router.selectors';
 import { getCategoryId } from '../../utils/routing.util';
-import { selectDevice } from './viewport.selectors';
+import { selectDevice, selectIsSmallDevice } from './viewport.selectors';
 import { Device } from '../../models/viewport.model';
 
 export const selectCategoryFeature = (state: State): fromCategoryReducers.State => state.category;
@@ -162,8 +162,9 @@ export const selectCategoriesBy = createSelector(
   }
 );
 
-export const selectIsCollapseExpandButtonVisible = createSelector(selectDevice, (device: Device): boolean =>
-  SMALL_DEVICE_DEFINITION.includes(device)
+export const selectIsCollapseExpandButtonVisible = createSelector(
+  selectIsSmallDevice,
+  (isSmallDevice: boolean): boolean => isSmallDevice
 );
 
 export const selectIsListCollapsed = createSelector(

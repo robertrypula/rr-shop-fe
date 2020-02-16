@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, concatMap, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of, EMPTY } from 'rxjs';
+import { routerNavigatedAction } from '@ngrx/router-store';
 
 import {
   categoriesFailure,
@@ -13,7 +14,6 @@ import {
 } from '../actions/category.actions';
 import { ApiCategoryService } from '../../api-services/api-category.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
-import { routerNavigatedAction } from '@ngrx/router-store';
 import { RouterFacadeService } from '../facades/router-facade.service';
 import { setDevice } from '../actions/viewport.actions';
 import { ViewportFacadeService } from '../facades/viewport-facade.service';
@@ -75,12 +75,10 @@ export class CategoryEffects {
     this.actions$.pipe(
       ofType(routerNavigatedAction),
       concatMap(action =>
-        of(action).pipe(withLatestFrom(this.routerFacadeService.navigationId$, this.viewportFacadeService.device$))
+        of(action).pipe(withLatestFrom(this.viewportFacadeService.getFurtherNavigationIdOnlyAtSmallerDevices$))
       ),
-      mergeMap(([action, navigationId, device]) =>
-        navigationId > 1 && SMALL_DEVICE_DEFINITION.includes(device)
-          ? of(setIsListCollapsed({ newValue: true }))
-          : EMPTY
+      mergeMap(([action, getFurtherNavigationIdOnlyAtSmallerDevices]) =>
+        getFurtherNavigationIdOnlyAtSmallerDevices ? of(setIsListCollapsed({ newValue: true })) : EMPTY
       )
     )
   );

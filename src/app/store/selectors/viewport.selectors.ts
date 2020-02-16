@@ -3,6 +3,8 @@ import { createSelector } from '@ngrx/store';
 import { State } from '../reducers';
 import * as fromViewportReducers from '../reducers/viewport.reducers';
 import { Device } from '../../models/viewport.model';
+import { SMALL_DEVICE_DEFINITION } from '../../config/config';
+import { selectNavigationId } from './router.selectors';
 
 export const selectViewportFeature = (state: State): fromViewportReducers.State => state.viewport;
 
@@ -18,4 +20,14 @@ export const selectIsScrolledDownThatHeaderIsNotVisible = createSelector(
   (viewportFeature: fromViewportReducers.State): boolean => {
     return viewportFeature.isScrolledDownThatHeaderIsNotVisible;
   }
+);
+
+export const selectIsSmallDevice = createSelector(selectDevice, (device: Device): boolean =>
+  SMALL_DEVICE_DEFINITION.includes(device)
+);
+
+export const selectGetFurtherNavigationIdOnlyAtSmallerDevices = createSelector(
+  selectIsSmallDevice,
+  selectNavigationId,
+  (isDeviceSmall: boolean, navigationId: number): number => (navigationId > 1 && isDeviceSmall ? navigationId : 0)
 );

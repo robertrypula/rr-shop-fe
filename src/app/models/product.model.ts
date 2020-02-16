@@ -2,10 +2,16 @@ import { Image } from './image.model';
 
 export interface Product {
   categoryIds: number[];
-  description: string;
+  description?: string;
   id: number;
-  images: Image[];
+  images?: Image[];
   name: string;
-  price: number;
-  quantity: number;
+  price?: number;
+  quantity?: number;
+}
+
+export interface ProductDto {
+  categoryIds: number[];
+  id: number;
+  name: string;
 }

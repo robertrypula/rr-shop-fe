@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { CategoryDto, Category } from '../models/category.model';
-import { environment } from '../../environments/environment';
-import { map } from 'rxjs/operators';
+import { API_URL_CATEGORIES } from '../config/api-url.config';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class ApiCategoryService {
 
   public getCategories(): Observable<Category[]> {
     return this.http
-      .get<CategoryDto[]>(environment.urlApi + 'category')
+      .get<CategoryDto[]>(API_URL_CATEGORIES)
       .pipe(
         map((categoryDtos: CategoryDto[]): Category[] =>
           categoryDtos.map((categoryDto: CategoryDto): Category => this.fromDto(categoryDto))

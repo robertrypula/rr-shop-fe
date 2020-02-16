@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { filter, tap, withLatestFrom } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { ViewportService } from './services/viewport.service';
-import { Observable } from 'rxjs';
-import { Device } from './models/viewport.model';
+import { SMALL_DEVICE_DEFINITION } from './config/config';
 
 @Component({
   selector: 'rr-shop-root',
@@ -27,10 +27,11 @@ export class RootComponent {
       filter((routerEvent: RouterEvent) => routerEvent instanceof NavigationEnd)
     );
 
+    // TODO move to effects
     this.routerNavigationEnd$
       .pipe(
         withLatestFrom(this.viewportService.device$),
-        filter(([routerEvent, device]) => [Device.Mobile, Device.MobileVertical].includes(device)),
+        filter(([routerEvent, device]) => SMALL_DEVICE_DEFINITION.includes(device)),
         tap(this.scrollToContentOnMobile.bind(this))
       )
       .subscribe();

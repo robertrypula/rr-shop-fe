@@ -64,6 +64,15 @@ export const selectCategoriesWithActiveLevel = createSelector(
   }
 );
 
+export const selectCategoriesWithActiveLevelSorted = createSelector(
+  selectCategoriesWithActiveLevel,
+  (categoriesWithActiveLevel: Category[]): Category[] => {
+    return categoriesWithActiveLevel.sort((a: Category, b: Category): number =>
+      a.activeLevel === b.activeLevel ? 0 : a.activeLevel < b.activeLevel ? 1 : -1
+    );
+  }
+);
+
 export const selectActiveLevelUpdateEntriesBasedOnRoute = createSelector(
   selectActiveCategoryId,
   selectCategoriesWithActiveLevel,

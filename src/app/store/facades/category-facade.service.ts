@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { map, take, tap } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 
 import * as fromCategoryActions from '../actions/category.actions';
 import * as fromCategorySelectors from '../selectors/category.selectors';
@@ -21,7 +21,9 @@ export class CategoryFacadeService {
     this.activeLevelUpdateEntriesBasedOnRoute$ = this.store.pipe(
       select(fromCategorySelectors.selectActiveLevelUpdateEntriesBasedOnRoute)
     );
-    this.categoriesWithActiveLevelSorted$ = this.getCategoriesWithActiveLevelSorted$();
+    this.categoriesWithActiveLevelSorted$ = this.store.pipe(
+      select(fromCategorySelectors.selectCategoriesWithActiveLevelSorted)
+    );
     this.isCollapseExpandButtonVisible$ = this.store.pipe(
       select(fromCategorySelectors.selectIsCollapseExpandButtonVisible)
     );
@@ -62,17 +64,6 @@ export class CategoryFacadeService {
       .subscribe();
 
     return result;
-  }
-
-  public getCategoriesWithActiveLevelSorted$(): Observable<Category[]> {
-    return this.store.pipe(
-      select(fromCategorySelectors.selectCategoriesWithActiveLevel),
-      map((categoriesWithActiveLevel: Category[]): Category[] => {
-        return categoriesWithActiveLevel.sort((a: Category, b: Category): number =>
-          a.activeLevel === b.activeLevel ? 0 : a.activeLevel < b.activeLevel ? 1 : -1
-        );
-      })
-    );
   }
 
   public setIsCollapsed(newValue: boolean): void {

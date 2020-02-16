@@ -43,6 +43,17 @@
     color: $categories-color-default;
     font-size: $categories-font-size;
 
+    span {
+      display: inline-block;
+      padding-left: 2px;
+      &:before {
+        content: '(';
+      }
+      &:after {
+        content: ')';
+      }
+    }
+
     &.CategoryNode-link--active {
       color: $categories-color-active;
     }

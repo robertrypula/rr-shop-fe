@@ -1,11 +1,16 @@
-<div class="CategoryNode" *ngIf="(categories$ | async).length">
-  <ul>
-    <li *ngFor="let category of categories$ | async; trackBy: trackBy">
-      <a [routerLink]="category | categoryUrl" [ngClass]="{ 'CategoryNode-link--active': category.activeLevel === 1 }">
-        {{ category.name }}
-      </a>
+<div class="CategoryNode">
+  <a
+    *ngIf="!isRoot"
+    [routerLink]="category | categoryUrl"
+    [ngClass]="{ 'CategoryNode-link--active': category.activeLevel === 1 }"
+  >
+    {{ category.name }} <span>{{ something$ | async }}</span>
+  </a>
 
-      <rr-shop-category-node *ngIf="category.activeLevel" [parentId]="category.id"></rr-shop-category-node>
+  <!-- TODO simplify condition -->
+  <ul *ngIf="isRoot || ((childCategories$ | async).length && category.activeLevel)">
+    <li *ngFor="let childCategory of childCategories$ | async; trackBy: trackBy">
+      <rr-shop-category-node [category]="childCategory"></rr-shop-category-node>
     </li>
   </ul>
 </div>

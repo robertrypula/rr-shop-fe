@@ -6,9 +6,10 @@
   }"
 >
   <rr-shop-category-node
-    class="Categories-list"
     *ngIf="shopCategoryRoot$ | async"
-    [parentId]="(shopCategoryRoot$ | async).id"
+    [category]="shopCategoryRoot$ | async"
+    [isRoot]="true"
+    class="Categories-list"
   ></rr-shop-category-node>
 
   <div class="Categories-expandCollapseContainer" *ngIf="isCollapseExpandButtonVisible$ | async">

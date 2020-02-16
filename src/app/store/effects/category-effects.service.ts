@@ -31,7 +31,7 @@ import { SMALL_DEVICE_DEFINITION } from '../../config/config';
 
 @Injectable()
 export class CategoryEffects {
-  public loadCategoriesFromApi$ = createEffect(() =>
+  public loadCategories$ = createEffect(() =>
     this.actions$.pipe(
       ofType(categoriesRequest),
       switchMap(() =>

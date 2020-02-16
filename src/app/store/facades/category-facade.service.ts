@@ -12,12 +12,18 @@ import { State } from '../reducers';
   providedIn: 'root'
 })
 export class CategoryFacadeService {
+  public activeCategory$: Observable<Category>;
+  public activeCategoryAndItsChildren$: Observable<Category[]>;
   public activeLevelUpdateEntriesBasedOnRoute$: Observable<ActiveLevelUpdateEntry[]>;
   public categoriesWithActiveLevelSorted$: Observable<Category[]>;
   public isCollapseExpandButtonVisible$: Observable<boolean>;
   public isListCollapsed$: Observable<boolean>;
 
   public constructor(protected store: Store<State>) {
+    this.activeCategory$ = this.store.pipe(select(fromCategorySelectors.selectActiveCategory));
+    this.activeCategoryAndItsChildren$ = this.store.pipe(
+      select(fromCategorySelectors.selectActiveCategoryAndItsChildren)
+    );
     this.activeLevelUpdateEntriesBasedOnRoute$ = this.store.pipe(
       select(fromCategorySelectors.selectActiveLevelUpdateEntriesBasedOnRoute)
     );
@@ -28,10 +34,6 @@ export class CategoryFacadeService {
       select(fromCategorySelectors.selectIsCollapseExpandButtonVisible)
     );
     this.isListCollapsed$ = this.store.pipe(select(fromCategorySelectors.selectIsListCollapsed));
-  }
-
-  public activeCategory$(): Observable<Category> {
-    return this.store.pipe(select(fromCategorySelectors.selectActiveCategory));
   }
 
   public categoryByStructuralNode$(structuralNode: StructuralNode): Observable<Category> {

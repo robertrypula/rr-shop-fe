@@ -8,20 +8,18 @@ import { Category, ActiveLevelUpdateEntry, StructuralNode } from '../models/cate
   providedIn: 'root'
 })
 export class CategoryService {
+  public activeCategory$: Observable<Category>;
   public activeLevelUpdateEntriesBasedOnRoute$: Observable<ActiveLevelUpdateEntry[]>;
   public categoriesWithActiveLevelSorted$: Observable<Category[]>;
   public isCollapseExpandButtonVisible$: Observable<boolean>;
   public isListCollapsed$: Observable<boolean>;
 
   public constructor(protected categoryFacadeService: CategoryFacadeService) {
+    this.activeCategory$ = categoryFacadeService.activeCategory$;
     this.activeLevelUpdateEntriesBasedOnRoute$ = categoryFacadeService.activeLevelUpdateEntriesBasedOnRoute$;
     this.categoriesWithActiveLevelSorted$ = categoryFacadeService.categoriesWithActiveLevelSorted$;
     this.isCollapseExpandButtonVisible$ = categoryFacadeService.isCollapseExpandButtonVisible$;
     this.isListCollapsed$ = categoryFacadeService.isListCollapsed$;
-  }
-
-  public activeCategory$(): Observable<Category> {
-    return this.categoryFacadeService.activeCategory$();
   }
 
   public categoryByStructuralNode$(structuralNode: StructuralNode): Observable<Category> {

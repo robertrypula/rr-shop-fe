@@ -21,6 +21,8 @@ export class CustomRouterStateSerializer implements RouterStateSerializer<InnerS
   public serialize(routerState: RouterStateSnapshot): InnerState {
     let route = routerState.root;
 
+    console.log(routerState);
+
     while (route.firstChild) {
       route = route.firstChild;
     }

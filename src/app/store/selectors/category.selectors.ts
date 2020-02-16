@@ -120,10 +120,8 @@ const getCategoryAndItsChildren = (categoriesAsArray: Category[], id: number): C
 
 export const selectCategoryAndItsChildren = createSelector(
   selectCategoriesAsArray,
-  (categoriesAsArray: Category[], props: { id: number }): Category[] => {
-    console.log('INTERESTING', props);
-    return getCategoryAndItsChildren(categoriesAsArray, props.id);
-  }
+  (categoriesAsArray: Category[], props: { id: number }): Category[] =>
+    getCategoryAndItsChildren(categoriesAsArray, props.id)
 );
 
 export const selectActiveCategoryAndItsChildren = createSelector(

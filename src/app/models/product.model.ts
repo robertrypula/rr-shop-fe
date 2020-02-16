@@ -5,15 +5,14 @@ export interface Product {
   description?: string;
   id: number;
   images?: Image[];
-  name: string;
+  name?: string;
   price?: number;
   quantity?: number;
-  slug: string;
+  slug?: string;
 }
 
 export interface ProductDto {
   categoryIds: number[];
   id: number;
   name: string;
-  slug: string;
 }

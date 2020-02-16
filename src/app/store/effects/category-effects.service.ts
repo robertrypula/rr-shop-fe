@@ -58,7 +58,7 @@ export class CategoryEffects {
     this.actions$.pipe(
       ofType(routerNavigatedAction),
       concatMap(action => of(action).pipe(withLatestFrom(this.routerFacadeService.navigationId$))),
-      mergeMap(([action, navigationID]) => (navigationID === 1 ? of(categoriesRequest()) : EMPTY))
+      mergeMap(([action, navigationId]) => (navigationId === 1 ? of(categoriesRequest()) : EMPTY))
     )
   );
 

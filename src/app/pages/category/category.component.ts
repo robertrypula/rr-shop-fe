@@ -17,7 +17,7 @@ export class CategoryComponent implements OnInit {
   public activeCategory$: Observable<Category>;
 
   public constructor(protected productService: ProductService, protected categoryService: CategoryService) {
-    this.productsFromActiveCategoryAndItsChildren$ = productService.productsFromActiveCategoryAndItsChildren$();
+    this.productsFromActiveCategoryAndItsChildren$ = productService.productsFromActiveCategoryAndItsChildren$;
     this.activeCategory$ = categoryService.activeCategory$();
   }
 

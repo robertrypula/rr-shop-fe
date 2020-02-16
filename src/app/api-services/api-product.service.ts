@@ -12,9 +12,9 @@ import { Product, ProductDto } from '../models/product.model';
 export class ApiProductService {
   public constructor(protected http: HttpClient) {}
 
-  public getProducts(): Observable<Product[]> {
+  public getProducts(isSimple: boolean = true, categoryId: number = null): Observable<Product[]> {
     return this.http
-      .get<ProductDto[]>(API_URL_PRODUCT)
+      .get<ProductDto[]>(API_URL_PRODUCT(isSimple, categoryId))
       .pipe(
         map((productDtos: ProductDto[]): Product[] =>
           productDtos.map((productDto: ProductDto): Product => this.fromDto(productDto))

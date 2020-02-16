@@ -8,13 +8,13 @@ import { Product } from '../models/product.model';
   providedIn: 'root'
 })
 export class ProductService {
-  public constructor(protected productFacadeService: ProductFacadeService) {}
+  public productsFromActiveCategoryAndItsChildren$: Observable<Product[]>;
 
-  public productsByCategoryId$(categoryId: number): Observable<Product[]> {
-    return this.productFacadeService.productsByCategoryId$(categoryId);
+  public constructor(protected productFacadeService: ProductFacadeService) {
+    this.productsFromActiveCategoryAndItsChildren$ = productFacadeService.productsFromActiveCategoryAndItsChildren$;
   }
 
-  public productsFromActiveCategoryAndItsChildren$(): Observable<Product[]> {
-    return this.productFacadeService.productsFromActiveCategoryAndItsChildren$();
+  public productsCountFromCategoryAndItsChildrenByCategoryId$(categoryId: number): Observable<number> {
+    return this.productFacadeService.productsCountFromCategoryAndItsChildrenByCategoryId$(categoryId);
   }
 }

@@ -6,6 +6,6 @@ import { CURRENCY } from '../../config/config';
 })
 export class PricePipe implements PipeTransform {
   public transform(value: number): string {
-    return `${value.toFixed(2)} ${CURRENCY}`;
+    return `${(value ? value : 0).toFixed(2)} ${CURRENCY}`;
   }
 }

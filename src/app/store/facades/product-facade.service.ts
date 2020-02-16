@@ -10,13 +10,17 @@ import * as fromProductSelectors from '../selectors/product.selectors';
   providedIn: 'root'
 })
 export class ProductFacadeService {
-  public constructor(protected store: Store<State>) {}
+  public productsFromActiveCategoryAndItsChildren$: Observable<Product[]>;
 
-  public productsByCategoryId$(categoryId: number): Observable<Product[]> {
-    return this.store.pipe(select(fromProductSelectors.selectProducts, { categoryId }));
+  public constructor(protected store: Store<State>) {
+    this.productsFromActiveCategoryAndItsChildren$ = this.store.pipe(
+      select(fromProductSelectors.selectProductsFromActiveCategoryAndItsChildren)
+    );
   }
 
-  public productsFromActiveCategoryAndItsChildren$(): Observable<Product[]> {
-    return this.store.pipe(select(fromProductSelectors.selectProductsFromActiveCategoryAndItsChildren));
+  public productsCountFromCategoryAndItsChildrenByCategoryId$(categoryId: number): Observable<number> {
+    return this.store.pipe(
+      select(fromProductSelectors.selectProductsCountFromCategoryAndItsChildrenByCategoryId, { id: categoryId })
+    );
   }
 }

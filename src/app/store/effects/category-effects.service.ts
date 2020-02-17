@@ -6,9 +6,9 @@ import { of, EMPTY } from 'rxjs';
 import { routerNavigatedAction } from '@ngrx/router-store';
 
 import {
-  categoriesFailure,
-  categoriesRequest,
-  categoriesSuccess,
+  categoriesAtInitFailure,
+  categoriesAtInitRequest,
+  categoriesAtInitSuccess,
   setActiveLevel,
   setIsListCollapsed
 } from '../actions/category.actions';
@@ -31,13 +31,13 @@ import { SMALL_DEVICE_DEFINITION } from '../../config/config';
 
 @Injectable()
 export class CategoryEffects {
-  public loadCategories$ = createEffect(() =>
+  public loadCategoriesAtInit$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(categoriesRequest),
+      ofType(categoriesAtInitRequest),
       switchMap(() =>
-        this.apiCategoryService.getCategories().pipe(
-          map(categories => categoriesSuccess({ categories })),
-          catchError((httpErrorResponse: HttpErrorResponse) => of(categoriesFailure({ httpErrorResponse })))
+        this.apiCategoryService.getCategoriesAtInit().pipe(
+          map(categories => categoriesAtInitSuccess({ categories })),
+          catchError((httpErrorResponse: HttpErrorResponse) => of(categoriesAtInitFailure({ httpErrorResponse })))
         )
       )
     )
@@ -45,7 +45,7 @@ export class CategoryEffects {
 
   public setActiveLevel$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(categoriesSuccess, routerNavigatedAction),
+      ofType(categoriesAtInitSuccess, routerNavigatedAction),
       // TODO check if 'concatMap ... of(action)' is really needed
       concatMap(action =>
         of(action).pipe(withLatestFrom(this.categoryFacadeService.activeLevelUpdateEntriesBasedOnRoute$))
@@ -54,11 +54,11 @@ export class CategoryEffects {
     )
   );
 
-  public triggerCategoryLoad$ = createEffect(() =>
+  public triggerCategoryAtInitLoad$ = createEffect(() =>
     this.actions$.pipe(
       ofType(routerNavigatedAction),
       concatMap(action => of(action).pipe(withLatestFrom(this.routerFacadeService.navigationId$))),
-      mergeMap(([action, navigationId]) => (navigationId === 1 ? of(categoriesRequest()) : EMPTY))
+      mergeMap(([action, navigationId]) => (navigationId === 1 ? of(categoriesAtInitRequest()) : EMPTY))
     )
   );
 

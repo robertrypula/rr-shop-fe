@@ -18,7 +18,7 @@ export const initialState: State = {
 const categoryReducer = createReducer(
   initialState,
   on(
-    fromCategoryActions.categoriesSuccess,
+    fromCategoryActions.categoriesAtInitSuccess,
     (state: State, { categories }): State => {
       const newState: State = { ...state, list: { ...state.list } };
 

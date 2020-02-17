@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { routerNavigatedAction, routerNavigationAction } from '@ngrx/router-store';
-import { catchError, concatMap, filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { EMPTY, of } from 'rxjs';
+import { catchError, concatMap, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { EMPTY, merge, of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { RouterFacadeService } from '../facades/router-facade.service';
@@ -17,6 +17,7 @@ import {
 import { ApiProductService } from '../../api-services/api-product.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
 import { isCategoryUrl } from '../../utils/routing.util';
+import { categoriesAtInitSuccess } from '../actions/category.actions';
 
 @Injectable()
 export class ProductsEffects {
@@ -54,11 +55,14 @@ export class ProductsEffects {
   );
 
   public triggerProductsAtCategoryLoad$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(routerNavigationAction),
-      filter(action => isCategoryUrl(action.payload.routerState.url)),
-      map(() => productsAtCategoryRequest())
-    )
+    merge(
+      this.actions$.pipe(
+        ofType(routerNavigationAction),
+        concatMap(action => of(action).pipe(withLatestFrom(this.categoryFacadeService.categoryLength$))),
+        filter(([action, categoryLength]) => isCategoryUrl(action.payload.routerState.url) && !!categoryLength)
+      ),
+      this.actions$.pipe(ofType(categoriesAtInitSuccess))
+    ).pipe(map(() => productsAtCategoryRequest()))
   );
 
   public constructor(

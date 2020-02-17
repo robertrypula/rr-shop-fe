@@ -57,6 +57,10 @@ export const getCategoriesFromLeafToRoot = (
   return categoriesFromLeafToRoot;
 };
 
+export const selectCategoryLength = createSelector(selectCategoriesAsArray, (categoriesAsArray: Category[]): number => {
+  return categoriesAsArray.length;
+});
+
 export const selectCategoriesWithActiveLevel = createSelector(
   selectCategoriesAsArray,
   (categoriesAsArray: Category[]): Category[] => {

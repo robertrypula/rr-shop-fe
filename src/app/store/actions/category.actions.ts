@@ -10,8 +10,11 @@ export const setActiveLevel = createAction(
 
 export const setIsListCollapsed = createAction('[Category] Set is list collapsed', props<{ newValue: boolean }>());
 
-export const categoriesRequest = createAction('[Category] Request');
+export const categoriesAtInitRequest = createAction('[Category] At init request');
 
-export const categoriesSuccess = createAction('[Category] Success', props<{ categories: Category[] }>());
+export const categoriesAtInitSuccess = createAction('[Category] At init success', props<{ categories: Category[] }>());
 
-export const categoriesFailure = createAction('[Category] Failure', props<{ httpErrorResponse: HttpErrorResponse }>());
+export const categoriesAtInitFailure = createAction(
+  '[Category] At init failure',
+  props<{ httpErrorResponse: HttpErrorResponse }>()
+);

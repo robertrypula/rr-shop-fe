@@ -16,6 +16,7 @@ export class CategoryFacadeService {
   public activeCategoryAndItsChildren$: Observable<Category[]>;
   public activeLevelUpdateEntriesBasedOnRoute$: Observable<ActiveLevelUpdateEntry[]>;
   public categoriesWithActiveLevelSorted$: Observable<Category[]>;
+  public categoryLength$: Observable<number>;
   public isCollapseExpandButtonVisible$: Observable<boolean>;
   public isListCollapsed$: Observable<boolean>;
 
@@ -30,6 +31,7 @@ export class CategoryFacadeService {
     this.categoriesWithActiveLevelSorted$ = this.store.pipe(
       select(fromCategorySelectors.selectCategoriesWithActiveLevelSorted)
     );
+    this.categoryLength$ = this.store.pipe(select(fromCategorySelectors.selectCategoryLength));
     this.isCollapseExpandButtonVisible$ = this.store.pipe(
       select(fromCategorySelectors.selectIsCollapseExpandButtonVisible)
     );

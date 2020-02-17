@@ -1,13 +1,3 @@
-export interface CategoryDto {
-  content?: string;
-  id: number;
-  isUnAccessible?: boolean;
-  name: string;
-  parentId: number;
-  slug?: string;
-  structuralNode?: StructuralNode;
-}
-
 export enum StructuralNode {
   Footer = 'Footer',
   FooterMap = 'FooterMap',
@@ -22,6 +12,17 @@ export interface ActiveLevelUpdateEntry {
 
 export interface Category {
   activeLevel?: number;
+  content?: string;
+  id: number;
+  isUnAccessible?: boolean;
+  name: string;
+  parentId: number;
+  slug?: string;
+  structuralNode?: StructuralNode;
+}
+
+// TODO reduce number of data from the backend in simple DTO
+export interface CategorySimpleDto {
   content?: string;
   id: number;
   isUnAccessible?: boolean;

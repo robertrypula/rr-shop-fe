@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angu
 import { tap } from 'rxjs/operators';
 
 import { ViewportService } from './services/viewport.service';
+import { PageService } from './services/page.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'rr-shop-root',
@@ -13,8 +15,11 @@ export class RootComponent {
   @ViewChild('content', { static: false })
   public content: ElementRef<HTMLElement>;
 
-  public constructor(protected viewportService: ViewportService) {
+  public isLoadingOverlayVisible$: Observable<boolean>;
+
+  public constructor(protected viewportService: ViewportService, protected pageService: PageService) {
     this.handleScrollIntoContent();
+    this.isLoadingOverlayVisible$ = pageService.isLoadingOverlayVisible$;
   }
 
   protected handleScrollIntoContent(): void {

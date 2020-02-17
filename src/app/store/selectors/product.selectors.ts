@@ -5,8 +5,19 @@ import * as fromProductReducers from '../reducers/product.reducers';
 import { Product } from '../../models/product.model';
 import { selectActiveCategoryAndItsChildren, selectCategoryAndItsChildren } from './category.selectors';
 import { Category } from '../../models/category.model';
+import { ApiCall } from '../../models/generic.model';
 
 export const selectProductFeature = (state: State): fromProductReducers.State => state.product;
+
+export const selectApiCallProductsAtCategory = createSelector(
+  selectProductFeature,
+  (productFeature: fromProductReducers.State): ApiCall => productFeature.apiCallProductsAtCategory
+);
+
+export const selectApiCallProductsAtInit = createSelector(
+  selectProductFeature,
+  (productFeature: fromProductReducers.State): ApiCall => productFeature.apiCallProductsAtInit
+);
 
 export const selectProductsAsArray = createSelector(
   selectProductFeature,

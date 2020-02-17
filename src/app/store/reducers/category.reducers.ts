@@ -1,9 +1,11 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromCategoryActions from '../actions/category.actions';
-import { Category, ActiveLevelUpdateEntry } from '../../models/category.model';
+import { ActiveLevelUpdateEntry, Category } from '../../models/category.model';
+import { ApiCall } from '../../models/generic.model';
 
 export interface State {
+  apiCallCategoriesAtInit: ApiCall;
   isListCollapsed: boolean;
   list: {
     [id: number]: Category;
@@ -11,6 +13,7 @@ export interface State {
 }
 
 export const initialState: State = {
+  apiCallCategoriesAtInit: ApiCall.Initial,
   isListCollapsed: false,
   list: {}
 };
@@ -18,9 +21,17 @@ export const initialState: State = {
 const categoryReducer = createReducer(
   initialState,
   on(
+    fromCategoryActions.categoriesAtInitRequest,
+    (state: State): State => ({ ...state, apiCallCategoriesAtInit: ApiCall.Request })
+  ),
+  on(
+    fromCategoryActions.categoriesAtInitFailure,
+    (state: State): State => ({ ...state, apiCallCategoriesAtInit: ApiCall.Failure })
+  ),
+  on(
     fromCategoryActions.categoriesAtInitSuccess,
     (state: State, { categories }): State => {
-      const newState: State = { ...state, list: { ...state.list } };
+      const newState: State = { ...state, list: { ...state.list }, apiCallCategoriesAtInit: ApiCall.Success };
 
       categories.forEach((category: Category): void => {
         newState.list[category.id] = { ...state.list[category.id], ...category };

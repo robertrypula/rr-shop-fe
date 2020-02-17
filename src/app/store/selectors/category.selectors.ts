@@ -7,8 +7,14 @@ import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../../config/config';
 import { selectUrl } from './router.selectors';
 import { getCategoryId } from '../../utils/routing.util';
 import { selectIsSmallDevice } from './viewport.selectors';
+import { ApiCall } from '../../models/generic.model';
 
 export const selectCategoryFeature = (state: State): fromCategoryReducers.State => state.category;
+
+export const selectApiCallCategoriesAtInit = createSelector(
+  selectCategoryFeature,
+  (categoryFeature: fromCategoryReducers.State): ApiCall => categoryFeature.apiCallCategoriesAtInit
+);
 
 export const selectCategoriesAsArray = createSelector(
   selectCategoryFeature,

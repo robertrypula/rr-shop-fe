@@ -7,60 +7,56 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { RouterFacadeService } from '../facades/router-facade.service';
 import {
-  productsAllSimpleFailure,
-  productsAllSimpleRequest,
-  productsAllSimpleSuccess,
+  productsAtInitFailure,
+  productsAtInitRequest,
+  productsAtInitSuccess,
   productsAtCategoryFailure,
   productsAtCategoryRequest,
   productsAtCategorySuccess
 } from '../actions/product.actions';
 import { ApiProductService } from '../../api-services/api-product.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
+import { isCategoryUrl } from '../../utils/routing.util';
 
 @Injectable()
 export class ProductsEffects {
-  public loadProductsAllSimple$ = createEffect(() =>
+  public loadProductsAtInit$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(productsAllSimpleRequest),
+      ofType(productsAtInitRequest),
       switchMap(() =>
-        this.apiProductService.getProducts().pipe(
-          map(products => productsAllSimpleSuccess({ products })),
-          catchError((httpErrorResponse: HttpErrorResponse) => of(productsAllSimpleFailure({ httpErrorResponse })))
+        this.apiProductService.getProductsAtInit().pipe(
+          map(products => productsAtInitSuccess({ products })),
+          catchError((httpErrorResponse: HttpErrorResponse) => of(productsAtInitFailure({ httpErrorResponse })))
         )
       )
     )
   );
 
-  public triggerProductsAllSimpleLoad$ = createEffect(() =>
+  public triggerProductsAtInitLoad$ = createEffect(() =>
     this.actions$.pipe(
       ofType(routerNavigatedAction),
       concatMap(action => of(action).pipe(withLatestFrom(this.routerFacadeService.navigationId$))),
-      mergeMap(([action, navigationId]) => (navigationId === 1 ? of(productsAllSimpleRequest()) : EMPTY))
+      mergeMap(([action, navigationId]) => (navigationId === 1 ? of(productsAtInitRequest()) : EMPTY))
     )
   );
 
-  public loadProductsLoadAtCategory$ = createEffect(() =>
+  public loadProductsAtCategory$ = createEffect(() =>
     this.actions$.pipe(
       ofType(productsAtCategoryRequest),
       concatMap(action => of(action).pipe(withLatestFrom(this.categoryFacadeService.activeCategoryAndItsChildren$))),
       switchMap(([action, activeCategoryAndItsChildren]) =>
-        this.apiProductService
-          .getProducts(
-            false,
-            activeCategoryAndItsChildren.map(c => c.id)
-          )
-          .pipe(
-            map(products => productsAtCategorySuccess({ products })),
-            catchError((httpErrorResponse: HttpErrorResponse) => of(productsAtCategoryFailure({ httpErrorResponse })))
-          )
+        this.apiProductService.getProductsAtCategory(activeCategoryAndItsChildren.map(c => c.id)).pipe(
+          map(products => productsAtCategorySuccess({ products })),
+          catchError((httpErrorResponse: HttpErrorResponse) => of(productsAtCategoryFailure({ httpErrorResponse })))
+        )
       )
     )
   );
 
-  public triggerProductsLoadAtCategory$ = createEffect(() =>
+  public triggerProductsAtCategoryLoad$ = createEffect(() =>
     this.actions$.pipe(
       ofType(routerNavigationAction),
-      filter(action => action.payload.routerState.url.indexOf('/c/') !== -1),
+      filter(action => isCategoryUrl(action.payload.routerState.url)),
       map(() => productsAtCategoryRequest())
     )
   );

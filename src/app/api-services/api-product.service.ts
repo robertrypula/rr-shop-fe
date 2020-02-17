@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { API_URL_PRODUCT } from '../config/api-url.config';
-import { Product, ProductDto } from '../models/product.model';
+import { API_URL_PRODUCTS } from '../config/api-url.config';
+import { Product, ProductSimpleDto } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,21 +12,33 @@ import { Product, ProductDto } from '../models/product.model';
 export class ApiProductService {
   public constructor(protected http: HttpClient) {}
 
-  public getProducts(isSimple: boolean = true, categoryIds: number[] = null): Observable<Product[]> {
+  public getProductsAtCategory(categoryIds: number[] = null): Observable<Product[]> {
     return this.http
-      .get<ProductDto[]>(API_URL_PRODUCT(isSimple, categoryIds))
+      .get<ProductSimpleDto[]>(API_URL_PRODUCTS(false, categoryIds))
       .pipe(
-        map((productDtos: ProductDto[]): Product[] =>
-          productDtos.map((productDto: ProductDto): Product => this.fromDto(productDto))
+        map((dtos: ProductSimpleDto[]): Product[] =>
+          dtos.map((productDto: ProductSimpleDto): Product => this.fromSimpleDto(productDto))
         )
       );
   }
 
-  public fromDto(productDto: ProductDto): Product {
+  public getProductsAtInit(): Observable<Product[]> {
+    return this.http
+      .get<ProductSimpleDto[]>(API_URL_PRODUCTS(true, null))
+      .pipe(
+        map((dtos: ProductSimpleDto[]): Product[] =>
+          dtos.map((productDto: ProductSimpleDto): Product => this.fromSimpleDto(productDto))
+        )
+      );
+  }
+
+  public fromSimpleDto(dto: ProductSimpleDto): Product {
     return {
-      id: productDto.id,
-      categoryIds: productDto.categoryIds,
-      name: productDto.name
+      categoryIds: dto.categoryIds,
+      id: dto.id,
+      name: dto.name,
+      price: dto.price,
+      slug: dto.slug
     };
   }
 }

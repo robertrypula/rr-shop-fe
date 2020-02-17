@@ -16,7 +16,8 @@ export const initialState: State = {
 const productReducer = createReducer(
   initialState,
   on(
-    fromProductActions.productsAllSimpleSuccess,
+    fromProductActions.productsAtInitSuccess,
+    fromProductActions.productsAtCategorySuccess,
     (state: State, { products }): State => {
       const newState: State = { ...state, list: { ...state.list } };
 

@@ -17,7 +17,7 @@ html {
 
 body {
   @include viewport-tablet-and-up {
-    background: url('../assets/body-bg.png') repeat top center $primary-background-color;
+    // background: url('../assets/body-bg.png') repeat top center $primary-background-color;
   }
 }
 

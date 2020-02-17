@@ -3,6 +3,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { Product } from '../../models/product.model';
 
+export const productRequest = createAction('[Product] Request');
+
+export const productSuccess = createAction('[Product] Success', props<{ product: Product }>());
+
+export const productFailure = createAction('[Product] Failure', props<{ httpErrorResponse: HttpErrorResponse }>());
+
 export const productsAtInitRequest = createAction('[Product] At init request');
 
 export const productsAtInitSuccess = createAction('[Product] At init success', props<{ products: Product[] }>());

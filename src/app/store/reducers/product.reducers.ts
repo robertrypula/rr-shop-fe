@@ -5,6 +5,7 @@ import { Product } from '../../models/product.model';
 import { ApiCall } from '../../models/generic.model';
 
 export interface State {
+  apiCallProduct: ApiCall;
   apiCallProductsAtCategory: ApiCall;
   apiCallProductsAtInit: ApiCall;
   list: {
@@ -13,6 +14,7 @@ export interface State {
 }
 
 export const initialState: State = {
+  apiCallProduct: ApiCall.Initial,
   apiCallProductsAtCategory: ApiCall.Initial,
   apiCallProductsAtInit: ApiCall.Initial,
   list: {}
@@ -20,6 +22,7 @@ export const initialState: State = {
 
 const productReducer = createReducer(
   initialState,
+  on(fromProductActions.productRequest, (state: State): State => ({ ...state, apiCallProduct: ApiCall.Request })),
   on(
     fromProductActions.productsAtCategoryRequest,
     (state: State): State => ({ ...state, apiCallProductsAtCategory: ApiCall.Request })
@@ -28,6 +31,7 @@ const productReducer = createReducer(
     fromProductActions.productsAtInitRequest,
     (state: State): State => ({ ...state, apiCallProductsAtInit: ApiCall.Request })
   ),
+  on(fromProductActions.productSuccess, (state: State): State => ({ ...state, apiCallProduct: ApiCall.Success })),
   on(
     fromProductActions.productsAtCategorySuccess,
     (state: State): State => ({ ...state, apiCallProductsAtCategory: ApiCall.Success })
@@ -36,6 +40,7 @@ const productReducer = createReducer(
     fromProductActions.productsAtInitSuccess,
     (state: State): State => ({ ...state, apiCallProductsAtInit: ApiCall.Success })
   ),
+  on(fromProductActions.productFailure, (state: State): State => ({ ...state, apiCallProduct: ApiCall.Failure })),
   on(
     fromProductActions.productsAtCategoryFailure,
     (state: State): State => ({ ...state, apiCallProductsAtCategory: ApiCall.Failure })

@@ -6,14 +6,7 @@ import { EMPTY, merge, of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { RouterFacadeService } from '../facades/router-facade.service';
-import {
-  productsAtInitFailure,
-  productsAtInitRequest,
-  productsAtInitSuccess,
-  productsAtCategoryFailure,
-  productsAtCategoryRequest,
-  productsAtCategorySuccess
-} from '../actions/product.actions';
+import * as fromProductActions from '../actions/product.actions';
 import { ApiProductService } from '../../api-services/api-product.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
 import { isCategoryUrl } from '../../utils/routing.util';
@@ -21,13 +14,45 @@ import { categoriesAtInitSuccess } from '../actions/category.actions';
 
 @Injectable()
 export class ProductsEffects {
+  public loadProduct$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromProductActions.productRequest),
+      // concatMap(action => of(action).pipe(withLatestFrom(this.categoryFacadeService.activeCategoryAndItsChildren$))),
+      switchMap(action =>
+        this.apiProductService.getProduct(2).pipe(
+          map(product => fromProductActions.productSuccess({ product })),
+          catchError((httpErrorResponse: HttpErrorResponse) =>
+            of(fromProductActions.productFailure({ httpErrorResponse }))
+          )
+        )
+      )
+    )
+  );
+
   public loadProductsAtInit$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(productsAtInitRequest),
+      ofType(fromProductActions.productsAtInitRequest),
       switchMap(() =>
         this.apiProductService.getProductsAtInit().pipe(
-          map(products => productsAtInitSuccess({ products })),
-          catchError((httpErrorResponse: HttpErrorResponse) => of(productsAtInitFailure({ httpErrorResponse })))
+          map(products => fromProductActions.productsAtInitSuccess({ products })),
+          catchError((httpErrorResponse: HttpErrorResponse) =>
+            of(fromProductActions.productsAtInitFailure({ httpErrorResponse }))
+          )
+        )
+      )
+    )
+  );
+
+  public loadProductsAtCategory$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromProductActions.productsAtCategoryRequest),
+      concatMap(action => of(action).pipe(withLatestFrom(this.categoryFacadeService.activeCategoryAndItsChildren$))),
+      switchMap(([action, activeCategoryAndItsChildren]) =>
+        this.apiProductService.getProductsAtCategory(activeCategoryAndItsChildren.map(c => c.id)).pipe(
+          map(products => fromProductActions.productsAtCategorySuccess({ products })),
+          catchError((httpErrorResponse: HttpErrorResponse) =>
+            of(fromProductActions.productsAtCategoryFailure({ httpErrorResponse }))
+          )
         )
       )
     )
@@ -37,19 +62,8 @@ export class ProductsEffects {
     this.actions$.pipe(
       ofType(routerNavigatedAction),
       concatMap(action => of(action).pipe(withLatestFrom(this.routerFacadeService.navigationId$))),
-      mergeMap(([action, navigationId]) => (navigationId === 1 ? of(productsAtInitRequest()) : EMPTY))
-    )
-  );
-
-  public loadProductsAtCategory$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(productsAtCategoryRequest),
-      concatMap(action => of(action).pipe(withLatestFrom(this.categoryFacadeService.activeCategoryAndItsChildren$))),
-      switchMap(([action, activeCategoryAndItsChildren]) =>
-        this.apiProductService.getProductsAtCategory(activeCategoryAndItsChildren.map(c => c.id)).pipe(
-          map(products => productsAtCategorySuccess({ products })),
-          catchError((httpErrorResponse: HttpErrorResponse) => of(productsAtCategoryFailure({ httpErrorResponse })))
-        )
+      mergeMap(([action, navigationId]) =>
+        navigationId === 1 ? of(fromProductActions.productsAtInitRequest()) : EMPTY
       )
     )
   );
@@ -62,7 +76,7 @@ export class ProductsEffects {
         filter(([action, categoryLength]) => isCategoryUrl(action.payload.routerState.url) && !!categoryLength)
       ),
       this.actions$.pipe(ofType(categoriesAtInitSuccess))
-    ).pipe(map(() => productsAtCategoryRequest()))
+    ).pipe(map(() => fromProductActions.productsAtCategoryRequest()))
   );
 
   public constructor(

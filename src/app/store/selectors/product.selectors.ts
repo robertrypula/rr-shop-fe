@@ -51,7 +51,6 @@ export const selectActiveProduct = createSelector(
   selectActiveProductId,
   selectProductsAsKeyValue,
   (activeProductId: number, productsAsKeyValue: { [key: string]: Product }): Product => {
-    console.log(activeProductId);
     return activeProductId ? productsAsKeyValue[activeProductId] : null;
   }
 );

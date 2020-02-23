@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
+import { Product } from '../../models/product.model';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'rr-shop-product',
@@ -10,17 +12,11 @@ import { environment } from '../../../environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductComponent implements OnInit {
-  public data: any[]; // 'any' because it's still just a test...
-  public image = '01';
+  public activeProduct$: Observable<Product>;
 
-  public constructor(protected http: HttpClient) {}
+  public constructor(protected productService: ProductService) {
+    this.activeProduct$ = productService.activeProduct$;
+  }
 
   public ngOnInit(): void {}
-
-  public onClick(): void {
-    this.data = null;
-    this.http.get(environment.urlApi + 'product').subscribe((data: any[]) => {
-      this.data = data;
-    });
-  }
 }

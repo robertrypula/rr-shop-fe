@@ -22,6 +22,11 @@ export const selectProductsAsKeyValue = createSelector(
   }
 );
 
+export const selectApiCallProduct = createSelector(
+  selectProductFeature,
+  (productFeature: fromProductReducers.State): ApiCall => productFeature.apiCallProduct
+);
+
 export const selectApiCallProductsAtCategory = createSelector(
   selectProductFeature,
   (productFeature: fromProductReducers.State): ApiCall => productFeature.apiCallProductsAtCategory
@@ -46,6 +51,7 @@ export const selectActiveProduct = createSelector(
   selectActiveProductId,
   selectProductsAsKeyValue,
   (activeProductId: number, productsAsKeyValue: { [key: string]: Product }): Product => {
+    console.log(activeProductId);
     return activeProductId ? productsAsKeyValue[activeProductId] : null;
   }
 );

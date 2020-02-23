@@ -1,19 +1,7 @@
 <div class="Product">
-  <h2 class="margin-bottom">Produkt nazwa blabla</h2>
+  <h2 class="margin-bottom">{{ (activeProduct$ | async)?.name }}</h2>
 
-  <div>
-    <select [(ngModel)]="image" class="margin-bottom">
-      <option value="01">01</option>
-      <option value="02">02</option>
-      <option value="03">03</option>
-      <option value="04">04</option>
-    </select>
-    <br />
-    <!--  <img src="{{ 'kolejkowo-' + image + '.jpg' | ima }}" width="320" height="180" />-->
-  </div>
-
-  <div>
-    <button (click)="onClick()">Load product test</button>
-    <pre>{{ data | json }}</pre>
-  </div>
+  <pre>
+    {{ activeProduct$ | async | json }}
+  </pre>
 </div>

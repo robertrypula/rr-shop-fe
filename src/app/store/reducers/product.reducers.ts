@@ -50,6 +50,13 @@ const productReducer = createReducer(
     (state: State): State => ({ ...state, apiCallProductsAtInit: ApiCall.Failure })
   ),
   on(
+    fromProductActions.productSuccess,
+    (state: State, { product }): State => ({
+      ...state,
+      list: { ...state.list, [product.id]: { ...state.list[product.id], ...product } }
+    })
+  ),
+  on(
     fromProductActions.productsAtInitSuccess,
     fromProductActions.productsAtCategorySuccess,
     (state: State, { products }): State => {

@@ -10,12 +10,14 @@ import * as fromProductSelectors from '../selectors/product.selectors';
   providedIn: 'root'
 })
 export class ProductFacadeService {
+  public activeProduct$: Observable<Product>;
   public activeProductId$: Observable<number>;
   public isOnProductRoute$: Observable<boolean>;
   public productsFromActiveCategoryAndItsChildren$: Observable<Product[]>;
   public productsLength$: Observable<number>;
 
   public constructor(protected store: Store<State>) {
+    this.activeProduct$ = this.store.pipe(select(fromProductSelectors.selectActiveProduct));
     this.activeProductId$ = this.store.pipe(select(fromProductSelectors.selectActiveProductId));
     this.isOnProductRoute$ = this.store.pipe(select(fromProductSelectors.selectIsOnProductRoute));
     this.productsFromActiveCategoryAndItsChildren$ = this.store.pipe(

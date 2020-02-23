@@ -5,7 +5,7 @@ import * as fromCategoryReducers from '../reducers/category.reducers';
 import { ActiveLevelUpdateEntry, Category, StructuralNode } from '../../models/category.model';
 import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../../config/config';
 import { selectUrl } from './router.selectors';
-import { getCategoryId } from '../../utils/routing.util';
+import { getCategoryId, isOnCategoryRoute } from '../../utils/routing.util';
 import { selectIsSmallDevice } from './viewport.selectors';
 import { ApiCall } from '../../models/generic.model';
 
@@ -191,3 +191,5 @@ export const selectIsListCollapsed = createSelector(
   selectCategoryFeature,
   (categoryFeature: fromCategoryReducers.State): boolean => categoryFeature.isListCollapsed
 );
+
+export const selectIsOnCategoryRoute = createSelector(selectUrl, (url: string): boolean => isOnCategoryRoute(url));

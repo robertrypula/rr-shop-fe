@@ -23,4 +23,5 @@ export const getCategoryId = (url: string): number => {
 
 export const getProductId = (url: string): number => parseUrlId(url, 'p');
 
-export const isCategoryUrl = (url: string): boolean => url.indexOf('/c/') !== -1;
+export const isOnCategoryRoute = (url: string): boolean => url.indexOf('/c/') !== -1;
+export const isOnProductRoute = (url: string): boolean => url.indexOf('/p/') !== -1;

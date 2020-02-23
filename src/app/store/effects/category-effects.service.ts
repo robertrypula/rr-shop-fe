@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, concatMap, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of, EMPTY } from 'rxjs';
 import { routerNavigatedAction } from '@ngrx/router-store';
@@ -29,6 +29,8 @@ import { SMALL_DEVICE_DEFINITION } from '../../config/config';
       - exhaustMap: when you want to cancel all the new emissions while processing a previous emisssion
  */
 
+// TODO check if 'concatMap ... of(action)' is really needed
+
 @Injectable()
 export class CategoryEffects {
   public loadCategoriesAtInit$ = createEffect(() =>
@@ -43,17 +45,6 @@ export class CategoryEffects {
     )
   );
 
-  public setActiveLevel$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(categoriesAtInitSuccess, routerNavigatedAction),
-      // TODO check if 'concatMap ... of(action)' is really needed
-      concatMap(action =>
-        of(action).pipe(withLatestFrom(this.categoryFacadeService.activeLevelUpdateEntriesBasedOnRoute$))
-      ),
-      map(([action, activeLevelUpdateEntries]) => setActiveLevel({ activeLevelUpdateEntries }))
-    )
-  );
-
   public triggerCategoryAtInitLoad$ = createEffect(() =>
     this.actions$.pipe(
       ofType(routerNavigatedAction),
@@ -61,6 +52,28 @@ export class CategoryEffects {
       mergeMap(([action, navigationId]) => (navigationId === 1 ? of(categoriesAtInitRequest()) : EMPTY))
     )
   );
+
+  // ---------------------------------------------------------------------------
+
+  public setActiveLevel$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(categoriesAtInitSuccess, routerNavigatedAction),
+      concatMap(action =>
+        of(action).pipe(
+          withLatestFrom(
+            this.categoryFacadeService.activeLevelUpdateEntriesBasedOnRoute$,
+            this.categoryFacadeService.categoryLength$
+          )
+        )
+      ),
+      filter(
+        ([action, activeLevelUpdateEntries, categoryLength]) => !!categoryLength && !!activeLevelUpdateEntries.length
+      ),
+      map(([action, activeLevelUpdateEntries, categoryLength]) => setActiveLevel({ activeLevelUpdateEntries }))
+    )
+  );
+
+  // ---------------------------------------------------------------------------
 
   public expandListOnBiggerDevices$ = createEffect(() =>
     this.actions$.pipe(

@@ -1,25 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { routerNavigatedAction, routerNavigationAction } from '@ngrx/router-store';
-import { catchError, concatMap, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
-import { EMPTY, merge, of } from 'rxjs';
+import { routerNavigatedAction } from '@ngrx/router-store';
+import { catchError, concatMap, filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { EMPTY, of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { RouterFacadeService } from '../facades/router-facade.service';
+import * as fromCategoryActions from '../actions/category.actions';
 import * as fromProductActions from '../actions/product.actions';
 import { ApiProductService } from '../../api-services/api-product.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
-import { isCategoryUrl } from '../../utils/routing.util';
-import { categoriesAtInitSuccess } from '../actions/category.actions';
+import { ProductFacadeService } from '../facades/product-facade.service';
 
 @Injectable()
 export class ProductsEffects {
   public loadProduct$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromProductActions.productRequest),
-      // concatMap(action => of(action).pipe(withLatestFrom(this.categoryFacadeService.activeCategoryAndItsChildren$))),
-      switchMap(action =>
-        this.apiProductService.getProduct(2).pipe(
+      map(() => fromProductActions.productFailure({ httpErrorResponse: null })),
+      concatMap(action => of(action).pipe(withLatestFrom(this.productFacadeService.activeProductId$))),
+      switchMap(([action, activeProductId$]) =>
+        this.apiProductService.getProduct(activeProductId$).pipe(
           map(product => fromProductActions.productSuccess({ product })),
           catchError((httpErrorResponse: HttpErrorResponse) =>
             of(fromProductActions.productFailure({ httpErrorResponse }))
@@ -29,19 +30,20 @@ export class ProductsEffects {
     )
   );
 
-  public loadProductsAtInit$ = createEffect(() =>
+  public triggerProductLoad$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromProductActions.productsAtInitRequest),
-      switchMap(() =>
-        this.apiProductService.getProductsAtInit().pipe(
-          map(products => fromProductActions.productsAtInitSuccess({ products })),
-          catchError((httpErrorResponse: HttpErrorResponse) =>
-            of(fromProductActions.productsAtInitFailure({ httpErrorResponse }))
-          )
+      ofType(fromCategoryActions.setActiveLevel, fromProductActions.productsAtInitSuccess),
+      concatMap(action =>
+        of(action).pipe(
+          withLatestFrom(this.productFacadeService.isOnProductRoute$, this.productFacadeService.productsLength$)
         )
-      )
+      ),
+      filter(([action, isOnProductRoute, productsLength]) => isOnProductRoute && !!productsLength),
+      map(() => fromProductActions.productRequest())
     )
   );
+
+  // ---------------------------------------------------------------------------
 
   public loadProductsAtCategory$ = createEffect(() =>
     this.actions$.pipe(
@@ -58,6 +60,35 @@ export class ProductsEffects {
     )
   );
 
+  public triggerProductsAtCategoryLoad$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromCategoryActions.setActiveLevel, fromProductActions.productsAtInitSuccess),
+      concatMap(action =>
+        of(action).pipe(
+          withLatestFrom(this.categoryFacadeService.isOnCategoryRoute$, this.productFacadeService.productsLength$)
+        )
+      ),
+      filter(([action, isOnCategoryRoute, productsLength]) => isOnCategoryRoute && !!productsLength),
+      map(() => fromProductActions.productsAtCategoryRequest())
+    )
+  );
+
+  // ---------------------------------------------------------------------------
+
+  public loadProductsAtInit$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromProductActions.productsAtInitRequest),
+      switchMap(() =>
+        this.apiProductService.getProductsAtInit().pipe(
+          map(products => fromProductActions.productsAtInitSuccess({ products })),
+          catchError((httpErrorResponse: HttpErrorResponse) =>
+            of(fromProductActions.productsAtInitFailure({ httpErrorResponse }))
+          )
+        )
+      )
+    )
+  );
+
   public triggerProductsAtInitLoad$ = createEffect(() =>
     this.actions$.pipe(
       ofType(routerNavigatedAction),
@@ -68,21 +99,11 @@ export class ProductsEffects {
     )
   );
 
-  public triggerProductsAtCategoryLoad$ = createEffect(() =>
-    merge(
-      this.actions$.pipe(
-        ofType(routerNavigationAction),
-        concatMap(action => of(action).pipe(withLatestFrom(this.categoryFacadeService.categoryLength$))),
-        filter(([action, categoryLength]) => isCategoryUrl(action.payload.routerState.url) && !!categoryLength)
-      ),
-      this.actions$.pipe(ofType(categoriesAtInitSuccess))
-    ).pipe(map(() => fromProductActions.productsAtCategoryRequest()))
-  );
-
   public constructor(
     private actions$: Actions,
-    protected routerFacadeService: RouterFacadeService,
+    protected apiProductService: ApiProductService,
     protected categoryFacadeService: CategoryFacadeService,
-    protected apiProductService: ApiProductService
+    protected productFacadeService: ProductFacadeService,
+    protected routerFacadeService: RouterFacadeService
   ) {}
 }

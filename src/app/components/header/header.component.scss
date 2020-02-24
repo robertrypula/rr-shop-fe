@@ -23,7 +23,7 @@
       }
     }
     h1 {
-      background: url('../../../assets/logo.png') no-repeat top left;
+      background: url('../../../assets/logo-v2.png') no-repeat top left;
       background-size: 100% 100%;
       overflow: hidden;
       text-indent: -99em;
@@ -34,6 +34,10 @@
     h1 {
       display: block;
     }
+  }
+
+  h1.v2 {
+    background-image: url('../../../assets/logo.png') !important;
   }
 
   .Header-headerImage {

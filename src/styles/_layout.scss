@@ -35,9 +35,11 @@ h1 {
 }
 
 h2 {
-  font-size: 25px;
-  line-height: 1.1em;
   color: $h2-color;
+  font-size: 25px;
+  font-weight: normal;
+  line-height: 1.1em;
+  margin-bottom: 36px;
 }
 
 h3 {

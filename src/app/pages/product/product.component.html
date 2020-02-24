@@ -1,7 +1,22 @@
-<div class="Product">
-  <h2 class="margin-bottom">{{ (activeProduct$ | async)?.name }}</h2>
+<div class="Product" *ngIf="activeProduct$ | async as activeProduct">
+  <div class="row">
+    <div class="col-xxs-12 col-md-6 margin-bottom">
+      <img alt="{{ activeProduct.name }}" src="" class="ProductBoxCompact-image" />
+    </div>
+    <div class="col-xxs-12 col-md-6 margin-bottom">
+      <h2>{{ activeProduct.name }}</h2>
 
-  <pre>
-    {{ activeProduct$ | async | json }}
-  </pre>
+      <div class="Product-price">
+        {{ activeProduct.price | price }}
+      </div>
+
+      <rr-shop-clickable-action
+        (actionClick)="addToBasket(activeProduct)"
+        [label]="'Do koszyka'"
+        [icon]="['fas', 'shopping-basket']"
+      ></rr-shop-clickable-action>
+    </div>
+  </div>
+
+  <div class="Product-description" [innerHTML]="activeProduct.description"></div>
 </div>

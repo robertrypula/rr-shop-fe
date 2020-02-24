@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
+import { BasketService } from '../../services/basket.service';
 
 @Component({
   selector: 'rr-shop-product',
@@ -14,9 +14,13 @@ import { ProductService } from '../../services/product.service';
 export class ProductComponent implements OnInit {
   public activeProduct$: Observable<Product>;
 
-  public constructor(protected productService: ProductService) {
+  public constructor(protected productService: ProductService, protected basketService: BasketService) {
     this.activeProduct$ = productService.activeProduct$;
   }
 
   public ngOnInit(): void {}
+
+  public addToBasket(product: Product): void {
+    this.basketService.add(product);
+  }
 }

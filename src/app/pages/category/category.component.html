@@ -1,5 +1,5 @@
 <div class="Category">
-  <h2 class="margin-bottom">
+  <h2>
     {{ (activeCategory$ | async)?.name }}
   </h2>
 
@@ -10,7 +10,7 @@
       *ngFor="let product of productsFromActiveCategoryAndItsChildren$ | async; trackBy: trackBy"
       [product]="product"
       [activeCategory]="activeCategory$ | async"
-      class="col-xxs-12 col-sm-6 col-md-4 margin-bottom"
+      class="col-xxs-12 col-sm-6 col-md-4"
     ></rr-shop-product-box-compact>
   </div>
 </div>

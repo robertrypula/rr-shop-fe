@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ProductComponent } from './product.component';
+import { ClickableActionModule } from '../../components/clickable-action/clickable-action.module';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   declarations: [ProductComponent],
   exports: [ProductComponent],
-  imports: [CommonModule, FormsModule, HttpClientModule]
+  imports: [CommonModule, FormsModule, HttpClientModule, ClickableActionModule, PipesModule]
 })
 export class ProductModule {}

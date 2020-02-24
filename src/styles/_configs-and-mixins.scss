@@ -12,13 +12,22 @@ $clickable-action-transparent-color: #3e3e3e;
 $a-color: #84a056;
 $border-color: #d4d4d4;
 $color: #909090;
-$font-size: 16px;
-$input-background-color: #ebebeb;
-$input-border-color: #d7d7d7;
-$input-color: #909090;
+$dark-color: black;
 $primary-background-color: white;
+$secondary-background-color: #ebebeb;
+$font-size: 16px;
 
-$category-box-background-color: #ebebeb;
+$input-background-color: $secondary-background-color;
+$input-border-color: #d7d7d7;
+$input-color: $color;
+
+$category-box-background-color: $secondary-background-color;
+
+$product-box-name-color: $color;
+$product-box-price-color: $a-color;
+
+$product-description-color: $dark-color;
+$product-description-background-color: $secondary-background-color;
 
 $top-menu-font-size: 14px;
 $top-menu-color-default: #3e3e3e;

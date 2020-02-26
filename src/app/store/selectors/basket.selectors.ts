@@ -1,10 +1,10 @@
 import { createSelector } from '@ngrx/store';
 
 import { State } from '../reducers';
-import { selectProductFeature } from './product.selectors';
+import { selectProductsAsKeyValue } from './product.selectors';
 import * as fromBasketReducers from '../reducers/basket.reducers';
-import * as fromProductReducers from '../reducers/product.reducers';
 import { BasketSimpleEntry, BasketEntry } from '../../models/basket.model';
+import { Product } from '../../models/product.model';
 
 export const selectBasketFeature = (state: State): fromBasketReducers.State => state.basket;
 
@@ -24,12 +24,12 @@ export const selectBasketSimpleEntryByProductId = createSelector(
 
 export const selectBasketEntries = createSelector(
   selectBasketSimpleEntries,
-  selectProductFeature,
-  (basketSimpleEntries: BasketSimpleEntry[], product: fromProductReducers.State): BasketEntry[] =>
+  selectProductsAsKeyValue,
+  (basketSimpleEntries: BasketSimpleEntry[], productsAsKeyValue: { [id: number]: Product }): BasketEntry[] =>
     basketSimpleEntries.map(
       (basketEntry: BasketSimpleEntry): BasketEntry => ({
         ...basketEntry,
-        product: product[basketEntry.productId] || null
+        product: productsAsKeyValue[basketEntry.productId] || null
       })
     )
 );

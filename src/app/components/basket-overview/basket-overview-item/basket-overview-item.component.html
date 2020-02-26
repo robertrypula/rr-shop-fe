@@ -1,5 +1,6 @@
 <div>
-  {{ basketEntry.product?.name }}
-  {{ basketEntry.quantity }} x {{ basketEntry.product.price | price }}
-  <button type="button" (click)="remove.emit(basketEntry.id)">Remove</button>
+  <pre>{{ basketEntry | json }}</pre>
+  {{ basketEntry?.product?.name }}
+  {{ basketEntry?.quantity }} x {{ basketEntry?.product?.price | price }}
+  <button type="button" (click)="remove.emit(basketEntry?.id)">Remove</button>
 </div>

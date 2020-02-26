@@ -6,6 +6,12 @@ export enum ImageSize {
 
 export interface Image {
   id: number;
-  name: string;
+  filename: string;
+  order: number;
+}
+
+export interface ImageDto {
+  id: number;
+  filename: string;
   order: number;
 }

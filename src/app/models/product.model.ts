@@ -1,10 +1,10 @@
-import { Image } from './image.model';
+import { ImageDto } from './image.model';
 
 export interface Product {
   categoryIds: number[];
   description?: string;
   id: number;
-  // images?: Image[];
+  imageIds?: number[];
   name?: string;
   price?: number;
   quantity?: number;
@@ -15,7 +15,7 @@ export interface ProductFullDto {
   categoryIds: number[];
   description?: string;
   id: number;
-  // images?: Image[];
+  images?: ImageDto[];
   name?: string;
   price?: number;
   quantity?: number;
@@ -30,6 +30,7 @@ export interface ProductInitDto {
 export interface ProductSimpleDto {
   categoryIds: number[];
   id: number;
+  images?: ImageDto[];
   name: string;
   price?: number;
   slug: string;

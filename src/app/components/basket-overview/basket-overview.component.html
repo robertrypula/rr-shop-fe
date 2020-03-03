@@ -1,3 +1,55 @@
+<div class="BasketOverview">
+  <table>
+    <thead>
+      <tr>
+        <th>Produkt</th>
+        <th>Liczba</th>
+        <th>Cena</th>
+        <th>Wartość</th>
+        <th>Akcje</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let basketEntry of basketEntries$ | async; trackBy: trackBy">
+        <td class="BasketOverview">
+          <pre style="width: 200px; overflow: scroll;">{{ basketEntry | json }}</pre>
+
+          <a [routerLink]="basketEntry.product | productUrl">
+            <img alt="{{ basketEntry.product.name }}" src="" />
+            <span>{{ basketEntry.product.name }}</span>
+          </a>
+        </td>
+        <td>
+          <rr-shop-clickable-action
+            (actionClick)="remove(basketEntry.id)"
+            [icon]="['fas', 'minus']"
+          ></rr-shop-clickable-action>
+          <span>
+            {{ basketEntry.quantity }}
+          </span>
+          <rr-shop-clickable-action
+            (actionClick)="remove(basketEntry.id)"
+            [icon]="['fas', 'plus']"
+          ></rr-shop-clickable-action>
+        </td>
+        <td>
+          <span>
+            {{ basketEntry.product.price | price }}
+          </span>
+        </td>
+        <td></td>
+        <td>
+          <rr-shop-clickable-action
+            (actionClick)="remove(basketEntry.id)"
+            [icon]="['far', 'trash-alt']"
+          ></rr-shop-clickable-action>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<table class=""></table>
+
 <rr-shop-basket-overview-item
   *ngFor="let basketEntry of basketEntries$ | async; trackBy: trackBy"
   [basketEntry]="basketEntry"

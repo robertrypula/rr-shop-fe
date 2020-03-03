@@ -1,19 +1,25 @@
 @import 'configs-and-mixins';
 
 .Product {
-  img {
-    background-color: lightgray;
-    display: block;
-    height: 300px;
-    width: 300px;
-    margin: 0 auto;
+  .Product-imageContainer {
+    margin-bottom: 2 * $gutter-width;
+    img {
+      background-color: lightgray;
+      display: block;
+      height: 300px;
+      width: 300px;
+      margin: 0 auto;
+    }
   }
 
-  .Product-price {
-    font-size: 20px;
-    color: $product-box-price-color;
-    font-weight: bold;
-    padding: 16px 0;
+  .Product-overviewContainer {
+    margin-bottom: 2 * $gutter-width;
+    .Product-price {
+      font-size: 20px;
+      color: $product-box-price-color;
+      font-weight: bold;
+      padding: 16px 0;
+    }
   }
 
   .Product-description {

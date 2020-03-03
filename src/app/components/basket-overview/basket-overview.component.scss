@@ -1,0 +1,14 @@
+.BasketOverview {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    td,
+    th {
+      padding: 8px 10px;
+      border: 1px solid red;
+      vertical-align: top;
+      text-align: left;
+    }
+  }
+}

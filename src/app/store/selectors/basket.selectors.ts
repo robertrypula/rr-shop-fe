@@ -8,14 +8,14 @@ import { Product } from '../../models/product.model';
 
 export const selectBasketFeature = (state: State): fromBasketReducers.State => state.basket;
 
-const toBasketEntry = (basketEntry: BasketSimpleEntry, productsAsKeyValue: { [id: number]: Product }): BasketEntry => {
-  const product = productsAsKeyValue[basketEntry.productId];
+const toBasketEntry = (basketSimpleEntry: BasketSimpleEntry, productsAsKeyValue: { [id: number]: Product }): BasketEntry => {
+  const product = productsAsKeyValue[basketSimpleEntry.productId];
 
   return {
-    ...basketEntry,
-    isQuantityDecrementActive: basketEntry.quantity > 1,
+    ...basketSimpleEntry,
+    isQuantityDecrementActive: basketSimpleEntry.quantity > 1,
     product,
-    totalPrice: product ? product.price * basketEntry.quantity : 0
+    totalPrice: product ? product.price * basketSimpleEntry.quantity : 0
   };
 };
 
@@ -43,7 +43,7 @@ export const selectBasketEntries = createSelector(
   selectProductsAsKeyValue,
   (basketSimpleEntriesAsArray: BasketSimpleEntry[], productsAsKeyValue: { [id: number]: Product }): BasketEntry[] =>
     basketSimpleEntriesAsArray.map(
-      (basketEntry: BasketSimpleEntry): BasketEntry => toBasketEntry(basketEntry, productsAsKeyValue)
+      (basketSimpleEntry: BasketSimpleEntry): BasketEntry => toBasketEntry(basketSimpleEntry, productsAsKeyValue)
     )
 );
 

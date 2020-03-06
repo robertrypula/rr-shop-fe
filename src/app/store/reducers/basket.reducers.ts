@@ -4,18 +4,22 @@ import * as fromBasketActions from '../actions/basket.actions';
 import { BasketSimpleEntry } from '../../models/basket.model';
 
 export interface State {
-  [id: number]: BasketSimpleEntry;
+  list: {
+    [id: string]: BasketSimpleEntry;
+  };
 }
 
 export const initialState: State = {
-  1: {
-    id: 1,
-    productId: 1,
-    quantity: 1
+  list: {
+    1: {
+      id: 1,
+      productId: 1,
+      quantity: 1
+    }
   }
 };
 
-export let basketSimpleEntryId = 0;
+export let basketSimpleEntryId = 1; // TODO revert to 0 and remove initial basket entry from initialState
 
 const basketReducer = createReducer(
   initialState,
@@ -24,43 +28,54 @@ const basketReducer = createReducer(
     (state, { id, quantity }): State => {
       basketSimpleEntryId++;
 
-      return { ...state, [basketSimpleEntryId]: { id: basketSimpleEntryId, productId: id, quantity } };
+      return {
+        ...state,
+        list: { ...state.list, [basketSimpleEntryId]: { id: basketSimpleEntryId, productId: id, quantity } }
+      };
     }
   ),
   on(
     fromBasketActions.quantityIncrement,
     (state: State, { id }): State => {
-      const basketSimpleEntry = state[id];
+      const basketSimpleEntry: BasketSimpleEntry = state.list[id];
 
       return basketSimpleEntry
-        ? { ...state, [id]: { ...basketSimpleEntry, quantity: basketSimpleEntry.quantity + 1 } }
+        ? {
+            ...state,
+            list: { ...state.list, [id]: { ...basketSimpleEntry, quantity: basketSimpleEntry.quantity + 1 } }
+          }
         : state;
     }
   ),
   on(
     fromBasketActions.quantityDecrement,
     (state: State, { id }): State => {
-      const basketSimpleEntry = state[id];
+      const basketSimpleEntry: BasketSimpleEntry = state.list[id];
 
-      return basketSimpleEntry
-        ? { ...state, [id]: { ...basketSimpleEntry, quantity: basketSimpleEntry.quantity - 1 } }
+      return basketSimpleEntry && basketSimpleEntry.quantity > 1
+        ? {
+            ...state,
+            list: { ...state.list, [id]: { ...basketSimpleEntry, quantity: basketSimpleEntry.quantity - 1 } }
+          }
         : state;
     }
   ),
   on(
     fromBasketActions.quantitySetTo,
     (state: State, { id, quantity }): State => {
-      const basketSimpleEntry = state[id];
+      const basketSimpleEntry: BasketSimpleEntry = state.list[id];
 
-      return basketSimpleEntry ? { ...state, [id]: { ...basketSimpleEntry, quantity } } : state;
+      return basketSimpleEntry
+        ? { ...state, list: { ...state.list, [id]: { ...basketSimpleEntry, quantity } } }
+        : state;
     }
   ),
   on(
     fromBasketActions.remove,
     (state: State, { id }): State => {
-      const { [id]: toDelete, ...rest } = state;
+      const { [id]: toDelete, ...rest } = state.list;
 
-      return toDelete ? rest : state;
+      return toDelete ? { ...state, list: rest } : state;
     }
   )
 );

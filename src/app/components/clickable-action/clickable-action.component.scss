@@ -93,6 +93,13 @@
 
   // TODO implement ClickableAction--secondary
 
+  &.ClickableAction--disabled {
+    > * {
+      background-color: $secondary-background-color;
+      color: $color;
+    }
+  }
+
   &.ClickableAction--transparent {
     > * {
       background-color: $clickable-action-transparent-background-color;

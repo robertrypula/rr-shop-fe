@@ -18,6 +18,14 @@ export class BasketOverviewItemComponent implements OnInit {
 
   public ngOnInit(): void {}
 
+  public quantityDecrement(id: number): void {
+    this.basketService.quantityDecrement(id);
+  }
+
+  public quantityIncrement(id: number): void {
+    this.basketService.quantityIncrement(id);
+  }
+
   public remove(id: number): void {
     this.basketService.remove(id);
   }

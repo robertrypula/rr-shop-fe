@@ -12,6 +12,7 @@ import { ClickableActionTheme, ClickableActionType } from './clickable-action.mo
 export class ClickableActionComponent implements OnInit {
   @Input() public clickableActionTheme: ClickableActionTheme = ClickableActionTheme.Primary;
   @Input() public clickableActionType: ClickableActionType = ClickableActionType.Button;
+  @Input() public disabled = false;
   @Input() public icon: [IconPrefix, IconName] = null;
   @Input() public iconSize: SizeProp = 'lg';
   @Input() public label: string = null;
@@ -28,6 +29,6 @@ export class ClickableActionComponent implements OnInit {
   public ngOnInit(): void {}
 
   public onActionClick($event: Event): void {
-    this.actionClick.emit($event);
+    !this.disabled && this.actionClick.emit($event);
   }
 }

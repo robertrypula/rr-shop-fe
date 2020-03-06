@@ -1,13 +1,13 @@
 <td class="BasketOverviewItem-name">
   <a [routerLink]="basketEntry?.product | productUrl">
     <img alt="{{ basketEntry.product?.name }}" src="" />
-    <span>Propolis od ojców Bonifratrów{{ basketEntry.product?.name }}</span>
+    <span>{{ basketEntry.product?.name }}</span>
     <div class="hidden-md hidden-lg">
       {{ basketEntry.product?.price | price }}
       x
       {{ basketEntry.quantity }}
       =
-      {{ 0 | price }}
+      {{ basketEntry.totalPrice | price }}
     </div>
   </a>
 
@@ -20,6 +20,7 @@
     <div>
       <rr-shop-clickable-action
         (actionClick)="remove(basketEntry.id)"
+        [disabled]="!basketEntry.isQuantityDecrementActive"
         [icon]="['fas', 'minus']"
       ></rr-shop-clickable-action>
       <rr-shop-clickable-action
@@ -32,14 +33,15 @@
 <td class="BasketOverviewItem-quantity hidden-xxs hidden-xs hidden-sm">
   <div>
     <rr-shop-clickable-action
-      (actionClick)="remove(basketEntry.id)"
+      (actionClick)="quantityDecrement(basketEntry.id)"
+      [disabled]="!basketEntry.isQuantityDecrementActive"
       [icon]="['fas', 'minus']"
     ></rr-shop-clickable-action>
     <span>
       {{ basketEntry.quantity }}
     </span>
     <rr-shop-clickable-action
-      (actionClick)="remove(basketEntry.id)"
+      (actionClick)="quantityIncrement(basketEntry.id)"
       [icon]="['fas', 'plus']"
     ></rr-shop-clickable-action>
   </div>
@@ -51,7 +53,7 @@
 </td>
 <td class="BasketOverviewItem-itemPrice hidden-xxs hidden-xs hidden-sm">
   <span>
-    {{ 0 | price }}
+    {{ basketEntry.totalPrice | price }}
   </span>
 </td>
 <td class="BasketOverviewItem-actions hidden-xxs hidden-xs hidden-sm">

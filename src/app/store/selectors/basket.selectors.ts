@@ -8,44 +8,49 @@ import { Product } from '../../models/product.model';
 
 export const selectBasketFeature = (state: State): fromBasketReducers.State => state.basket;
 
-const toBasketEntry = (basketSimpleEntry: BasketSimpleEntry): BasketEntry => {
+const toBasketEntry = (basketEntry: BasketSimpleEntry, productsAsKeyValue: { [id: number]: Product }): BasketEntry => {
+  const product = productsAsKeyValue[basketEntry.productId];
+
   return {
-    ...basketSimpleEntry,
-    product: null,
-    isQuantityDecreaseActive: false
+    ...basketEntry,
+    isQuantityDecrementActive: basketEntry.quantity > 1,
+    product,
+    totalPrice: product ? product.price * basketEntry.quantity : 0
   };
 };
 
-export const selectBasketSimpleEntries = createSelector(
+export const selectBasketSimpleEntriesAsArray = createSelector(
   selectBasketFeature,
   (basketFeature: fromBasketReducers.State): BasketSimpleEntry[] =>
-    Object.keys(basketFeature).map((key: string): BasketSimpleEntry => basketFeature[+key])
+    Object.keys(basketFeature.list).map((key: string): BasketSimpleEntry => basketFeature.list[key])
+);
+
+export const selectBasketSimpleEntriesAsKeyValue = createSelector(
+  selectBasketFeature,
+  (basketFeature: fromBasketReducers.State): { [id: number]: BasketSimpleEntry } => basketFeature.list
 );
 
 export const selectBasketSimpleEntryByProductId = createSelector(
-  selectBasketSimpleEntries,
-  (basketSimpleEntries: BasketSimpleEntry[], props: { productId: number }): BasketSimpleEntry =>
-    basketSimpleEntries.find(
+  selectBasketSimpleEntriesAsArray,
+  (basketSimpleEntriesAsArray: BasketSimpleEntry[], props: { productId: number }): BasketSimpleEntry =>
+    basketSimpleEntriesAsArray.find(
       (basketSimpleEntry: BasketSimpleEntry): boolean => basketSimpleEntry.productId === props.productId
     )
 );
 
 export const selectBasketEntries = createSelector(
-  selectBasketSimpleEntries,
+  selectBasketSimpleEntriesAsArray,
   selectProductsAsKeyValue,
-  (basketSimpleEntries: BasketSimpleEntry[], productsAsKeyValue: { [id: number]: Product }): BasketEntry[] =>
-    basketSimpleEntries.map(
-      (basketEntry: BasketSimpleEntry): BasketEntry => ({
-        ...toBasketEntry(basketEntry),
-        product: productsAsKeyValue[basketEntry.productId] || null
-      })
+  (basketSimpleEntriesAsArray: BasketSimpleEntry[], productsAsKeyValue: { [id: number]: Product }): BasketEntry[] =>
+    basketSimpleEntriesAsArray.map(
+      (basketEntry: BasketSimpleEntry): BasketEntry => toBasketEntry(basketEntry, productsAsKeyValue)
     )
 );
 
 export const selectQuantityTotal = createSelector(
-  selectBasketSimpleEntries,
-  (basketSimpleEntries: BasketSimpleEntry[]): number =>
-    basketSimpleEntries.reduce((previousValue: number, currentValue: BasketSimpleEntry): number => {
+  selectBasketSimpleEntriesAsArray,
+  (basketSimpleEntriesAsArray: BasketSimpleEntry[]): number =>
+    basketSimpleEntriesAsArray.reduce((previousValue: number, currentValue: BasketSimpleEntry): number => {
       return previousValue + currentValue.quantity;
     }, 0)
 );

@@ -20,6 +20,7 @@
             <rr-shop-clickable-action
               [clickableActionTheme]="ClickableActionTheme.Primary"
               [clickableActionType]="ClickableActionType.RouterLink"
+              [disabled]="!(quantityTotal$ | async)"
               [link]="'/basket'"
               [icon]="['fas', 'shopping-basket']"
               [label]="'Twój koszyk'"
@@ -30,6 +31,7 @@
             <rr-shop-clickable-action
               [clickableActionTheme]="ClickableActionTheme.Primary"
               [clickableActionType]="ClickableActionType.RouterLink"
+              [disabled]="!(quantityTotal$ | async)"
               [icon]="['fas', 'shopping-basket']"
               [link]="'/basket'"
               [number]="quantityTotal$ | async"

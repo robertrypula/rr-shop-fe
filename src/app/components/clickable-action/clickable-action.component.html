@@ -2,6 +2,7 @@
   [ngSwitch]="clickableActionType"
   class="ClickableAction"
   [ngClass]="{
+    'ClickableAction--disabled': disabled,
     'ClickableAction--primary': clickableActionTheme === ClickableActionTheme.Primary,
     'ClickableAction--secondary': clickableActionTheme === ClickableActionTheme.Secondary,
     'ClickableAction--transparent': clickableActionTheme === ClickableActionTheme.Transparent,

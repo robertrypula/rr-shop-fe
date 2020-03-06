@@ -4,7 +4,7 @@
   .Product-imageContainer {
     margin-bottom: 2 * $gutter-width;
     img {
-      background-color: lightgray;
+      background-color: $image-background-color;
       display: block;
       height: 300px;
       width: 300px;

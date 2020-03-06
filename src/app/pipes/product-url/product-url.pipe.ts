@@ -10,6 +10,6 @@ export class ProductUrlPipe implements PipeTransform {
   public transform(product: Product, activeCategory: Category = null): string {
     const activeCategorySuffix: string = activeCategory ? ',' + activeCategory.id + '' : '';
 
-    return `/p/${product.id}/${product.slug}${activeCategorySuffix}`;
+    return product ? `/p/${product.id}/${product.slug}${activeCategorySuffix}` : '';
   }
 }

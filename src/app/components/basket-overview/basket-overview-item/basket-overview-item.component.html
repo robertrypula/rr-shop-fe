@@ -1,6 +1,62 @@
-<div>
-  <pre>{{ basketEntry | json }}</pre>
-  {{ basketEntry?.product?.name }}
-  {{ basketEntry?.quantity }} x {{ basketEntry?.product?.price | price }}
-  <button type="button" (click)="remove.emit(basketEntry?.id)">Remove</button>
-</div>
+<td class="BasketOverviewItem-name">
+  <a [routerLink]="basketEntry?.product | productUrl">
+    <img alt="{{ basketEntry.product?.name }}" src="" />
+    <span>Propolis od ojców Bonifratrów{{ basketEntry.product?.name }}</span>
+    <div class="hidden-md hidden-lg">
+      {{ basketEntry.product?.price | price }}
+      x
+      {{ basketEntry.quantity }}
+      =
+      {{ 0 | price }}
+    </div>
+  </a>
+
+  <div class="BasketOverviewItem-aggregation hidden-md hidden-lg">
+    <rr-shop-clickable-action
+      (actionClick)="remove(basketEntry.id)"
+      [icon]="['far', 'trash-alt']"
+    ></rr-shop-clickable-action>
+
+    <div>
+      <rr-shop-clickable-action
+        (actionClick)="remove(basketEntry.id)"
+        [icon]="['fas', 'minus']"
+      ></rr-shop-clickable-action>
+      <rr-shop-clickable-action
+        (actionClick)="remove(basketEntry.id)"
+        [icon]="['fas', 'plus']"
+      ></rr-shop-clickable-action>
+    </div>
+  </div>
+</td>
+<td class="BasketOverviewItem-quantity hidden-xxs hidden-xs hidden-sm">
+  <div>
+    <rr-shop-clickable-action
+      (actionClick)="remove(basketEntry.id)"
+      [icon]="['fas', 'minus']"
+    ></rr-shop-clickable-action>
+    <span>
+      {{ basketEntry.quantity }}
+    </span>
+    <rr-shop-clickable-action
+      (actionClick)="remove(basketEntry.id)"
+      [icon]="['fas', 'plus']"
+    ></rr-shop-clickable-action>
+  </div>
+</td>
+<td class="BasketOverviewItem-price hidden-xxs hidden-xs hidden-sm">
+  <span>
+    {{ basketEntry.product?.price | price }}
+  </span>
+</td>
+<td class="BasketOverviewItem-itemPrice hidden-xxs hidden-xs hidden-sm">
+  <span>
+    {{ 0 | price }}
+  </span>
+</td>
+<td class="BasketOverviewItem-actions hidden-xxs hidden-xs hidden-sm">
+  <rr-shop-clickable-action
+    (actionClick)="remove(basketEntry.id)"
+    [icon]="['far', 'trash-alt']"
+  ></rr-shop-clickable-action>
+</td>

@@ -8,6 +8,14 @@ import { Product } from '../../models/product.model';
 
 export const selectBasketFeature = (state: State): fromBasketReducers.State => state.basket;
 
+const toBasketEntry = (basketSimpleEntry: BasketSimpleEntry): BasketEntry => {
+  return {
+    ...basketSimpleEntry,
+    product: null,
+    isQuantityDecreaseActive: false
+  };
+};
+
 export const selectBasketSimpleEntries = createSelector(
   selectBasketFeature,
   (basketFeature: fromBasketReducers.State): BasketSimpleEntry[] =>
@@ -28,7 +36,7 @@ export const selectBasketEntries = createSelector(
   (basketSimpleEntries: BasketSimpleEntry[], productsAsKeyValue: { [id: number]: Product }): BasketEntry[] =>
     basketSimpleEntries.map(
       (basketEntry: BasketSimpleEntry): BasketEntry => ({
-        ...basketEntry,
+        ...toBasketEntry(basketEntry),
         product: productsAsKeyValue[basketEntry.productId] || null
       })
     )

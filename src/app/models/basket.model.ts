@@ -7,5 +7,6 @@ export interface BasketSimpleEntry {
 }
 
 export interface BasketEntry extends BasketSimpleEntry {
+  isQuantityDecreaseActive: boolean;
   product: Product;
 }

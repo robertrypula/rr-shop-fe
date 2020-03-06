@@ -1,0 +1,81 @@
+@import 'configs-and-mixins';
+
+td {
+  padding: 8px 10px;
+  border: 1px solid $border-color;
+  vertical-align: top;
+  text-align: left;
+
+  .BasketOverviewItem-aggregation {
+    padding-top: 8px;
+    div {
+      float: right;
+      * {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  &.BasketOverviewItem-name {
+    a {
+      display: block;
+      width: 100%;
+      min-height: 64px;
+      position: relative;
+      img {
+        position: absolute;
+        display: block;
+        width: 64px;
+        height: 64px;
+        outline: 1px solid red;
+        background-color: $image-background-color;
+      }
+      span {
+        display: block;
+        padding: 0px 0 0 75px;
+        @include viewport-desktop-medium-and-up {
+          padding: 12px 0 0 75px;
+        }
+      }
+      div {
+        padding: 8px 0 8px 75px;
+        color: $color;
+      }
+    }
+  }
+  &.BasketOverviewItem-quantity {
+    width: 150px;
+    div {
+      width: 120px;
+      position: relative;
+      *:first-child {
+        position: absolute;
+      }
+      *:last-child {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+    span {
+      display: block;
+      padding-top: 12px;
+      height: 40px;
+      text-align: center;
+    }
+  }
+  &.BasketOverviewItem-price {
+    width: 100px;
+  }
+  &.BasketOverviewItem-price,
+  &.BasketOverviewItem-itemPrice {
+    width: 100px;
+    span {
+      display: inline-block;
+      padding: 12px 0 0 0;
+    }
+  }
+  &.BasketOverviewItem-actions {
+    width: 100px;
+  }
+}

@@ -7,7 +7,13 @@ export interface State {
   [id: number]: BasketSimpleEntry;
 }
 
-export const initialState: State = {};
+export const initialState: State = {
+  1: {
+    id: 1,
+    productId: 1,
+    quantity: 1
+  }
+};
 
 export let basketSimpleEntryId = 0;
 

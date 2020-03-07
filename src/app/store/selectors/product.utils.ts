@@ -1,6 +1,7 @@
 import { Product, ProductEnriched } from '../../models/product.model';
 import { Category } from '../../models/category.model';
 import { BasketSimpleEntry } from '../../models/basket.model';
+import { toBasketEntry } from './basket.utils';
 
 export const getProductsAsArray = (productsAsKeyValue: { [id: number]: Product }): Product[] => {
   return Object.keys(productsAsKeyValue).map((key: string): Product => productsAsKeyValue[+key]);
@@ -27,10 +28,12 @@ export const toProductEnriched = (
   product: Product,
   basketSimpleEntriesAsArray: BasketSimpleEntry[]
 ): ProductEnriched => {
+  const basketSimpleEntryFound: BasketSimpleEntry = basketSimpleEntriesAsArray.find(
+    (basketSimpleEntry: BasketSimpleEntry): boolean => basketSimpleEntry.productId === product.id
+  );
+
   return {
     ...product,
-    basketSimpleEntry: basketSimpleEntriesAsArray.find(
-      (basketSimpleEntry: BasketSimpleEntry): boolean => basketSimpleEntry.productId === product.id
-    )
+    basketEntry: basketSimpleEntryFound ? toBasketEntry(basketSimpleEntryFound) : null
   };
 };

@@ -3,9 +3,9 @@ import { Product } from '../../models/product.model';
 
 export const toBasketEntry = (
   basketSimpleEntry: BasketSimpleEntry,
-  productsAsKeyValue: { [id: number]: Product }
+  productsAsKeyValue: { [id: number]: Product } = null
 ): BasketEntry => {
-  const product = productsAsKeyValue[basketSimpleEntry.productId];
+  const product: Product = productsAsKeyValue ? productsAsKeyValue[basketSimpleEntry.productId] : null;
 
   return {
     ...basketSimpleEntry,

@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTimesCircle as farTimesCircle, faTrashAlt as farTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import {
+  faCheckCircle as farCheckCircle,
+  faCircle as farCircle,
+  faTimesCircle as farTimesCircle,
+  faTrashAlt as farTrashAlt
+} from '@fortawesome/free-regular-svg-icons';
 import {
   faAngleDoubleDown as fasAngleDoubleDown,
   faAngleDoubleUp as fasAngleDoubleUp,
@@ -22,6 +27,8 @@ import { IconComponent } from './icon.component';
 export class IconModule {
   public constructor(library: FaIconLibrary) {
     library.addIcons(
+      farCheckCircle,
+      farCircle,
       farTimesCircle,
       farTrashAlt,
       fasAngleDoubleDown,

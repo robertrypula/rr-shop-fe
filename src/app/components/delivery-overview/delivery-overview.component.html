@@ -4,8 +4,27 @@
     basketEntriesDelivery$ | async | json
   }}</pre>
 
-  <span>Deliveries Products</span>
-  <pre style="line-height: 1.1em; font-size: 10px; max-height: 220px; overflow: auto">{{
-    productsEnrichedDelivery$ | async | json
-  }}</pre>
+  <div class="DeliveryOverview-info">
+    Wybierz rodzaj dostawy z listy poniżej:
+  </div>
+
+  <div *ngIf="(productsEnrichedDelivery$ | async).length; else noDeliveries">
+    <div class="BasketOverview-section">
+      <table>
+        <tbody>
+          <tr
+            *ngFor="let productEnriched of productsEnrichedDelivery$ | async; trackBy: trackBy"
+            rr-shop-delivery-overview-item
+            [productEnriched]="productEnriched"
+          ></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #noDeliveries>
+    <div class="DeliveryOverview-empty">
+      Lista dostaw pusta - skontaktuj się z obługą sklepu
+    </div>
+  </ng-template>
 </div>

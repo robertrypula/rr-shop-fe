@@ -1,0 +1,22 @@
+<td class="DeliveryOverviewItem-mainInfo">
+  <a (click)="chooseDelivery(productEnriched.id)">
+    <div>
+      <rr-shop-clickable-action
+        *ngIf="!productEnriched.basketEntry"
+        [clickableActionTheme]="ClickableActionTheme.TransparentDark"
+        [icon]="['far', 'circle']"
+      ></rr-shop-clickable-action>
+
+      <rr-shop-clickable-action
+        *ngIf="productEnriched.basketEntry"
+        [clickableActionTheme]="ClickableActionTheme.TransparentDark"
+        [icon]="['far', 'check-circle']"
+      ></rr-shop-clickable-action>
+    </div>
+
+    <div>{{ productEnriched.name }}</div>
+  </a>
+</td>
+<td class="DeliveryOverviewItem-price">
+  <span>{{ productEnriched.price | price }}</span>
+</td>

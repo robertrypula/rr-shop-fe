@@ -24,4 +24,8 @@ export class DeliveryOverviewComponent implements OnInit {
   }
 
   public ngOnInit() {}
+
+  public trackBy(index: number, item: ProductEnriched): string {
+    return item.id + '';
+  }
 }

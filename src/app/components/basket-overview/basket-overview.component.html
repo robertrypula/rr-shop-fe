@@ -1,23 +1,48 @@
 <div class="BasketOverview">
   <div *ngIf="(basketEntries$ | async).length; else basketEmpty">
-    <table>
-      <thead>
-        <tr>
-          <th>Produkt</th>
-          <th class="hidden-xxs hidden-xs hidden-sm">Liczba</th>
-          <th class="hidden-xxs hidden-xs hidden-sm">Cena</th>
-          <th class="hidden-xxs hidden-xs hidden-sm">Wartość</th>
-          <th class="hidden-xxs hidden-xs hidden-sm">Akcje</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="let basketEntry of basketEntries$ | async; trackBy: trackBy"
-          rr-shop-basket-overview-item
-          [basketEntry]="basketEntry"
-        ></tr>
-      </tbody>
-    </table>
+    <div class="BasketOverview-section">
+      <table>
+        <thead>
+          <tr>
+            <th>Produkt</th>
+            <th class="hidden-xxs hidden-xs hidden-sm">Liczba</th>
+            <th class="hidden-xxs hidden-xs hidden-sm">Cena</th>
+            <th class="hidden-xxs hidden-xs hidden-sm">Wartość</th>
+            <th class="hidden-xxs hidden-xs hidden-sm">Akcje</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let basketEntry of basketEntries$ | async; trackBy: trackBy"
+            rr-shop-basket-overview-item
+            [basketEntry]="basketEntry"
+          ></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Dostawa</h2>
+    <div class="BasketOverview-section">
+      <rr-shop-clickable-action [label]="'Odbiór osobity'"></rr-shop-clickable-action>
+    </div>
+
+    <h2>Płatność</h2>
+    <div class="BasketOverview-section">
+      <rr-shop-clickable-action [label]="'Przy odbiorze'"></rr-shop-clickable-action>
+    </div>
+
+    <h2>Dane klienta</h2>
+    <div class="BasketOverview-section">
+      <input type />
+      <input type />
+      <input type />
+    </div>
+
+    <h2>Podsumowanie</h2>
+    <div class="BasketOverview-section">
+      <div>{{ quantityTotal$ | async | price }}</div>
+      <rr-shop-clickable-action [label]="'Złóż zamówienie'"></rr-shop-clickable-action>
+    </div>
   </div>
 
   <ng-template #basketEmpty>

@@ -29,20 +29,21 @@
 
       .ClickableAction-number {
         position: absolute;
-        bottom: -3px;
-        right: -3px;
-        min-width: 14px;
-        height: 14px;
-        background-color: #bf4e4e;
-        border-radius: 7px;
-        font-size: 8px;
+        bottom: -4px;
+        right: -5px;
+        min-width: 16px;
+        height: 16px;
+        background-color: $red-color;
+        border-radius: 8px;
+        font-size: 10px;
         line-height: 1em;
         display: block;
+
         b {
           display: block;
           padding-top: 3px;
           font-weight: normal;
-          color: white;
+          color: $white-color;
           text-align: center;
           @include font-secondary;
         }

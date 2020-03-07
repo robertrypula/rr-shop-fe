@@ -21,7 +21,7 @@
               [clickableActionTheme]="ClickableActionTheme.Primary"
               [clickableActionType]="ClickableActionType.RouterLink"
               [disabled]="!(quantityTotal$ | async)"
-              [link]="'/basket'"
+              [link]="'/potential-order'"
               [icon]="['fas', 'shopping-basket']"
               [label]="'Twój koszyk'"
               [number]="quantityTotal$ | async"
@@ -33,7 +33,7 @@
               [clickableActionType]="ClickableActionType.RouterLink"
               [disabled]="!(quantityTotal$ | async)"
               [icon]="['fas', 'shopping-basket']"
-              [link]="'/basket'"
+              [link]="'/potential-order'"
               [number]="quantityTotal$ | async"
             ></rr-shop-clickable-action>
           </div>

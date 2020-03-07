@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromBasketActions from '../actions/basket.actions';
-import { BasketSimpleEntry } from '../../models/basket.model';
+import { BasketSimpleEntry, Type } from '../../models/basket.model';
 
 export interface State {
   list: {
@@ -11,8 +11,10 @@ export interface State {
 
 export const initialState: State = {
   list: {
-    1: { id: 1, productId: 1, quantity: 5 },
-    2: { id: 2, productId: 4, quantity: 25 }
+    1: { id: 1, productId: 7, quantity: 5, type: Type.Normal },
+    2: { id: 2, productId: 10, quantity: 25, type: Type.Normal },
+    3: { id: 3, productId: 5, quantity: 1, type: Type.Delivery },
+    4: { id: 4, productId: 2, quantity: 1, type: Type.Payment }
   }
 };
 
@@ -27,7 +29,10 @@ const basketReducer = createReducer(
 
       return {
         ...state,
-        list: { ...state.list, [basketSimpleEntryId]: { id: basketSimpleEntryId, productId: id, quantity } }
+        list: {
+          ...state.list,
+          [basketSimpleEntryId]: { id: basketSimpleEntryId, productId: id, quantity, type: Type.Normal }
+        }
       };
     }
   ),

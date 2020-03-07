@@ -1,0 +1,11 @@
+<div class="PaymentOverview">
+  <span>Basket Entries</span>
+  <pre style="line-height: 1.1em; font-size: 10px; max-height: 220px; overflow: auto">{{
+    basketEntriesPayment$ | async | json
+  }}</pre>
+
+  <span>Payment Products</span>
+  <pre style="line-height: 1.1em; font-size: 10px; max-height: 220px; overflow: auto">{{
+    productsEnrichedPayment$ | async | json
+  }}</pre>
+</div>

@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import { BasketEntry, BasketSimpleEntry } from '../../models/basket.model';
+import { BasketEntry, BasketSimpleEntry, Type } from '../../models/basket.model';
 import { Product } from '../../models/product.model';
 import { selectProductsAsKeyValue } from './product-core.selectors';
 import { selectBasketSimpleEntriesAsArray } from './basket-core.selectors';
@@ -17,18 +17,24 @@ export const selectBasketSimpleEntryByProductId = createSelector(
 export const selectBasketEntries = createSelector(
   selectBasketSimpleEntriesAsArray,
   selectProductsAsKeyValue,
-  (basketSimpleEntriesAsArray: BasketSimpleEntry[], productsAsKeyValue: { [id: number]: Product }): BasketEntry[] =>
-    basketSimpleEntriesAsArray.map(
-      (basketSimpleEntry: BasketSimpleEntry): BasketEntry => toBasketEntry(basketSimpleEntry, productsAsKeyValue)
-    )
+  (
+    basketSimpleEntriesAsArray: BasketSimpleEntry[],
+    productsAsKeyValue: { [id: number]: Product },
+    props: { type: Type } = { type: Type.Normal }
+  ): BasketEntry[] =>
+    basketSimpleEntriesAsArray
+      .filter((basketSimpleEntry: BasketSimpleEntry): boolean => basketSimpleEntry.type === props.type)
+      .map((basketSimpleEntry: BasketSimpleEntry): BasketEntry => toBasketEntry(basketSimpleEntry, productsAsKeyValue))
 );
 
 export const selectQuantityTotal = createSelector(
   selectBasketSimpleEntriesAsArray,
   (basketSimpleEntriesAsArray: BasketSimpleEntry[]): number =>
-    basketSimpleEntriesAsArray.reduce((previousValue: number, currentValue: BasketSimpleEntry): number => {
-      return previousValue + currentValue.quantity;
-    }, 0)
+    basketSimpleEntriesAsArray
+      .filter((basketSimpleEntry: BasketSimpleEntry): boolean => basketSimpleEntry.type === Type.Normal)
+      .reduce((previousValue: number, currentValue: BasketSimpleEntry): number => {
+        return previousValue + currentValue.quantity;
+      }, 0)
 );
 
 export const selectPriceTotal = createSelector(selectBasketEntries, (basketEntries: BasketEntry[]): number =>

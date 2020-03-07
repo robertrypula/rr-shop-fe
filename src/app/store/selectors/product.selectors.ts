@@ -2,13 +2,14 @@ import { createSelector } from '@ngrx/store';
 
 import { Product, ProductEnriched } from '../../models/product.model';
 import { selectActiveCategoryAndItsChildren, selectCategoryAndItsChildren } from './category.selectors';
-import { Category } from '../../models/category.model';
+import { Category, StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
 import { getProductId, isOnProductRoute } from '../../utils/routing.util';
 import { BasketSimpleEntry } from '../../models/basket.model';
 import { selectProductsAsArray, selectProductsAsKeyValue } from './product-core.selectors';
 import { selectBasketSimpleEntriesAsArray } from './basket-core.selectors';
 import { getProductsForGivenCategories, toProductEnriched } from './product.utils';
+import { selectCategoriesAsArray } from './category-core.selectors';
 
 export const selectActiveProductId = createSelector(selectUrl, (url: string): number => {
   return getProductId(url);
@@ -39,6 +40,26 @@ export const selectProductsEnrichedFromActiveCategoryAndItsChildren = createSele
     getProductsForGivenCategories(productsAsArray, activeCategoryAndItsChildren).map(
       (product: Product): ProductEnriched => toProductEnriched(product, basketSimpleEntriesAsArray)
     )
+);
+
+export const selectProductsEnrichedFromCategoryByStructuralNode = createSelector(
+  selectProductsAsArray,
+  selectCategoriesAsArray,
+  selectBasketSimpleEntriesAsArray,
+  (
+    productsAsArray: Product[],
+    categoriesAsArray: Category[],
+    basketSimpleEntriesAsArray: BasketSimpleEntry[],
+    props: { structuralNode: StructuralNode }
+  ): ProductEnriched[] => {
+    const categoriesByStructuralNode: Category[] = categoriesAsArray.filter(
+      (category: Category): boolean => category.structuralNode === props.structuralNode
+    );
+
+    return getProductsForGivenCategories(productsAsArray, categoriesByStructuralNode).map(
+      (product: Product): ProductEnriched => toProductEnriched(product, basketSimpleEntriesAsArray)
+    );
+  }
 );
 
 export const selectProductsCountFromCategoryAndItsChildrenByCategoryId = createSelector(

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { BasketEntry } from '../../models/basket.model';
+import { BasketEntry, Type } from '../../models/basket.model';
 import { BasketService } from '../../services/basket.service';
 
 @Component({
@@ -11,12 +11,14 @@ import { BasketService } from '../../services/basket.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BasketOverviewComponent implements OnInit {
-  public basketEntries$: Observable<BasketEntry[]>;
+  public basketEntriesNormal$: Observable<BasketEntry[]>;
+  public basketEntriesPayment$: Observable<BasketEntry[]>;
   public quantityTotal$: Observable<number>;
 
   public constructor(protected basketService: BasketService) {
-    this.basketEntries$ = this.basketService.basketEntries$;
     this.quantityTotal$ = this.basketService.quantityTotal$;
+    this.basketEntriesNormal$ = this.basketService.basketEntriesByType$(Type.Normal);
+    this.basketEntriesPayment$ = this.basketService.basketEntriesByType$(Type.Payment);
   }
 
   public ngOnInit(): void {}

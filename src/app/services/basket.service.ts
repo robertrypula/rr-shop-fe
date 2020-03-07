@@ -3,18 +3,18 @@ import { BarService } from './bar.service';
 import { Product } from '../models/product.model';
 import { BasketFacadeService } from '../store/facades/basket-facade.service';
 import { Observable } from 'rxjs';
-import { BasketEntry, BasketSimpleEntry } from '../models/basket.model';
+import { BasketEntry, BasketSimpleEntry, Type } from '../models/basket.model';
+import { select } from '@ngrx/store';
+import * as fromBasketSelectors from '../store/selectors/basket.selectors';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasketService {
-  public basketEntries$: Observable<BasketEntry[]>;
   public priceTotal$: Observable<number>;
   public quantityTotal$: Observable<number>;
 
   public constructor(protected barService: BarService, protected basketFacadeService: BasketFacadeService) {
-    this.basketEntries$ = basketFacadeService.basketEntries$;
     this.priceTotal$ = basketFacadeService.priceTotal$;
     this.quantityTotal$ = basketFacadeService.quantityTotal$;
   }
@@ -28,6 +28,10 @@ export class BasketService {
       this.basketFacadeService.add(product, quantity);
     }
     this.barService.showSuccess(`Produkt '${product.name}' dodany do koszyka`); // TODO translations
+  }
+
+  public basketEntriesByType$(type: Type): Observable<BasketEntry[]> {
+    return this.basketFacadeService.basketEntriesByType$(type);
   }
 
   public quantityDecrement(id: number): void {

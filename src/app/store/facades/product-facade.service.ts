@@ -6,6 +6,7 @@ import { State } from '../reducers';
 import { ProductEnriched } from '../../models/product.model';
 import * as fromProductSelectors from '../selectors/product.selectors';
 import { selectProductsLength } from '../selectors/product-core.selectors';
+import { StructuralNode } from '../../models/category.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,12 @@ export class ProductFacadeService {
   public productsCountFromCategoryAndItsChildrenByCategoryId$(categoryId: number): Observable<number> {
     return this.store.pipe(
       select(fromProductSelectors.selectProductsCountFromCategoryAndItsChildrenByCategoryId, { id: categoryId })
+    );
+  }
+
+  public productsEnrichedFromCategoryByStructuralNode$(structuralNode: StructuralNode): Observable<ProductEnriched[]> {
+    return this.store.pipe(
+      select(fromProductSelectors.selectProductsEnrichedFromCategoryByStructuralNode, { structuralNode })
     );
   }
 }

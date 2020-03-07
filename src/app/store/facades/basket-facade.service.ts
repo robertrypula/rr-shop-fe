@@ -7,24 +7,26 @@ import { State } from '../reducers';
 import * as fromBasketActions from '../actions/basket.actions';
 import * as fromBasketSelectors from '../selectors/basket.selectors';
 import { Product } from '../../models/product.model';
-import { BasketEntry, BasketSimpleEntry } from '../../models/basket.model';
+import { BasketEntry, BasketSimpleEntry, Type } from '../../models/basket.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasketFacadeService {
-  public basketEntries$: Observable<BasketEntry[]>;
   public priceTotal$: Observable<number>;
   public quantityTotal$: Observable<number>;
 
   public constructor(protected store: Store<State>) {
-    this.basketEntries$ = store.pipe(select(fromBasketSelectors.selectBasketEntries));
     this.priceTotal$ = store.pipe(select(fromBasketSelectors.selectPriceTotal));
     this.quantityTotal$ = store.pipe(select(fromBasketSelectors.selectQuantityTotal));
   }
 
   public add(product: Product, quantity): void {
     this.store.dispatch(fromBasketActions.add({ id: product.id, quantity }));
+  }
+
+  public basketEntriesByType$(type: Type): Observable<BasketEntry[]> {
+    return this.store.pipe(select(fromBasketSelectors.selectBasketEntries, { type }));
   }
 
   public getBasketSimpleEntryByProductId(productId: number): BasketSimpleEntry {

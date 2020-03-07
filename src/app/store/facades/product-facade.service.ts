@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { State } from '../reducers';
-import { Product, ProductEnriched } from '../../models/product.model';
+import { ProductEnriched } from '../../models/product.model';
 import * as fromProductSelectors from '../selectors/product.selectors';
 import { selectProductsLength } from '../selectors/product-core.selectors';
 
@@ -11,14 +11,14 @@ import { selectProductsLength } from '../selectors/product-core.selectors';
   providedIn: 'root'
 })
 export class ProductFacadeService {
-  public activeProduct$: Observable<Product>;
+  public activeProductEnriched$: Observable<ProductEnriched>;
   public activeProductId$: Observable<number>;
   public isOnProductRoute$: Observable<boolean>;
   public productsEnrichedFromActiveCategoryAndItsChildren$: Observable<ProductEnriched[]>;
   public productsLength$: Observable<number>;
 
   public constructor(protected store: Store<State>) {
-    this.activeProduct$ = this.store.pipe(select(fromProductSelectors.selectActiveProduct));
+    this.activeProductEnriched$ = this.store.pipe(select(fromProductSelectors.selectActiveProductEnriched));
     this.activeProductId$ = this.store.pipe(select(fromProductSelectors.selectActiveProductId));
     this.isOnProductRoute$ = this.store.pipe(select(fromProductSelectors.selectIsOnProductRoute));
     this.productsEnrichedFromActiveCategoryAndItsChildren$ = this.store.pipe(

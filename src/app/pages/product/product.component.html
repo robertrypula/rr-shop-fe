@@ -1,22 +1,44 @@
-<div class="Product" *ngIf="activeProduct$ | async as activeProduct">
+<div class="Product" *ngIf="activeProductEnriched$ | async as activeProductEnriched">
   <div class="row">
     <div class="col-xxs-12 col-md-6 Product-imageContainer">
-      <img alt="{{ activeProduct.name }}" src="" />
+      <img alt="{{ activeProductEnriched.name }}" src="" />
     </div>
     <div class="col-xxs-12 col-md-6 Product-overviewContainer">
-      <h2>{{ activeProduct.name }}</h2>
+      <h2>{{ activeProductEnriched.name }}</h2>
 
       <div class="Product-price">
-        {{ activeProduct.price | price }}
+        {{ activeProductEnriched.price | price }}
+      </div>
+
+      <div *ngIf="activeProductEnriched.basketSimpleEntry" class="Product-basketQuantity">
+        <span>
+          W koszyku: <b>{{ activeProductEnriched.basketSimpleEntry.quantity }}</b>
+        </span>
+        <div>
+          <rr-shop-clickable-action
+            (actionClick)="remove(activeProductEnriched.basketSimpleEntry.id)"
+            [label]="'Usuń z koszyka'"
+            [icon]="['far', 'trash-alt']"
+          ></rr-shop-clickable-action>
+          <rr-shop-clickable-action
+            (actionClick)="quantityDecrement(activeProductEnriched.basketSimpleEntry.id)"
+            [icon]="['fas', 'minus']"
+          ></rr-shop-clickable-action>
+          <rr-shop-clickable-action
+            (actionClick)="quantityIncrement(activeProductEnriched.basketSimpleEntry.id)"
+            [icon]="['fas', 'plus']"
+          ></rr-shop-clickable-action>
+        </div>
       </div>
 
       <rr-shop-clickable-action
-        (actionClick)="addToBasket(activeProduct)"
+        *ngIf="!activeProductEnriched.basketSimpleEntry"
+        (actionClick)="addToBasket(activeProductEnriched)"
         [label]="'Do koszyka'"
         [icon]="['fas', 'shopping-basket']"
       ></rr-shop-clickable-action>
     </div>
   </div>
 
-  <div class="Product-description" [innerHTML]="activeProduct.description"></div>
+  <div class="Product-description" [innerHTML]="activeProductEnriched.description"></div>
 </div>

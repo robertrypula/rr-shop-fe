@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { ProductBoxAbstractComponent } from '../product-box-abstract.component';
+import { BasketService } from '../../../services/basket.service';
 
 @Component({
   selector: 'rr-shop-product-box-compact',

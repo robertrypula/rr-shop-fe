@@ -17,4 +17,12 @@ export abstract class ProductBoxAbstractComponent {
   public addToBasket(product: Product): void {
     this.basketService.add(product);
   }
+
+  public quantityDecrement(id: number): void {
+    this.basketService.quantityDecrement(id);
+  }
+
+  public quantityIncrement(id: number): void {
+    this.basketService.quantityIncrement(id);
+  }
 }

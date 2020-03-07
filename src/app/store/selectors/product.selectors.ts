@@ -14,11 +14,16 @@ export const selectActiveProductId = createSelector(selectUrl, (url: string): nu
   return getProductId(url);
 });
 
-export const selectActiveProduct = createSelector(
+export const selectActiveProductEnriched = createSelector(
   selectActiveProductId,
   selectProductsAsKeyValue,
-  (activeProductId: number, productsAsKeyValue: { [key: string]: Product }): Product => {
-    return activeProductId ? productsAsKeyValue[activeProductId] : null;
+  selectBasketSimpleEntriesAsArray,
+  (
+    activeProductId: number,
+    productsAsKeyValue: { [key: string]: Product },
+    basketSimpleEntriesAsArray: BasketSimpleEntry[]
+  ): ProductEnriched => {
+    return activeProductId ? toProductEnriched(productsAsKeyValue[activeProductId], basketSimpleEntriesAsArray) : null;
   }
 );
 

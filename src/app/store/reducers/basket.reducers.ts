@@ -54,7 +54,7 @@ const basketReducer = createReducer(
     (state: State, { id }): State => {
       const basketSimpleEntry: BasketSimpleEntry = state.list[id];
 
-      return basketSimpleEntry && basketSimpleEntry.quantity > 1
+      return basketSimpleEntry
         ? {
             ...state,
             list: { ...state.list, [id]: { ...basketSimpleEntry, quantity: basketSimpleEntry.quantity - 1 } }

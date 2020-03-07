@@ -32,7 +32,26 @@
     padding: 16px 0;
   }
 
+  .ProductBoxCompact-basketQuantity {
+    > span {
+      padding: 12px 0;
+      display: inline-block;
+    }
+    > div {
+      display: inline-block;
+      padding-left: 8px;
+      > *:last-child {
+        margin-left: 4px;
+      }
+    }
+  }
+
   rr-shop-clickable-action {
     display: inline-block;
   }
+}
+
+.ProductBoxCompact--inBasket {
+  outline: 1px solid $a-color;
+  background-color: $light-green-color;
 }

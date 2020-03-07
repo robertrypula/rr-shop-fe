@@ -20,6 +20,21 @@
       font-weight: bold;
       padding: 16px 0;
     }
+
+    .Product-basketQuantity {
+      > span {
+        padding: 16px 0 24px 0;
+        display: block;
+      }
+      > div {
+        > * {
+          margin-left: 4px;
+        }
+        > *:first-child {
+          margin-left: 0;
+        }
+      }
+    }
   }
 
   .Product-description {

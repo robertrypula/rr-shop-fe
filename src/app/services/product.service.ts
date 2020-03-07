@@ -8,11 +8,11 @@ import { Product, ProductEnriched } from '../models/product.model';
   providedIn: 'root'
 })
 export class ProductService {
-  public activeProduct$: Observable<Product>;
+  public activeProductEnriched$: Observable<ProductEnriched>;
   public productsEnrichedFromActiveCategoryAndItsChildren$: Observable<ProductEnriched[]>;
 
   public constructor(protected productFacadeService: ProductFacadeService) {
-    this.activeProduct$ = productFacadeService.activeProduct$;
+    this.activeProductEnriched$ = productFacadeService.activeProductEnriched$;
     this.productsEnrichedFromActiveCategoryAndItsChildren$ =
       productFacadeService.productsEnrichedFromActiveCategoryAndItsChildren$;
   }

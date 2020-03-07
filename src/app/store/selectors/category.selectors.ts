@@ -1,12 +1,11 @@
 import { createSelector } from '@ngrx/store';
 
 import { ActiveLevelUpdateEntry, Category, StructuralNode } from '../../models/category.model';
-import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../../config/config';
 import { selectUrl } from './router.selectors';
 import { getCategoryId, isOnCategoryRoute } from '../../utils/routing.util';
 import { selectIsSmallDevice } from './viewport.selectors';
 import { selectCategoriesAsArray, selectCategoriesAsKeyValue } from './category-core.selectors';
-import { getCategoryAndItsChildren } from './category.utils';
+import { getCategoriesFromLeafToRoot, getCategoryAndItsChildren } from './category.utils';
 
 export const selectActiveCategoryId = createSelector(selectUrl, (url: string): number => {
   return getCategoryId(url);
@@ -19,27 +18,6 @@ export const selectActiveCategory = createSelector(
     return activeCategoryId ? categoriesAsKeyValue[activeCategoryId] : null;
   }
 );
-
-export const getCategoriesFromLeafToRoot = (
-  categoriesAsKeyValue: { [key: string]: Category },
-  leafId: number,
-  structuralNodeLimit: StructuralNode[] = BREADCRUMBS_STRUCTURAL_NODES_LIMIT
-): Category[] => {
-  const categoriesFromLeafToRoot: Category[] = [];
-  let category: Category;
-  let id: number = leafId;
-
-  while (true) {
-    category = categoriesAsKeyValue[id];
-    if (!category || structuralNodeLimit.includes(category.structuralNode)) {
-      break;
-    }
-    categoriesFromLeafToRoot.push(category);
-    id = category.parentId;
-  }
-
-  return categoriesFromLeafToRoot;
-};
 
 export const selectCategoriesWithActiveLevel = createSelector(
   selectCategoriesAsArray,

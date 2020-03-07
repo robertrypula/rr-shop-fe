@@ -1,10 +1,7 @@
-import { Category } from '../../models/category.model';
+import { Category, StructuralNode } from '../../models/category.model';
+import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../../config/config';
 
-export const getCategoriesAsArray = (categoriesAsKeyValue: { [key: number]: Category }): Category[] => {
-  return Object.keys(categoriesAsKeyValue).map((key: string): Category => categoriesAsKeyValue[+key]);
-};
-
-const findChildren = (categoriesAsArray: Category[], parentId: number, result: Category[]): void => {
+export const findChildren = (categoriesAsArray: Category[], parentId: number, result: Category[]): void => {
   const children: Category[] = categoriesAsArray.filter(
     (category: Category): boolean => category.parentId === parentId
   );
@@ -12,6 +9,31 @@ const findChildren = (categoriesAsArray: Category[], parentId: number, result: C
     result.push(child);
     findChildren(categoriesAsArray, child.id, result);
   });
+};
+
+export const getCategoriesAsArray = (categoriesAsKeyValue: { [key: number]: Category }): Category[] => {
+  return Object.keys(categoriesAsKeyValue).map((key: string): Category => categoriesAsKeyValue[+key]);
+};
+
+export const getCategoriesFromLeafToRoot = (
+  categoriesAsKeyValue: { [key: string]: Category },
+  leafId: number,
+  structuralNodeLimit: StructuralNode[] = BREADCRUMBS_STRUCTURAL_NODES_LIMIT
+): Category[] => {
+  const categoriesFromLeafToRoot: Category[] = [];
+  let category: Category;
+  let id: number = leafId;
+
+  while (true) {
+    category = categoriesAsKeyValue[id];
+    if (!category || structuralNodeLimit.includes(category.structuralNode)) {
+      break;
+    }
+    categoriesFromLeafToRoot.push(category);
+    id = category.parentId;
+  }
+
+  return categoriesFromLeafToRoot;
 };
 
 export const getCategoryAndItsChildren = (categoriesAsArray: Category[], id: number): Category[] => {

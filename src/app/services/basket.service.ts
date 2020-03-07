@@ -30,6 +30,14 @@ export class BasketService {
     this.barService.showSuccess(`Produkt '${product.name}' dodany do koszyka`); // TODO translations
   }
 
+  public chooseDelivery(productId: number): void {
+    this.basketFacadeService.chooseDelivery(productId);
+  }
+
+  public choosePayment(productId: number): void {
+    this.basketFacadeService.choosePayment(productId);
+  }
+
   public basketEntriesByType$(type: Type): Observable<BasketEntry[]> {
     return this.basketFacadeService.basketEntriesByType$(type);
   }

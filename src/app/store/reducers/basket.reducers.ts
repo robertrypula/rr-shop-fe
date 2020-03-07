@@ -13,8 +13,7 @@ export const initialState: State = {
   list: {
     1: { id: 1, productId: 7, quantity: 5, type: Type.Normal },
     2: { id: 2, productId: 10, quantity: 25, type: Type.Normal },
-    3: { id: 3, productId: 5, quantity: 1, type: Type.Delivery },
-    4: { id: 4, productId: 2, quantity: 1, type: Type.Payment }
+    3: { id: 3, productId: 3, quantity: 1, type: Type.Delivery }
   }
 };
 
@@ -24,14 +23,44 @@ const basketReducer = createReducer(
   initialState,
   on(
     fromBasketActions.add,
-    (state, { id, quantity }): State => {
+    (state, { productId, quantity }): State => {
       basketSimpleEntryId++;
 
       return {
         ...state,
         list: {
           ...state.list,
-          [basketSimpleEntryId]: { id: basketSimpleEntryId, productId: id, quantity, type: Type.Normal }
+          [basketSimpleEntryId]: { id: basketSimpleEntryId, productId, quantity, type: Type.Normal }
+        }
+      };
+    }
+  ),
+  on(
+    fromBasketActions.chooseDelivery,
+    (state, { productId }): State => {
+      basketSimpleEntryId++;
+      return {
+        ...state,
+        list: {
+          ...Object.keys(state.list)
+            .filter((key: string): boolean => state.list[+key].type !== Type.Delivery)
+            .reduce((acc: any, curr: string): any => ((acc[curr] = state.list[curr]), acc), {}),
+          [basketSimpleEntryId]: { id: basketSimpleEntryId, productId, quantity: 1, type: Type.Delivery }
+        }
+      };
+    }
+  ),
+  on(
+    fromBasketActions.choosePayment,
+    (state, { productId }): State => {
+      basketSimpleEntryId++;
+      return {
+        ...state,
+        list: {
+          ...Object.keys(state.list)
+            .filter((key: string): boolean => state.list[+key].type !== Type.Payment)
+            .reduce((acc: any, curr: string): any => ((acc[curr] = state.list[curr]), acc), {}),
+          [basketSimpleEntryId]: { id: basketSimpleEntryId, productId, quantity: 1, type: Type.Payment }
         }
       };
     }

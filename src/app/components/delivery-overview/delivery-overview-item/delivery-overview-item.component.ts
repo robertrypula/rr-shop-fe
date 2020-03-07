@@ -20,6 +20,6 @@ export class DeliveryOverviewItemComponent implements OnInit {
   public ngOnInit(): void {}
 
   public chooseDelivery(productId: number): void {
-    // this.basketService.
+    this.basketService.chooseDelivery(productId);
   }
 }

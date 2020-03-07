@@ -22,7 +22,15 @@ export class BasketFacadeService {
   }
 
   public add(product: Product, quantity): void {
-    this.store.dispatch(fromBasketActions.add({ id: product.id, quantity }));
+    this.store.dispatch(fromBasketActions.add({ productId: product.id, quantity }));
+  }
+
+  public chooseDelivery(productId: number): void {
+    this.store.dispatch(fromBasketActions.chooseDelivery({ productId }));
+  }
+
+  public choosePayment(productId: number): void {
+    this.store.dispatch(fromBasketActions.choosePayment({ productId }));
   }
 
   public basketEntriesByType$(type: Type): Observable<BasketEntry[]> {

@@ -8,6 +8,8 @@
     Wybierz rodzaj dostawy z listy poniżej:
   </div>
 
+  <pre>{{ productsEnrichedDelivery$ | async | json }}</pre>
+
   <div *ngIf="(productsEnrichedDelivery$ | async).length; else noDeliveries">
     <div class="BasketOverview-section">
       <table>

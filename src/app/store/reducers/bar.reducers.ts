@@ -14,6 +14,13 @@ export let barId = 0;
 const barReducer = createReducer(
   initialState,
   on(
+    fromBarActions.showError,
+    (state, { message }): State => {
+      barId++;
+      return { ...state, [barId]: { id: barId, message, type: BarType.Error } };
+    }
+  ),
+  on(
     fromBarActions.showSuccess,
     (state, { message }): State => {
       barId++;

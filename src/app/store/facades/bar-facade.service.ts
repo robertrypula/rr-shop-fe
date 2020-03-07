@@ -18,6 +18,10 @@ export class BarFacadeService {
     this.bars$ = store.pipe(select(fromBarSelectors.selectBars));
   }
 
+  public showError(message: string): void {
+    this.store.dispatch(fromBarActions.showError({ message }));
+  }
+
   public showSuccess(message: string): void {
     this.store.dispatch(fromBarActions.showSuccess({ message }));
   }

@@ -7,5 +7,6 @@ export enum ClickableActionType {
 export enum ClickableActionTheme {
   Primary = 'Primary',
   Secondary = 'Secondary',
-  Transparent = 'Transparent'
+  TransparentBright = 'TransparentBright',
+  TransparentDark = 'TransparentDark'
 }

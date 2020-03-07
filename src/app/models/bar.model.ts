@@ -1,4 +1,5 @@
 export enum BarType {
+  Error = 'Error',
   Success = 'Success'
 }
 

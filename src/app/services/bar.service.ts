@@ -18,6 +18,10 @@ export class BarService {
     this.barFacade.close(id);
   }
 
+  public showError(message: string): void {
+    this.barFacade.showError(message);
+  }
+
   public showSuccess(message: string): void {
     let lastId: number;
 

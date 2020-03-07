@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Bar } from '../../models/bar.model';
+import { Bar, BarType } from '../../models/bar.model';
 import { BarService } from '../../services/bar.service';
+import { ClickableActionTheme } from '../clickable-action/clickable-action.model';
 
 @Component({
   selector: 'rr-shop-bar',
@@ -12,6 +13,9 @@ import { BarService } from '../../services/bar.service';
 })
 export class BarComponent implements OnInit {
   public bars$: Observable<Bar[]>;
+
+  public readonly BarType = BarType;
+  public readonly ClickableActionTheme = ClickableActionTheme;
 
   public constructor(protected barService: BarService) {
     this.bars$ = barService.bars$;

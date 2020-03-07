@@ -8,7 +8,10 @@ import { Product } from '../../models/product.model';
 
 export const selectBasketFeature = (state: State): fromBasketReducers.State => state.basket;
 
-const toBasketEntry = (basketSimpleEntry: BasketSimpleEntry, productsAsKeyValue: { [id: number]: Product }): BasketEntry => {
+const toBasketEntry = (
+  basketSimpleEntry: BasketSimpleEntry,
+  productsAsKeyValue: { [id: number]: Product }
+): BasketEntry => {
   const product = productsAsKeyValue[basketSimpleEntry.productId];
 
   return {

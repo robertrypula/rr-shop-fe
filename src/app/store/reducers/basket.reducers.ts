@@ -11,15 +11,17 @@ export interface State {
 
 export const initialState: State = {
   list: {
+    /*
     1: {
       id: 1,
       productId: 1,
       quantity: 1
     }
+    */
   }
 };
 
-export let basketSimpleEntryId = 1; // TODO revert to 0 and remove initial basket entry from initialState
+export let basketSimpleEntryId = 0; // 1; // TODO revert to 0 and remove initial basket entry from initialState
 
 const basketReducer = createReducer(
   initialState,

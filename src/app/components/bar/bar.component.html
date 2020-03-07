@@ -1,13 +1,25 @@
 <div class="Bar" *ngIf="bars$ | async as bars">
   <div class="container">
-    <div class="row">
-      <div class="col-xxs-12 col-sm-8 col-sm-offset-2">
-        <div class="Bar-message" *ngFor="let bar of bars; trackBy: trackBy" [ngStyle]="{ zIndex: 1000 + bar.id }">
-          {{ bar.message }}
-          <div class="Bar-closeWrapper">
-            <rr-shop-icon [icon]="['far', 'times-circle']" (click)="close(bar.id)"></rr-shop-icon>
-          </div>
-        </div>
+    <div
+      *ngFor="let bar of bars; trackBy: trackBy"
+      [ngClass]="{
+        'Bar-message--success': BarType.Success === bar.type,
+        'Bar-message--error': BarType.Error === bar.type
+      }"
+      [ngStyle]="{ zIndex: 2000 + bar.id }"
+      class="Bar-message"
+    >
+      <div>
+        {{ bar.message }}
+      </div>
+      <div>
+        <rr-shop-clickable-action
+          (actionClick)="close(bar.id)"
+          [icon]="['far', 'times-circle']"
+          [clickableActionTheme]="
+            BarType.Error === bar.type ? ClickableActionTheme.TransparentBright : ClickableActionTheme.TransparentDark
+          "
+        ></rr-shop-clickable-action>
       </div>
     </div>
   </div>

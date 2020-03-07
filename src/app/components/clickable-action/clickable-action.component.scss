@@ -75,35 +75,44 @@
       }
     }
   }
+}
 
-  &.ClickableAction--iconOnRight {
-    .ClickableAction-button,
-    .ClickableAction-anchor,
-    .ClickableAction-routerLink {
-      padding-right: 20px;
-    }
+.ClickableAction--iconOnRight {
+  .ClickableAction-button,
+  .ClickableAction-anchor,
+  .ClickableAction-routerLink {
+    padding-right: 20px;
   }
+}
 
-  &.ClickableAction--primary {
-    > * {
-      background-color: $clickable-action-primary-background-color;
-      color: $clickable-action-primary-color;
-    }
+.ClickableAction--disabled {
+  > * {
+    background-color: $secondary-background-color;
+    color: $color;
   }
+}
 
+.ClickableAction--primary {
+  > * {
+    background-color: $clickable-action-primary-background-color;
+    color: $clickable-action-primary-color;
+  }
+}
+
+.ClickableAction--secondary {
   // TODO implement ClickableAction--secondary
+}
 
-  &.ClickableAction--disabled {
-    > * {
-      background-color: $secondary-background-color;
-      color: $color;
-    }
+.ClickableAction--transparentBright {
+  > * {
+    background-color: $clickable-action-transparent-background-color;
+    color: $white-color;
   }
+}
 
-  &.ClickableAction--transparent {
-    > * {
-      background-color: $clickable-action-transparent-background-color;
-      color: $clickable-action-transparent-color;
-    }
+.ClickableAction--transparentDark {
+  > * {
+    background-color: $clickable-action-transparent-background-color;
+    color: $clickable-action-transparent-color;
   }
 }

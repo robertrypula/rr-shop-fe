@@ -18,7 +18,8 @@ export class CategoryComponent implements OnInit {
 
   public constructor(protected productService: ProductService, protected categoryService: CategoryService) {
     this.activeCategory$ = categoryService.activeCategory$;
-    this.productsEnrichedFromActiveCategoryAndItsChildren$ = productService.productsEnrichedFromActiveCategoryAndItsChildren$;
+    this.productsEnrichedFromActiveCategoryAndItsChildren$ =
+      productService.productsEnrichedFromActiveCategoryAndItsChildren$;
   }
 
   public ngOnInit(): void {}

@@ -8,16 +8,14 @@ import { getProductsAsArray } from './product.utils';
 
 export const selectProductFeature = (state: State): fromProductReducers.State => state.product;
 
-export const selectProductsAsKeyValue = createSelector(
-  selectProductFeature,
-  (productFeature: fromProductReducers.State): { [id: number]: Product } => {
-    return productFeature.list;
-  }
-);
-
 export const selectProductsAsArray = createSelector(
   selectProductFeature,
   (productFeature: fromProductReducers.State): Product[] => getProductsAsArray(productFeature.list)
+);
+
+export const selectProductsAsKeyValue = createSelector(
+  selectProductFeature,
+  (productFeature: fromProductReducers.State): { [id: number]: Product } => productFeature.list
 );
 
 export const selectProductsLength = createSelector(selectProductsAsArray, (productsAsArray: Product[]): number => {

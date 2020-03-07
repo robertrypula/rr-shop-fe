@@ -1,34 +1,12 @@
 import { createSelector } from '@ngrx/store';
 
-import { State } from '../reducers';
-import * as fromCategoryReducers from '../reducers/category.reducers';
 import { ActiveLevelUpdateEntry, Category, StructuralNode } from '../../models/category.model';
 import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../../config/config';
 import { selectUrl } from './router.selectors';
 import { getCategoryId, isOnCategoryRoute } from '../../utils/routing.util';
 import { selectIsSmallDevice } from './viewport.selectors';
-import { ApiCall } from '../../models/generic.model';
-
-export const selectCategoryFeature = (state: State): fromCategoryReducers.State => state.category;
-
-export const selectApiCallCategoriesAtInit = createSelector(
-  selectCategoryFeature,
-  (categoryFeature: fromCategoryReducers.State): ApiCall => categoryFeature.apiCallCategoriesAtInit
-);
-
-export const selectCategoriesAsArray = createSelector(
-  selectCategoryFeature,
-  (categoryFeature: fromCategoryReducers.State): Category[] => {
-    return Object.keys(categoryFeature.list).map((key: string): Category => categoryFeature.list[key]);
-  }
-);
-
-export const selectCategoriesAsKeyValue = createSelector(
-  selectCategoryFeature,
-  (categoryFeature: fromCategoryReducers.State): { [id: number]: Category } => {
-    return categoryFeature.list;
-  }
-);
+import { selectCategoriesAsArray, selectCategoriesAsKeyValue } from './category-core.selectors';
+import { getCategoryAndItsChildren } from './category.utils';
 
 export const selectActiveCategoryId = createSelector(selectUrl, (url: string): number => {
   return getCategoryId(url);
@@ -62,10 +40,6 @@ export const getCategoriesFromLeafToRoot = (
 
   return categoriesFromLeafToRoot;
 };
-
-export const selectCategoryLength = createSelector(selectCategoriesAsArray, (categoriesAsArray: Category[]): number => {
-  return categoriesAsArray.length;
-});
 
 export const selectCategoriesWithActiveLevel = createSelector(
   selectCategoriesAsArray,
@@ -105,28 +79,6 @@ export const selectActiveLevelUpdateEntriesBasedOnRoute = createSelector(
     return result;
   }
 );
-
-const findChildren = (categoriesAsArray: Category[], parentId: number, result: Category[]): void => {
-  const children: Category[] = categoriesAsArray.filter(
-    (category: Category): boolean => category.parentId === parentId
-  );
-  children.forEach((child: Category): void => {
-    result.push(child);
-    findChildren(categoriesAsArray, child.id, result);
-  });
-};
-
-const getCategoryAndItsChildren = (categoriesAsArray: Category[], id: number): Category[] => {
-  const category: Category = categoriesAsArray.find((c: Category): boolean => c.id === id);
-  const result: Category[] = [];
-
-  if (category) {
-    result.push(category);
-    findChildren(categoriesAsArray, category.id, result);
-  }
-
-  return result;
-};
 
 export const selectCategoryAndItsChildren = createSelector(
   selectCategoriesAsArray,
@@ -185,11 +137,6 @@ export const selectCategoriesBy = createSelector(
 export const selectIsCollapseExpandButtonVisible = createSelector(
   selectIsSmallDevice,
   (isSmallDevice: boolean): boolean => isSmallDevice
-);
-
-export const selectIsListCollapsed = createSelector(
-  selectCategoryFeature,
-  (categoryFeature: fromCategoryReducers.State): boolean => categoryFeature.isListCollapsed
 );
 
 export const selectIsOnCategoryRoute = createSelector(selectUrl, (url: string): boolean => isOnCategoryRoute(url));

@@ -5,8 +5,9 @@ import { take, tap } from 'rxjs/operators';
 
 import * as fromCategoryActions from '../actions/category.actions';
 import * as fromCategorySelectors from '../selectors/category.selectors';
-import { Category, ActiveLevelUpdateEntry, StructuralNode } from '../../models/category.model';
+import { ActiveLevelUpdateEntry, Category, StructuralNode } from '../../models/category.model';
 import { State } from '../reducers';
+import { selectCategoryLength, selectIsListCollapsed } from '../selectors/category-core.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +33,11 @@ export class CategoryFacadeService {
     this.categoriesWithActiveLevelSorted$ = this.store.pipe(
       select(fromCategorySelectors.selectCategoriesWithActiveLevelSorted)
     );
-    this.categoryLength$ = this.store.pipe(select(fromCategorySelectors.selectCategoryLength));
+    this.categoryLength$ = this.store.pipe(select(selectCategoryLength));
     this.isCollapseExpandButtonVisible$ = this.store.pipe(
       select(fromCategorySelectors.selectIsCollapseExpandButtonVisible)
     );
-    this.isListCollapsed$ = this.store.pipe(select(fromCategorySelectors.selectIsListCollapsed));
+    this.isListCollapsed$ = this.store.pipe(select(selectIsListCollapsed));
     this.isOnCategoryRoute$ = this.store.pipe(select(fromCategorySelectors.selectIsOnCategoryRoute));
   }
 

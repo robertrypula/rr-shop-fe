@@ -1,8 +1,12 @@
 import { createSelector } from '@ngrx/store';
 
-import { selectApiCallCategoriesAtInit } from './category.selectors';
 import { ApiCall } from '../../models/generic.model';
-import { selectApiCallProduct, selectApiCallProductsAtCategory, selectApiCallProductsAtInit } from "./product-core.selectors";
+import {
+  selectApiCallProduct,
+  selectApiCallProductsAtCategory,
+  selectApiCallProductsAtInit
+} from './product-core.selectors';
+import { selectApiCallCategoriesAtInit } from './category-core.selectors';
 
 export const selectIsLoadingOverlayVisible = createSelector(
   selectApiCallCategoriesAtInit,

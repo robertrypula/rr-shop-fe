@@ -4,20 +4,7 @@ import { BasketEntry, BasketSimpleEntry } from '../../models/basket.model';
 import { Product } from '../../models/product.model';
 import { selectProductsAsKeyValue } from './product-core.selectors';
 import { selectBasketSimpleEntriesAsArray } from './basket-core.selectors';
-
-const toBasketEntry = (
-  basketSimpleEntry: BasketSimpleEntry,
-  productsAsKeyValue: { [id: number]: Product }
-): BasketEntry => {
-  const product = productsAsKeyValue[basketSimpleEntry.productId];
-
-  return {
-    ...basketSimpleEntry,
-    isQuantityDecrementActive: basketSimpleEntry.quantity > 1,
-    product,
-    totalPrice: product ? product.price * basketSimpleEntry.quantity : 0
-  };
-};
+import { toBasketEntry } from './basket.utils';
 
 export const selectBasketSimpleEntryByProductId = createSelector(
   selectBasketSimpleEntriesAsArray,

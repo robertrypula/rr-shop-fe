@@ -5,7 +5,7 @@ import { BasketSimpleEntry } from '../../models/basket.model';
 
 export interface State {
   list: {
-    [id: string]: BasketSimpleEntry;
+    [id: number]: BasketSimpleEntry;
   };
 }
 

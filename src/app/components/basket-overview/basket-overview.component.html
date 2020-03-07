@@ -1,20 +1,30 @@
 <div class="BasketOverview">
-  <table>
-    <thead>
-      <tr>
-        <th>Produkt</th>
-        <th class="hidden-xxs hidden-xs hidden-sm">Liczba</th>
-        <th class="hidden-xxs hidden-xs hidden-sm">Cena</th>
-        <th class="hidden-xxs hidden-xs hidden-sm">Wartość</th>
-        <th class="hidden-xxs hidden-xs hidden-sm">Akcje</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let basketEntry of basketEntries$ | async; trackBy: trackBy"
-        rr-shop-basket-overview-item
-        [basketEntry]="basketEntry"
-      ></tr>
-    </tbody>
-  </table>
+  <div *ngIf="(basketEntries$ | async).length; else basketEmpty">
+    <table>
+      <thead>
+        <tr>
+          <th>Produkt</th>
+          <th class="hidden-xxs hidden-xs hidden-sm">Liczba</th>
+          <th class="hidden-xxs hidden-xs hidden-sm">Cena</th>
+          <th class="hidden-xxs hidden-xs hidden-sm">Wartość</th>
+          <th class="hidden-xxs hidden-xs hidden-sm">Akcje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let basketEntry of basketEntries$ | async; trackBy: trackBy"
+          rr-shop-basket-overview-item
+          [basketEntry]="basketEntry"
+        ></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #basketEmpty>
+    <div class="BasketOverview-empty">
+      Twój koszyk jest pusty :(
+      <br />
+      Zapraszamy do zakupów!
+    </div>
+  </ng-template>
 </div>

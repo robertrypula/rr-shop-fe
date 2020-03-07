@@ -5,7 +5,7 @@
 
   <div [innerHTML]="(activeCategory$ | async)?.content"></div>
 
-  <div class="row">
+  <div class="row" *ngIf="(productsEnrichedFromActiveCategoryAndItsChildren$ | async).length; else noProducts">
     <rr-shop-product-box-compact
       *ngFor="let productEnriched of productsEnrichedFromActiveCategoryAndItsChildren$ | async; trackBy: trackBy"
       [productEnriched]="productEnriched"
@@ -13,4 +13,11 @@
       class="col-xxs-12 col-sm-6 col-md-4"
     ></rr-shop-product-box-compact>
   </div>
+
+  <ng-template #noProducts>
+    <!-- TODO fix issue with static pages - there it should not show 'no products' info -->
+    <!--    <div class="Category-noProducts">-->
+    <!--      Brak produktów w tej kategori-->
+    <!--    </div>-->
+  </ng-template>
 </div>

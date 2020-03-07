@@ -87,8 +87,8 @@
 
 .ClickableAction--disabled {
   > * {
-    background-color: $secondary-background-color;
-    color: $color;
+    background-color: $secondary-background-color !important;
+    color: $color !important;;
   }
 }
 

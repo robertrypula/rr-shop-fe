@@ -5,8 +5,9 @@
   "keywords": [],
   "author": "Robert Rypuła",
   "scripts": {
-    "build": "ng build",
-    "build:prod": "ng build --prod",
+    "build": "yarn clean && ng build",
+    "build:prod": "yarn clean && ng build --prod",
+    "clean": "rimraf dist",
     "lint": "ng lint",
     "ng": "ng",
     "prettier:check": "prettier src/**/*.{html,js,scss,ts} *.{js,json,yml} --check",
@@ -34,6 +35,7 @@
     "@ngrx/router-store": "^8.6.0",
     "@ngrx/store": "^8.6.0",
     "@ngrx/store-devtools": "^8.6.0",
+    "rimraf": "^3.0.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

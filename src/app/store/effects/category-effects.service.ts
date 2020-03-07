@@ -26,7 +26,12 @@ import { SMALL_DEVICE_DEFINITION } from '../../config/config';
       - switchMap: when you want to ignore the previous emissions when there is a new emission
       - mergeMap: when you want to concurrently handle all the emissions
       - concatMap: when you want to handle the emissions one after the other as they are emitted
-      - exhaustMap: when you want to cancel all the new emissions while processing a previous emisssion
+      - exhaustMap: when you want to cancel all the new emissions while processing a previous emission
+
+    - forkJoin: when all observables complete, emit the last emitted value from each.
+
+  Think how to aggregate category and product init calls with router change
+  https://medium.com/default-to-open/angular-splitter-and-aggregation-patterns-for-ngrx-effects-c6f2908edf26
  */
 
 // TODO check if 'concatMap ... of(action)' is really needed
@@ -67,7 +72,7 @@ export class CategoryEffects {
         )
       ),
       filter(
-        ([action, activeLevelUpdateEntries, categoryLength]) => !!categoryLength && !!activeLevelUpdateEntries.length
+        ([action, activeLevelUpdateEntries, categoryLength]) => !!activeLevelUpdateEntries.length && !!categoryLength
       ),
       map(([action, activeLevelUpdateEntries, categoryLength]) => setActiveLevel({ activeLevelUpdateEntries }))
     )

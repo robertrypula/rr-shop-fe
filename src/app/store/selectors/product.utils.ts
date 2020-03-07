@@ -28,6 +28,10 @@ export const toProductEnriched = (
   product: Product,
   basketSimpleEntriesAsArray: BasketSimpleEntry[]
 ): ProductEnriched => {
+  if (!product) {
+    return null;
+  }
+
   const basketSimpleEntryFound: BasketSimpleEntry = basketSimpleEntriesAsArray.find(
     (basketSimpleEntry: BasketSimpleEntry): boolean => basketSimpleEntry.productId === product.id
   );

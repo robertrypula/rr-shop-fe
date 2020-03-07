@@ -32,7 +32,11 @@ export class ProductsEffects {
 
   public triggerProductLoad$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromCategoryActions.setActiveLevel, fromProductActions.productsAtInitSuccess),
+      ofType(
+        fromCategoryActions.categoriesAtInitSuccess,
+        fromProductActions.productsAtInitSuccess,
+        routerNavigatedAction
+      ),
       concatMap(action =>
         of(action).pipe(
           withLatestFrom(this.productFacadeService.isOnProductRoute$, this.productFacadeService.productsLength$)
@@ -62,7 +66,11 @@ export class ProductsEffects {
 
   public triggerProductsAtCategoryLoad$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromCategoryActions.setActiveLevel, fromProductActions.productsAtInitSuccess),
+      ofType(
+        fromCategoryActions.categoriesAtInitSuccess,
+        fromProductActions.productsAtInitSuccess,
+        routerNavigatedAction
+      ),
       concatMap(action =>
         of(action).pipe(
           withLatestFrom(this.categoryFacadeService.isOnCategoryRoute$, this.productFacadeService.productsLength$)

@@ -1,12 +1,9 @@
 import { createSelector } from '@ngrx/store';
 
-import { State } from '../reducers';
-import { selectProductsAsKeyValue } from './product.selectors';
-import * as fromBasketReducers from '../reducers/basket.reducers';
-import { BasketSimpleEntry, BasketEntry } from '../../models/basket.model';
+import { BasketEntry, BasketSimpleEntry } from '../../models/basket.model';
 import { Product } from '../../models/product.model';
-
-export const selectBasketFeature = (state: State): fromBasketReducers.State => state.basket;
+import { selectProductsAsKeyValue } from './product-core.selectors';
+import { selectBasketSimpleEntriesAsArray } from './basket-core.selectors';
 
 const toBasketEntry = (
   basketSimpleEntry: BasketSimpleEntry,
@@ -21,17 +18,6 @@ const toBasketEntry = (
     totalPrice: product ? product.price * basketSimpleEntry.quantity : 0
   };
 };
-
-export const selectBasketSimpleEntriesAsArray = createSelector(
-  selectBasketFeature,
-  (basketFeature: fromBasketReducers.State): BasketSimpleEntry[] =>
-    Object.keys(basketFeature.list).map((key: string): BasketSimpleEntry => basketFeature.list[key])
-);
-
-export const selectBasketSimpleEntriesAsKeyValue = createSelector(
-  selectBasketFeature,
-  (basketFeature: fromBasketReducers.State): { [id: number]: BasketSimpleEntry } => basketFeature.list
-);
 
 export const selectBasketSimpleEntryByProductId = createSelector(
   selectBasketSimpleEntriesAsArray,

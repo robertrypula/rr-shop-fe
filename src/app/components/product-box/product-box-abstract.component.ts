@@ -1,13 +1,13 @@
 import { Injectable, Input } from '@angular/core';
 
-import { Product } from '../../models/product.model';
+import { Product, ProductEnriched } from '../../models/product.model';
 import { BasketService } from '../../services/basket.service';
 import { Category } from '../../models/category.model';
 
 @Injectable()
 export abstract class ProductBoxAbstractComponent {
   @Input()
-  public product: Product;
+  public productEnriched: ProductEnriched;
 
   @Input()
   public activeCategory: Category;

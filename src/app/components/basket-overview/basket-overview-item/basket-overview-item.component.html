@@ -19,12 +19,12 @@
 
     <div>
       <rr-shop-clickable-action
-        (actionClick)="remove(basketEntry.id)"
+        (actionClick)="quantityDecrement(basketEntry.id)"
         [disabled]="!basketEntry.isQuantityDecrementActive"
         [icon]="['fas', 'minus']"
       ></rr-shop-clickable-action>
       <rr-shop-clickable-action
-        (actionClick)="remove(basketEntry.id)"
+        (actionClick)="quantityIncrement(basketEntry.id)"
         [icon]="['fas', 'plus']"
       ></rr-shop-clickable-action>
     </div>

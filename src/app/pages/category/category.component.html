@@ -7,8 +7,8 @@
 
   <div class="row">
     <rr-shop-product-box-compact
-      *ngFor="let product of productsFromActiveCategoryAndItsChildren$ | async; trackBy: trackBy"
-      [product]="product"
+      *ngFor="let productEnriched of productsEnrichedFromActiveCategoryAndItsChildren$ | async; trackBy: trackBy"
+      [productEnriched]="productEnriched"
       [activeCategory]="activeCategory$ | async"
       class="col-xxs-12 col-sm-6 col-md-4"
     ></rr-shop-product-box-compact>

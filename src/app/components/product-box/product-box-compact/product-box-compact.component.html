@@ -1,15 +1,17 @@
 <div class="ProductBoxCompact">
-  <a [routerLink]="product | productUrl: activeCategory" class="ProductBoxCompact-link">
-    <img alt="{{ product.name }}" src="" class="ProductBoxCompact-image" />
-    <span>{{ product.name }}</span>
+  <a [routerLink]="productEnriched | productUrl: activeCategory" class="ProductBoxCompact-link">
+    <img alt="{{ productEnriched.name }}" src="" class="ProductBoxCompact-image" />
+    <span>{{ productEnriched.name }}</span>
   </a>
 
   <div class="ProductBoxCompact-price">
-    {{ product.price | price }}
+    {{ productEnriched.price | price }}
   </div>
 
+  <pre>{{ productEnriched | json }}</pre>
+
   <rr-shop-clickable-action
-    (actionClick)="addToBasket(product)"
+    (actionClick)="addToBasket(productEnriched)"
     [label]="'Do koszyka'"
     [icon]="['fas', 'shopping-basket']"
   ></rr-shop-clickable-action>

@@ -12,12 +12,10 @@ import * as fromBasketSelectors from '../store/selectors/basket.selectors';
 })
 export class BasketService {
   public potentialOrderProductsIds$: Observable<number[]>;
-  public priceTotal$: Observable<number>;
   public quantityTotal$: Observable<number>;
 
   public constructor(protected barService: BarService, protected basketFacadeService: BasketFacadeService) {
     this.potentialOrderProductsIds$ = basketFacadeService.potentialOrderProductsIds$;
-    this.priceTotal$ = basketFacadeService.priceTotal$;
     this.quantityTotal$ = basketFacadeService.quantityTotal$;
   }
 
@@ -42,6 +40,10 @@ export class BasketService {
 
   public basketEntriesByType$(types: Type[]): Observable<BasketEntry[]> {
     return this.basketFacadeService.basketEntriesByType$(types);
+  }
+
+  public priceSum$(types: Type[]): Observable<number> {
+    return this.basketFacadeService.priceSum$(types);
   }
 
   public quantityDecrement(id: number): void {

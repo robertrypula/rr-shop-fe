@@ -49,13 +49,12 @@ export const selectPotentialOrderProductsIds = createSelector(
   ]
 );
 
-export const selectPriceTotal = createSelector(
-  selectBasketEntries([Type.Normal, Type.Delivery, Type.Payment]),
-  (basketEntries: BasketEntry[]): number =>
+export const selectPriceSum = (types: Type[]) =>
+  createSelector(selectBasketEntries(types), (basketEntries: BasketEntry[]): number =>
     basketEntries.reduce((previousValue: number, currentValue: BasketEntry): number => {
       return previousValue + currentValue.quantity * (currentValue.product ? currentValue.product.price : 0);
     }, 0)
-);
+  );
 
 export const selectQuantityTotal = createSelector(
   selectBasketSimpleEntriesAsArray,

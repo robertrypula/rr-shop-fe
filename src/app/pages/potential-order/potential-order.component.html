@@ -4,25 +4,49 @@
     <rr-shop-basket-overview></rr-shop-basket-overview>
   </div>
 
-  <div class="PotentialOrder-section">
-    <h2>Dostawa</h2>
-    <rr-shop-delivery-overview></rr-shop-delivery-overview>
-  </div>
+  <div class="row">
+    <div class="col-xxs-12 col-md-6">
+      <div class="PotentialOrder-section">
+        <h2>Dostawa</h2>
+        <rr-shop-delivery-overview></rr-shop-delivery-overview>
+      </div>
+    </div>
 
-  <div class="PotentialOrder-section">
-    <h2>Płatność</h2>
-    <rr-shop-payment-overview></rr-shop-payment-overview>
+    <div class="col-xxs-12 col-md-6">
+      <div class="PotentialOrder-section">
+        <h2>Płatność</h2>
+        <rr-shop-payment-overview></rr-shop-payment-overview>
+      </div>
+    </div>
   </div>
 
   <!--
     <h2>Dane klienta</h2>
     <div class="BasketOverview-section">
     </div>
-
-    <h2>Podsumowanie</h2>
-    <div class="BasketOverview-section">
-      <div>{{ quantityTotal$ | async | price }}</div>
-      <rr-shop-clickable-action [label]="'Złóż zamówienie'"></rr-shop-clickable-action>
-    </div>
   -->
+
+  <h2>Podsumowanie</h2>
+  <div class="PotentialOrder-section PotentialOrder-summary">
+    <div class="row">
+      <div class="col-xxs-12 col-sm-5 col-md-6">
+        <div class="PotentialOrder-summaryPriceNormal">
+          Produkty: <span>{{ priceSumNormal$ | async | price }}</span>
+        </div>
+        <div class="PotentialOrder-summaryPriceDelivery">
+          Dostawa: <span>{{ priceSumDelivery$ | async | price }}</span>
+        </div>
+        <div class="PotentialOrder-summaryPricePayment">
+          Płatność: <span>{{ priceSumPayment$ | async | price }}</span>
+        </div>
+      </div>
+
+      <div class="col-xxs-12 col-sm-7 col-md-6">
+        <div class="PotentialOrder-summaryPriceTotal">
+          Do zapłaty: <span>{{ priceSumTotal$ | async | price }}</span>
+        </div>
+        <rr-shop-clickable-action [label]="'Złóż zamówienie'"></rr-shop-clickable-action>
+      </div>
+    </div>
+  </div>
 </div>

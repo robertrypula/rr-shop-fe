@@ -30,7 +30,7 @@ export class ApiProductService {
 
   public getProductsAtCategory(categoryIds: number[] = null): Observable<Product[]> {
     return this.http
-      .get<ProductSimpleDto[]>(API_URL_PRODUCTS(false, categoryIds))
+      .get<ProductSimpleDto[]>(API_URL_PRODUCTS(false, categoryIds, null))
       .pipe(
         map((dtos: ProductSimpleDto[]): Product[] =>
           dtos.map((productDto: ProductSimpleDto): Product => this.fromSimpleDto(productDto))
@@ -40,7 +40,7 @@ export class ApiProductService {
 
   public getProductsAtInit(): Observable<Product[]> {
     return this.http
-      .get<ProductInitDto[]>(API_URL_PRODUCTS(true, null))
+      .get<ProductInitDto[]>(API_URL_PRODUCTS(true, null, null))
       .pipe(
         map((dtos: ProductInitDto[]): Product[] =>
           dtos.map((productDto: ProductInitDto): Product => this.fromInitDto(productDto))

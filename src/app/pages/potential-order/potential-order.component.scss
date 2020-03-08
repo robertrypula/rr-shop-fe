@@ -4,4 +4,31 @@
   .PotentialOrder-section {
     padding-bottom: 40px;
   }
+
+  .PotentialOrder-summary {
+    white-space: nowrap;
+
+    .PotentialOrder-summaryPriceNormal,
+    .PotentialOrder-summaryPriceDelivery,
+    .PotentialOrder-summaryPricePayment {
+      padding-bottom: 16px;
+      span {
+        font-weight: bold;
+      }
+    }
+    .PotentialOrder-summaryPricePayment {
+      padding-bottom: 24px;
+    }
+
+    .PotentialOrder-summaryPriceTotal {
+      font-size: 20px;
+      padding-bottom: 16px;
+      span {
+        font-weight: bold;
+        display: inline-block;
+        margin-left: 8px;
+        color: $product-box-price-color;
+      }
+    }
+  }
 }

@@ -15,13 +15,11 @@ import { BasketEntry, BasketSimpleEntry, Type } from '../../models/basket.model'
 export class BasketFacadeService {
   public isOnPotentialOrderRoute$: Observable<boolean>;
   public potentialOrderProductsIds$: Observable<number[]>;
-  public priceTotal$: Observable<number>;
   public quantityTotal$: Observable<number>;
 
   public constructor(protected store: Store<State>) {
     this.isOnPotentialOrderRoute$ = store.pipe(select(fromBasketSelectors.selectIsOnPotentialOrderRoute$));
     this.potentialOrderProductsIds$ = store.pipe(select(fromBasketSelectors.selectPotentialOrderProductsIds));
-    this.priceTotal$ = store.pipe(select(fromBasketSelectors.selectPriceTotal));
     this.quantityTotal$ = store.pipe(select(fromBasketSelectors.selectQuantityTotal));
   }
 
@@ -55,6 +53,10 @@ export class BasketFacadeService {
       .subscribe();
 
     return result;
+  }
+
+  public priceSum$(types: Type[]): Observable<number> {
+    return this.store.pipe(select(fromBasketSelectors.selectPriceSum(types)));
   }
 
   public quantityDecrement(id: number): void {

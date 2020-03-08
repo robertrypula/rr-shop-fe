@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { routerNavigatedAction } from '@ngrx/router-store';
-import { catchError, concatMap, filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { EMPTY, of } from 'rxjs';
+import { catchError, concatMap, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { RouterFacadeService } from '../facades/router-facade.service';
 import * as fromCategoryActions from '../actions/category.actions';
 import * as fromProductActions from '../actions/product.actions';
+import * as fromRouterActions from '../actions/router.actions';
 import { ApiProductService } from '../../api-services/api-product.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
 import { ProductFacadeService } from '../facades/product-facade.service';
@@ -18,8 +18,8 @@ export class ProductsEffects {
     this.actions$.pipe(
       ofType(fromProductActions.productRequest),
       concatMap(action => of(action).pipe(withLatestFrom(this.productFacadeService.activeProductId$))),
-      switchMap(([action, activeProductId$]) =>
-        this.apiProductService.getProduct(activeProductId$).pipe(
+      switchMap(([action, activeProductId]) =>
+        this.apiProductService.getProduct(activeProductId).pipe(
           map(product => fromProductActions.productSuccess({ product })),
           catchError((httpErrorResponse: HttpErrorResponse) =>
             of(fromProductActions.productFailure({ httpErrorResponse }))
@@ -82,7 +82,7 @@ export class ProductsEffects {
 
   // ---------------------------------------------------------------------------
 
-  public loadProductsAtInit$ = createEffect(() =>
+  public productsAtInitRequest$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromProductActions.productsAtInitRequest),
       switchMap(() =>
@@ -96,13 +96,10 @@ export class ProductsEffects {
     )
   );
 
-  public triggerProductsAtInitLoad$ = createEffect(() =>
+  public triggerProductsAtInitRequest$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(routerNavigatedAction),
-      concatMap(action => of(action).pipe(withLatestFrom(this.routerFacadeService.navigationId$))),
-      mergeMap(([action, navigationId]) =>
-        navigationId === 1 ? of(fromProductActions.productsAtInitRequest()) : EMPTY
-      )
+      ofType(fromRouterActions.firstRouteChange),
+      map(() => fromProductActions.productsAtInitRequest())
     )
   );
 
@@ -110,7 +107,6 @@ export class ProductsEffects {
     private actions$: Actions,
     protected apiProductService: ApiProductService,
     protected categoryFacadeService: CategoryFacadeService,
-    protected productFacadeService: ProductFacadeService,
-    protected routerFacadeService: RouterFacadeService
+    protected productFacadeService: ProductFacadeService
   ) {}
 }

@@ -5,13 +5,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { of, EMPTY } from 'rxjs';
 import { routerNavigatedAction } from '@ngrx/router-store';
 
-import {
-  categoriesAtInitFailure,
-  categoriesAtInitRequest,
-  categoriesAtInitSuccess,
-  setActiveLevel,
-  setIsListCollapsed
-} from '../actions/category.actions';
+import * as fromCategoryActions from '../actions/category.actions';
+import * as fromRouterActions from '../actions/router.actions';
 import { ApiCategoryService } from '../../api-services/api-category.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
 import { RouterFacadeService } from '../facades/router-facade.service';
@@ -38,23 +33,24 @@ import { SMALL_DEVICE_DEFINITION } from '../../config/config';
 
 @Injectable()
 export class CategoryEffects {
-  public loadCategoriesAtInit$ = createEffect(() =>
+  public categoryAtInitRequest$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(categoriesAtInitRequest),
+      ofType(fromCategoryActions.categoriesAtInitRequest),
       switchMap(() =>
         this.apiCategoryService.getCategoriesAtInit().pipe(
-          map(categories => categoriesAtInitSuccess({ categories })),
-          catchError((httpErrorResponse: HttpErrorResponse) => of(categoriesAtInitFailure({ httpErrorResponse })))
+          map(categories => fromCategoryActions.categoriesAtInitSuccess({ categories })),
+          catchError((httpErrorResponse: HttpErrorResponse) =>
+            of(fromCategoryActions.categoriesAtInitFailure({ httpErrorResponse }))
+          )
         )
       )
     )
   );
 
-  public triggerCategoryAtInitLoad$ = createEffect(() =>
+  public triggerCategoryAtInitRequest$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(routerNavigatedAction),
-      concatMap(action => of(action).pipe(withLatestFrom(this.routerFacadeService.navigationId$))),
-      mergeMap(([action, navigationId]) => (navigationId === 1 ? of(categoriesAtInitRequest()) : EMPTY))
+      ofType(fromRouterActions.firstRouteChange),
+      map(() => fromCategoryActions.categoriesAtInitRequest())
     )
   );
 
@@ -62,7 +58,7 @@ export class CategoryEffects {
 
   public setActiveLevel$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(categoriesAtInitSuccess, routerNavigatedAction),
+      ofType(fromCategoryActions.categoriesAtInitSuccess, routerNavigatedAction),
       concatMap(action =>
         of(action).pipe(
           withLatestFrom(
@@ -74,7 +70,9 @@ export class CategoryEffects {
       filter(
         ([action, activeLevelUpdateEntries, categoryLength]) => !!activeLevelUpdateEntries.length && !!categoryLength
       ),
-      map(([action, activeLevelUpdateEntries, categoryLength]) => setActiveLevel({ activeLevelUpdateEntries }))
+      map(([action, activeLevelUpdateEntries, categoryLength]) =>
+        fromCategoryActions.setActiveLevel({ activeLevelUpdateEntries })
+      )
     )
   );
 
@@ -84,7 +82,9 @@ export class CategoryEffects {
     this.actions$.pipe(
       ofType(setDevice),
       mergeMap(action =>
-        !SMALL_DEVICE_DEFINITION.includes(action.newValue) ? of(setIsListCollapsed({ newValue: false })) : EMPTY
+        !SMALL_DEVICE_DEFINITION.includes(action.newValue)
+          ? of(fromCategoryActions.setIsListCollapsed({ newValue: false }))
+          : EMPTY
       )
     )
   );
@@ -96,7 +96,9 @@ export class CategoryEffects {
         of(action).pipe(withLatestFrom(this.viewportFacadeService.getFurtherNavigationIdOnlyAtSmallerDevices$))
       ),
       mergeMap(([action, getFurtherNavigationIdOnlyAtSmallerDevices]) =>
-        getFurtherNavigationIdOnlyAtSmallerDevices ? of(setIsListCollapsed({ newValue: true })) : EMPTY
+        getFurtherNavigationIdOnlyAtSmallerDevices
+          ? of(fromCategoryActions.setIsListCollapsed({ newValue: true }))
+          : EMPTY
       )
     )
   );

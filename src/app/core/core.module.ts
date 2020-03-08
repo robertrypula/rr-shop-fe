@@ -10,6 +10,7 @@ import { routerStateConfig } from '../store/reducers/router.reducers';
 import { BasketEffects } from '../store/effects/basket-effects.service';
 import { CategoryEffects } from '../store/effects/category-effects.service';
 import { ProductsEffects } from '../store/effects/products-effects.service';
+import { RouterEffects } from '../store/effects/router-effects.service';
 import { ViewportEffects } from '../store/effects/viewport-effects.service';
 
 @NgModule({
@@ -23,7 +24,7 @@ import { ViewportEffects } from '../store/effects/viewport-effects.service';
       }
     }),
     StoreRouterConnectingModule.forRoot(routerStateConfig),
-    EffectsModule.forRoot([BasketEffects, CategoryEffects, ProductsEffects, ViewportEffects]),
+    EffectsModule.forRoot([BasketEffects, CategoryEffects, ProductsEffects, RouterEffects, ViewportEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production

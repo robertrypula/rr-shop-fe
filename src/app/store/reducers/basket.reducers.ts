@@ -2,25 +2,36 @@ import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromBasketActions from '../actions/basket.actions';
 import { BasketSimpleEntry, Type } from '../../models/basket.model';
+import { ApiCall } from '../../models/generic.model';
 
 export interface State {
+  apiCallPotentialOrder: ApiCall;
   list: {
     [id: number]: BasketSimpleEntry;
   };
 }
 
 export const initialState: State = {
-  list: {
-    // 1: { id: 1, productId: 7, quantity: 5, type: Type.Normal },
-    // 2: { id: 2, productId: 10, quantity: 25, type: Type.Normal },
-    // 3: { id: 3, productId: 3, quantity: 1, type: Type.Delivery }
-  }
+  apiCallPotentialOrder: ApiCall.Initial,
+  list: {}
 };
 
 export let basketSimpleEntryId = 2; // TODO revert to 0 and remove initial basket entry from initialState
 
 const basketReducer = createReducer(
   initialState,
+  on(
+    fromBasketActions.potentialOrderRequest,
+    (state: State): State => ({ ...state, apiCallPotentialOrder: ApiCall.Request })
+  ),
+  on(
+    fromBasketActions.potentialOrderSuccess,
+    (state: State): State => ({ ...state, apiCallPotentialOrder: ApiCall.Success })
+  ),
+  on(
+    fromBasketActions.potentialOrderFailure,
+    (state: State): State => ({ ...state, apiCallPotentialOrder: ApiCall.Failure })
+  ),
   on(
     fromBasketActions.add,
     (state, { productId, quantity }): State => {

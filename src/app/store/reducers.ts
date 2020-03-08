@@ -1,4 +1,5 @@
-import { ActionReducerMap, MetaReducer } from '@ngrx/store';
+import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
+import { localStorageSync } from 'ngrx-store-localstorage';
 
 import * as fromBar from './reducers/bar.reducers';
 import * as fromBasket from './reducers/basket.reducers';
@@ -26,4 +27,13 @@ export const reducers: ActionReducerMap<State> = {
   viewport: fromViewport.reducer
 };
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({
+    keys: ['basket'],
+    rehydrate: true
+  })(reducer);
+}
+
+export const metaReducers: MetaReducer<State>[] = !environment.production
+  ? [localStorageSyncReducer]
+  : [localStorageSyncReducer];

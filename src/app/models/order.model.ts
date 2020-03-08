@@ -4,6 +4,4 @@ export interface Order {
   payUUrl: string;
 }
 
-export interface OrderDto {
-
-}
+export interface OrderDto {}

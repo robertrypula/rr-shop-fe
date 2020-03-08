@@ -16,7 +16,7 @@ export const initialState: State = {
   list: {}
 };
 
-export let basketSimpleEntryId = 2; // TODO revert to 0 and remove initial basket entry from initialState
+export let basketSimpleEntryId = 0;
 
 const basketReducer = createReducer(
   initialState,

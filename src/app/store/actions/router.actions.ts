@@ -1,5 +1,5 @@
 import { createAction } from '@ngrx/store';
 
-export const firstRouteChange = createAction('[Router] First route change');
+export const customRouterNavigated = createAction('[Router] Custom router navigated');
 
-export const routeChangedAfterInit = createAction('[Router] Route change after init');
+export const firstRouteChange = createAction('[Router] First route change');

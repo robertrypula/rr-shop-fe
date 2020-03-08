@@ -1,10 +1,24 @@
 import { createSelector } from '@ngrx/store';
 
 import { BasketEntry, BasketSimpleEntry, Type } from '../../models/basket.model';
-import { Product } from '../../models/product.model';
+import { Product, ProductEnriched } from '../../models/product.model';
 import { selectProductsAsKeyValue } from './product-core.selectors';
 import { selectBasketSimpleEntriesAsArray } from './basket-core.selectors';
 import { toBasketEntry } from './basket.utils';
+import { selectProductsEnrichedFromCategoryByStructuralNode } from './product.selectors';
+import { StructuralNode } from '../../models/category.model';
+
+export const selectBasketEntries = (types: Type[] = [Type.Normal]) =>
+  createSelector(
+    selectBasketSimpleEntriesAsArray,
+    selectProductsAsKeyValue,
+    (basketSimpleEntriesAsArray: BasketSimpleEntry[], productsAsKeyValue: { [id: number]: Product }): BasketEntry[] =>
+      basketSimpleEntriesAsArray
+        .filter((basketSimpleEntry: BasketSimpleEntry): boolean => types.includes(basketSimpleEntry.type))
+        .map(
+          (basketSimpleEntry: BasketSimpleEntry): BasketEntry => toBasketEntry(basketSimpleEntry, productsAsKeyValue)
+        )
+  );
 
 export const selectBasketSimpleEntryByProductId = createSelector(
   selectBasketSimpleEntriesAsArray,
@@ -14,17 +28,27 @@ export const selectBasketSimpleEntryByProductId = createSelector(
     )
 );
 
-export const selectBasketEntries = createSelector(
-  selectBasketSimpleEntriesAsArray,
-  selectProductsAsKeyValue,
+export const selectPotentialOrderProductsIds = createSelector(
+  selectBasketEntries([Type.Normal]),
+  selectProductsEnrichedFromCategoryByStructuralNode(StructuralNode.Delivery),
+  selectProductsEnrichedFromCategoryByStructuralNode(StructuralNode.Payment),
   (
-    basketSimpleEntriesAsArray: BasketSimpleEntry[],
-    productsAsKeyValue: { [id: number]: Product },
-    props: { type: Type } = { type: Type.Normal }
-  ): BasketEntry[] =>
-    basketSimpleEntriesAsArray
-      .filter((basketSimpleEntry: BasketSimpleEntry): boolean => basketSimpleEntry.type === props.type)
-      .map((basketSimpleEntry: BasketSimpleEntry): BasketEntry => toBasketEntry(basketSimpleEntry, productsAsKeyValue))
+    basketEntries: BasketEntry[],
+    deliveryProductsEnriched: ProductEnriched[],
+    paymentProductsEnriched: ProductEnriched[]
+  ): number[] => [
+    ...basketEntries.map((basketEntry: BasketEntry): number => basketEntry.productId),
+    ...deliveryProductsEnriched.map((deliveryProductEnriched: ProductEnriched): number => deliveryProductEnriched.id),
+    ...paymentProductsEnriched.map((paymentProductEnriched: ProductEnriched): number => paymentProductEnriched.id)
+  ]
+);
+
+export const selectPriceTotal = createSelector(
+  selectBasketEntries([Type.Normal, Type.Delivery, Type.Payment]),
+  (basketEntries: BasketEntry[]): number =>
+    basketEntries.reduce((previousValue: number, currentValue: BasketEntry): number => {
+      return previousValue + currentValue.quantity * (currentValue.product ? currentValue.product.price : 0);
+    }, 0)
 );
 
 export const selectQuantityTotal = createSelector(
@@ -35,10 +59,4 @@ export const selectQuantityTotal = createSelector(
       .reduce((previousValue: number, currentValue: BasketSimpleEntry): number => {
         return previousValue + currentValue.quantity;
       }, 0)
-);
-
-export const selectPriceTotal = createSelector(selectBasketEntries, (basketEntries: BasketEntry[]): number =>
-  basketEntries.reduce((previousValue: number, currentValue: BasketEntry): number => {
-    return previousValue + currentValue.quantity * (currentValue.product ? currentValue.product.price : 0);
-  }, 0)
 );

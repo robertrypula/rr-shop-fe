@@ -42,25 +42,25 @@ export const selectProductsEnrichedFromActiveCategoryAndItsChildren = createSele
     )
 );
 
-export const selectProductsEnrichedFromCategoryByStructuralNode = createSelector(
-  selectProductsAsArray,
-  selectCategoriesAsArray,
-  selectBasketSimpleEntriesAsArray,
-  (
-    productsAsArray: Product[],
-    categoriesAsArray: Category[],
-    basketSimpleEntriesAsArray: BasketSimpleEntry[],
-    props: { structuralNode: StructuralNode }
-  ): ProductEnriched[] => {
-    const categoriesByStructuralNode: Category[] = categoriesAsArray.filter(
-      (category: Category): boolean => category.structuralNode === props.structuralNode
-    );
+export const selectProductsEnrichedFromCategoryByStructuralNode = (structuralNode: StructuralNode) =>
+  createSelector(
+    selectProductsAsArray,
+    selectCategoriesAsArray,
+    selectBasketSimpleEntriesAsArray,
+    (
+      productsAsArray: Product[],
+      categoriesAsArray: Category[],
+      basketSimpleEntriesAsArray: BasketSimpleEntry[]
+    ): ProductEnriched[] => {
+      const categoriesByStructuralNode: Category[] = categoriesAsArray.filter(
+        (category: Category): boolean => category.structuralNode === structuralNode
+      );
 
-    return getProductsForGivenCategories(productsAsArray, categoriesByStructuralNode).map(
-      (product: Product): ProductEnriched => toProductEnriched(product, basketSimpleEntriesAsArray)
-    );
-  }
-);
+      return getProductsForGivenCategories(productsAsArray, categoriesByStructuralNode).map(
+        (product: Product): ProductEnriched => toProductEnriched(product, basketSimpleEntriesAsArray)
+      );
+    }
+  );
 
 export const selectProductsCountFromCategoryAndItsChildrenByCategoryId = createSelector(
   selectProductsAsArray,

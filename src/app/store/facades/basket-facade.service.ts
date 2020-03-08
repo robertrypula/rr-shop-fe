@@ -13,10 +13,12 @@ import { BasketEntry, BasketSimpleEntry, Type } from '../../models/basket.model'
   providedIn: 'root'
 })
 export class BasketFacadeService {
+  public potentialOrderProductsIds$: Observable<number[]>;
   public priceTotal$: Observable<number>;
   public quantityTotal$: Observable<number>;
 
   public constructor(protected store: Store<State>) {
+    this.potentialOrderProductsIds$ = store.pipe(select(fromBasketSelectors.selectPotentialOrderProductsIds));
     this.priceTotal$ = store.pipe(select(fromBasketSelectors.selectPriceTotal));
     this.quantityTotal$ = store.pipe(select(fromBasketSelectors.selectQuantityTotal));
   }
@@ -33,8 +35,8 @@ export class BasketFacadeService {
     this.store.dispatch(fromBasketActions.choosePayment({ productId }));
   }
 
-  public basketEntriesByType$(type: Type): Observable<BasketEntry[]> {
-    return this.store.pipe(select(fromBasketSelectors.selectBasketEntries, { type }));
+  public basketEntriesByType$(types: Type[]): Observable<BasketEntry[]> {
+    return this.store.pipe(select(fromBasketSelectors.selectBasketEntries(types)));
   }
 
   public getBasketSimpleEntryByProductId(productId: number): BasketSimpleEntry {

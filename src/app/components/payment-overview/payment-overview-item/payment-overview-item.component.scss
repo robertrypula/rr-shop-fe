@@ -1,0 +1,35 @@
+@import 'configs-and-mixins';
+
+td {
+  padding: 8px 10px;
+  border: 1px solid $border-color;
+  vertical-align: top;
+  text-align: left;
+}
+
+.PaymentOverviewItem-mainInfo {
+  a {
+    display: block;
+    min-height: 40px;
+    position: relative;
+    cursor: pointer;
+    color: $color;
+    > div:first-child {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    > div:last-child {
+      padding: 10px 0 10px 50px;
+    }
+  }
+}
+
+.PaymentOverviewItem-price {
+  width: 85px;
+  span {
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+  }
+}

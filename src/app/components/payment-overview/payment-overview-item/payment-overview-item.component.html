@@ -1,1 +1,22 @@
-<p>payment-overview-item works!</p>
+<td class="PaymentOverviewItem-mainInfo">
+  <a (click)="choosePayment(productEnriched.id)">
+    <div>
+      <rr-shop-clickable-action
+        *ngIf="!productEnriched.basketEntry"
+        [clickableActionTheme]="ClickableActionTheme.TransparentDark"
+        [icon]="['far', 'circle']"
+      ></rr-shop-clickable-action>
+
+      <rr-shop-clickable-action
+        *ngIf="productEnriched.basketEntry"
+        [clickableActionTheme]="ClickableActionTheme.TransparentDark"
+        [icon]="['far', 'check-circle']"
+      ></rr-shop-clickable-action>
+    </div>
+
+    <div>{{ productEnriched.name }}</div>
+  </a>
+</td>
+<td class="PaymentOverviewItem-price">
+  <span>{{ productEnriched.price | price }}</span>
+</td>

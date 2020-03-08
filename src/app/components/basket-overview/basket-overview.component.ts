@@ -12,13 +12,9 @@ import { BasketService } from '../../services/basket.service';
 })
 export class BasketOverviewComponent implements OnInit {
   public basketEntriesNormal$: Observable<BasketEntry[]>;
-  public basketEntriesPayment$: Observable<BasketEntry[]>;
-  public quantityTotal$: Observable<number>;
 
   public constructor(protected basketService: BasketService) {
-    this.quantityTotal$ = this.basketService.quantityTotal$;
-    this.basketEntriesNormal$ = this.basketService.basketEntriesByType$(Type.Normal);
-    this.basketEntriesPayment$ = this.basketService.basketEntriesByType$(Type.Payment);
+    this.basketEntriesNormal$ = this.basketService.basketEntriesByType$([Type.Normal]);
   }
 
   public ngOnInit(): void {}

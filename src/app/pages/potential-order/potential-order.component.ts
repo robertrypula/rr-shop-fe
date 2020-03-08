@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { BasketService } from '../../services/basket.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'rr-shop-potential-order',
@@ -7,7 +9,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PotentialOrderComponent implements OnInit {
-  public constructor() {}
+  public potentialOrderProductsIds$: Observable<number[]>;
+
+  public constructor(protected basketService: BasketService) {
+    this.potentialOrderProductsIds$ = basketService.potentialOrderProductsIds$;
+  }
 
   public ngOnInit() {}
 }

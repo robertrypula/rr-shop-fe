@@ -17,7 +17,7 @@ export class DeliveryOverviewComponent implements OnInit {
   public productsEnrichedDelivery$: Observable<ProductEnriched[]>;
 
   public constructor(protected basketService: BasketService, protected productService: ProductService) {
-    this.basketEntriesDelivery$ = this.basketService.basketEntriesByType$(Type.Delivery);
+    this.basketEntriesDelivery$ = this.basketService.basketEntriesByType$([Type.Delivery]);
     this.productsEnrichedDelivery$ = this.productService.productsEnrichedFromCategoryByStructuralNode$(
       StructuralNode.Delivery
     );

@@ -17,11 +17,15 @@ export class PaymentOverviewComponent implements OnInit {
   public productsEnrichedPayment$: Observable<ProductEnriched[]>;
 
   public constructor(protected basketService: BasketService, protected productService: ProductService) {
-    this.basketEntriesPayment$ = this.basketService.basketEntriesByType$(Type.Payment);
+    this.basketEntriesPayment$ = this.basketService.basketEntriesByType$([Type.Payment]);
     this.productsEnrichedPayment$ = this.productService.productsEnrichedFromCategoryByStructuralNode$(
       StructuralNode.Payment
     );
   }
 
   public ngOnInit() {}
+
+  public trackBy(index: number, item: ProductEnriched): string {
+    return item.id + '';
+  }
 }

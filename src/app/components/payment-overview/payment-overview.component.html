@@ -4,8 +4,29 @@
     basketEntriesPayment$ | async | json
   }}</pre>
 
-  <span>Payment Products</span>
-  <pre style="line-height: 1.1em; font-size: 10px; max-height: 220px; overflow: auto">{{
-    productsEnrichedPayment$ | async | json
-  }}</pre>
+  <div class="PaymentOverview-info">
+    Wybierz rodzaj płatności z listy poniżej:
+  </div>
+
+  <pre>{{ productsEnrichedPayment$ | async | json }}</pre>
+
+  <div *ngIf="(productsEnrichedPayment$ | async).length; else noDeliveries">
+    <div class="BasketOverview-section">
+      <table>
+        <tbody>
+          <tr
+            *ngFor="let productEnriched of productsEnrichedPayment$ | async; trackBy: trackBy"
+            rr-shop-delivery-overview-item
+            [productEnriched]="productEnriched"
+          ></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #noDeliveries>
+    <div class="PaymentOverview-empty">
+      Lista płatności jest pusta - skontaktuj się z obługą sklepu
+    </div>
+  </ng-template>
 </div>

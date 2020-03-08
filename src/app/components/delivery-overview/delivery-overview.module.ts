@@ -8,7 +8,7 @@ import { ClickableActionModule } from '../clickable-action/clickable-action.modu
 
 @NgModule({
   declarations: [DeliveryOverviewComponent, DeliveryOverviewItemComponent],
-  exports: [DeliveryOverviewComponent],
+  exports: [DeliveryOverviewComponent, DeliveryOverviewItemComponent],
   imports: [CommonModule, PipesModule, ClickableActionModule]
 })
 export class DeliveryOverviewModule {}

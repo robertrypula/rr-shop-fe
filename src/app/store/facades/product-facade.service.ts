@@ -36,7 +36,7 @@ export class ProductFacadeService {
 
   public productsEnrichedFromCategoryByStructuralNode$(structuralNode: StructuralNode): Observable<ProductEnriched[]> {
     return this.store.pipe(
-      select(fromProductSelectors.selectProductsEnrichedFromCategoryByStructuralNode, { structuralNode })
+      select(fromProductSelectors.selectProductsEnrichedFromCategoryByStructuralNode(structuralNode))
     );
   }
 }

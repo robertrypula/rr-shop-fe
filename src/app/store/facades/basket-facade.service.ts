@@ -13,11 +13,13 @@ import { BasketEntry, BasketSimpleEntry, Type } from '../../models/basket.model'
   providedIn: 'root'
 })
 export class BasketFacadeService {
+  public isBasketValid$: Observable<boolean>;
   public isOnPotentialOrderRoute$: Observable<boolean>;
   public potentialOrderProductsIds$: Observable<number[]>;
   public quantityTotal$: Observable<number>;
 
   public constructor(protected store: Store<State>) {
+    this.isBasketValid$ = store.pipe(select(fromBasketSelectors.selectIsBasketValid));
     this.isOnPotentialOrderRoute$ = store.pipe(select(fromBasketSelectors.selectIsOnPotentialOrderRoute$));
     this.potentialOrderProductsIds$ = store.pipe(select(fromBasketSelectors.selectPotentialOrderProductsIds));
     this.quantityTotal$ = store.pipe(select(fromBasketSelectors.selectQuantityTotal));

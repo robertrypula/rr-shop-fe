@@ -11,10 +11,12 @@ import * as fromBasketSelectors from '../store/selectors/basket.selectors';
   providedIn: 'root'
 })
 export class BasketService {
+  public isBasketValid$: Observable<boolean>;
   public potentialOrderProductsIds$: Observable<number[]>;
   public quantityTotal$: Observable<number>;
 
   public constructor(protected barService: BarService, protected basketFacadeService: BasketFacadeService) {
+    this.isBasketValid$ = basketFacadeService.isBasketValid$;
     this.potentialOrderProductsIds$ = basketFacadeService.potentialOrderProductsIds$;
     this.quantityTotal$ = basketFacadeService.quantityTotal$;
   }

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { BasketService } from '../../services/basket.service';
 import { Type } from '../../models/basket.model';
+import { OrderFacadeService } from '../../store/facades/order-facade.service';
 
 @Component({
   selector: 'rr-shop-potential-order',
@@ -11,12 +12,14 @@ import { Type } from '../../models/basket.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PotentialOrderComponent implements OnInit {
+  public isBasketValid$: Observable<boolean>;
   public priceSumDelivery$: Observable<number>;
   public priceSumNormal$: Observable<number>;
   public priceSumPayment$: Observable<number>;
   public priceSumTotal$: Observable<number>;
 
-  public constructor(protected basketService: BasketService) {
+  public constructor(protected basketService: BasketService, protected orderFacadeService: OrderFacadeService) {
+    this.isBasketValid$ = basketService.isBasketValid$;
     this.priceSumDelivery$ = basketService.priceSum$([Type.Delivery]);
     this.priceSumNormal$ = basketService.priceSum$([Type.Normal]);
     this.priceSumPayment$ = basketService.priceSum$([Type.Payment]);
@@ -24,4 +27,8 @@ export class PotentialOrderComponent implements OnInit {
   }
 
   public ngOnInit() {}
+
+  public createOrder(): void {
+    this.orderFacadeService.createOrder();
+  }
 }

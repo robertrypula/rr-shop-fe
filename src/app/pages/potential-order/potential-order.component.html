@@ -45,7 +45,11 @@
         <div class="PotentialOrder-summaryPriceTotal">
           Do zapłaty: <span>{{ priceSumTotal$ | async | price }}</span>
         </div>
-        <rr-shop-clickable-action [label]="'Złóż zamówienie'" (actionClick)="order()"></rr-shop-clickable-action>
+        <rr-shop-clickable-action
+          [label]="'Złóż zamówienie'"
+          (actionClick)="createOrder()"
+          [disabled]="!(isBasketValid$ | async)"
+        ></rr-shop-clickable-action>
       </div>
     </div>
   </div>

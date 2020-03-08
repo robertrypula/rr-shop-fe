@@ -30,6 +30,19 @@ export const selectBasketSimpleEntryByProductId = createSelector(
     )
 );
 
+export const selectIsBasketValid = createSelector(
+  selectBasketEntries([Type.Normal]),
+  selectBasketEntries([Type.Payment]),
+  selectBasketEntries([Type.Delivery]),
+  (
+    basketEntriesNormal: BasketEntry[],
+    basketEntriesPayment: BasketEntry[],
+    basketEntriesDelivery: BasketEntry[]
+  ): boolean => {
+    return basketEntriesNormal.length > 0 && basketEntriesDelivery.length === 1 && basketEntriesPayment.length === 1;
+  }
+);
+
 export const selectIsOnPotentialOrderRoute$ = createSelector(selectUrl, (url: string): boolean =>
   isOnPotentialRoute(url)
 );

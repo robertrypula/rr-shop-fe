@@ -7,7 +7,7 @@ export const add = createAction('[Basket] Add', props<{ productId: number; quant
 
 export const chooseDelivery = createAction('[Basket] Choose delivery', props<{ productId: number }>());
 
-export const choosePayment = createAction('[Basket] Choose delivery', props<{ productId: number }>());
+export const choosePayment = createAction('[Basket] Choose payment', props<{ productId: number }>());
 
 export const potentialOrderRequest = createAction('[Basket] Potential order request');
 

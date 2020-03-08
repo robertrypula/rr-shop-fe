@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, concatMap, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import * as fromBasketActions from '../actions/basket.actions';
 import * as fromRouterActions from '../actions/router.actions';
@@ -9,12 +11,26 @@ import { BasketFacadeService } from '../facades/basket-facade.service';
 
 @Injectable()
 export class BasketEffects {
+  public potentialOrderRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromBasketActions.potentialOrderRequest),
+      concatMap(action => of(action).pipe(withLatestFrom(this.basketFacadeService.potentialOrderProductsIds$))),
+      switchMap(([action, potentialOrderProductsIds]) =>
+        this.apiProductService.getProducts(potentialOrderProductsIds).pipe(
+          map(products => fromBasketActions.potentialOrderSuccess({ products })),
+          catchError((httpErrorResponse: HttpErrorResponse) =>
+            of(fromBasketActions.potentialOrderFailure({ httpErrorResponse }))
+          )
+        )
+      )
+    )
+  );
+
   public triggerPotentialOrderRequest$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromRouterActions.customRouterNavigated),
-      tap(d => {
-        console.log(d);
-      }),
+      concatMap(action => of(action).pipe(withLatestFrom(this.basketFacadeService.isOnPotentialOrderRoute$))),
+      filter(([action, isOnPotentialOrderRoute]): boolean => isOnPotentialOrderRoute),
       map(() => fromBasketActions.potentialOrderRequest())
     )
   );

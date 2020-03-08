@@ -1,7 +1,7 @@
 @import 'configs-and-mixins';
 
 td {
-  padding: 8px 10px;
+  padding: 0;
   border: 1px solid $border-color;
   vertical-align: top;
   text-align: left;
@@ -20,7 +20,7 @@ td {
       left: 0;
     }
     > div:last-child {
-      padding: 10px 0 10px 50px;
+      padding: 12px 0 12px 45px;
     }
   }
 }
@@ -30,6 +30,6 @@ td {
   span {
     display: block;
     text-align: center;
-    padding: 10px 0;
+    padding: 12px 0;
   }
 }

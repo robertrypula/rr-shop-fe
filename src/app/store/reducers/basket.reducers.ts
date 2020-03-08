@@ -11,9 +11,9 @@ export interface State {
 
 export const initialState: State = {
   list: {
-    1: { id: 1, productId: 7, quantity: 5, type: Type.Normal },
-    2: { id: 2, productId: 10, quantity: 25, type: Type.Normal },
-    3: { id: 3, productId: 3, quantity: 1, type: Type.Delivery }
+    // 1: { id: 1, productId: 7, quantity: 5, type: Type.Normal },
+    // 2: { id: 2, productId: 10, quantity: 25, type: Type.Normal },
+    // 3: { id: 3, productId: 3, quantity: 1, type: Type.Delivery }
   }
 };
 
@@ -39,11 +39,12 @@ const basketReducer = createReducer(
     fromBasketActions.chooseDelivery,
     (state, { productId }): State => {
       basketSimpleEntryId++;
+
       return {
         ...state,
         list: {
           ...Object.keys(state.list)
-            .filter((key: string): boolean => state.list[+key].type !== Type.Delivery)
+            .filter((key: string): boolean => [Type.Normal, Type.Payment].includes(state.list[+key].type))
             .reduce((acc: any, curr: string): any => ((acc[curr] = state.list[curr]), acc), {}),
           [basketSimpleEntryId]: { id: basketSimpleEntryId, productId, quantity: 1, type: Type.Delivery }
         }
@@ -54,11 +55,12 @@ const basketReducer = createReducer(
     fromBasketActions.choosePayment,
     (state, { productId }): State => {
       basketSimpleEntryId++;
+
       return {
         ...state,
         list: {
           ...Object.keys(state.list)
-            .filter((key: string): boolean => state.list[+key].type !== Type.Payment)
+            .filter((key: string): boolean => [Type.Normal, Type.Delivery].includes(state.list[+key].type))
             .reduce((acc: any, curr: string): any => ((acc[curr] = state.list[curr]), acc), {}),
           [basketSimpleEntryId]: { id: basketSimpleEntryId, productId, quantity: 1, type: Type.Payment }
         }

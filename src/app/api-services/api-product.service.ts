@@ -18,6 +18,16 @@ export class ApiProductService {
       .pipe(map((productDto: ProductFullDto): Product => this.fromFullDto(productDto)));
   }
 
+  public getProducts(ids: number[]): Observable<Product[]> {
+    return this.http
+      .get<ProductFullDto[]>(API_URL_PRODUCTS(false, null, ids))
+      .pipe(
+        map((dtos: ProductFullDto[]): Product[] =>
+          dtos.map((productDto: ProductFullDto): Product => this.fromFullDto(productDto))
+        )
+      );
+  }
+
   public getProductsAtCategory(categoryIds: number[] = null): Observable<Product[]> {
     return this.http
       .get<ProductSimpleDto[]>(API_URL_PRODUCTS(false, categoryIds))

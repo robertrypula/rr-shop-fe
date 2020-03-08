@@ -1,15 +1,4 @@
 <div class="DeliveryOverview">
-  <span>Basket Entries</span>
-  <pre style="line-height: 1.1em; font-size: 10px; max-height: 220px; overflow: auto">{{
-    basketEntriesDelivery$ | async | json
-  }}</pre>
-
-  <div class="DeliveryOverview-info">
-    Wybierz rodzaj dostawy z listy poniżej:
-  </div>
-
-  <pre>{{ productsEnrichedDelivery$ | async | json }}</pre>
-
   <div *ngIf="(productsEnrichedDelivery$ | async).length; else noDeliveries">
     <div class="BasketOverview-section">
       <table>

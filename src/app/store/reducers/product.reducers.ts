@@ -1,5 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
+import * as fromBasketActions from '../actions/basket.actions';
 import * as fromProductActions from '../actions/product.actions';
 import { Product } from '../../models/product.model';
 import { ApiCall } from '../../models/generic.model';
@@ -57,8 +58,9 @@ const productReducer = createReducer(
     })
   ),
   on(
-    fromProductActions.productsAtInitSuccess,
+    fromBasketActions.potentialOrderSuccess,
     fromProductActions.productsAtCategorySuccess,
+    fromProductActions.productsAtInitSuccess,
     (state: State, { products }): State => {
       const newState: State = { ...state, list: { ...state.list } };
 

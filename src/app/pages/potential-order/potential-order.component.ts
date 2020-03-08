@@ -9,11 +9,7 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PotentialOrderComponent implements OnInit {
-  public potentialOrderProductsIds$: Observable<number[]>;
-
-  public constructor(protected basketService: BasketService) {
-    this.potentialOrderProductsIds$ = basketService.potentialOrderProductsIds$;
-  }
+  public constructor(protected basketService: BasketService) {}
 
   public ngOnInit() {}
 }

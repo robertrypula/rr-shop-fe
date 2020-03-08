@@ -7,6 +7,8 @@ import { selectBasketSimpleEntriesAsArray } from './basket-core.selectors';
 import { toBasketEntry } from './basket.utils';
 import { selectProductsEnrichedFromCategoryByStructuralNode } from './product.selectors';
 import { StructuralNode } from '../../models/category.model';
+import { selectUrl } from './router.selectors';
+import { isOnPotentialRoute } from '../../utils/routing.util';
 
 export const selectBasketEntries = (types: Type[] = [Type.Normal]) =>
   createSelector(
@@ -26,6 +28,10 @@ export const selectBasketSimpleEntryByProductId = createSelector(
     basketSimpleEntriesAsArray.find(
       (basketSimpleEntry: BasketSimpleEntry): boolean => basketSimpleEntry.productId === props.productId
     )
+);
+
+export const selectIsOnPotentialOrderRoute$ = createSelector(selectUrl, (url: string): boolean =>
+  isOnPotentialRoute(url)
 );
 
 export const selectPotentialOrderProductsIds = createSelector(

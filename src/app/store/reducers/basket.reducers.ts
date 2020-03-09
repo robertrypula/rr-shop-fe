@@ -9,14 +9,14 @@ export interface State {
   list: {
     [id: number]: BasketSimpleEntry;
   };
+  listId: number;
 }
 
 export const initialState: State = {
   apiCallPotentialOrder: ApiCall.Initial,
-  list: {}
+  list: {},
+  listId: 0
 };
-
-export let basketSimpleEntryId = 0;
 
 const basketReducer = createReducer(
   initialState,
@@ -35,21 +35,22 @@ const basketReducer = createReducer(
   on(
     fromBasketActions.add,
     (state, { productId, quantity }): State => {
-      basketSimpleEntryId++;
+      const listId: number = state.listId + 1;
 
       return {
         ...state,
         list: {
           ...state.list,
-          [basketSimpleEntryId]: { id: basketSimpleEntryId, productId, quantity, type: Type.Normal }
-        }
+          [listId]: { id: listId, productId, quantity, type: Type.Normal }
+        },
+        listId
       };
     }
   ),
   on(
     fromBasketActions.chooseDelivery,
     (state, { productId }): State => {
-      basketSimpleEntryId++;
+      const listId: number = state.listId + 1;
 
       return {
         ...state,
@@ -57,15 +58,16 @@ const basketReducer = createReducer(
           ...Object.keys(state.list)
             .filter((key: string): boolean => [Type.Normal, Type.Payment].includes(state.list[+key].type))
             .reduce((acc: any, curr: string): any => ((acc[curr] = state.list[curr]), acc), {}),
-          [basketSimpleEntryId]: { id: basketSimpleEntryId, productId, quantity: 1, type: Type.Delivery }
-        }
+          [listId]: { id: listId, productId, quantity: 1, type: Type.Delivery }
+        },
+        listId
       };
     }
   ),
   on(
     fromBasketActions.choosePayment,
     (state, { productId }): State => {
-      basketSimpleEntryId++;
+      const listId: number = state.listId + 1;
 
       return {
         ...state,
@@ -73,8 +75,9 @@ const basketReducer = createReducer(
           ...Object.keys(state.list)
             .filter((key: string): boolean => [Type.Normal, Type.Delivery].includes(state.list[+key].type))
             .reduce((acc: any, curr: string): any => ((acc[curr] = state.list[curr]), acc), {}),
-          [basketSimpleEntryId]: { id: basketSimpleEntryId, productId, quantity: 1, type: Type.Payment }
-        }
+          [listId]: { id: listId, productId, quantity: 1, type: Type.Payment }
+        },
+        listId
       };
     }
   ),

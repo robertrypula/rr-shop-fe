@@ -11,20 +11,20 @@ import { selectBasketSimpleEntriesAsArray } from './basket-core.selectors';
 import { getProductsForGivenCategories, toProductEnriched } from './product.utils';
 import { selectCategoriesAsArray } from './category-core.selectors';
 
-export const selectActiveProductId = createSelector(selectUrl, (url: string): number => {
+export const selectUrlProductId = createSelector(selectUrl, (url: string): number => {
   return getProductId(url);
 });
 
 export const selectActiveProductEnriched = createSelector(
-  selectActiveProductId,
+  selectUrlProductId,
   selectProductsAsKeyValue,
   selectBasketSimpleEntriesAsArray,
   (
-    activeProductId: number,
+    urlProductId: number,
     productsAsKeyValue: { [key: string]: Product },
     basketSimpleEntriesAsArray: BasketSimpleEntry[]
   ): ProductEnriched => {
-    return activeProductId ? toProductEnriched(productsAsKeyValue[activeProductId], basketSimpleEntriesAsArray) : null;
+    return urlProductId ? toProductEnriched(productsAsKeyValue[urlProductId], basketSimpleEntriesAsArray) : null;
   }
 );
 

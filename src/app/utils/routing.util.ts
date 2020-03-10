@@ -1,7 +1,7 @@
-const parseUrlId = (url: string, code: string): number => {
+const parseUrlId = (url: string, code: string): string => {
   const split: string[] = (url || '').split('/');
 
-  return split.length === 4 && split[0] === '' && split[1] === code && split[2] !== '' ? +split[2] : null;
+  return split.length === 4 && split[0] === '' && split[1] === code && split[2] !== '' ? split[2] : null;
 };
 
 const extractCategoryIdFromProductUrl = (url: string): number => {
@@ -12,17 +12,23 @@ const extractCategoryIdFromProductUrl = (url: string): number => {
 };
 
 export const getCategoryId = (url: string): number => {
-  let categoryId: number = parseUrlId(url, 'c');
+  const categoryId: string = parseUrlId(url, 'c');
 
-  if (!categoryId && getProductId(url)) {
-    categoryId = extractCategoryIdFromProductUrl(url);
-  }
-
-  return categoryId;
+  return !categoryId && getProductId(url) ? extractCategoryIdFromProductUrl(url) : +categoryId;
 };
 
-export const getProductId = (url: string): number => parseUrlId(url, 'p');
+export const getProductId = (url: string): number => {
+  const id: string = parseUrlId(url, 'p');
+
+  return id !== null ? +id : null;
+};
+
+export const getOrderUuid = (url: string): string => parseUrlId(url, 'order');
 
 export const isOnCategoryRoute = (url: string): boolean => url.indexOf('/c/') !== -1;
+
+export const isOnOrderRoute = (url: string): boolean => url.indexOf('/order/') !== -1;
+
 export const isOnPotentialRoute = (url: string): boolean => url.indexOf('/potential-order') !== -1;
+
 export const isOnProductRoute = (url: string): boolean => url.indexOf('/p/') !== -1;

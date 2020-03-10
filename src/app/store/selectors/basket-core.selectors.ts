@@ -15,10 +15,11 @@ export const selectApiCallPotentialOrder = createSelector(
 
 export const selectBasketSimpleEntriesAsArray = createSelector(
   selectBasketFeature,
-  (basketFeature: fromBasketReducers.State): BasketSimpleEntry[] => getBasketSimpleEntriesAsArray(basketFeature.list)
+  (basketFeature: fromBasketReducers.State): BasketSimpleEntry[] =>
+    getBasketSimpleEntriesAsArray(basketFeature.entities)
 );
 
 export const selectBasketSimpleEntriesAsKeyValue = createSelector(
   selectBasketFeature,
-  (basketFeature: fromBasketReducers.State): { [id: number]: BasketSimpleEntry } => basketFeature.list
+  (basketFeature: fromBasketReducers.State): { [id: number]: BasketSimpleEntry } => basketFeature.entities
 );

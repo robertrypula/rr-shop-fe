@@ -15,7 +15,7 @@ export class ProductsEffects {
   public productRequest$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromProductActions.productRequest),
-      concatMap(action => of(action).pipe(withLatestFrom(this.productFacadeService.activeProductId$))),
+      concatMap(action => of(action).pipe(withLatestFrom(this.productFacadeService.urlProductId$))),
       switchMap(([action, activeProductId]) =>
         this.apiProductService.getProduct(activeProductId).pipe(
           map(product => fromProductActions.productSuccess({ product })),

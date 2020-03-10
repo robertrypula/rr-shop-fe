@@ -13,12 +13,15 @@ import { ProductComponent } from './pages/product/product.component';
 import { ProductModule } from './pages/product/product.module';
 import { SearchComponent } from './pages/search/search.component';
 import { SearchModule } from './pages/search/search.module';
+import { OrderComponent } from './pages/order/order.component';
+import { OrderModule } from './pages/order/order.module';
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full' },
-  { path: 'potential-order', component: PotentialOrderComponent },
   { path: 'c/:id/:slug', component: CategoryComponent },
   { path: 'p/:id/:slug', component: ProductComponent },
+  { path: 'order/:uuid', component: OrderComponent },
+  { path: 'potential-order', component: PotentialOrderComponent },
   { path: 'search/:keywords', component: SearchComponent },
   { path: '**', component: NotFoundComponent }
 ];
@@ -29,6 +32,7 @@ const routes: Routes = [
     CategoryModule,
     MainModule,
     NotFoundModule,
+    OrderModule,
     PotentialOrderModule,
     ProductModule,
     SearchModule

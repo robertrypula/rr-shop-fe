@@ -6,16 +6,16 @@ import { ApiCall } from '../../models/generic.model';
 
 export interface State {
   apiCallPotentialOrder: ApiCall;
-  list: {
+  entities: {
     [id: number]: BasketSimpleEntry;
   };
-  listId: number;
+  lastEntityId: number;
 }
 
 export const initialState: State = {
   apiCallPotentialOrder: ApiCall.Initial,
-  list: {},
-  listId: 0
+  entities: {},
+  lastEntityId: 0
 };
 
 const basketReducer = createReducer(
@@ -34,62 +34,62 @@ const basketReducer = createReducer(
   ),
   on(
     fromBasketActions.add,
-    (state, { productId, quantity }): State => {
-      const listId: number = state.listId + 1;
+    (state: State, { productId, quantity }): State => {
+      const listId: number = state.lastEntityId + 1;
 
       return {
         ...state,
-        list: {
-          ...state.list,
+        entities: {
+          ...state.entities,
           [listId]: { id: listId, productId, quantity, type: Type.Normal }
         },
-        listId
+        lastEntityId: listId
       };
     }
   ),
   on(
     fromBasketActions.chooseDelivery,
-    (state, { productId }): State => {
-      const listId: number = state.listId + 1;
+    (state: State, { productId }): State => {
+      const listId: number = state.lastEntityId + 1;
 
       return {
         ...state,
-        list: {
-          ...Object.keys(state.list)
-            .filter((key: string): boolean => [Type.Normal, Type.Payment].includes(state.list[+key].type))
-            .reduce((acc: any, curr: string): any => ((acc[curr] = state.list[curr]), acc), {}),
+        entities: {
+          ...Object.keys(state.entities)
+            .filter((key: string): boolean => [Type.Normal, Type.Payment].includes(state.entities[+key].type))
+            .reduce((acc: any, curr: string): any => ((acc[curr] = state.entities[curr]), acc), {}),
           [listId]: { id: listId, productId, quantity: 1, type: Type.Delivery }
         },
-        listId
+        lastEntityId: listId
       };
     }
   ),
   on(
     fromBasketActions.choosePayment,
-    (state, { productId }): State => {
-      const listId: number = state.listId + 1;
+    (state: State, { productId }): State => {
+      const listId: number = state.lastEntityId + 1;
 
       return {
         ...state,
-        list: {
-          ...Object.keys(state.list)
-            .filter((key: string): boolean => [Type.Normal, Type.Delivery].includes(state.list[+key].type))
-            .reduce((acc: any, curr: string): any => ((acc[curr] = state.list[curr]), acc), {}),
+        entities: {
+          ...Object.keys(state.entities)
+            .filter((key: string): boolean => [Type.Normal, Type.Delivery].includes(state.entities[+key].type))
+            .reduce((acc: any, curr: string): any => ((acc[curr] = state.entities[curr]), acc), {}),
           [listId]: { id: listId, productId, quantity: 1, type: Type.Payment }
         },
-        listId
+        lastEntityId: listId
       };
     }
   ),
   on(
     fromBasketActions.quantityIncrement,
     (state: State, { id }): State => {
-      const basketSimpleEntry: BasketSimpleEntry = state.list[id];
+      const basketSimpleEntry: BasketSimpleEntry = state.entities[id];
 
       return basketSimpleEntry
         ? {
             ...state,
-            list: { ...state.list, [id]: { ...basketSimpleEntry, quantity: basketSimpleEntry.quantity + 1 } }
+            entities: { ...state.entities, [id]: { ...basketSimpleEntry, quantity: basketSimpleEntry.quantity + 1 } }
           }
         : state;
     }
@@ -97,12 +97,12 @@ const basketReducer = createReducer(
   on(
     fromBasketActions.quantityDecrement,
     (state: State, { id }): State => {
-      const basketSimpleEntry: BasketSimpleEntry = state.list[id];
+      const basketSimpleEntry: BasketSimpleEntry = state.entities[id];
 
       return basketSimpleEntry
         ? {
             ...state,
-            list: { ...state.list, [id]: { ...basketSimpleEntry, quantity: basketSimpleEntry.quantity - 1 } }
+            entities: { ...state.entities, [id]: { ...basketSimpleEntry, quantity: basketSimpleEntry.quantity - 1 } }
           }
         : state;
     }
@@ -110,19 +110,19 @@ const basketReducer = createReducer(
   on(
     fromBasketActions.quantitySetTo,
     (state: State, { id, quantity }): State => {
-      const basketSimpleEntry: BasketSimpleEntry = state.list[id];
+      const basketSimpleEntry: BasketSimpleEntry = state.entities[id];
 
       return basketSimpleEntry
-        ? { ...state, list: { ...state.list, [id]: { ...basketSimpleEntry, quantity } } }
+        ? { ...state, entities: { ...state.entities, [id]: { ...basketSimpleEntry, quantity } } }
         : state;
     }
   ),
   on(
     fromBasketActions.remove,
     (state: State, { id }): State => {
-      const { [id]: toDelete, ...rest } = state.list;
+      const { [id]: toDelete, ...rest } = state.entities;
 
-      return toDelete ? { ...state, list: rest } : state;
+      return toDelete ? { ...state, entities: rest } : state;
     }
   )
 );

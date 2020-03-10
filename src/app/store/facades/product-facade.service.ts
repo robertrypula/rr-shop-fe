@@ -12,21 +12,17 @@ import { StructuralNode } from '../../models/category.model';
   providedIn: 'root'
 })
 export class ProductFacadeService {
-  public activeProductEnriched$: Observable<ProductEnriched>;
-  public activeProductId$: Observable<number>;
-  public isOnProductRoute$: Observable<boolean>;
-  public productsEnrichedFromActiveCategoryAndItsChildren$: Observable<ProductEnriched[]>;
-  public productsLength$: Observable<number>;
+  public activeProductEnriched$: Observable<ProductEnriched> = this.store.pipe(
+    select(fromProductSelectors.selectActiveProductEnriched)
+  );
+  public isOnProductRoute$: Observable<boolean> = this.store.pipe(select(fromProductSelectors.selectIsOnProductRoute));
+  public productsEnrichedFromActiveCategoryAndItsChildren$: Observable<ProductEnriched[]> = this.store.pipe(
+    select(fromProductSelectors.selectProductsEnrichedFromActiveCategoryAndItsChildren)
+  );
+  public productsLength$: Observable<number> = this.store.pipe(select(selectProductsLength));
+  public urlProductId$: Observable<number> = this.store.pipe(select(fromProductSelectors.selectUrlProductId));
 
-  public constructor(protected store: Store<State>) {
-    this.activeProductEnriched$ = this.store.pipe(select(fromProductSelectors.selectActiveProductEnriched));
-    this.activeProductId$ = this.store.pipe(select(fromProductSelectors.selectActiveProductId));
-    this.isOnProductRoute$ = this.store.pipe(select(fromProductSelectors.selectIsOnProductRoute));
-    this.productsEnrichedFromActiveCategoryAndItsChildren$ = this.store.pipe(
-      select(fromProductSelectors.selectProductsEnrichedFromActiveCategoryAndItsChildren)
-    );
-    this.productsLength$ = this.store.pipe(select(selectProductsLength));
-  }
+  public constructor(protected store: Store<State>) {}
 
   public productsCountFromCategoryAndItsChildrenByCategoryId$(categoryId: number): Observable<number> {
     return this.store.pipe(

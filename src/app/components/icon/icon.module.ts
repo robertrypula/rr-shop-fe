@@ -9,6 +9,8 @@ import {
 import {
   faAngleDoubleDown as fasAngleDoubleDown,
   faAngleDoubleUp as fasAngleDoubleUp,
+  faArrowCircleLeft as fasArrowCircleLeft,
+  faArrowCircleRight as fasArrowCircleRight,
   faChevronDown as fasChevronDown,
   faChevronUp as fasChevronUp,
   faMinus as fasMinus,
@@ -33,6 +35,8 @@ export class IconModule {
       farTrashAlt,
       fasAngleDoubleDown,
       fasAngleDoubleUp,
+      fasArrowCircleLeft,
+      fasArrowCircleRight,
       fasChevronDown,
       fasChevronUp,
       fasMinus,

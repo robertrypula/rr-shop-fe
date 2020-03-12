@@ -1,0 +1,28 @@
+<div
+  class="Image"
+  [ngClass]="{
+    'Image-thumb-064px': size === Size.Thumb064px,
+    'Image-thumb-200px': size === Size.Thumb200px,
+    'Image-thumb-300px': size === Size.Thumb300px
+  }"
+>
+  <div class="Image-slider" [ngStyle]="{ left: -300 * position + 'px' }">
+    <img [attr.src]="image | image: size" [attr.alt]="image.filename" *ngFor="let image of images; trackBy: trackBy" />
+  </div>
+
+  <rr-shop-clickable-action
+    *ngIf="slider"
+    (actionClick)="onLeftClick()"
+    [clickableActionTheme]="ClickableActionTheme.TransparentDark"
+    [icon]="['fas', 'arrow-circle-left']"
+    class="Image-left"
+  ></rr-shop-clickable-action>
+
+  <rr-shop-clickable-action
+    *ngIf="slider"
+    (actionClick)="onRightClick()"
+    [clickableActionTheme]="ClickableActionTheme.TransparentDark"
+    [icon]="['fas', 'arrow-circle-right']"
+    class="Image-right"
+  ></rr-shop-clickable-action>
+</div>

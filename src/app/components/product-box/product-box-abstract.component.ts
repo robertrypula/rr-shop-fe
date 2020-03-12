@@ -3,6 +3,7 @@ import { Injectable, Input } from '@angular/core';
 import { Product, ProductEnriched } from '../../models/product.model';
 import { BasketService } from '../../services/basket.service';
 import { Category } from '../../models/category.model';
+import { Size } from '../../models/image.model';
 
 @Injectable()
 export abstract class ProductBoxAbstractComponent {
@@ -11,6 +12,8 @@ export abstract class ProductBoxAbstractComponent {
 
   @Input()
   public activeCategory: Category;
+
+  public readonly Size = Size;
 
   public constructor(protected basketService: BasketService) {}
 

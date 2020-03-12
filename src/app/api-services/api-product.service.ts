@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { API_URL_PRODUCT, API_URL_PRODUCTS } from '../config/api-url.config';
 import { Product, ProductFullDto, ProductInitDto, ProductSimpleDto } from '../models/product.model';
+import { Image, ImageDto } from '../models/image.model';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,7 @@ export class ApiProductService {
       categoryIds: dto.categoryIds,
       description: dto.description,
       id: dto.id,
+      images: dto.images.map((image: ImageDto): Image => ({ ...image })),
       name: dto.name,
       price: dto.price,
       quantity: dto.quantity,
@@ -71,6 +73,7 @@ export class ApiProductService {
     return {
       categoryIds: dto.categoryIds,
       id: dto.id,
+      images: dto.images.map((image: ImageDto): Image => ({ ...image })),
       name: dto.name,
       price: dto.price,
       slug: dto.slug

@@ -7,11 +7,12 @@ import { ProductBoxCompactComponent } from './product-box-compact/product-box-co
 import { PipesModule } from '../../pipes/pipes.module';
 import { BasketService } from '../../services/basket.service';
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
+import { ImageModule } from '../image/image.module';
 
 @NgModule({
   declarations: [ProductBoxFullComponent, ProductBoxCompactComponent],
   exports: [ProductBoxFullComponent, ProductBoxCompactComponent],
-  imports: [CommonModule, PipesModule, RouterModule, ClickableActionModule],
+  imports: [CommonModule, PipesModule, RouterModule, ClickableActionModule, ImageModule],
   providers: [BasketService]
 })
 export class ProductBoxModule {}

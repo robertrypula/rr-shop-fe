@@ -2,6 +2,7 @@ import { Product, ProductEnriched } from '../../models/product.model';
 import { Category } from '../../models/category.model';
 import { BasketSimpleEntry } from '../../models/basket.model';
 import { toBasketEntry } from './basket.utils';
+import { Image } from '../../models/image.model';
 
 export const getProductsAsArray = (productsAsKeyValue: { [id: number]: Product }): Product[] => {
   return Object.keys(productsAsKeyValue).map((key: string): Product => productsAsKeyValue[+key]);
@@ -38,6 +39,9 @@ export const toProductEnriched = (
 
   return {
     ...product,
+    images: product.images
+      ? [...product.images].sort((a: Image, b: Image): number => (a.order === b.order ? 0 : a.order < b.order ? -1 : 1))
+      : [],
     basketEntry: basketSimpleEntryFound ? toBasketEntry(basketSimpleEntryFound) : null
   };
 };

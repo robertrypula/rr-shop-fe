@@ -1,6 +1,10 @@
 <div class="ProductBoxCompact" [ngClass]="{ 'ProductBoxCompact--inBasket': productEnriched.basketEntry }">
   <a [routerLink]="productEnriched | productUrl: activeCategory" class="ProductBoxCompact-link">
-    <img alt="{{ productEnriched.name }}" src="" class="ProductBoxCompact-image" />
+    <rr-shop-image
+      [images]="productEnriched.images"
+      [size]="Size.Thumb200px"
+      class="ProductBoxCompact-image"
+    ></rr-shop-image>
     <span>{{ productEnriched.name }}</span>
   </a>
 

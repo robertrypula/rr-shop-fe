@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 
 import { BasketEntry } from '../../../models/basket.model';
 import { BasketService } from '../../../services/basket.service';
+import { Size } from '../../../models/image.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -13,6 +14,8 @@ import { BasketService } from '../../../services/basket.service';
 export class BasketOverviewItemComponent implements OnInit {
   @Input()
   public basketEntry: BasketEntry;
+
+  public readonly Size = Size;
 
   public constructor(protected basketService: BasketService) {}
 

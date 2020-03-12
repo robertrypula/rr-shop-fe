@@ -23,13 +23,11 @@ td {
     width: 100%;
     min-height: 64px;
     position: relative;
-    img {
+    .BasketOverviewItem-image {
       position: absolute;
       display: block;
       width: 64px;
       height: 64px;
-      outline: 1px solid red;
-      background-color: $image-background-color;
     }
     span {
       display: block;

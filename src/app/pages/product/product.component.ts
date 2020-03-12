@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Product, ProductEnriched } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { BasketService } from '../../services/basket.service';
+import { Size } from '../../models/image.model';
 
 @Component({
   selector: 'rr-shop-product',
@@ -12,11 +13,11 @@ import { BasketService } from '../../services/basket.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductComponent implements OnInit {
-  public activeProductEnriched$: Observable<ProductEnriched>;
+  public activeProductEnriched$: Observable<ProductEnriched> = this.productService.activeProductEnriched$;
 
-  public constructor(protected productService: ProductService, protected basketService: BasketService) {
-    this.activeProductEnriched$ = productService.activeProductEnriched$;
-  }
+  public readonly Size = Size;
+
+  public constructor(protected productService: ProductService, protected basketService: BasketService) {}
 
   public ngOnInit(): void {}
 

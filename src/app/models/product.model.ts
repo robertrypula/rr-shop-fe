@@ -1,11 +1,11 @@
-import { ImageDto } from './image.model';
+import { Image, ImageDto } from './image.model';
 import { BasketEntry } from './basket.model';
 
 export interface Product {
   categoryIds: number[];
   description?: string;
   id: number;
-  imageIds?: number[];
+  images?: Image[];
   name?: string;
   price?: number;
   quantity?: number;

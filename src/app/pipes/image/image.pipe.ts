@@ -1,16 +1,28 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Image, ImageSize } from '../../models/image.model';
+import { Image, Size } from '../../models/image.model';
 import { environment } from '../../../environments/environment';
-// import { NO_PICTURE_FILENAME } from '../../config/config';
 
 @Pipe({
   name: 'image'
 })
 export class ImagePipe implements PipeTransform {
-  public transform(value: Image[], imageSize: ImageSize = ImageSize.Full): string {
-    return `${environment.urlStatic}products/${imageSize}/${'test.jpg'}`;
+  public transform(image: Image, size: Size = Size.Full): string {
+    return `${environment.urlStatic}products/${this.getSizeDirectory(size)}/${image.filename}`;
+  }
 
-    // value && value.length ? value[0].name : NO_PICTURE_FILENAME
+  protected getSizeDirectory(size: Size): string {
+    switch (size) {
+      case Size.Full:
+        return 'full';
+      case Size.Thumb064px:
+        return 'thumbs-064px';
+      case Size.Thumb200px:
+        return 'thumbs-200px';
+      case Size.Thumb300px:
+        return 'thumbs-300px';
+      default:
+        return '';
+    }
   }
 }

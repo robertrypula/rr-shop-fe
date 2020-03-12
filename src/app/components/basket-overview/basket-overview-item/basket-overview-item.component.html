@@ -1,6 +1,10 @@
 <td class="BasketOverviewItem-name">
   <a [routerLink]="basketEntry?.product | productUrl">
-    <img alt="{{ basketEntry.product?.name }}" src="" />
+    <rr-shop-image
+      [images]="basketEntry.product?.images"
+      [size]="Size.Thumb064px"
+      class="BasketOverviewItem-image"
+    ></rr-shop-image>
     <span>{{ basketEntry.product?.name }}</span>
     <div class="hidden-md hidden-lg">
       {{ basketEntry.product?.price | price }}

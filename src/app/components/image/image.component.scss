@@ -1,0 +1,54 @@
+@import 'configs-and-mixins';
+
+.Image {
+  position: relative;
+  overflow: hidden;
+  .Image-slider {
+    position: absolute;
+    width: 19200px;
+    left: 0;
+    transition: left ease-in-out 200ms;
+    img {
+      display: block;
+      background-color: $image-background-color;
+      float: left;
+    }
+  }
+
+  .Image-left,
+  .Image-right {
+    display: none;
+    position: absolute;
+    top: (300 - 40) * 0.5px;
+  }
+  .Image-left {
+    left: 0;
+  }
+  .Image-right {
+    right: 0;
+  }
+  &:hover {
+    .Image-left,
+    .Image-right {
+      display: block;
+    }
+  }
+}
+
+.Image-thumb-064px,
+.Image-thumb-064px img {
+  width: 64px;
+  height: 64px;
+}
+
+.Image-thumb-200px,
+.Image-thumb-200px img {
+  width: 200px;
+  height: 200px;
+}
+
+.Image-thumb-300px,
+.Image-thumb-300px img {
+  width: 300px;
+  height: 300px;
+}

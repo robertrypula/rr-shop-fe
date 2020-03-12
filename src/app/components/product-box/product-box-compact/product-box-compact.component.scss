@@ -11,8 +11,7 @@
   }
 
   .ProductBoxCompact-link {
-    img {
-      background-color: $image-background-color;
+    .ProductBoxCompact-image {
       display: block;
       height: 200px;
       width: 200px;

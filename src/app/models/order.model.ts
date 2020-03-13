@@ -6,14 +6,16 @@ export enum Type {
   Payment = 'Payment'
 }
 
-export interface OrderSimpleEntry {
+// -----------------------------------------------------------------------------
+
+export interface OrderItemStore {
   id: number;
   productId: number;
   quantity: number;
   type: Type;
 }
 
-export interface OrderEntry extends OrderSimpleEntry {
+export interface OrderItem extends OrderItemStore {
   isQuantityDecrementActive: boolean;
   product: Product;
   totalPrice: number;

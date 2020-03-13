@@ -1,43 +1,39 @@
 import { createSelector } from '@ngrx/store';
 
-import { OrderEntry, OrderSimpleEntry, Type } from '../../models/order.model';
+import { OrderItem, OrderItemStore, Type } from '../../models/order.model';
 import { Product, ProductEnriched } from '../../models/product.model';
 import { selectProductsAsKeyValue } from './product-core.selectors';
-import { selectOrderSimpleEntriesAsArray } from './order-core.selectors';
-import { toOrderEntry } from './order.utils';
+import { selectOrderItemsStoreAsArray } from './order-core.selectors';
+import { toOrderItem } from './order.utils';
 import { selectProductsEnrichedFromCategoryByStructuralNode } from './product.selectors';
 import { StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
 import { getOrderUuid, isOnOrderRoute, isOnPotentialOrderRoute } from '../../utils/routing.util';
 
-export const selectOrderEntries = (types: Type[] = [Type.Normal]) =>
+export const selectOrderItems = (types: Type[] = [Type.Normal]) =>
   createSelector(
-    selectOrderSimpleEntriesAsArray,
+    selectOrderItemsStoreAsArray,
     selectProductsAsKeyValue,
-    (orderSimpleEntriesAsArray: OrderSimpleEntry[], productsAsKeyValue: { [id: number]: Product }): OrderEntry[] =>
-      orderSimpleEntriesAsArray
-        .filter((orderSimpleEntry: OrderSimpleEntry): boolean => types.includes(orderSimpleEntry.type))
-        .map((orderSimpleEntry: OrderSimpleEntry): OrderEntry => toOrderEntry(orderSimpleEntry, productsAsKeyValue))
+    (orderItemsStoreAsArray: OrderItemStore[], productsAsKeyValue: { [id: number]: Product }): OrderItem[] =>
+      orderItemsStoreAsArray
+        .filter((orderItemStore: OrderItemStore): boolean => types.includes(orderItemStore.type))
+        .map((orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsAsKeyValue))
   );
 
-export const selectOrderSimpleEntryByProductId = createSelector(
-  selectOrderSimpleEntriesAsArray,
-  (orderSimpleEntriesAsArray: OrderSimpleEntry[], props: { productId: number }): OrderSimpleEntry =>
-    orderSimpleEntriesAsArray.find(
-      (orderSimpleEntry: OrderSimpleEntry): boolean => orderSimpleEntry.productId === props.productId
+export const selectOrderItemStoreByProductId = createSelector(
+  selectOrderItemsStoreAsArray,
+  (orderItemsStoreAsArray: OrderItemStore[], props: { productId: number }): OrderItemStore =>
+    orderItemsStoreAsArray.find(
+      (orderItemStore: OrderItemStore): boolean => orderItemStore.productId === props.productId
     )
 );
 
 export const selectIsOrderValid = createSelector(
-  selectOrderEntries([Type.Normal]),
-  selectOrderEntries([Type.Payment]),
-  selectOrderEntries([Type.Delivery]),
-  (
-    orderEntriesNormal: OrderEntry[],
-    orderEntriesPayment: OrderEntry[],
-    orderEntriesDelivery: OrderEntry[]
-  ): boolean => {
-    return orderEntriesNormal.length > 0 && orderEntriesDelivery.length === 1 && orderEntriesPayment.length === 1;
+  selectOrderItems([Type.Normal]),
+  selectOrderItems([Type.Payment]),
+  selectOrderItems([Type.Delivery]),
+  (orderItemsNormal: OrderItem[], orderItemsPayment: OrderItem[], orderItemsDelivery: OrderItem[]): boolean => {
+    return orderItemsNormal.length > 0 && orderItemsDelivery.length === 1 && orderItemsPayment.length === 1;
   }
 );
 
@@ -46,33 +42,33 @@ export const selectIsOnPotentialOrderRoute$ = createSelector(selectUrl, (url: st
 );
 
 export const selectPotentialOrderProductsIds = createSelector(
-  selectOrderEntries([Type.Normal]),
+  selectOrderItems([Type.Normal]),
   selectProductsEnrichedFromCategoryByStructuralNode(StructuralNode.Delivery),
   selectProductsEnrichedFromCategoryByStructuralNode(StructuralNode.Payment),
   (
-    orderEntries: OrderEntry[],
+    orderItems: OrderItem[],
     deliveryProductsEnriched: ProductEnriched[],
     paymentProductsEnriched: ProductEnriched[]
   ): number[] => [
-    ...orderEntries.map((orderEntry: OrderEntry): number => orderEntry.productId),
+    ...orderItems.map((orderItem: OrderItem): number => orderItem.productId),
     ...deliveryProductsEnriched.map((deliveryProductEnriched: ProductEnriched): number => deliveryProductEnriched.id),
     ...paymentProductsEnriched.map((paymentProductEnriched: ProductEnriched): number => paymentProductEnriched.id)
   ]
 );
 
 export const selectPriceSum = (types: Type[]) =>
-  createSelector(selectOrderEntries(types), (orderEntries: OrderEntry[]): number =>
-    orderEntries.reduce((previousValue: number, currentValue: OrderEntry): number => {
+  createSelector(selectOrderItems(types), (orderItems: OrderItem[]): number =>
+    orderItems.reduce((previousValue: number, currentValue: OrderItem): number => {
       return previousValue + currentValue.quantity * (currentValue.product ? currentValue.product.price : 0);
     }, 0)
   );
 
 export const selectQuantityTotal = createSelector(
-  selectOrderSimpleEntriesAsArray,
-  (orderSimpleEntriesAsArray: OrderSimpleEntry[]): number =>
-    orderSimpleEntriesAsArray
-      .filter((orderSimpleEntry: OrderSimpleEntry): boolean => orderSimpleEntry.type === Type.Normal)
-      .reduce((previousValue: number, currentValue: OrderSimpleEntry): number => {
+  selectOrderItemsStoreAsArray,
+  (orderItemsStoreAsArray: OrderItemStore[]): number =>
+    orderItemsStoreAsArray
+      .filter((orderItemStore: OrderItemStore): boolean => orderItemStore.type === Type.Normal)
+      .reduce((previousValue: number, currentValue: OrderItemStore): number => {
         return previousValue + currentValue.quantity;
       }, 0)
 );

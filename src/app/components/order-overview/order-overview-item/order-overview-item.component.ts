@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { OrderEntry } from '../../../models/order.model';
+import { OrderItem } from '../../../models/order.model';
 import { OrderService } from '../../../services/order.service';
 import { Size } from '../../../models/image.model';
 
@@ -13,7 +13,7 @@ import { Size } from '../../../models/image.model';
 })
 export class OrderOverviewItemComponent implements OnInit {
   @Input()
-  public orderEntry: OrderEntry;
+  public orderItem: OrderItem;
 
   public readonly Size = Size;
 

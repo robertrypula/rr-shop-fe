@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { StructuralNode } from '../../models/category.model';
 import { OrderService } from '../../services/order.service';
-import { OrderEntry, Type } from '../../models/order.model';
+import { OrderItem, Type } from '../../models/order.model';
 import { ProductEnriched } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 
@@ -13,11 +13,11 @@ import { ProductService } from '../../services/product.service';
   styleUrls: ['./payment-overview.component.scss']
 })
 export class PaymentOverviewComponent implements OnInit {
-  public orderEntriesPayment$: Observable<OrderEntry[]>;
+  public orderItemsPayment$: Observable<OrderItem[]>;
   public productsEnrichedPayment$: Observable<ProductEnriched[]>;
 
   public constructor(protected orderService: OrderService, protected productService: ProductService) {
-    this.orderEntriesPayment$ = this.orderService.orderEntriesByType$([Type.Payment]);
+    this.orderItemsPayment$ = this.orderService.orderItemsByType$([Type.Payment]);
     this.productsEnrichedPayment$ = this.productService.productsEnrichedFromCategoryByStructuralNode$(
       StructuralNode.Payment
     );

@@ -1,4 +1,4 @@
-<div class="ProductBoxCompact" [ngClass]="{ 'ProductBoxCompact--inOrder': productEnriched.orderEntry }">
+<div class="ProductBoxCompact" [ngClass]="{ 'ProductBoxCompact--inOrder': productEnriched.orderItem }">
   <a [routerLink]="productEnriched | productUrl: activeCategory" class="ProductBoxCompact-link">
     <rr-shop-image
       [images]="productEnriched.images"
@@ -12,25 +12,25 @@
     {{ productEnriched.price | price }}
   </div>
 
-  <div *ngIf="productEnriched.orderEntry" class="ProductBoxCompact-orderQuantity">
+  <div *ngIf="productEnriched.orderItem" class="ProductBoxCompact-orderQuantity">
     <span>
-      W koszyku: <b>{{ productEnriched.orderEntry.quantity }}</b>
+      W koszyku: <b>{{ productEnriched.orderItem.quantity }}</b>
     </span>
     <div>
       <rr-shop-clickable-action
-        (actionClick)="quantityDecrement(productEnriched.orderEntry.id)"
-        [disabled]="!productEnriched.orderEntry.isQuantityDecrementActive"
+        (actionClick)="quantityDecrement(productEnriched.orderItem.id)"
+        [disabled]="!productEnriched.orderItem.isQuantityDecrementActive"
         [icon]="['fas', 'minus']"
       ></rr-shop-clickable-action>
       <rr-shop-clickable-action
-        (actionClick)="quantityIncrement(productEnriched.orderEntry.id)"
+        (actionClick)="quantityIncrement(productEnriched.orderItem.id)"
         [icon]="['fas', 'plus']"
       ></rr-shop-clickable-action>
     </div>
   </div>
 
   <rr-shop-clickable-action
-    *ngIf="!productEnriched.orderEntry"
+    *ngIf="!productEnriched.orderItem"
     (actionClick)="addToOrder(productEnriched)"
     [label]="'Do koszyka'"
     [icon]="['fas', 'shopping-basket']"

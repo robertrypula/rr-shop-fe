@@ -7,7 +7,7 @@ import { State } from '../reducers';
 import * as fromOrderActions from '../actions/order.actions';
 import * as fromOrderSelectors from '../selectors/order.selectors';
 import { Product } from '../../models/product.model';
-import { OrderEntry, OrderSimpleEntry, Type } from '../../models/order.model';
+import { OrderItem, OrderItemStore, Type } from '../../models/order.model';
 import { selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.selectors';
 
 @Injectable({
@@ -32,8 +32,8 @@ export class OrderFacadeService {
     this.store.dispatch(fromOrderActions.add({ productId: product.id, quantity }));
   }
 
-  public orderEntriesByType$(types: Type[]): Observable<OrderEntry[]> {
-    return this.store.pipe(select(fromOrderSelectors.selectOrderEntries(types)));
+  public orderItemsByType$(types: Type[]): Observable<OrderItem[]> {
+    return this.store.pipe(select(fromOrderSelectors.selectOrderItems(types)));
   }
 
   public chooseDelivery(productId: number): void {
@@ -48,15 +48,15 @@ export class OrderFacadeService {
     this.store.dispatch(fromOrderActions.createOrderRequest());
   }
 
-  public getOrderSimpleEntryByProductId(productId: number): OrderSimpleEntry {
-    let result: OrderSimpleEntry = null;
+  public getOrderItemStoreByProductId(productId: number): OrderItemStore {
+    let result: OrderItemStore = null;
 
     this.store
       .pipe(
-        select(fromOrderSelectors.selectOrderSimpleEntryByProductId, { productId }),
+        select(fromOrderSelectors.selectOrderItemStoreByProductId, { productId }),
         take(1),
-        tap((orderSimpleEntry: OrderSimpleEntry): void => {
-          result = orderSimpleEntry;
+        tap((orderItemStore: OrderItemStore): void => {
+          result = orderItemStore;
         })
       )
       .subscribe();

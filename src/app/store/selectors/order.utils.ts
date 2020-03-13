@@ -1,24 +1,22 @@
-import { OrderEntry, OrderSimpleEntry } from '../../models/order.model';
+import { OrderItem, OrderItemStore } from '../../models/order.model';
 import { Product } from '../../models/product.model';
 
-export const toOrderEntry = (
-  orderSimpleEntry: OrderSimpleEntry,
+export const toOrderItem = (
+  orderItemStore: OrderItemStore,
   productsAsKeyValue: { [id: number]: Product } = null
-): OrderEntry => {
-  const product: Product = productsAsKeyValue ? productsAsKeyValue[orderSimpleEntry.productId] : null;
+): OrderItem => {
+  const product: Product = productsAsKeyValue ? productsAsKeyValue[orderItemStore.productId] : null;
 
   return {
-    ...orderSimpleEntry,
-    isQuantityDecrementActive: orderSimpleEntry.quantity > 1,
+    ...orderItemStore,
+    isQuantityDecrementActive: orderItemStore.quantity > 1,
     product,
-    totalPrice: product ? product.price * orderSimpleEntry.quantity : 0
+    totalPrice: product ? product.price * orderItemStore.quantity : 0
   };
 };
 
-export const getOrderSimpleEntriesAsArray = (orderSimpleEntriesAsKeyValue: {
-  [key: number]: OrderSimpleEntry;
-}): OrderSimpleEntry[] => {
-  return Object.keys(orderSimpleEntriesAsKeyValue).map(
-    (key: string): OrderSimpleEntry => orderSimpleEntriesAsKeyValue[+key]
-  );
+export const getOrderItemsStoreAsArray = (orderItemsStoreAsKeyValue: {
+  [key: number]: OrderItemStore;
+}): OrderItemStore[] => {
+  return Object.keys(orderItemsStoreAsKeyValue).map((key: string): OrderItemStore => orderItemsStoreAsKeyValue[+key]);
 };

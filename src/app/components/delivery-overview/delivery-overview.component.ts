@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { OrderService } from '../../services/order.service';
-import { OrderEntry, Type } from '../../models/order.model';
+import { OrderItem, Type } from '../../models/order.model';
 import { ProductService } from '../../services/product.service';
 import { ProductEnriched } from '../../models/product.model';
 import { StructuralNode } from '../../models/category.model';
@@ -13,11 +13,11 @@ import { StructuralNode } from '../../models/category.model';
   styleUrls: ['./delivery-overview.component.scss']
 })
 export class DeliveryOverviewComponent implements OnInit {
-  public orderEntriesDelivery$: Observable<OrderEntry[]>;
+  public orderItemsDelivery$: Observable<OrderItem[]>;
   public productsEnrichedDelivery$: Observable<ProductEnriched[]>;
 
   public constructor(protected orderService: OrderService, protected productService: ProductService) {
-    this.orderEntriesDelivery$ = this.orderService.orderEntriesByType$([Type.Delivery]);
+    this.orderItemsDelivery$ = this.orderService.orderItemsByType$([Type.Delivery]);
     this.productsEnrichedDelivery$ = this.productService.productsEnrichedFromCategoryByStructuralNode$(
       StructuralNode.Delivery
     );

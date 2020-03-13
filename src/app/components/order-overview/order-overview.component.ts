@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { OrderEntry, Type } from '../../models/order.model';
+import { OrderItem, Type } from '../../models/order.model';
 import { OrderService } from '../../services/order.service';
 
 @Component({
@@ -11,15 +11,15 @@ import { OrderService } from '../../services/order.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderOverviewComponent implements OnInit {
-  public orderEntriesNormal$: Observable<OrderEntry[]>;
+  public orderItemsNormal$: Observable<OrderItem[]>;
 
   public constructor(protected orderService: OrderService) {
-    this.orderEntriesNormal$ = this.orderService.orderEntriesByType$([Type.Normal]);
+    this.orderItemsNormal$ = this.orderService.orderItemsByType$([Type.Normal]);
   }
 
   public ngOnInit(): void {}
 
-  public trackBy(index: number, item: OrderEntry): string {
+  public trackBy(index: number, item: OrderItem): string {
     return item.id + '';
   }
 }

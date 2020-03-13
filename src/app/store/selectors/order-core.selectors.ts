@@ -2,8 +2,8 @@ import { createSelector } from '@ngrx/store';
 
 import { State } from '../reducers';
 import * as fromOrderReducers from '../reducers/order.reducers';
-import { OrderSimpleEntry } from '../../models/order.model';
-import { getOrderSimpleEntriesAsArray } from './order.utils';
+import { OrderItemStore } from '../../models/order.model';
+import { getOrderItemsStoreAsArray } from './order.utils';
 import { ApiCall } from '../../models/generic.model';
 
 export const selectOrderFeature = (state: State): fromOrderReducers.State => state.order;
@@ -13,14 +13,14 @@ export const selectApiCallPotentialOrderProducts = createSelector(
   (orderFeature: fromOrderReducers.State): ApiCall => orderFeature.apiCallPotentialOrderProducts
 );
 
-export const selectOrderSimpleEntriesAsArray = createSelector(
+export const selectOrderItemsStoreAsArray = createSelector(
   selectOrderFeature,
-  (orderFeature: fromOrderReducers.State): OrderSimpleEntry[] => getOrderSimpleEntriesAsArray(orderFeature.entities)
+  (orderFeature: fromOrderReducers.State): OrderItemStore[] => getOrderItemsStoreAsArray(orderFeature.entities)
 );
 
-export const selectOrderSimpleEntriesAsKeyValue = createSelector(
+export const selectOrderItemsStoreAsKeyValue = createSelector(
   selectOrderFeature,
-  (orderFeature: fromOrderReducers.State): { [id: number]: OrderSimpleEntry } => orderFeature.entities
+  (orderFeature: fromOrderReducers.State): { [id: number]: OrderItemStore } => orderFeature.entities
 );
 
 export const selectApiCallCreateOrder = createSelector(

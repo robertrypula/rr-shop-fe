@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromOrderActions from '../actions/order.actions';
-import { OrderSimpleEntry, Type } from '../../models/order.model';
+import { OrderItemStore, Type } from '../../models/order.model';
 import { ApiCall } from '../../models/generic.model';
 
 export interface State {
@@ -9,7 +9,7 @@ export interface State {
   apiCallOrder: ApiCall;
   apiCallPotentialOrderProducts: ApiCall;
   entities: {
-    [id: number]: OrderSimpleEntry;
+    [id: number]: OrderItemStore;
   };
   lastEntityId: number;
 }
@@ -94,12 +94,12 @@ const orderReducer = createReducer(
   on(
     fromOrderActions.quantityIncrement,
     (state: State, { id }): State => {
-      const orderSimpleEntry: OrderSimpleEntry = state.entities[id];
+      const orderItemStore: OrderItemStore = state.entities[id];
 
-      return orderSimpleEntry
+      return orderItemStore
         ? {
             ...state,
-            entities: { ...state.entities, [id]: { ...orderSimpleEntry, quantity: orderSimpleEntry.quantity + 1 } }
+            entities: { ...state.entities, [id]: { ...orderItemStore, quantity: orderItemStore.quantity + 1 } }
           }
         : state;
     }
@@ -107,12 +107,12 @@ const orderReducer = createReducer(
   on(
     fromOrderActions.quantityDecrement,
     (state: State, { id }): State => {
-      const orderSimpleEntry: OrderSimpleEntry = state.entities[id];
+      const orderItemStore: OrderItemStore = state.entities[id];
 
-      return orderSimpleEntry
+      return orderItemStore
         ? {
             ...state,
-            entities: { ...state.entities, [id]: { ...orderSimpleEntry, quantity: orderSimpleEntry.quantity - 1 } }
+            entities: { ...state.entities, [id]: { ...orderItemStore, quantity: orderItemStore.quantity - 1 } }
           }
         : state;
     }
@@ -120,10 +120,10 @@ const orderReducer = createReducer(
   on(
     fromOrderActions.quantitySetTo,
     (state: State, { id, quantity }): State => {
-      const orderSimpleEntry: OrderSimpleEntry = state.entities[id];
+      const orderItemStore: OrderItemStore = state.entities[id];
 
-      return orderSimpleEntry
-        ? { ...state, entities: { ...state.entities, [id]: { ...orderSimpleEntry, quantity } } }
+      return orderItemStore
+        ? { ...state, entities: { ...state.entities, [id]: { ...orderItemStore, quantity } } }
         : state;
     }
   ),

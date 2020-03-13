@@ -5,9 +5,9 @@ import { selectActiveCategoryAndItsChildren, selectCategoryAndItsChildren } from
 import { Category, StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
 import { getProductId, isOnProductRoute } from '../../utils/routing.util';
-import { OrderSimpleEntry } from '../../models/order.model';
+import { OrderItemStore } from '../../models/order.model';
 import { selectProductsAsArray, selectProductsAsKeyValue } from './product-core.selectors';
-import { selectOrderSimpleEntriesAsArray } from './order-core.selectors';
+import { selectOrderItemsStoreAsArray } from './order-core.selectors';
 import { getProductsForGivenCategories, toProductEnriched } from './product.utils';
 import { selectCategoriesAsArray } from './category-core.selectors';
 
@@ -18,27 +18,27 @@ export const selectUrlProductId = createSelector(selectUrl, (url: string): numbe
 export const selectActiveProductEnriched = createSelector(
   selectUrlProductId,
   selectProductsAsKeyValue,
-  selectOrderSimpleEntriesAsArray,
+  selectOrderItemsStoreAsArray,
   (
     urlProductId: number,
     productsAsKeyValue: { [key: string]: Product },
-    orderSimpleEntriesAsArray: OrderSimpleEntry[]
+    orderItemsStoreAsArray: OrderItemStore[]
   ): ProductEnriched => {
-    return urlProductId ? toProductEnriched(productsAsKeyValue[urlProductId], orderSimpleEntriesAsArray) : null;
+    return urlProductId ? toProductEnriched(productsAsKeyValue[urlProductId], orderItemsStoreAsArray) : null;
   }
 );
 
 export const selectProductsEnrichedFromActiveCategoryAndItsChildren = createSelector(
   selectProductsAsArray,
-  selectOrderSimpleEntriesAsArray,
+  selectOrderItemsStoreAsArray,
   selectActiveCategoryAndItsChildren,
   (
     productsAsArray: Product[],
-    orderSimpleEntriesAsArray: OrderSimpleEntry[],
+    orderItemsStoreAsArray: OrderItemStore[],
     activeCategoryAndItsChildren: Category[]
   ): ProductEnriched[] =>
     getProductsForGivenCategories(productsAsArray, activeCategoryAndItsChildren).map(
-      (product: Product): ProductEnriched => toProductEnriched(product, orderSimpleEntriesAsArray)
+      (product: Product): ProductEnriched => toProductEnriched(product, orderItemsStoreAsArray)
     )
 );
 
@@ -46,18 +46,18 @@ export const selectProductsEnrichedFromCategoryByStructuralNode = (structuralNod
   createSelector(
     selectProductsAsArray,
     selectCategoriesAsArray,
-    selectOrderSimpleEntriesAsArray,
+    selectOrderItemsStoreAsArray,
     (
       productsAsArray: Product[],
       categoriesAsArray: Category[],
-      orderSimpleEntriesAsArray: OrderSimpleEntry[]
+      orderItemsStoreAsArray: OrderItemStore[]
     ): ProductEnriched[] => {
       const categoriesByStructuralNode: Category[] = categoriesAsArray.filter(
         (category: Category): boolean => category.structuralNode === structuralNode
       );
 
       return getProductsForGivenCategories(productsAsArray, categoriesByStructuralNode).map(
-        (product: Product): ProductEnriched => toProductEnriched(product, orderSimpleEntriesAsArray)
+        (product: Product): ProductEnriched => toProductEnriched(product, orderItemsStoreAsArray)
       );
     }
   );

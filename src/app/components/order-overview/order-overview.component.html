@@ -1,5 +1,5 @@
 <div class="OrderOverview">
-  <div *ngIf="(orderEntriesNormal$ | async).length; else orderEmpty">
+  <div *ngIf="(orderItemsNormal$ | async).length; else orderEmpty">
     <div class="OrderOverview-section">
       <table>
         <thead>
@@ -13,9 +13,9 @@
         </thead>
         <tbody>
           <tr
-            *ngFor="let orderEntry of orderEntriesNormal$ | async; trackBy: trackBy"
+            *ngFor="let orderItem of orderItemsNormal$ | async; trackBy: trackBy"
             rr-shop-order-overview-item
-            [orderEntry]="orderEntry"
+            [orderItem]="orderItem"
           ></tr>
         </tbody>
       </table>

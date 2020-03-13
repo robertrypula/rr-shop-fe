@@ -3,7 +3,7 @@ import { BarService } from './bar.service';
 import { Product } from '../models/product.model';
 import { OrderFacadeService } from '../store/facades/order-facade.service';
 import { Observable } from 'rxjs';
-import { OrderEntry, OrderSimpleEntry, Type } from '../models/order.model';
+import { OrderItem, OrderItemStore, Type } from '../models/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +20,10 @@ export class OrderService {
   }
 
   public add(product: Product, quantity = 1): void {
-    const orderSimpleEntry: OrderSimpleEntry = this.orderFacadeService.getOrderSimpleEntryByProductId(product.id);
+    const orderItemStore: OrderItemStore = this.orderFacadeService.getOrderItemStoreByProductId(product.id);
 
-    if (orderSimpleEntry) {
-      this.orderFacadeService.quantitySetTo(orderSimpleEntry.id, orderSimpleEntry.quantity + quantity);
+    if (orderItemStore) {
+      this.orderFacadeService.quantitySetTo(orderItemStore.id, orderItemStore.quantity + quantity);
     } else {
       this.orderFacadeService.add(product, quantity);
     }
@@ -38,8 +38,8 @@ export class OrderService {
     this.orderFacadeService.choosePayment(productId);
   }
 
-  public orderEntriesByType$(types: Type[]): Observable<OrderEntry[]> {
-    return this.orderFacadeService.orderEntriesByType$(types);
+  public orderItemsByType$(types: Type[]): Observable<OrderItem[]> {
+    return this.orderFacadeService.orderItemsByType$(types);
   }
 
   public priceSum$(types: Type[]): Observable<number> {

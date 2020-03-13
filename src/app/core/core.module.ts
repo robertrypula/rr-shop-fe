@@ -7,8 +7,8 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { metaReducers, reducers } from '../store/reducers';
 import { environment } from '../../environments/environment';
 import { routerStateConfig } from '../store/reducers/router.reducers';
-import { BasketEffects } from '../store/effects/basket-effects.service';
 import { CategoryEffects } from '../store/effects/category-effects.service';
+import { OrderEffects } from '../store/effects/order-effects.service';
 import { ProductsEffects } from '../store/effects/products-effects.service';
 import { RouterEffects } from '../store/effects/router-effects.service';
 import { ViewportEffects } from '../store/effects/viewport-effects.service';
@@ -24,7 +24,7 @@ import { ViewportEffects } from '../store/effects/viewport-effects.service';
       }
     }),
     StoreRouterConnectingModule.forRoot(routerStateConfig),
-    EffectsModule.forRoot([BasketEffects, CategoryEffects, ProductsEffects, RouterEffects, ViewportEffects]),
+    EffectsModule.forRoot([CategoryEffects, OrderEffects, ProductsEffects, RouterEffects, ViewportEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production

@@ -1,45 +1,45 @@
 import { createSelector } from '@ngrx/store';
 
-import { BasketEntry, BasketSimpleEntry, Type } from '../../models/basket.model';
+import { OrderEntry, OrderSimpleEntry, Type } from '../../models/order.model';
 import { Product, ProductEnriched } from '../../models/product.model';
 import { selectProductsAsKeyValue } from './product-core.selectors';
-import { selectBasketSimpleEntriesAsArray } from './basket-core.selectors';
-import { toBasketEntry } from './basket.utils';
+import { selectOrderSimpleEntriesAsArray } from './order-core.selectors';
+import { toOrderEntry } from './order.utils';
 import { selectProductsEnrichedFromCategoryByStructuralNode } from './product.selectors';
 import { StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
 import { getOrderUuid, isOnOrderRoute, isOnPotentialOrderRoute } from '../../utils/routing.util';
 
-export const selectBasketEntries = (types: Type[] = [Type.Normal]) =>
+export const selectOrderEntries = (types: Type[] = [Type.Normal]) =>
   createSelector(
-    selectBasketSimpleEntriesAsArray,
+    selectOrderSimpleEntriesAsArray,
     selectProductsAsKeyValue,
-    (basketSimpleEntriesAsArray: BasketSimpleEntry[], productsAsKeyValue: { [id: number]: Product }): BasketEntry[] =>
-      basketSimpleEntriesAsArray
-        .filter((basketSimpleEntry: BasketSimpleEntry): boolean => types.includes(basketSimpleEntry.type))
+    (orderSimpleEntriesAsArray: OrderSimpleEntry[], productsAsKeyValue: { [id: number]: Product }): OrderEntry[] =>
+      orderSimpleEntriesAsArray
+        .filter((orderSimpleEntry: OrderSimpleEntry): boolean => types.includes(orderSimpleEntry.type))
         .map(
-          (basketSimpleEntry: BasketSimpleEntry): BasketEntry => toBasketEntry(basketSimpleEntry, productsAsKeyValue)
+          (orderSimpleEntry: OrderSimpleEntry): OrderEntry => toOrderEntry(orderSimpleEntry, productsAsKeyValue)
         )
   );
 
-export const selectBasketSimpleEntryByProductId = createSelector(
-  selectBasketSimpleEntriesAsArray,
-  (basketSimpleEntriesAsArray: BasketSimpleEntry[], props: { productId: number }): BasketSimpleEntry =>
-    basketSimpleEntriesAsArray.find(
-      (basketSimpleEntry: BasketSimpleEntry): boolean => basketSimpleEntry.productId === props.productId
+export const selectOrderSimpleEntryByProductId = createSelector(
+  selectOrderSimpleEntriesAsArray,
+  (orderSimpleEntriesAsArray: OrderSimpleEntry[], props: { productId: number }): OrderSimpleEntry =>
+    orderSimpleEntriesAsArray.find(
+      (orderSimpleEntry: OrderSimpleEntry): boolean => orderSimpleEntry.productId === props.productId
     )
 );
 
-export const selectIsBasketValid = createSelector(
-  selectBasketEntries([Type.Normal]),
-  selectBasketEntries([Type.Payment]),
-  selectBasketEntries([Type.Delivery]),
+export const selectIsOrderValid = createSelector(
+  selectOrderEntries([Type.Normal]),
+  selectOrderEntries([Type.Payment]),
+  selectOrderEntries([Type.Delivery]),
   (
-    basketEntriesNormal: BasketEntry[],
-    basketEntriesPayment: BasketEntry[],
-    basketEntriesDelivery: BasketEntry[]
+    orderEntriesNormal: OrderEntry[],
+    orderEntriesPayment: OrderEntry[],
+    orderEntriesDelivery: OrderEntry[]
   ): boolean => {
-    return basketEntriesNormal.length > 0 && basketEntriesDelivery.length === 1 && basketEntriesPayment.length === 1;
+    return orderEntriesNormal.length > 0 && orderEntriesDelivery.length === 1 && orderEntriesPayment.length === 1;
   }
 );
 
@@ -48,33 +48,33 @@ export const selectIsOnPotentialOrderRoute$ = createSelector(selectUrl, (url: st
 );
 
 export const selectPotentialOrderProductsIds = createSelector(
-  selectBasketEntries([Type.Normal]),
+  selectOrderEntries([Type.Normal]),
   selectProductsEnrichedFromCategoryByStructuralNode(StructuralNode.Delivery),
   selectProductsEnrichedFromCategoryByStructuralNode(StructuralNode.Payment),
   (
-    basketEntries: BasketEntry[],
+    orderEntries: OrderEntry[],
     deliveryProductsEnriched: ProductEnriched[],
     paymentProductsEnriched: ProductEnriched[]
   ): number[] => [
-    ...basketEntries.map((basketEntry: BasketEntry): number => basketEntry.productId),
+    ...orderEntries.map((orderEntry: OrderEntry): number => orderEntry.productId),
     ...deliveryProductsEnriched.map((deliveryProductEnriched: ProductEnriched): number => deliveryProductEnriched.id),
     ...paymentProductsEnriched.map((paymentProductEnriched: ProductEnriched): number => paymentProductEnriched.id)
   ]
 );
 
 export const selectPriceSum = (types: Type[]) =>
-  createSelector(selectBasketEntries(types), (basketEntries: BasketEntry[]): number =>
-    basketEntries.reduce((previousValue: number, currentValue: BasketEntry): number => {
+  createSelector(selectOrderEntries(types), (orderEntries: OrderEntry[]): number =>
+    orderEntries.reduce((previousValue: number, currentValue: OrderEntry): number => {
       return previousValue + currentValue.quantity * (currentValue.product ? currentValue.product.price : 0);
     }, 0)
   );
 
 export const selectQuantityTotal = createSelector(
-  selectBasketSimpleEntriesAsArray,
-  (basketSimpleEntriesAsArray: BasketSimpleEntry[]): number =>
-    basketSimpleEntriesAsArray
-      .filter((basketSimpleEntry: BasketSimpleEntry): boolean => basketSimpleEntry.type === Type.Normal)
-      .reduce((previousValue: number, currentValue: BasketSimpleEntry): number => {
+  selectOrderSimpleEntriesAsArray,
+  (orderSimpleEntriesAsArray: OrderSimpleEntry[]): number =>
+    orderSimpleEntriesAsArray
+      .filter((orderSimpleEntry: OrderSimpleEntry): boolean => orderSimpleEntry.type === Type.Normal)
+      .reduce((previousValue: number, currentValue: OrderSimpleEntry): number => {
         return previousValue + currentValue.quantity;
       }, 0)
 );

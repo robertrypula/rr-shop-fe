@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BarService } from './bar.service';
 import { Product } from '../models/product.model';
-import { BasketFacadeService } from '../store/facades/basket-facade.service';
+import { OrderFacadeService } from '../store/facades/order-facade.service';
 import { Observable } from 'rxjs';
 import { BasketEntry, BasketSimpleEntry, Type } from '../models/basket.model';
 import { select } from '@ngrx/store';
@@ -15,7 +15,7 @@ export class BasketService {
   public potentialOrderProductsIds$: Observable<number[]>;
   public quantityTotal$: Observable<number>;
 
-  public constructor(protected barService: BarService, protected basketFacadeService: BasketFacadeService) {
+  public constructor(protected barService: BarService, protected basketFacadeService: OrderFacadeService) {
     this.isBasketValid$ = basketFacadeService.isBasketValid$;
     this.potentialOrderProductsIds$ = basketFacadeService.potentialOrderProductsIds$;
     this.quantityTotal$ = basketFacadeService.quantityTotal$;

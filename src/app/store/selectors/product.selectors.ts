@@ -5,9 +5,9 @@ import { selectActiveCategoryAndItsChildren, selectCategoryAndItsChildren } from
 import { Category, StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
 import { getProductId, isOnProductRoute } from '../../utils/routing.util';
-import { BasketSimpleEntry } from '../../models/basket.model';
+import { OrderSimpleEntry } from '../../models/order.model';
 import { selectProductsAsArray, selectProductsAsKeyValue } from './product-core.selectors';
-import { selectBasketSimpleEntriesAsArray } from './basket-core.selectors';
+import { selectOrderSimpleEntriesAsArray } from './order-core.selectors';
 import { getProductsForGivenCategories, toProductEnriched } from './product.utils';
 import { selectCategoriesAsArray } from './category-core.selectors';
 
@@ -18,27 +18,27 @@ export const selectUrlProductId = createSelector(selectUrl, (url: string): numbe
 export const selectActiveProductEnriched = createSelector(
   selectUrlProductId,
   selectProductsAsKeyValue,
-  selectBasketSimpleEntriesAsArray,
+  selectOrderSimpleEntriesAsArray,
   (
     urlProductId: number,
     productsAsKeyValue: { [key: string]: Product },
-    basketSimpleEntriesAsArray: BasketSimpleEntry[]
+    orderSimpleEntriesAsArray: OrderSimpleEntry[]
   ): ProductEnriched => {
-    return urlProductId ? toProductEnriched(productsAsKeyValue[urlProductId], basketSimpleEntriesAsArray) : null;
+    return urlProductId ? toProductEnriched(productsAsKeyValue[urlProductId], orderSimpleEntriesAsArray) : null;
   }
 );
 
 export const selectProductsEnrichedFromActiveCategoryAndItsChildren = createSelector(
   selectProductsAsArray,
-  selectBasketSimpleEntriesAsArray,
+  selectOrderSimpleEntriesAsArray,
   selectActiveCategoryAndItsChildren,
   (
     productsAsArray: Product[],
-    basketSimpleEntriesAsArray: BasketSimpleEntry[],
+    orderSimpleEntriesAsArray: OrderSimpleEntry[],
     activeCategoryAndItsChildren: Category[]
   ): ProductEnriched[] =>
     getProductsForGivenCategories(productsAsArray, activeCategoryAndItsChildren).map(
-      (product: Product): ProductEnriched => toProductEnriched(product, basketSimpleEntriesAsArray)
+      (product: Product): ProductEnriched => toProductEnriched(product, orderSimpleEntriesAsArray)
     )
 );
 
@@ -46,18 +46,18 @@ export const selectProductsEnrichedFromCategoryByStructuralNode = (structuralNod
   createSelector(
     selectProductsAsArray,
     selectCategoriesAsArray,
-    selectBasketSimpleEntriesAsArray,
+    selectOrderSimpleEntriesAsArray,
     (
       productsAsArray: Product[],
       categoriesAsArray: Category[],
-      basketSimpleEntriesAsArray: BasketSimpleEntry[]
+      orderSimpleEntriesAsArray: OrderSimpleEntry[]
     ): ProductEnriched[] => {
       const categoriesByStructuralNode: Category[] = categoriesAsArray.filter(
         (category: Category): boolean => category.structuralNode === structuralNode
       );
 
       return getProductsForGivenCategories(productsAsArray, categoriesByStructuralNode).map(
-        (product: Product): ProductEnriched => toProductEnriched(product, basketSimpleEntriesAsArray)
+        (product: Product): ProductEnriched => toProductEnriched(product, orderSimpleEntriesAsArray)
       );
     }
   );

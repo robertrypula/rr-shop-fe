@@ -4,11 +4,11 @@ import { createAction, props } from '@ngrx/store';
 import { Product } from '../../models/product.model';
 import { OrderStore } from '../../models/order.model';
 
-export const add = createAction('[Basket] Add', props<{ productId: number; quantity: number }>());
+export const add = createAction('[Order] Add', props<{ productId: number; quantity: number }>());
 
-export const chooseDelivery = createAction('[Basket] Choose delivery', props<{ productId: number }>());
+export const chooseDelivery = createAction('[Order] Choose delivery', props<{ productId: number }>());
 
-export const choosePayment = createAction('[Basket] Choose payment', props<{ productId: number }>());
+export const choosePayment = createAction('[Order] Choose payment', props<{ productId: number }>());
 
 export const createOrderRequest = createAction('[Order] Create order request');
 
@@ -25,22 +25,22 @@ export const orderSuccess = createAction('[Order] Order success', props<{ orderS
 
 export const orderFailure = createAction('[Order] Order failure', props<{ httpErrorResponse: HttpErrorResponse }>());
 
-export const potentialOrderProductsRequest = createAction('[Basket] Potential order products request');
+export const potentialOrderProductsRequest = createAction('[Order] Potential order products request');
 
 export const potentialOrderProductsSuccess = createAction(
-  '[Basket] Potential order products success',
+  '[Order] Potential order products success',
   props<{ products: Product[] }>()
 );
 
 export const potentialOrderProductsFailure = createAction(
-  '[Basket] Potential order products failure',
+  '[Order] Potential order products failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
-export const quantityIncrement = createAction('[Basket] Quantity increment', props<{ id: number }>());
+export const quantityIncrement = createAction('[Order] Quantity increment', props<{ id: number }>());
 
-export const quantityDecrement = createAction('[Basket] Quantity decrement', props<{ id: number }>());
+export const quantityDecrement = createAction('[Order] Quantity decrement', props<{ id: number }>());
 
-export const quantitySetTo = createAction('[Basket] Quantity set to', props<{ id: number; quantity: number }>());
+export const quantitySetTo = createAction('[Order] Quantity set to', props<{ id: number; quantity: number }>());
 
-export const remove = createAction('[Basket] Remove', props<{ id: number }>());
+export const remove = createAction('[Order] Remove', props<{ id: number }>());

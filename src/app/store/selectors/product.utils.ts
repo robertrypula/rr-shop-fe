@@ -1,7 +1,7 @@
 import { Product, ProductEnriched } from '../../models/product.model';
 import { Category } from '../../models/category.model';
-import { BasketSimpleEntry } from '../../models/basket.model';
-import { toBasketEntry } from './basket.utils';
+import { OrderSimpleEntry } from '../../models/order.model';
+import { toOrderEntry } from './order.utils';
 import { Image } from '../../models/image.model';
 
 export const getProductsAsArray = (productsAsKeyValue: { [id: number]: Product }): Product[] => {
@@ -27,14 +27,14 @@ export const getProductsForGivenCategories = (productsAsArray: Product[], catego
 
 export const toProductEnriched = (
   product: Product,
-  basketSimpleEntriesAsArray: BasketSimpleEntry[]
+  orderSimpleEntriesAsArray: OrderSimpleEntry[]
 ): ProductEnriched => {
   if (!product) {
     return null;
   }
 
-  const basketSimpleEntryFound: BasketSimpleEntry = basketSimpleEntriesAsArray.find(
-    (basketSimpleEntry: BasketSimpleEntry): boolean => basketSimpleEntry.productId === product.id
+  const orderSimpleEntryFound: OrderSimpleEntry = orderSimpleEntriesAsArray.find(
+    (orderSimpleEntry: OrderSimpleEntry): boolean => orderSimpleEntry.productId === product.id
   );
 
   return {
@@ -42,6 +42,6 @@ export const toProductEnriched = (
     images: product.images
       ? [...product.images].sort((a: Image, b: Image): number => (a.order === b.order ? 0 : a.order < b.order ? -1 : 1))
       : [],
-    basketEntry: basketSimpleEntryFound ? toBasketEntry(basketSimpleEntryFound) : null
+    orderEntry: orderSimpleEntryFound ? toOrderEntry(orderSimpleEntryFound) : null
   };
 };

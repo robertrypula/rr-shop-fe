@@ -11,7 +11,7 @@ import {
   selectApiCallCreateOrder,
   selectApiCallOrder,
   selectApiCallPotentialOrderProducts
-} from './basket-core.selectors';
+} from './order-core.selectors';
 
 export const selectIsLoadingOverlayVisible = createSelector(
   selectApiCallCategoriesAtInit,

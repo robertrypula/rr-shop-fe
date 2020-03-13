@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BasketFacadeService } from './basket-facade.service';
+import { OrderFacadeService } from './order-facade.service';
 
-describe('BasketFacadeService', () => {
+describe('OrderFacadeService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: BasketFacadeService = TestBed.get(BasketFacadeService);
+    const service: OrderFacadeService = TestBed.get(OrderFacadeService);
     expect(service).toBeTruthy();
   });
 });

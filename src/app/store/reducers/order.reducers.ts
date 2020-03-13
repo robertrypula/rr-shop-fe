@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import * as fromBasketActions from '../actions/basket.actions';
-import { BasketSimpleEntry, Type } from '../../models/basket.model';
+import * as fromOrderActions from '../actions/order.actions';
+import { OrderSimpleEntry, Type } from '../../models/order.model';
 import { ApiCall } from '../../models/generic.model';
 
 export interface State {
@@ -9,7 +9,7 @@ export interface State {
   apiCallOrder: ApiCall;
   apiCallPotentialOrderProducts: ApiCall;
   entities: {
-    [id: number]: BasketSimpleEntry;
+    [id: number]: OrderSimpleEntry;
   };
   lastEntityId: number;
 }
@@ -22,37 +22,28 @@ export const initialState: State = {
   lastEntityId: 0
 };
 
-const basketReducer = createReducer(
+const orderReducer = createReducer(
   initialState,
+  on(fromOrderActions.createOrderRequest, (state: State): State => ({ ...state, apiCallCreateOrder: ApiCall.Request })),
+  on(fromOrderActions.createOrderSuccess, (state: State): State => ({ ...state, apiCallCreateOrder: ApiCall.Success })),
+  on(fromOrderActions.createOrderFailure, (state: State): State => ({ ...state, apiCallCreateOrder: ApiCall.Failure })),
+  on(fromOrderActions.orderRequest, (state: State): State => ({ ...state, apiCallOrder: ApiCall.Request })),
+  on(fromOrderActions.orderSuccess, (state: State): State => ({ ...state, apiCallOrder: ApiCall.Success })),
+  on(fromOrderActions.orderFailure, (state: State): State => ({ ...state, apiCallOrder: ApiCall.Failure })),
   on(
-    fromBasketActions.createOrderRequest,
-    (state: State): State => ({ ...state, apiCallCreateOrder: ApiCall.Request })
-  ),
-  on(
-    fromBasketActions.createOrderSuccess,
-    (state: State): State => ({ ...state, apiCallCreateOrder: ApiCall.Success })
-  ),
-  on(
-    fromBasketActions.createOrderFailure,
-    (state: State): State => ({ ...state, apiCallCreateOrder: ApiCall.Failure })
-  ),
-  on(fromBasketActions.orderRequest, (state: State): State => ({ ...state, apiCallOrder: ApiCall.Request })),
-  on(fromBasketActions.orderSuccess, (state: State): State => ({ ...state, apiCallOrder: ApiCall.Success })),
-  on(fromBasketActions.orderFailure, (state: State): State => ({ ...state, apiCallOrder: ApiCall.Failure })),
-  on(
-    fromBasketActions.potentialOrderProductsRequest,
+    fromOrderActions.potentialOrderProductsRequest,
     (state: State): State => ({ ...state, apiCallPotentialOrderProducts: ApiCall.Request })
   ),
   on(
-    fromBasketActions.potentialOrderProductsSuccess,
+    fromOrderActions.potentialOrderProductsSuccess,
     (state: State): State => ({ ...state, apiCallPotentialOrderProducts: ApiCall.Success })
   ),
   on(
-    fromBasketActions.potentialOrderProductsFailure,
+    fromOrderActions.potentialOrderProductsFailure,
     (state: State): State => ({ ...state, apiCallPotentialOrderProducts: ApiCall.Failure })
   ),
   on(
-    fromBasketActions.add,
+    fromOrderActions.add,
     (state: State, { productId, quantity }): State => {
       const listId: number = state.lastEntityId + 1;
 
@@ -67,7 +58,7 @@ const basketReducer = createReducer(
     }
   ),
   on(
-    fromBasketActions.chooseDelivery,
+    fromOrderActions.chooseDelivery,
     (state: State, { productId }): State => {
       const listId: number = state.lastEntityId + 1;
 
@@ -84,7 +75,7 @@ const basketReducer = createReducer(
     }
   ),
   on(
-    fromBasketActions.choosePayment,
+    fromOrderActions.choosePayment,
     (state: State, { productId }): State => {
       const listId: number = state.lastEntityId + 1;
 
@@ -101,43 +92,43 @@ const basketReducer = createReducer(
     }
   ),
   on(
-    fromBasketActions.quantityIncrement,
+    fromOrderActions.quantityIncrement,
     (state: State, { id }): State => {
-      const basketSimpleEntry: BasketSimpleEntry = state.entities[id];
+      const orderSimpleEntry: OrderSimpleEntry = state.entities[id];
 
-      return basketSimpleEntry
+      return orderSimpleEntry
         ? {
             ...state,
-            entities: { ...state.entities, [id]: { ...basketSimpleEntry, quantity: basketSimpleEntry.quantity + 1 } }
+            entities: { ...state.entities, [id]: { ...orderSimpleEntry, quantity: orderSimpleEntry.quantity + 1 } }
           }
         : state;
     }
   ),
   on(
-    fromBasketActions.quantityDecrement,
+    fromOrderActions.quantityDecrement,
     (state: State, { id }): State => {
-      const basketSimpleEntry: BasketSimpleEntry = state.entities[id];
+      const orderSimpleEntry: OrderSimpleEntry = state.entities[id];
 
-      return basketSimpleEntry
+      return orderSimpleEntry
         ? {
             ...state,
-            entities: { ...state.entities, [id]: { ...basketSimpleEntry, quantity: basketSimpleEntry.quantity - 1 } }
+            entities: { ...state.entities, [id]: { ...orderSimpleEntry, quantity: orderSimpleEntry.quantity - 1 } }
           }
         : state;
     }
   ),
   on(
-    fromBasketActions.quantitySetTo,
+    fromOrderActions.quantitySetTo,
     (state: State, { id, quantity }): State => {
-      const basketSimpleEntry: BasketSimpleEntry = state.entities[id];
+      const orderSimpleEntry: OrderSimpleEntry = state.entities[id];
 
-      return basketSimpleEntry
-        ? { ...state, entities: { ...state.entities, [id]: { ...basketSimpleEntry, quantity } } }
+      return orderSimpleEntry
+        ? { ...state, entities: { ...state.entities, [id]: { ...orderSimpleEntry, quantity } } }
         : state;
     }
   ),
   on(
-    fromBasketActions.remove,
+    fromOrderActions.remove,
     (state: State, { id }): State => {
       const { [id]: toDelete, ...rest } = state.entities;
 
@@ -147,5 +138,5 @@ const basketReducer = createReducer(
 );
 
 export function reducer(state: State | undefined, action: Action) {
-  return basketReducer(state, action);
+  return orderReducer(state, action);
 }

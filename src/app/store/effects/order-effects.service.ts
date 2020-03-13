@@ -3,26 +3,26 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, concatMap, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-
-import * as fromBasketActions from '../actions/basket.actions';
-import * as fromRouterActions from '../actions/router.actions';
-import { ApiProductService } from '../../api-services/api-product.service';
-import { BasketFacadeService } from '../facades/basket-facade.service';
-import { OrderStore } from '../../models/order.model';
-import { ApiOrderService } from '../../api-services/api-order.service';
 import { Router } from '@angular/router';
 
+import * as fromOrderActions from '../actions/order.actions';
+import * as fromRouterActions from '../actions/router.actions';
+import { ApiProductService } from '../../api-services/api-product.service';
+import { OrderFacadeService } from '../facades/order-facade.service';
+import { OrderStore } from '../../models/order.model';
+import { ApiOrderService } from '../../api-services/api-order.service';
+
 @Injectable()
-export class BasketEffects {
+export class OrderEffects {
   public orderRequest$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromBasketActions.orderRequest)
-      // concatMap(action => of(action).pipe(withLatestFrom(this.basketFacadeService.urlOrderUuid$)))
+      ofType(fromOrderActions.orderRequest)
+      // concatMap(action => of(action).pipe(withLatestFrom(this.orderFacadeService.urlOrderUuid$)))
       // switchMap(([action, urlOrderUuid]) =>
       //   this.apiOrderService.getOrder(urlOrderUuid).pipe(
-      //     map((orderStore: OrderStore) => fromBasketActions.orderSuccess({ orderStore })),
+      //     map((orderStore: OrderStore) => fromOrderActions.orderSuccess({ orderStore })),
       //     catchError((httpErrorResponse: HttpErrorResponse) =>
-      //       of(fromBasketActions.orderFailure({ httpErrorResponse }))
+      //       of(fromOrderActions.orderFailure({ httpErrorResponse }))
       //     )
       //   )
       // )
@@ -32,9 +32,9 @@ export class BasketEffects {
   public triggerOrderRequest$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromRouterActions.customRouterNavigated),
-      concatMap(action => of(action).pipe(withLatestFrom(this.basketFacadeService.isOnOrderRoute$))),
+      concatMap(action => of(action).pipe(withLatestFrom(this.orderFacadeService.isOnOrderRoute$))),
       filter(([action, isOnOrderRoute]): boolean => isOnOrderRoute),
-      map(() => fromBasketActions.orderRequest())
+      map(() => fromOrderActions.orderRequest())
     )
   );
 
@@ -42,12 +42,12 @@ export class BasketEffects {
 
   public createOrderRequest$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromBasketActions.createOrderRequest),
+      ofType(fromOrderActions.createOrderRequest),
       switchMap(action =>
         this.apiOrderService.createOrder().pipe(
-          map((orderStore: OrderStore) => fromBasketActions.createOrderSuccess({ orderStore })),
+          map((orderStore: OrderStore) => fromOrderActions.createOrderSuccess({ orderStore })),
           catchError((httpErrorResponse: HttpErrorResponse) =>
-            of(fromBasketActions.createOrderFailure({ httpErrorResponse }))
+            of(fromOrderActions.createOrderFailure({ httpErrorResponse }))
           )
         )
       )
@@ -58,7 +58,7 @@ export class BasketEffects {
   public createOrderSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(fromBasketActions.createOrderSuccess),
+        ofType(fromOrderActions.createOrderSuccess),
         tap(action => {
           this.router.navigate(['/order', action.orderStore.uuid]).then();
         })
@@ -70,13 +70,13 @@ export class BasketEffects {
 
   public potentialOrderProductsRequest$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromBasketActions.potentialOrderProductsRequest),
-      concatMap(action => of(action).pipe(withLatestFrom(this.basketFacadeService.potentialOrderProductsIds$))),
+      ofType(fromOrderActions.potentialOrderProductsRequest),
+      concatMap(action => of(action).pipe(withLatestFrom(this.orderFacadeService.potentialOrderProductsIds$))),
       switchMap(([action, potentialOrderProductsIds]) =>
         this.apiProductService.getProducts(potentialOrderProductsIds).pipe(
-          map(products => fromBasketActions.potentialOrderProductsSuccess({ products })),
+          map(products => fromOrderActions.potentialOrderProductsSuccess({ products })),
           catchError((httpErrorResponse: HttpErrorResponse) =>
-            of(fromBasketActions.potentialOrderProductsFailure({ httpErrorResponse }))
+            of(fromOrderActions.potentialOrderProductsFailure({ httpErrorResponse }))
           )
         )
       )
@@ -86,9 +86,9 @@ export class BasketEffects {
   public triggerPotentialOrderProductsRequest$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromRouterActions.customRouterNavigated),
-      concatMap(action => of(action).pipe(withLatestFrom(this.basketFacadeService.isOnPotentialOrderRoute$))),
+      concatMap(action => of(action).pipe(withLatestFrom(this.orderFacadeService.isOnPotentialOrderRoute$))),
       filter(([action, isOnPotentialOrderRoute]): boolean => isOnPotentialOrderRoute),
-      map(() => fromBasketActions.potentialOrderProductsRequest())
+      map(() => fromOrderActions.potentialOrderProductsRequest())
     )
   );
 
@@ -96,7 +96,7 @@ export class BasketEffects {
     private actions$: Actions,
     protected apiOrderService: ApiOrderService,
     protected apiProductService: ApiProductService,
-    protected basketFacadeService: BasketFacadeService,
+    protected orderFacadeService: OrderFacadeService,
     protected router: Router
   ) {}
 }

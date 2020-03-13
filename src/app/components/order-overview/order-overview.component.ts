@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { OrderItem, Type } from '../../models/order.model';
-import { OrderService } from '../../services/order.service';
+import { OrderFacadeService } from '../../store/facades/order-facade.service';
 
 @Component({
   selector: 'rr-shop-order-overview',
@@ -11,11 +11,9 @@ import { OrderService } from '../../services/order.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderOverviewComponent implements OnInit {
-  public orderItemsNormal$: Observable<OrderItem[]>;
+  public orderItemsNormal$: Observable<OrderItem[]> = this.orderFacadeService.orderItemsByType$([Type.Normal]);
 
-  public constructor(protected orderService: OrderService) {
-    this.orderItemsNormal$ = this.orderService.orderItemsByType$([Type.Normal]);
-  }
+  public constructor(protected orderFacadeService: OrderFacadeService) {}
 
   public ngOnInit(): void {}
 

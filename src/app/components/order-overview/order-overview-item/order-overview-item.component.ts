@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { OrderItem } from '../../../models/order.model';
 import { OrderService } from '../../../services/order.service';
 import { Size } from '../../../models/image.model';
+import { OrderFacadeService } from '../../../store/facades/order-facade.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -17,16 +18,16 @@ export class OrderOverviewItemComponent implements OnInit {
 
   public readonly Size = Size;
 
-  public constructor(protected orderService: OrderService) {}
+  public constructor(protected orderFacadeService: OrderFacadeService, protected orderService: OrderService) {}
 
   public ngOnInit(): void {}
 
   public quantityDecrement(id: number): void {
-    this.orderService.quantityDecrement(id);
+    this.orderFacadeService.quantityDecrement(id);
   }
 
   public quantityIncrement(id: number): void {
-    this.orderService.quantityIncrement(id);
+    this.orderFacadeService.quantityIncrement(id);
   }
 
   public remove(id: number): void {

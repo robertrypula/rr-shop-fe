@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { OrderService } from '../../../services/order.service';
 import { ClickableActionTheme } from '../../clickable-action/clickable-action.model';
 import { ProductEnriched } from '../../../models/product.model';
+import { OrderFacadeService } from '../../../store/facades/order-facade.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -16,11 +16,11 @@ export class PaymentOverviewItemComponent implements OnInit {
 
   public ClickableActionTheme = ClickableActionTheme;
 
-  public constructor(protected orderService: OrderService) {}
+  public constructor(protected orderFacadeService: OrderFacadeService) {}
 
   public ngOnInit(): void {}
 
   public choosePayment(productId: number): void {
-    this.orderService.choosePayment(productId);
+    this.orderFacadeService.choosePayment(productId);
   }
 }

@@ -4,6 +4,7 @@ import { Product, ProductEnriched } from '../../models/product.model';
 import { OrderService } from '../../services/order.service';
 import { Category } from '../../models/category.model';
 import { Size } from '../../models/image.model';
+import { OrderFacadeService } from '../../store/facades/order-facade.service';
 
 @Injectable()
 export abstract class ProductBoxAbstractComponent {
@@ -15,17 +16,17 @@ export abstract class ProductBoxAbstractComponent {
 
   public readonly Size = Size;
 
-  public constructor(protected orderService: OrderService) {}
+  public constructor(protected orderService: OrderService, protected orderFacadeService: OrderFacadeService) {}
 
   public addToOrder(product: Product): void {
     this.orderService.add(product);
   }
 
   public quantityDecrement(id: number): void {
-    this.orderService.quantityDecrement(id);
+    this.orderFacadeService.quantityDecrement(id);
   }
 
   public quantityIncrement(id: number): void {
-    this.orderService.quantityIncrement(id);
+    this.orderFacadeService.quantityIncrement(id);
   }
 }

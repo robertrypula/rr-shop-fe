@@ -29,6 +29,6 @@ export const isOnCategoryRoute = (url: string): boolean => url.indexOf('/c/') !=
 
 export const isOnOrderRoute = (url: string): boolean => url.indexOf('/order/') !== -1;
 
-export const isOnPotentialRoute = (url: string): boolean => url.indexOf('/potential-order') !== -1;
+export const isOnPotentialOrderRoute = (url: string): boolean => url.indexOf('/potential-order') !== -1;
 
 export const isOnProductRoute = (url: string): boolean => url.indexOf('/p/') !== -1;

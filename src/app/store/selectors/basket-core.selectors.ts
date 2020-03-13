@@ -8,9 +8,9 @@ import { ApiCall } from '../../models/generic.model';
 
 export const selectBasketFeature = (state: State): fromBasketReducers.State => state.basket;
 
-export const selectApiCallPotentialOrder = createSelector(
+export const selectApiCallPotentialOrderProducts = createSelector(
   selectBasketFeature,
-  (basketFeature: fromBasketReducers.State): ApiCall => basketFeature.apiCallPotentialOrder
+  (basketFeature: fromBasketReducers.State): ApiCall => basketFeature.apiCallPotentialOrderProducts
 );
 
 export const selectBasketSimpleEntriesAsArray = createSelector(
@@ -22,4 +22,14 @@ export const selectBasketSimpleEntriesAsArray = createSelector(
 export const selectBasketSimpleEntriesAsKeyValue = createSelector(
   selectBasketFeature,
   (basketFeature: fromBasketReducers.State): { [id: number]: BasketSimpleEntry } => basketFeature.entities
+);
+
+export const selectApiCallCreateOrder = createSelector(
+  selectBasketFeature,
+  (basketFeature: fromBasketReducers.State): ApiCall => basketFeature.apiCallCreateOrder
+);
+
+export const selectApiCallOrder = createSelector(
+  selectBasketFeature,
+  (basketFeature: fromBasketReducers.State): ApiCall => basketFeature.apiCallOrder
 );

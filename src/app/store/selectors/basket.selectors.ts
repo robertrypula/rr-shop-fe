@@ -8,7 +8,7 @@ import { toBasketEntry } from './basket.utils';
 import { selectProductsEnrichedFromCategoryByStructuralNode } from './product.selectors';
 import { StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
-import { isOnPotentialRoute } from '../../utils/routing.util';
+import { getOrderUuid, isOnOrderRoute, isOnPotentialOrderRoute } from '../../utils/routing.util';
 
 export const selectBasketEntries = (types: Type[] = [Type.Normal]) =>
   createSelector(
@@ -44,7 +44,7 @@ export const selectIsBasketValid = createSelector(
 );
 
 export const selectIsOnPotentialOrderRoute$ = createSelector(selectUrl, (url: string): boolean =>
-  isOnPotentialRoute(url)
+  isOnPotentialOrderRoute(url)
 );
 
 export const selectPotentialOrderProductsIds = createSelector(
@@ -78,3 +78,22 @@ export const selectQuantityTotal = createSelector(
         return previousValue + currentValue.quantity;
       }, 0)
 );
+
+export const selectIsOnOrderRoute = createSelector(selectUrl, (url: string): boolean => {
+  return isOnOrderRoute(url);
+});
+
+export const selectUrlOrderUuid = createSelector(selectUrl, (url: string): string => {
+  return getOrderUuid(url);
+});
+
+// export const selectOrderByUuid = createSelector(
+// selectOrdersStoreAsArray,
+// (ordersStoreAsArray: OrderStore[], props: { uuid: string }): Order => {
+//   const orderStoreFind: OrderStore = ordersStoreAsArray.find(
+//     (orderStore: OrderStore): boolean => orderStore.uuid === props.uuid
+//   );
+//
+//   return orderStoreFind ? toOrder(orderStoreFind) : null;
+// }
+// );

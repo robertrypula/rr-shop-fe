@@ -7,14 +7,17 @@ import {
   selectApiCallProductsAtInit
 } from './product-core.selectors';
 import { selectApiCallCategoriesAtInit } from './category-core.selectors';
-import { selectApiCallPotentialOrder } from './basket-core.selectors';
-import { selectApiCallCreateOrder, selectApiCallOrder } from './order-core.selectors';
+import {
+  selectApiCallCreateOrder,
+  selectApiCallOrder,
+  selectApiCallPotentialOrderProducts
+} from './basket-core.selectors';
 
 export const selectIsLoadingOverlayVisible = createSelector(
   selectApiCallCategoriesAtInit,
   selectApiCallCreateOrder,
   selectApiCallOrder,
-  selectApiCallPotentialOrder,
+  selectApiCallPotentialOrderProducts,
   selectApiCallProduct,
   selectApiCallProductsAtCategory,
   selectApiCallProductsAtInit,
@@ -22,7 +25,7 @@ export const selectIsLoadingOverlayVisible = createSelector(
     apiCallCategoriesAtInit: ApiCall,
     apiCallCreateOrder: ApiCall,
     apiCallOrder: ApiCall,
-    apiCallPotentialOrder: ApiCall,
+    apiCallPotentialOrderProducts: ApiCall,
     apiCallProduct: ApiCall,
     apiCallProductsAtCategory: ApiCall,
     apiCallProductsAtInit: ApiCall
@@ -30,7 +33,7 @@ export const selectIsLoadingOverlayVisible = createSelector(
     [ApiCall.Initial, ApiCall.Request].includes(apiCallCategoriesAtInit) ||
     [ApiCall.Request].includes(apiCallCreateOrder) ||
     [ApiCall.Request].includes(apiCallOrder) ||
-    [ApiCall.Request].includes(apiCallPotentialOrder) ||
+    [ApiCall.Request].includes(apiCallPotentialOrderProducts) ||
     [ApiCall.Request].includes(apiCallProduct) ||
     [ApiCall.Request].includes(apiCallProductsAtCategory) ||
     [ApiCall.Initial, ApiCall.Request].includes(apiCallProductsAtInit)

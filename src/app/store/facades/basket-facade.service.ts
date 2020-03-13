@@ -8,15 +8,18 @@ import * as fromBasketActions from '../actions/basket.actions';
 import * as fromBasketSelectors from '../selectors/basket.selectors';
 import { Product } from '../../models/product.model';
 import { BasketEntry, BasketSimpleEntry, Type } from '../../models/basket.model';
+import { selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/basket.selectors';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasketFacadeService {
   public isBasketValid$: Observable<boolean>;
+  public isOnOrderRoute$: Observable<boolean> = this.store.pipe(select(selectIsOnOrderRoute));
   public isOnPotentialOrderRoute$: Observable<boolean>;
   public potentialOrderProductsIds$: Observable<number[]>;
   public quantityTotal$: Observable<number>;
+  public urlOrderUuid$: Observable<string> = this.store.pipe(select(selectUrlOrderUuid));
 
   public constructor(protected store: Store<State>) {
     this.isBasketValid$ = store.pipe(select(fromBasketSelectors.selectIsBasketValid));
@@ -29,6 +32,10 @@ export class BasketFacadeService {
     this.store.dispatch(fromBasketActions.add({ productId: product.id, quantity }));
   }
 
+  public basketEntriesByType$(types: Type[]): Observable<BasketEntry[]> {
+    return this.store.pipe(select(fromBasketSelectors.selectBasketEntries(types)));
+  }
+
   public chooseDelivery(productId: number): void {
     this.store.dispatch(fromBasketActions.chooseDelivery({ productId }));
   }
@@ -37,8 +44,8 @@ export class BasketFacadeService {
     this.store.dispatch(fromBasketActions.choosePayment({ productId }));
   }
 
-  public basketEntriesByType$(types: Type[]): Observable<BasketEntry[]> {
-    return this.store.pipe(select(fromBasketSelectors.selectBasketEntries(types)));
+  public createOrder(): void {
+    this.store.dispatch(fromBasketActions.createOrderRequest());
   }
 
   public getBasketSimpleEntryByProductId(productId: number): BasketSimpleEntry {

@@ -5,7 +5,9 @@ import { BasketSimpleEntry, Type } from '../../models/basket.model';
 import { ApiCall } from '../../models/generic.model';
 
 export interface State {
-  apiCallPotentialOrder: ApiCall;
+  apiCallCreateOrder: ApiCall;
+  apiCallOrder: ApiCall;
+  apiCallPotentialOrderProducts: ApiCall;
   entities: {
     [id: number]: BasketSimpleEntry;
   };
@@ -13,7 +15,9 @@ export interface State {
 }
 
 export const initialState: State = {
-  apiCallPotentialOrder: ApiCall.Initial,
+  apiCallCreateOrder: ApiCall.Initial,
+  apiCallOrder: ApiCall.Initial,
+  apiCallPotentialOrderProducts: ApiCall.Initial,
   entities: {},
   lastEntityId: 0
 };
@@ -21,16 +25,31 @@ export const initialState: State = {
 const basketReducer = createReducer(
   initialState,
   on(
-    fromBasketActions.potentialOrderRequest,
-    (state: State): State => ({ ...state, apiCallPotentialOrder: ApiCall.Request })
+    fromBasketActions.createOrderRequest,
+    (state: State): State => ({ ...state, apiCallCreateOrder: ApiCall.Request })
   ),
   on(
-    fromBasketActions.potentialOrderSuccess,
-    (state: State): State => ({ ...state, apiCallPotentialOrder: ApiCall.Success })
+    fromBasketActions.createOrderSuccess,
+    (state: State): State => ({ ...state, apiCallCreateOrder: ApiCall.Success })
   ),
   on(
-    fromBasketActions.potentialOrderFailure,
-    (state: State): State => ({ ...state, apiCallPotentialOrder: ApiCall.Failure })
+    fromBasketActions.createOrderFailure,
+    (state: State): State => ({ ...state, apiCallCreateOrder: ApiCall.Failure })
+  ),
+  on(fromBasketActions.orderRequest, (state: State): State => ({ ...state, apiCallOrder: ApiCall.Request })),
+  on(fromBasketActions.orderSuccess, (state: State): State => ({ ...state, apiCallOrder: ApiCall.Success })),
+  on(fromBasketActions.orderFailure, (state: State): State => ({ ...state, apiCallOrder: ApiCall.Failure })),
+  on(
+    fromBasketActions.potentialOrderProductsRequest,
+    (state: State): State => ({ ...state, apiCallPotentialOrderProducts: ApiCall.Request })
+  ),
+  on(
+    fromBasketActions.potentialOrderProductsSuccess,
+    (state: State): State => ({ ...state, apiCallPotentialOrderProducts: ApiCall.Success })
+  ),
+  on(
+    fromBasketActions.potentialOrderProductsFailure,
+    (state: State): State => ({ ...state, apiCallPotentialOrderProducts: ApiCall.Failure })
   ),
   on(
     fromBasketActions.add,

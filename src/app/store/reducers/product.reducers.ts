@@ -58,7 +58,7 @@ const productReducer = createReducer(
     })
   ),
   on(
-    fromBasketActions.potentialOrderSuccess,
+    fromBasketActions.potentialOrderProductsSuccess,
     fromProductActions.productsAtCategorySuccess,
     fromProductActions.productsAtInitSuccess,
     (state: State, { products }): State => {

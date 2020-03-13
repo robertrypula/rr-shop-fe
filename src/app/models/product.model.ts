@@ -1,5 +1,5 @@
 import { Image, ImageDto } from './image.model';
-import { BasketEntry } from './basket.model';
+import { OrderEntry } from './order.model';
 
 export interface Product {
   categoryIds: number[];
@@ -15,7 +15,7 @@ export interface Product {
 // -----------------------------------------------------------------------------
 
 export interface ProductEnriched extends Product {
-  basketEntry: BasketEntry;
+  orderEntry: OrderEntry;
 }
 
 // -----------------------------------------------------------------------------

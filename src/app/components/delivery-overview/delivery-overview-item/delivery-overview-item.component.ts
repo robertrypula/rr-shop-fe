@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProductEnriched } from '../../../models/product.model';
 import { ClickableActionTheme } from '../../clickable-action/clickable-action.model';
-import { BasketService } from '../../../services/basket.service';
+import { OrderService } from '../../../services/order.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,11 +15,11 @@ export class DeliveryOverviewItemComponent implements OnInit {
 
   public ClickableActionTheme = ClickableActionTheme;
 
-  public constructor(protected basketService: BasketService) {}
+  public constructor(protected orderService: OrderService) {}
 
   public ngOnInit(): void {}
 
   public chooseDelivery(productId: number): void {
-    this.basketService.chooseDelivery(productId);
+    this.orderService.chooseDelivery(productId);
   }
 }

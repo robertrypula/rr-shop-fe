@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { BasketService } from '../../services/basket.service';
-import { Type } from '../../models/basket.model';
+import { OrderService } from '../../services/order.service';
+import { Type } from '../../models/order.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 
 @Component({
@@ -12,23 +12,23 @@ import { OrderFacadeService } from '../../store/facades/order-facade.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PotentialOrderComponent implements OnInit {
-  public isBasketValid$: Observable<boolean>;
+  public isOrderValid$: Observable<boolean>;
   public priceSumDelivery$: Observable<number>;
   public priceSumNormal$: Observable<number>;
   public priceSumPayment$: Observable<number>;
   public priceSumTotal$: Observable<number>;
 
-  public constructor(protected basketService: BasketService, protected basketFacadeService: OrderFacadeService) {
-    this.isBasketValid$ = basketService.isBasketValid$;
-    this.priceSumDelivery$ = basketService.priceSum$([Type.Delivery]);
-    this.priceSumNormal$ = basketService.priceSum$([Type.Normal]);
-    this.priceSumPayment$ = basketService.priceSum$([Type.Payment]);
-    this.priceSumTotal$ = basketService.priceSum$([Type.Normal, Type.Delivery, Type.Payment]);
+  public constructor(protected orderService: OrderService, protected orderFacadeService: OrderFacadeService) {
+    this.isOrderValid$ = orderService.isOrderValid$;
+    this.priceSumDelivery$ = orderService.priceSum$([Type.Delivery]);
+    this.priceSumNormal$ = orderService.priceSum$([Type.Normal]);
+    this.priceSumPayment$ = orderService.priceSum$([Type.Payment]);
+    this.priceSumTotal$ = orderService.priceSum$([Type.Normal, Type.Delivery, Type.Payment]);
   }
 
   public ngOnInit() {}
 
   public createOrder(): void {
-    this.basketFacadeService.createOrder();
+    this.orderFacadeService.createOrder();
   }
 }

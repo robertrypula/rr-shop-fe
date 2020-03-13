@@ -1,7 +1,7 @@
 import { Injectable, Input } from '@angular/core';
 
 import { Product, ProductEnriched } from '../../models/product.model';
-import { BasketService } from '../../services/basket.service';
+import { OrderService } from '../../services/order.service';
 import { Category } from '../../models/category.model';
 import { Size } from '../../models/image.model';
 
@@ -15,17 +15,17 @@ export abstract class ProductBoxAbstractComponent {
 
   public readonly Size = Size;
 
-  public constructor(protected basketService: BasketService) {}
+  public constructor(protected orderService: OrderService) {}
 
-  public addToBasket(product: Product): void {
-    this.basketService.add(product);
+  public addToOrder(product: Product): void {
+    this.orderService.add(product);
   }
 
   public quantityDecrement(id: number): void {
-    this.basketService.quantityDecrement(id);
+    this.orderService.quantityDecrement(id);
   }
 
   public quantityIncrement(id: number): void {
-    this.basketService.quantityIncrement(id);
+    this.orderService.quantityIncrement(id);
   }
 }

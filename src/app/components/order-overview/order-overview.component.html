@@ -1,6 +1,6 @@
-<div class="BasketOverview">
-  <div *ngIf="(basketEntriesNormal$ | async).length; else basketEmpty">
-    <div class="BasketOverview-section">
+<div class="OrderOverview">
+  <div *ngIf="(orderEntriesNormal$ | async).length; else orderEmpty">
+    <div class="OrderOverview-section">
       <table>
         <thead>
           <tr>
@@ -13,17 +13,17 @@
         </thead>
         <tbody>
           <tr
-            *ngFor="let basketEntry of basketEntriesNormal$ | async; trackBy: trackBy"
-            rr-shop-basket-overview-item
-            [basketEntry]="basketEntry"
+            *ngFor="let orderEntry of orderEntriesNormal$ | async; trackBy: trackBy"
+            rr-shop-order-overview-item
+            [orderEntry]="orderEntry"
           ></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <ng-template #basketEmpty>
-    <div class="BasketOverview-empty">
+  <ng-template #orderEmpty>
+    <div class="OrderOverview-empty">
       Twój koszyk jest pusty :(
       <br />
       Zapraszamy do zakupów!

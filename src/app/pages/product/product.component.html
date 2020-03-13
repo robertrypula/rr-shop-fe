@@ -10,31 +10,31 @@
         {{ activeProductEnriched.price | price }}
       </div>
 
-      <div *ngIf="activeProductEnriched.basketEntry" class="Product-basketQuantity">
+      <div *ngIf="activeProductEnriched.orderEntry" class="Product-orderQuantity">
         <span>
-          W koszyku: <b>{{ activeProductEnriched.basketEntry.quantity }}</b>
+          W koszyku: <b>{{ activeProductEnriched.orderEntry.quantity }}</b>
         </span>
         <div>
           <rr-shop-clickable-action
-            (actionClick)="remove(activeProductEnriched.basketEntry.id)"
+            (actionClick)="remove(activeProductEnriched.orderEntry.id)"
             [label]="'Usuń z koszyka'"
             [icon]="['far', 'trash-alt']"
           ></rr-shop-clickable-action>
           <rr-shop-clickable-action
-            (actionClick)="quantityDecrement(activeProductEnriched.basketEntry.id)"
-            [disabled]="!activeProductEnriched.basketEntry.isQuantityDecrementActive"
+            (actionClick)="quantityDecrement(activeProductEnriched.orderEntry.id)"
+            [disabled]="!activeProductEnriched.orderEntry.isQuantityDecrementActive"
             [icon]="['fas', 'minus']"
           ></rr-shop-clickable-action>
           <rr-shop-clickable-action
-            (actionClick)="quantityIncrement(activeProductEnriched.basketEntry.id)"
+            (actionClick)="quantityIncrement(activeProductEnriched.orderEntry.id)"
             [icon]="['fas', 'plus']"
           ></rr-shop-clickable-action>
         </div>
       </div>
 
       <rr-shop-clickable-action
-        *ngIf="!activeProductEnriched.basketEntry"
-        (actionClick)="addToBasket(activeProductEnriched)"
+        *ngIf="!activeProductEnriched.orderEntry"
+        (actionClick)="addToOrder(activeProductEnriched)"
         [label]="'Do koszyka'"
         [icon]="['fas', 'shopping-basket']"
       ></rr-shop-clickable-action>

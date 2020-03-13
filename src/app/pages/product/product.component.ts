@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { Product, ProductEnriched } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
-import { BasketService } from '../../services/basket.service';
+import { OrderService } from '../../services/order.service';
 import { Size } from '../../models/image.model';
 
 @Component({
@@ -17,23 +17,23 @@ export class ProductComponent implements OnInit {
 
   public readonly Size = Size;
 
-  public constructor(protected productService: ProductService, protected basketService: BasketService) {}
+  public constructor(protected productService: ProductService, protected orderService: OrderService) {}
 
   public ngOnInit(): void {}
 
-  public addToBasket(product: Product): void {
-    this.basketService.add(product);
+  public addToOrder(product: Product): void {
+    this.orderService.add(product);
   }
 
   public quantityDecrement(id: number): void {
-    this.basketService.quantityDecrement(id);
+    this.orderService.quantityDecrement(id);
   }
 
   public quantityIncrement(id: number): void {
-    this.basketService.quantityIncrement(id);
+    this.orderService.quantityIncrement(id);
   }
 
   public remove(id: number): void {
-    this.basketService.remove(id);
+    this.orderService.remove(id);
   }
 }

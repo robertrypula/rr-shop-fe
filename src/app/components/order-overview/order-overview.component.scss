@@ -1,6 +1,6 @@
 @import 'configs-and-mixins';
 
-.BasketOverview {
+.OrderOverview {
   table {
     width: 100%;
     border-collapse: collapse;
@@ -14,7 +14,7 @@
   }
 }
 
-.BasketOverview-empty {
+.OrderOverview-empty {
   text-align: center;
   padding: 32px 0;
   line-height: 1.5em;

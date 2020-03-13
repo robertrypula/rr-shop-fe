@@ -17,9 +17,7 @@ export const selectOrderEntries = (types: Type[] = [Type.Normal]) =>
     (orderSimpleEntriesAsArray: OrderSimpleEntry[], productsAsKeyValue: { [id: number]: Product }): OrderEntry[] =>
       orderSimpleEntriesAsArray
         .filter((orderSimpleEntry: OrderSimpleEntry): boolean => types.includes(orderSimpleEntry.type))
-        .map(
-          (orderSimpleEntry: OrderSimpleEntry): OrderEntry => toOrderEntry(orderSimpleEntry, productsAsKeyValue)
-        )
+        .map((orderSimpleEntry: OrderSimpleEntry): OrderEntry => toOrderEntry(orderSimpleEntry, productsAsKeyValue))
   );
 
 export const selectOrderSimpleEntryByProductId = createSelector(

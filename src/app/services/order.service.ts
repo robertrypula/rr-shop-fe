@@ -3,65 +3,63 @@ import { BarService } from './bar.service';
 import { Product } from '../models/product.model';
 import { OrderFacadeService } from '../store/facades/order-facade.service';
 import { Observable } from 'rxjs';
-import { BasketEntry, BasketSimpleEntry, Type } from '../models/basket.model';
-import { select } from '@ngrx/store';
-import * as fromBasketSelectors from '../store/selectors/basket.selectors';
+import { OrderEntry, OrderSimpleEntry, Type } from '../models/order.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BasketService {
-  public isBasketValid$: Observable<boolean>;
+export class OrderService {
+  public isOrderValid$: Observable<boolean>;
   public potentialOrderProductsIds$: Observable<number[]>;
   public quantityTotal$: Observable<number>;
 
-  public constructor(protected barService: BarService, protected basketFacadeService: OrderFacadeService) {
-    this.isBasketValid$ = basketFacadeService.isBasketValid$;
-    this.potentialOrderProductsIds$ = basketFacadeService.potentialOrderProductsIds$;
-    this.quantityTotal$ = basketFacadeService.quantityTotal$;
+  public constructor(protected barService: BarService, protected orderFacadeService: OrderFacadeService) {
+    this.isOrderValid$ = orderFacadeService.isOrderValid$;
+    this.potentialOrderProductsIds$ = orderFacadeService.potentialOrderProductsIds$;
+    this.quantityTotal$ = orderFacadeService.quantityTotal$;
   }
 
   public add(product: Product, quantity = 1): void {
-    const basketSimpleEntry: BasketSimpleEntry = this.basketFacadeService.getBasketSimpleEntryByProductId(product.id);
+    const orderSimpleEntry: OrderSimpleEntry = this.orderFacadeService.getOrderSimpleEntryByProductId(product.id);
 
-    if (basketSimpleEntry) {
-      this.basketFacadeService.quantitySetTo(basketSimpleEntry.id, basketSimpleEntry.quantity + quantity);
+    if (orderSimpleEntry) {
+      this.orderFacadeService.quantitySetTo(orderSimpleEntry.id, orderSimpleEntry.quantity + quantity);
     } else {
-      this.basketFacadeService.add(product, quantity);
+      this.orderFacadeService.add(product, quantity);
     }
     this.barService.showSuccess(`Produkt '${product.name}' dodany do koszyka`); // TODO translations
   }
 
   public chooseDelivery(productId: number): void {
-    this.basketFacadeService.chooseDelivery(productId);
+    this.orderFacadeService.chooseDelivery(productId);
   }
 
   public choosePayment(productId: number): void {
-    this.basketFacadeService.choosePayment(productId);
+    this.orderFacadeService.choosePayment(productId);
   }
 
-  public basketEntriesByType$(types: Type[]): Observable<BasketEntry[]> {
-    return this.basketFacadeService.basketEntriesByType$(types);
+  public orderEntriesByType$(types: Type[]): Observable<OrderEntry[]> {
+    return this.orderFacadeService.orderEntriesByType$(types);
   }
 
   public priceSum$(types: Type[]): Observable<number> {
-    return this.basketFacadeService.priceSum$(types);
+    return this.orderFacadeService.priceSum$(types);
   }
 
   public quantityDecrement(id: number): void {
-    this.basketFacadeService.quantityDecrement(id);
+    this.orderFacadeService.quantityDecrement(id);
   }
 
   public quantityIncrement(id: number): void {
-    this.basketFacadeService.quantityIncrement(id);
+    this.orderFacadeService.quantityIncrement(id);
   }
 
   public quantitySetTo(id: number, quantity: number): void {
-    this.basketFacadeService.quantitySetTo(id, quantity);
+    this.orderFacadeService.quantitySetTo(id, quantity);
   }
 
   public remove(id: number): void {
-    this.basketFacadeService.remove(id);
+    this.orderFacadeService.remove(id);
     this.barService.showSuccess(`Produkt usunięty z koszyka`); // TODO translations
   }
 }

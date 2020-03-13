@@ -15,8 +15,7 @@ export const selectApiCallPotentialOrderProducts = createSelector(
 
 export const selectOrderSimpleEntriesAsArray = createSelector(
   selectOrderFeature,
-  (orderFeature: fromOrderReducers.State): OrderSimpleEntry[] =>
-    getOrderSimpleEntriesAsArray(orderFeature.entities)
+  (orderFeature: fromOrderReducers.State): OrderSimpleEntry[] => getOrderSimpleEntriesAsArray(orderFeature.entities)
 );
 
 export const selectOrderSimpleEntriesAsKeyValue = createSelector(

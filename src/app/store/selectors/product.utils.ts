@@ -25,10 +25,7 @@ export const getProductsForGivenCategories = (productsAsArray: Product[], catego
     : [];
 };
 
-export const toProductEnriched = (
-  product: Product,
-  orderSimpleEntriesAsArray: OrderSimpleEntry[]
-): ProductEnriched => {
+export const toProductEnriched = (product: Product, orderSimpleEntriesAsArray: OrderSimpleEntry[]): ProductEnriched => {
   if (!product) {
     return null;
   }

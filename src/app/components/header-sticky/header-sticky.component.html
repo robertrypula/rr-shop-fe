@@ -11,12 +11,12 @@
           <rr-shop-top-menu></rr-shop-top-menu>
         </div>
 
-        <div class="HeaderSticky-topSearchAndBasketButtonsContainer col-xxs-12 col-sm-7 col-md-6">
+        <div class="HeaderSticky-topSearchAndOrderButtonsContainer col-xxs-12 col-sm-7 col-md-6">
           <div class="HeaderSticky-topSearch">
             <rr-shop-top-search></rr-shop-top-search>
           </div>
 
-          <div class="HeaderSticky-basketButtonBig hidden-xxs">
+          <div class="HeaderSticky-orderButtonBig hidden-xxs">
             <rr-shop-clickable-action
               [clickableActionTheme]="ClickableActionTheme.Primary"
               [clickableActionType]="ClickableActionType.RouterLink"
@@ -27,7 +27,7 @@
               [number]="quantityTotal$ | async"
             ></rr-shop-clickable-action>
           </div>
-          <div class="HeaderSticky-basketButtonSmall hidden-sm hidden-md hidden-lg">
+          <div class="HeaderSticky-orderButtonSmall hidden-sm hidden-md hidden-lg">
             <rr-shop-clickable-action
               [clickableActionTheme]="ClickableActionTheme.Primary"
               [clickableActionType]="ClickableActionType.RouterLink"

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { BasketService } from '../../services/basket.service';
-import { BasketEntry, Type } from '../../models/basket.model';
+import { OrderService } from '../../services/order.service';
+import { OrderEntry, Type } from '../../models/order.model';
 import { ProductService } from '../../services/product.service';
 import { ProductEnriched } from '../../models/product.model';
 import { StructuralNode } from '../../models/category.model';
@@ -13,11 +13,11 @@ import { StructuralNode } from '../../models/category.model';
   styleUrls: ['./delivery-overview.component.scss']
 })
 export class DeliveryOverviewComponent implements OnInit {
-  public basketEntriesDelivery$: Observable<BasketEntry[]>;
+  public orderEntriesDelivery$: Observable<OrderEntry[]>;
   public productsEnrichedDelivery$: Observable<ProductEnriched[]>;
 
-  public constructor(protected basketService: BasketService, protected productService: ProductService) {
-    this.basketEntriesDelivery$ = this.basketService.basketEntriesByType$([Type.Delivery]);
+  public constructor(protected orderService: OrderService, protected productService: ProductService) {
+    this.orderEntriesDelivery$ = this.orderService.orderEntriesByType$([Type.Delivery]);
     this.productsEnrichedDelivery$ = this.productService.productsEnrichedFromCategoryByStructuralNode$(
       StructuralNode.Delivery
     );

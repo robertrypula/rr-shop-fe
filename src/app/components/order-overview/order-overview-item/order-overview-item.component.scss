@@ -6,7 +6,7 @@ td {
   vertical-align: top;
   text-align: left;
 
-  .BasketOverviewItem-aggregation {
+  .OrderOverviewItem-aggregation {
     padding-top: 8px;
     div {
       float: right;
@@ -17,13 +17,13 @@ td {
   }
 }
 
-.BasketOverviewItem-name {
+.OrderOverviewItem-name {
   a {
     display: block;
     width: 100%;
     min-height: 64px;
     position: relative;
-    .BasketOverviewItem-image {
+    .OrderOverviewItem-image {
       position: absolute;
       display: block;
       width: 64px;
@@ -43,7 +43,7 @@ td {
   }
 }
 
-.BasketOverviewItem-quantity {
+.OrderOverviewItem-quantity {
   width: 150px;
   div {
     width: 120px;
@@ -65,12 +65,12 @@ td {
   }
 }
 
-.BasketOverviewItem-price {
+.OrderOverviewItem-price {
   width: 100px;
 }
 
-.BasketOverviewItem-price,
-.BasketOverviewItem-itemPrice {
+.OrderOverviewItem-price,
+.OrderOverviewItem-itemPrice {
   width: 100px;
   span {
     display: inline-block;
@@ -78,6 +78,6 @@ td {
   }
 }
 
-.BasketOverviewItem-actions {
+.OrderOverviewItem-actions {
   width: 100px;
 }

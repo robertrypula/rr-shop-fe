@@ -2,13 +2,13 @@
   <a (click)="choosePayment(productEnriched.id)">
     <div>
       <rr-shop-clickable-action
-        *ngIf="!productEnriched.basketEntry"
+        *ngIf="!productEnriched.orderEntry"
         [clickableActionTheme]="ClickableActionTheme.TransparentDark"
         [icon]="['far', 'circle']"
       ></rr-shop-clickable-action>
 
       <rr-shop-clickable-action
-        *ngIf="productEnriched.basketEntry"
+        *ngIf="productEnriched.orderEntry"
         [clickableActionTheme]="ClickableActionTheme.TransparentDark"
         [icon]="['far', 'check-circle']"
       ></rr-shop-clickable-action>

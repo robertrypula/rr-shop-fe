@@ -31,7 +31,7 @@
     padding: 16px 0;
   }
 
-  .ProductBoxCompact-basketQuantity {
+  .ProductBoxCompact-orderQuantity {
     > span {
       padding: 12px 0;
       display: inline-block;
@@ -50,7 +50,7 @@
   }
 }
 
-.ProductBoxCompact--inBasket {
+.ProductBoxCompact--inOrder {
   outline: 1px solid $a-color;
   background-color: $light-green-color;
 }

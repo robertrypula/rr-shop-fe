@@ -12,7 +12,7 @@
       padding-right: 50px;
     }
 
-    .HeaderSticky-basketButtonSmall {
+    .HeaderSticky-orderButtonSmall {
       position: absolute;
       top: 0;
       right: 15px;
@@ -20,7 +20,7 @@
     }
 
     &.HeaderSticky--active {
-      .HeaderSticky-basketButtonSmall {
+      .HeaderSticky-orderButtonSmall {
         position: fixed;
         top: 15px;
         right: 15px;
@@ -35,24 +35,24 @@
       width: 50%;
     }
 
-    .HeaderSticky-basketButtonBig,
-    .HeaderSticky-basketButtonSmall {
+    .HeaderSticky-orderButtonBig,
+    .HeaderSticky-orderButtonSmall {
       position: absolute;
       top: 0;
     }
-    .HeaderSticky-basketButtonBig {
+    .HeaderSticky-orderButtonBig {
       right: 15px;
     }
-    .HeaderSticky-basketButtonSmall {
+    .HeaderSticky-orderButtonSmall {
       right: 27px;
       display: none;
     }
 
     &.HeaderSticky--active {
-      .HeaderSticky-basketButtonBig {
+      .HeaderSticky-orderButtonBig {
         display: none;
       }
-      .HeaderSticky-basketButtonSmall {
+      .HeaderSticky-orderButtonSmall {
         position: fixed;
         top: 15px;
         z-index: 1000;
@@ -63,11 +63,11 @@
   }
 
   @include viewport-tablet-and-up {
-    .HeaderSticky-topSearchAndBasketButtonsContainer {
+    .HeaderSticky-topSearchAndOrderButtonsContainer {
       text-align: right;
     }
     .HeaderSticky-topSearch,
-    .HeaderSticky-basketButtonBig {
+    .HeaderSticky-orderButtonBig {
       display: inline-block;
     }
     .HeaderSticky-topSearch {

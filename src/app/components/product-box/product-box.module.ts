@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ProductBoxFullComponent } from './product-box-full/product-box-full.component';
 import { ProductBoxCompactComponent } from './product-box-compact/product-box-compact.component';
 import { PipesModule } from '../../pipes/pipes.module';
-import { BasketService } from '../../services/basket.service';
+import { OrderService } from '../../services/order.service';
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
 import { ImageModule } from '../image/image.module';
 
@@ -13,6 +13,6 @@ import { ImageModule } from '../image/image.module';
   declarations: [ProductBoxFullComponent, ProductBoxCompactComponent],
   exports: [ProductBoxFullComponent, ProductBoxCompactComponent],
   imports: [CommonModule, PipesModule, RouterModule, ClickableActionModule, ImageModule],
-  providers: [BasketService]
+  providers: [OrderService]
 })
 export class ProductBoxModule {}

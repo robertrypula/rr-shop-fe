@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { BasketService } from '../../../services/basket.service';
+import { OrderService } from '../../../services/order.service';
 import { ClickableActionTheme } from '../../clickable-action/clickable-action.model';
 import { ProductEnriched } from '../../../models/product.model';
 
@@ -16,11 +16,11 @@ export class PaymentOverviewItemComponent implements OnInit {
 
   public ClickableActionTheme = ClickableActionTheme;
 
-  public constructor(protected basketService: BasketService) {}
+  public constructor(protected orderService: OrderService) {}
 
   public ngOnInit(): void {}
 
   public choosePayment(productId: number): void {
-    this.basketService.choosePayment(productId);
+    this.orderService.choosePayment(productId);
   }
 }

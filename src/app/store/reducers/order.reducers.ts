@@ -12,7 +12,6 @@ export interface State {
     [id: number]: OrderStore;
   };
   lastOrderItemId: number;
-  lastOrderId: number;
 }
 
 export const POTENTIAL_ORDER_ID = -1;
@@ -23,9 +22,10 @@ export const initialState: State = {
   apiCallPotentialOrderProducts: ApiCall.Initial,
   entities: {
     [POTENTIAL_ORDER_ID]: {
-      id: POTENTIAL_ORDER_ID,
       uuid: `${POTENTIAL_ORDER_ID}`,
       number: null,
+      status: null,
+      // ---
       email: null,
       phone: null,
       name: null,
@@ -40,8 +40,7 @@ export const initialState: State = {
       orderItemsStore: {}
     }
   },
-  lastOrderItemId: 0,
-  lastOrderId: 0
+  lastOrderItemId: 0
 };
 
 const orderReducer = createReducer(

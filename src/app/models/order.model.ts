@@ -6,20 +6,32 @@ export enum Type {
   Product = 'Product'
 }
 
+export enum Status {
+  PaymentWait = 'PaymentWait',
+  PaymentCompleted = 'PaymentCompleted',
+  Shipped = 'Shipped',
+  Completed = 'Completed',
+  Cancelled = 'Cancelled'
+}
+
 // -----------------------------------------------------------------------------
 
 export interface OrderItemStore {
-  id: number;
+  id?: number;
+  nameOriginal?: string;
+  priceUnitOriginal?: number;
+  priceUnitSelling?: number;
   productId: number;
   quantity: number;
   type: Type;
 }
 
 export interface OrderStore {
-  id: number;
-  uuid: string;
-  number: string;
-  email: string;
+  uuid: string; // uuid to avoid sharing information about e-shop orders amount
+  number?: string;
+  status?: Status;
+  // ---
+  email?: string;
   phone?: string;
   name?: string;
   surname?: string;
@@ -27,10 +39,10 @@ export interface OrderStore {
   zipCode?: string;
   city?: string;
   comments?: string;
-  parcelLocker: string;
-  paymentUrl: string;
+  parcelLocker?: string;
+  paymentUrl?: string;
   // ---
-  orderItemsStore: { [key: string]: OrderItemStore }; // TODO move it to separate store feature
+  orderItemsStore?: { [key: string]: OrderItemStore }; // TODO move it to separate store feature
 }
 
 // -----------------------------------------------------------------------------

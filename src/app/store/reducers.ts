@@ -29,7 +29,7 @@ export const reducers: ActionReducerMap<State> = {
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: [{ order: ['entities', 'lastOrderItemId', 'lastOrderId'] }],
+    keys: [{ order: ['entities', 'lastOrderItemId'] }],
     rehydrate: true
   })(reducer);
 }

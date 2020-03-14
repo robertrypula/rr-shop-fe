@@ -7,7 +7,7 @@
     ></rr-shop-image>
     <span>{{ orderItem.product?.name }}</span>
     <div class="hidden-md hidden-lg">
-      {{ orderItem.product?.price | price }}
+      {{ orderItem.product?.priceUnit | price }}
       x
       {{ orderItem.quantity }}
       =
@@ -52,7 +52,7 @@
 </td>
 <td class="OrderOverviewItem-price hidden-xxs hidden-xs hidden-sm">
   <span>
-    {{ orderItem.product?.price | price }}
+    {{ orderItem.product?.priceUnit | price }}
   </span>
 </td>
 <td class="OrderOverviewItem-itemPrice hidden-xxs hidden-xs hidden-sm">

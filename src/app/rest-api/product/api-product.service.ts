@@ -49,6 +49,7 @@ export class ApiProductService {
       );
   }
 
+  // TODO move to dedicated file same as Order
   public fromFullDto(dto: ProductFullDto): Product {
     return {
       categoryIds: dto.categoryIds,
@@ -56,7 +57,7 @@ export class ApiProductService {
       id: dto.id,
       images: dto.images.map((image: ImageDto): Image => ({ ...image })),
       name: dto.name,
-      price: dto.price,
+      priceUnit: dto.priceUnit,
       quantity: dto.quantity,
       slug: dto.slug
     };
@@ -75,7 +76,7 @@ export class ApiProductService {
       id: dto.id,
       images: dto.images.map((image: ImageDto): Image => ({ ...image })),
       name: dto.name,
-      price: dto.price,
+      priceUnit: dto.priceUnit,
       slug: dto.slug
     };
   }

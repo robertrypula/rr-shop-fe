@@ -4,8 +4,8 @@ import { Order, OrderItem, OrderStore } from '../../models/order.model';
 export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
   return {
     orderItems: order.orderItems.map((orderItem: OrderItem) => ({
-      priceUnitOriginal: orderItem.product.price,
-      priceUnitSelling: orderItem.product.price, // TODO here put price after discount
+      priceUnitOriginal: orderItem.product.priceUnit,
+      priceUnitSelling: orderItem.product.priceUnit, // TODO here put price after discount
       productId: orderItem.productId,
       quantity: orderItem.quantity,
       type: orderItem.type

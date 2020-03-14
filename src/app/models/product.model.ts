@@ -7,7 +7,7 @@ export interface Product {
   id: number;
   images?: Image[];
   name?: string;
-  price?: number;
+  priceUnit?: number;
   quantity?: number;
   slug?: string;
 }
@@ -28,7 +28,7 @@ export interface ProductInitDto {
 export interface ProductSimpleDto extends ProductInitDto {
   images?: ImageDto[];
   name: string;
-  price?: number;
+  priceUnit?: number;
   slug: string;
 }
 

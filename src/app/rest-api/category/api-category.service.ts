@@ -22,6 +22,7 @@ export class ApiCategoryService {
       );
   }
 
+  // TODO move to dedicated file same as Order
   public fromSimpleDto(dto: CategorySimpleDto): CategoryStore {
     // TODO reduce number of data from the backend in simple DTO
     return {

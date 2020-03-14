@@ -35,7 +35,7 @@ export const toOrderItem = (
     ...orderItemStore,
     isQuantityDecrementActive: orderItemStore.quantity > 1,
     product,
-    totalPrice: product ? product.price * orderItemStore.quantity : 0
+    totalPrice: product ? product.priceUnit * orderItemStore.quantity : 0
   };
 };
 
@@ -48,7 +48,7 @@ export const getOrderItemsByType = (orderItems: OrderItem[], types: Type[]): Ord
 
 export const getPriceTotal = (orderItems: OrderItem[]): number =>
   orderItems.reduce((accumulator: number, orderItem: OrderItem): number => {
-    return accumulator + orderItem.quantity * (orderItem.product ? orderItem.product.price : 0);
+    return accumulator + orderItem.quantity * (orderItem.product ? orderItem.product.priceUnit : 0);
   }, 0);
 
 export const getQuantityTotal = (orderItems: OrderItem[]): number =>

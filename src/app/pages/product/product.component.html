@@ -7,7 +7,7 @@
       <h2>{{ activeProductEnriched.name }}</h2>
 
       <div class="Product-price">
-        {{ activeProductEnriched.price | price }}
+        {{ activeProductEnriched.priceUnit | price }}
       </div>
 
       <div *ngIf="activeProductEnriched.orderItem" class="Product-orderQuantity">

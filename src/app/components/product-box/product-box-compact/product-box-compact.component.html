@@ -9,7 +9,7 @@
   </a>
 
   <div class="ProductBoxCompact-price">
-    {{ productEnriched.price | price }}
+    {{ productEnriched.priceUnit | price }}
   </div>
 
   <div *ngIf="productEnriched.orderItem" class="ProductBoxCompact-orderQuantity">

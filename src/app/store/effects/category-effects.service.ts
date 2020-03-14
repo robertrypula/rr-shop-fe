@@ -7,7 +7,7 @@ import { routerNavigatedAction } from '@ngrx/router-store';
 
 import * as fromCategoryActions from '../actions/category.actions';
 import * as fromRouterActions from '../actions/router.actions';
-import { ApiCategoryService } from '../../api-services/api-category.service';
+import { ApiCategoryService } from '../../rest-api/category/api-category.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
 import { RouterFacadeService } from '../facades/router-facade.service';
 import { setDevice } from '../actions/viewport.actions';

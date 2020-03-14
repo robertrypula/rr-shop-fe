@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { API_URL_PRODUCT, API_URL_PRODUCTS } from '../config/api-url.config';
-import { Product, ProductFullDto, ProductInitDto, ProductSimpleDto } from '../models/product.model';
-import { Image, ImageDto } from '../models/image.model';
+import { API_URL_PRODUCT, API_URL_PRODUCTS } from '../endpoints';
+import { Product, ProductFullDto, ProductInitDto, ProductSimpleDto } from '../../models/product.model';
+import { Image, ImageDto } from '../../models/image.model';
 
 @Injectable({
   providedIn: 'root'

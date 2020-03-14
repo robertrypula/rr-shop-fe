@@ -6,7 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import * as fromProductActions from '../actions/product.actions';
 import * as fromRouterActions from '../actions/router.actions';
-import { ApiProductService } from '../../api-services/api-product.service';
+import { ApiProductService } from '../../rest-api/product/api-product.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
 import { ProductFacadeService } from '../facades/product-facade.service';
 

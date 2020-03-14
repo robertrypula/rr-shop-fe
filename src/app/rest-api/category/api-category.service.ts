@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { CategorySimpleDto, CategoryStore } from '../models/category.model';
-import { API_URL_CATEGORIES } from '../config/api-url.config';
+import { CategorySimpleDto, CategoryStore } from '../../models/category.model';
+import { API_URL_CATEGORIES } from '../endpoints';
 
 @Injectable({
   providedIn: 'root'

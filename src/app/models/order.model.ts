@@ -51,13 +51,3 @@ export interface Order extends OrderStore {
   priceTotalProduct: number;
   totalQuantityProduct: number;
 }
-
-// -----------------------------------------------------------------------------
-
-// tslint:disable-next-line:no-empty-interface
-export interface OrderDto {
-  uuid: string;
-}
-
-// tslint:disable-next-line:no-empty-interface
-export interface OrderCreateDto {}

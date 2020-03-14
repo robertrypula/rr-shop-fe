@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, of } from 'rxjs';
-import { catchError, concatMap, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, concatMap, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import * as fromOrderActions from '../actions/order.actions';
 import * as fromRouterActions from '../actions/router.actions';
-import { ApiProductService } from '../../api-services/api-product.service';
+import { ApiProductService } from '../../rest-api/product/api-product.service';
 import { OrderFacadeService } from '../facades/order-facade.service';
 import { OrderStore } from '../../models/order.model';
-import { ApiOrderService } from '../../api-services/api-order.service';
+import { ApiOrderService } from '../../rest-api/order/api-order.service';
 import { POTENTIAL_ORDER_ID } from '../reducers/order.reducers';
 
 @Injectable()
@@ -49,18 +49,14 @@ export class OrderEffects {
       concatMap(action =>
         of(action).pipe(withLatestFrom(this.orderFacadeService.orderByUuid$(`${POTENTIAL_ORDER_ID}`)))
       ),
-      tap(([action, order]): void => {
-        console.log(action, order);
-      }),
-      map(() => fromOrderActions.createOrderSuccess(null))
-      // switchMap(action =>
-      //   this.apiOrderService.createOrder({}).pipe(
-      //     map((orderStore: OrderStore) => fromOrderActions.createOrderSuccess({ orderStore })),
-      //     catchError((httpErrorResponse: HttpErrorResponse) =>
-      //       of(fromOrderActions.createOrderFailure({ httpErrorResponse }))
-      //     )
-      //   )
-      // )
+      switchMap(([action, order]) =>
+        this.apiOrderService.createOrder(order).pipe(
+          map((orderStore: OrderStore) => fromOrderActions.createOrderSuccess({ orderStore })),
+          catchError((httpErrorResponse: HttpErrorResponse) =>
+            of(fromOrderActions.createOrderFailure({ httpErrorResponse }))
+          )
+        )
+      )
     )
   );
 

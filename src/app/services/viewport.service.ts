@@ -20,24 +20,21 @@ import { ViewportFacadeService } from '../store/facades/viewport-facade.service'
   providedIn: 'root'
 })
 export class ViewportService {
-  public device$: Observable<Device>;
-  public getFurtherNavigationIdOnlyAtSmallerDevices$: Observable<number>;
-  public isScrolledDownThatHeaderIsNotVisible$: Observable<boolean>;
-  public isSmallDevice$: Observable<boolean>;
+  public device$: Observable<Device> = this.viewportFacadeService.device$;
+  public getFurtherNavigationIdOnlyAtSmallerDevices$: Observable<number> = this.viewportFacadeService
+    .getFurtherNavigationIdOnlyAtSmallerDevices$;
+  public isScrolledDownThatHeaderIsNotVisible$: Observable<boolean> = this.viewportFacadeService
+    .isScrolledDownThatHeaderIsNotVisible$;
+  public isSmallDevice$: Observable<boolean> = this.viewportFacadeService.isSmallDevice$;
   public viewportStatus$: Observable<ViewportStatus>;
 
   protected deviceSubject$: Subject<Device> = new Subject();
   protected isScrolledDownThatHeaderIsNotVisibleSubject$: Subject<boolean> = new Subject();
   protected viewportStatusSubject$: Subject<ViewportStatus> = new Subject();
 
+  // TODO try to migrate things to facade
   public constructor(protected viewportFacadeService: ViewportFacadeService) {
-    this.device$ = this.viewportFacadeService.device$;
-    this.getFurtherNavigationIdOnlyAtSmallerDevices$ =
-      viewportFacadeService.getFurtherNavigationIdOnlyAtSmallerDevices$;
-    this.isScrolledDownThatHeaderIsNotVisible$ = viewportFacadeService.isScrolledDownThatHeaderIsNotVisible$;
-    this.isSmallDevice$ = viewportFacadeService.isSmallDevice$;
     this.viewportStatus$ = this.viewportStatusSubject$.asObservable().pipe(distinctUntilChanged());
-
     this.configureStoreActionsDispatching();
     this.attachWindowEvents();
   }

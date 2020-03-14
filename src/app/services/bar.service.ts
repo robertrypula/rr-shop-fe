@@ -10,6 +10,7 @@ import { ORDER_BAR_SUCCESS_MESSAGE_HIDE_DELAY } from '../config/config';
 export class BarService {
   public bars$: Observable<Bar[]>;
 
+  // TODO migrate everything to facade and remove service
   public constructor(protected barFacade: BarFacadeService) {
     this.bars$ = barFacade.bars$;
   }

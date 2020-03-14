@@ -9,6 +9,7 @@ import { OrderItemStore } from '../models/order.model';
   providedIn: 'root'
 })
 export class OrderService {
+  // TODO migrate everything to facade and remove service
   public constructor(protected barService: BarService, protected orderFacadeService: OrderFacadeService) {}
 
   public add(product: Product, quantity = 1): void {

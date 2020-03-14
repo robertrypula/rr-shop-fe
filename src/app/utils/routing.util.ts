@@ -1,7 +1,7 @@
 const parseUrlId = (url: string, code: string): string => {
   const split: string[] = (url || '').split('/');
 
-  return split.length === 4 && split[0] === '' && split[1] === code && split[2] !== '' ? split[2] : null;
+  return split[0] === '' && split[1] === code && split[2] !== '' ? split[2] : null;
 };
 
 const extractCategoryIdFromProductUrl = (url: string): number => {

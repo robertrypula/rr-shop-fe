@@ -1,10 +1,10 @@
 import { createSelector } from '@ngrx/store';
 
-import { OrderItem, OrderItemStore, Type } from '../../models/order.model';
+import { Order, OrderItem, OrderItemStore, OrderStore, Type } from '../../models/order.model';
 import { Product, ProductEnriched } from '../../models/product.model';
 import { selectProductsAsKeyValue } from './product-core.selectors';
-import { selectOrderItemsStoreAsArray } from './order-core.selectors';
-import { toOrderItem } from './order.utils';
+import { selectOrderItemsStoreAsArray, selectOrdersStoreAsArray } from './order-core.selectors';
+import { toOrder, toOrderItem } from './order.utils';
 import { selectProductsEnrichedFromCategoryByStructuralNode } from './product.selectors';
 import { StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
@@ -36,6 +36,18 @@ export const selectIsOrderValid = createSelector(
     return orderItemsNormal.length > 0 && orderItemsDelivery.length === 1 && orderItemsPayment.length === 1;
   }
 );
+
+export const selectOrderByUuid = (uuid: string) =>
+  createSelector(
+    selectOrdersStoreAsArray,
+    (ordersStoreAsArray: OrderStore[]): Order => {
+      const orderStoreFind: OrderStore = ordersStoreAsArray.find(
+        (orderStore: OrderStore): boolean => orderStore.uuid === uuid
+      );
+
+      return orderStoreFind ? toOrder(orderStoreFind) : null;
+    }
+  );
 
 export const selectIsOnPotentialOrderRoute$ = createSelector(selectUrl, (url: string): boolean =>
   isOnPotentialOrderRoute(url)
@@ -80,14 +92,3 @@ export const selectIsOnOrderRoute = createSelector(selectUrl, (url: string): boo
 export const selectUrlOrderUuid = createSelector(selectUrl, (url: string): string => {
   return getOrderUuid(url);
 });
-
-// export const selectOrderByUuid = createSelector(
-// selectOrdersStoreAsArray,
-// (ordersStoreAsArray: OrderStore[], props: { uuid: string }): Order => {
-//   const orderStoreFind: OrderStore = ordersStoreAsArray.find(
-//     (orderStore: OrderStore): boolean => orderStore.uuid === props.uuid
-//   );
-//
-//   return orderStoreFind ? toOrder(orderStoreFind) : null;
-// }
-// );

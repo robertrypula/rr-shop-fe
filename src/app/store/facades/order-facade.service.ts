@@ -7,7 +7,7 @@ import { State } from '../reducers';
 import * as fromOrderActions from '../actions/order.actions';
 import * as fromOrderSelectors from '../selectors/order.selectors';
 import { Product } from '../../models/product.model';
-import { OrderItem, OrderItemStore, Type } from '../../models/order.model';
+import { Order, OrderItem, OrderItemStore, Type } from '../../models/order.model';
 import { selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.selectors';
 
 @Injectable({
@@ -45,6 +45,10 @@ export class OrderFacadeService {
 
   public createOrder(): void {
     this.store.dispatch(fromOrderActions.createOrderRequest());
+  }
+
+  public orderByUuid$(uuid: string): Observable<Order> {
+    return this.store.pipe(select(fromOrderSelectors.selectOrderByUuid(uuid)));
   }
 
   public getOrderItemStoreByProductId(productId: number): OrderItemStore {

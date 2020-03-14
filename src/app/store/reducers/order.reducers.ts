@@ -24,7 +24,7 @@ export const initialState: State = {
   entities: {
     [POTENTIAL_ORDER_ID]: {
       id: POTENTIAL_ORDER_ID,
-      uuid: null,
+      uuid: `${POTENTIAL_ORDER_ID}`,
       number: null,
       email: null,
       phone: null,
@@ -37,7 +37,7 @@ export const initialState: State = {
       parcelLocker: null,
       paymentUrl: null,
       // ---
-      orderItems: {}
+      orderItemsStore: {}
     }
   },
   lastOrderItemId: 0,
@@ -75,8 +75,8 @@ const orderReducer = createReducer(
           ...state.entities,
           [POTENTIAL_ORDER_ID]: {
             ...state.entities[POTENTIAL_ORDER_ID],
-            orderItems: {
-              ...state.entities[POTENTIAL_ORDER_ID].orderItems,
+            orderItemsStore: {
+              ...state.entities[POTENTIAL_ORDER_ID].orderItemsStore,
               [lastOrderItemId]: { id: lastOrderItemId, productId, quantity, type: Type.Normal }
             }
           }
@@ -96,14 +96,15 @@ const orderReducer = createReducer(
           ...state.entities,
           [POTENTIAL_ORDER_ID]: {
             ...state.entities[POTENTIAL_ORDER_ID],
-            orderItems: {
-              ...Object.keys(state.entities[POTENTIAL_ORDER_ID].orderItems)
+            orderItemsStore: {
+              ...Object.keys(state.entities[POTENTIAL_ORDER_ID].orderItemsStore)
                 .filter(
-                  (key: string): boolean => state.entities[POTENTIAL_ORDER_ID].orderItems[+key].type !== Type.Delivery
+                  (key: string): boolean =>
+                    state.entities[POTENTIAL_ORDER_ID].orderItemsStore[+key].type !== Type.Delivery
                 )
                 .reduce(
                   (acc: { [key: string]: OrderItemStore }, curr: string): { [key: string]: OrderItemStore } => (
-                    (acc[curr] = state.entities[POTENTIAL_ORDER_ID].orderItems[curr]), acc
+                    (acc[curr] = state.entities[POTENTIAL_ORDER_ID].orderItemsStore[curr]), acc
                   ),
                   {}
                 ),
@@ -126,14 +127,15 @@ const orderReducer = createReducer(
           ...state.entities,
           [POTENTIAL_ORDER_ID]: {
             ...state.entities[POTENTIAL_ORDER_ID],
-            orderItems: {
-              ...Object.keys(state.entities[POTENTIAL_ORDER_ID].orderItems)
+            orderItemsStore: {
+              ...Object.keys(state.entities[POTENTIAL_ORDER_ID].orderItemsStore)
                 .filter(
-                  (key: string): boolean => state.entities[POTENTIAL_ORDER_ID].orderItems[+key].type !== Type.Payment
+                  (key: string): boolean =>
+                    state.entities[POTENTIAL_ORDER_ID].orderItemsStore[+key].type !== Type.Payment
                 )
                 .reduce(
                   (acc: { [key: string]: OrderItemStore }, curr: string): { [key: string]: OrderItemStore } => (
-                    (acc[curr] = state.entities[POTENTIAL_ORDER_ID].orderItems[curr]), acc
+                    (acc[curr] = state.entities[POTENTIAL_ORDER_ID].orderItemsStore[curr]), acc
                   ),
                   {}
                 ),
@@ -148,7 +150,7 @@ const orderReducer = createReducer(
   on(
     fromOrderActions.quantityIncrement,
     (state: State, { id }): State => {
-      const orderItemStore: OrderItemStore = state.entities[POTENTIAL_ORDER_ID].orderItems[id];
+      const orderItemStore: OrderItemStore = state.entities[POTENTIAL_ORDER_ID].orderItemsStore[id];
 
       return orderItemStore
         ? {
@@ -157,8 +159,8 @@ const orderReducer = createReducer(
               ...state.entities,
               [POTENTIAL_ORDER_ID]: {
                 ...state.entities[POTENTIAL_ORDER_ID],
-                orderItems: {
-                  ...state.entities[POTENTIAL_ORDER_ID].orderItems,
+                orderItemsStore: {
+                  ...state.entities[POTENTIAL_ORDER_ID].orderItemsStore,
                   [id]: { ...orderItemStore, quantity: orderItemStore.quantity + 1 }
                 }
               }
@@ -170,7 +172,7 @@ const orderReducer = createReducer(
   on(
     fromOrderActions.quantityDecrement,
     (state: State, { id }): State => {
-      const orderItemStore: OrderItemStore = state.entities[POTENTIAL_ORDER_ID].orderItems[id];
+      const orderItemStore: OrderItemStore = state.entities[POTENTIAL_ORDER_ID].orderItemsStore[id];
 
       return orderItemStore
         ? {
@@ -179,8 +181,8 @@ const orderReducer = createReducer(
               ...state.entities,
               [POTENTIAL_ORDER_ID]: {
                 ...state.entities[POTENTIAL_ORDER_ID],
-                orderItems: {
-                  ...state.entities[POTENTIAL_ORDER_ID].orderItems,
+                orderItemsStore: {
+                  ...state.entities[POTENTIAL_ORDER_ID].orderItemsStore,
                   [id]: { ...orderItemStore, quantity: orderItemStore.quantity - 1 }
                 }
               }
@@ -192,7 +194,7 @@ const orderReducer = createReducer(
   on(
     fromOrderActions.quantitySetTo,
     (state: State, { id, quantity }): State => {
-      const orderItemStore: OrderItemStore = state.entities[POTENTIAL_ORDER_ID].orderItems[id];
+      const orderItemStore: OrderItemStore = state.entities[POTENTIAL_ORDER_ID].orderItemsStore[id];
 
       return orderItemStore
         ? {
@@ -201,8 +203,8 @@ const orderReducer = createReducer(
               ...state.entities,
               [POTENTIAL_ORDER_ID]: {
                 ...state.entities[POTENTIAL_ORDER_ID],
-                orderItems: {
-                  ...state.entities[POTENTIAL_ORDER_ID].orderItems,
+                orderItemsStore: {
+                  ...state.entities[POTENTIAL_ORDER_ID].orderItemsStore,
                   [id]: { ...orderItemStore, quantity }
                 }
               }
@@ -214,7 +216,7 @@ const orderReducer = createReducer(
   on(
     fromOrderActions.remove,
     (state: State, { id }): State => {
-      const { [id]: toDelete, ...rest } = state.entities[POTENTIAL_ORDER_ID].orderItems;
+      const { [id]: toDelete, ...rest } = state.entities[POTENTIAL_ORDER_ID].orderItemsStore;
 
       return toDelete
         ? {
@@ -223,7 +225,7 @@ const orderReducer = createReducer(
               ...state.entities,
               [POTENTIAL_ORDER_ID]: {
                 ...state.entities[POTENTIAL_ORDER_ID],
-                orderItems: rest
+                orderItemsStore: rest
               }
             }
           }

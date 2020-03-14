@@ -1,5 +1,11 @@
-import { OrderItem, OrderItemStore } from '../../models/order.model';
+import { Order, OrderItem, OrderItemStore, OrderStore } from '../../models/order.model';
 import { Product } from '../../models/product.model';
+
+export const toOrder = (orderStore: OrderStore): Order => {
+  return {
+    ...orderStore
+  };
+};
 
 export const toOrderItem = (
   orderItemStore: OrderItemStore,
@@ -15,8 +21,6 @@ export const toOrderItem = (
   };
 };
 
-export const getOrderItemsStoreAsArray = (orderItemsStoreAsKeyValue: {
-  [key: number]: OrderItemStore;
-}): OrderItemStore[] => {
-  return Object.keys(orderItemsStoreAsKeyValue).map((key: string): OrderItemStore => orderItemsStoreAsKeyValue[+key]);
+export const getAsArray = <T>(asKeyValue: { [key: number]: T }): T[] => {
+  return Object.keys(asKeyValue).map((key: string): T => asKeyValue[+key]);
 };

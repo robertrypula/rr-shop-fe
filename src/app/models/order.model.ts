@@ -30,7 +30,7 @@ export interface OrderStore {
   parcelLocker: string;
   paymentUrl: string;
   // ---
-  orderItems: { [key: string]: OrderItemStore };
+  orderItemsStore: { [key: string]: OrderItemStore };
 }
 
 // -----------------------------------------------------------------------------

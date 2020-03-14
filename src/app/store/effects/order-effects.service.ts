@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { catchError, concatMap, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { ApiProductService } from '../../api-services/api-product.service';
 import { OrderFacadeService } from '../facades/order-facade.service';
 import { OrderStore } from '../../models/order.model';
 import { ApiOrderService } from '../../api-services/api-order.service';
+import { POTENTIAL_ORDER_ID } from '../reducers/order.reducers';
 
 @Injectable()
 export class OrderEffects {
@@ -42,21 +43,28 @@ export class OrderEffects {
 
   // ---------------------------------------------------------------------------
 
-  /*
   public createOrderRequest$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromOrderActions.createOrderRequest),
-      switchMap(action =>
-        this.apiOrderService.createOrder({}).pipe(
-          map((orderStore: OrderStore) => fromOrderActions.createOrderSuccess({ orderStore })),
-          catchError((httpErrorResponse: HttpErrorResponse) =>
-            of(fromOrderActions.createOrderFailure({ httpErrorResponse }))
-          )
-        )
-      )
+      concatMap(action =>
+        of(action).pipe(withLatestFrom(this.orderFacadeService.orderByUuid$(`${POTENTIAL_ORDER_ID}`)))
+      ),
+      tap(([action, order]): void => {
+        console.log(action, order);
+      }),
+      map(() => fromOrderActions.createOrderSuccess(null))
+      // switchMap(action =>
+      //   this.apiOrderService.createOrder({}).pipe(
+      //     map((orderStore: OrderStore) => fromOrderActions.createOrderSuccess({ orderStore })),
+      //     catchError((httpErrorResponse: HttpErrorResponse) =>
+      //       of(fromOrderActions.createOrderFailure({ httpErrorResponse }))
+      //     )
+      //   )
+      // )
     )
   );
 
+  /*
   // https://stackoverflow.com/questions/50566128/angular-router-navigation-inside-ngrx-effect
   public createOrderSuccess$ = createEffect(
     () =>

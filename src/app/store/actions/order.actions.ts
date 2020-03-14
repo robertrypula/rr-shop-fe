@@ -4,7 +4,7 @@ import { createAction, props } from '@ngrx/store';
 import { Product } from '../../models/product.model';
 import { OrderStore } from '../../models/order.model';
 
-export const add = createAction('[Order] Add', props<{ productId: number; quantity: number }>());
+export const add = createAction('[Order] Add', props<{ productId: number }>());
 
 export const chooseDelivery = createAction('[Order] Choose delivery', props<{ productId: number }>());
 
@@ -40,7 +40,5 @@ export const potentialOrderProductsFailure = createAction(
 export const quantityIncrement = createAction('[Order] Quantity increment', props<{ id: number }>());
 
 export const quantityDecrement = createAction('[Order] Quantity decrement', props<{ id: number }>());
-
-export const quantitySetTo = createAction('[Order] Quantity set to', props<{ id: number; quantity: number }>());
 
 export const remove = createAction('[Order] Remove', props<{ id: number }>());

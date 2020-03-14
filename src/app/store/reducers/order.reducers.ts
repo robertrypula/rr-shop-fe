@@ -66,7 +66,7 @@ const orderReducer = createReducer(
   ),
   on(
     fromOrderActions.add,
-    (state: State, { productId, quantity }): State => {
+    (state: State, { productId }): State => {
       const lastOrderItemId: number = state.lastOrderItemId + 1;
 
       return {
@@ -77,7 +77,7 @@ const orderReducer = createReducer(
             ...state.entities[POTENTIAL_ORDER_ID],
             orderItemsStore: {
               ...state.entities[POTENTIAL_ORDER_ID].orderItemsStore,
-              [lastOrderItemId]: { id: lastOrderItemId, productId, quantity, type: Type.Product }
+              [lastOrderItemId]: { id: lastOrderItemId, productId, quantity: 1, type: Type.Product }
             }
           }
         },
@@ -184,28 +184,6 @@ const orderReducer = createReducer(
                 orderItemsStore: {
                   ...state.entities[POTENTIAL_ORDER_ID].orderItemsStore,
                   [id]: { ...orderItemStore, quantity: orderItemStore.quantity - 1 }
-                }
-              }
-            }
-          }
-        : state;
-    }
-  ),
-  on(
-    fromOrderActions.quantitySetTo,
-    (state: State, { id, quantity }): State => {
-      const orderItemStore: OrderItemStore = state.entities[POTENTIAL_ORDER_ID].orderItemsStore[id];
-
-      return orderItemStore
-        ? {
-            ...state,
-            entities: {
-              ...state.entities,
-              [POTENTIAL_ORDER_ID]: {
-                ...state.entities[POTENTIAL_ORDER_ID],
-                orderItemsStore: {
-                  ...state.entities[POTENTIAL_ORDER_ID].orderItemsStore,
-                  [id]: { ...orderItemStore, quantity }
                 }
               }
             }

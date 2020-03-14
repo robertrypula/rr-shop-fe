@@ -20,15 +20,6 @@ export const selectOrderItems = (types: Type[] = [Type.Product]) =>
         .map((orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsAsKeyValue))
   );
 
-// TODO when code that is using it will be moved to effect we can delete it
-export const selectOrderItemStoreByProductId = createSelector(
-  selectOrderItemsStoreAsArray,
-  (orderItemsStoreAsArray: OrderItemStore[], props: { productId: number }): OrderItemStore =>
-    orderItemsStoreAsArray.find(
-      (orderItemStore: OrderItemStore): boolean => orderItemStore.productId === props.productId
-    )
-);
-
 export const selectOrderByUuid = (uuid: string) =>
   createSelector(
     selectOrdersStoreAsArray,

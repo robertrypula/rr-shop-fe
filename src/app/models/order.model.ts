@@ -61,5 +61,5 @@ export interface Order extends OrderStore {
   priceTotalDelivery: number;
   priceTotalPayment: number;
   priceTotalProduct: number;
-  totalQuantityProduct: number;
+  quantityTotalProduct: number;
 }

@@ -12,11 +12,11 @@ export const toOrder = (orderStore: OrderStore, productsAsKeyValue: { [id: numbe
     isBasketEmpty: orderItemsByProductType.length === 0,
     isValid: undefined,
     orderItems,
-    priceTotal: getTotalPrice(getOrderItemsByType(orderItems, [Type.Delivery, Type.Payment, Type.Product])),
-    priceTotalDelivery: getTotalPrice(getOrderItemsByType(orderItems, [Type.Delivery])),
-    priceTotalPayment: getTotalPrice(getOrderItemsByType(orderItems, [Type.Payment])),
-    priceTotalProduct: getTotalPrice(orderItemsByProductType),
-    totalQuantityProduct: getTotalQuantity(orderItemsByProductType)
+    priceTotal: getPriceTotal(getOrderItemsByType(orderItems, [Type.Delivery, Type.Payment, Type.Product])),
+    priceTotalDelivery: getPriceTotal(getOrderItemsByType(orderItems, [Type.Delivery])),
+    priceTotalPayment: getPriceTotal(getOrderItemsByType(orderItems, [Type.Payment])),
+    priceTotalProduct: getPriceTotal(orderItemsByProductType),
+    quantityTotalProduct: getQuantityTotal(orderItemsByProductType)
   };
 
   return {
@@ -46,12 +46,12 @@ export const getAsArray = <T>(asKeyValue: { [key: number]: T }): T[] => {
 export const getOrderItemsByType = (orderItems: OrderItem[], types: Type[]): OrderItem[] =>
   orderItems.filter((orderItem: OrderItem): boolean => types.includes(orderItem.type));
 
-export const getTotalPrice = (orderItems: OrderItem[]): number =>
+export const getPriceTotal = (orderItems: OrderItem[]): number =>
   orderItems.reduce((accumulator: number, orderItem: OrderItem): number => {
     return accumulator + orderItem.quantity * (orderItem.product ? orderItem.product.price : 0);
   }, 0);
 
-export const getTotalQuantity = (orderItems: OrderItem[]): number =>
+export const getQuantityTotal = (orderItems: OrderItem[]): number =>
   orderItems.reduce((accumulator: number, orderItem: OrderItem): number => {
     return accumulator + orderItem.quantity;
   }, 0);

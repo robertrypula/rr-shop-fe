@@ -14,7 +14,7 @@ export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
     priceTotalDelivery: order.priceTotalDelivery,
     priceTotalPayment: order.priceTotalPayment,
     priceTotalProduct: order.priceTotalProduct,
-    totalQuantityProduct: order.totalQuantityProduct
+    quantityTotalProduct: order.quantityTotalProduct
   };
 };
 

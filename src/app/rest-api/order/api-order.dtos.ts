@@ -12,7 +12,7 @@ export interface OrderCreateRequestDto {
   priceTotalDelivery: number;
   priceTotalPayment: number;
   priceTotalProduct: number;
-  totalQuantityProduct: number;
+  quantityTotalProduct: number;
 }
 
 export interface OrderCreateResponseDto {

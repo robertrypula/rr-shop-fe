@@ -27,6 +27,13 @@ export interface CategoryStore {
 
 // -----------------------------------------------------------------------------
 
+// TODO refactor Category models and store
+// export interface Category extends CategoryStore {
+//   productsCount: number; // TODO calculate products count in the store, not select this value in component
+// }
+
+// -----------------------------------------------------------------------------
+
 // TODO reduce number of data from the backend in simple DTO
 export interface CategorySimpleDto {
   content?: string;

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, concatMap, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+import * as fromBarActions from '../actions/bar.actions';
 import * as fromOrderActions from '../actions/order.actions';
 import * as fromRouterActions from '../actions/router.actions';
 import { ApiProductService } from '../../rest-api/product/api-product.service';
@@ -15,17 +16,14 @@ import { POTENTIAL_ORDER_ID } from '../reducers/order.reducers';
 
 @Injectable()
 export class OrderEffects {
-  /*
   public orderRequest$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromOrderActions.orderRequest)
-      concatMap(action => of(action).pipe(withLatestFrom(this.orderFacadeService.urlOrderUuid$)))
+      ofType(fromOrderActions.orderRequest),
+      concatMap(action => of(action).pipe(withLatestFrom(this.orderFacadeService.urlOrderUuid$))),
       switchMap(([action, urlOrderUuid]) =>
         this.apiOrderService.getOrder(urlOrderUuid).pipe(
           map((orderStore: OrderStore) => fromOrderActions.orderSuccess({ orderStore })),
-          catchError((httpErrorResponse: HttpErrorResponse) =>
-            of(fromOrderActions.orderFailure({ httpErrorResponse }))
-          )
+          catchError((httpErrorResponse: HttpErrorResponse) => of(fromOrderActions.orderFailure({ httpErrorResponse })))
         )
       )
     )
@@ -39,7 +37,6 @@ export class OrderEffects {
       map(() => fromOrderActions.orderRequest())
     )
   );
-  */
 
   // ---------------------------------------------------------------------------
 
@@ -60,7 +57,6 @@ export class OrderEffects {
     )
   );
 
-  /*
   // https://stackoverflow.com/questions/50566128/angular-router-navigation-inside-ngrx-effect
   public createOrderSuccess$ = createEffect(
     () =>
@@ -72,7 +68,13 @@ export class OrderEffects {
       ),
     { dispatch: false }
   );
-  */
+
+  public createOrderFailure$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromOrderActions.createOrderFailure),
+      map(() => fromBarActions.showError({ message: `Wystąpił błąd podczas składania zamówienia` }))
+    )
+  );
 
   // ---------------------------------------------------------------------------
 

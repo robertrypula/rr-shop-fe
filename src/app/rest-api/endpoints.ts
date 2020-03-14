@@ -4,6 +4,8 @@ export const API_URL_CATEGORIES = `${environment.urlApi}category`;
 
 export const API_URL_ORDER_CREATE = `${environment.urlApi}order`;
 
+export const API_URL_ORDER = (uuid: string): string => `${environment.urlApi}order?uuid=${uuid}`;
+
 export const API_URL_PRODUCT = (id: number): string => `${environment.urlApi}product/${id}`;
 
 export const API_URL_PRODUCTS = (isSimple: boolean, categoryIds: number[], ids: number[]): string => {

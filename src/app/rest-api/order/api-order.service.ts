@@ -3,10 +3,10 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { API_URL_ORDER_CREATE } from '../endpoints';
+import { API_URL_ORDER, API_URL_ORDER_CREATE } from '../endpoints';
 import { OrderStore, Order } from '../../models/order.model';
-import { OrderCreateResponseDto } from './api-order.dtos';
-import { fromOrderCreateResponse, toOrderCreateRequest } from './api-order.mappers';
+import { OrderCreateResponseDto, OrderResponseDto } from './api-order.dtos';
+import { fromOrderCreateResponse, fromOrderResponse, toOrderCreateRequest } from './api-order.mappers';
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +25,9 @@ export class ApiOrderService {
       );
   }
 
-  // public getOrder(uuid: string): Observable<OrderStore> {
-  //   return of({
-  //     id: 232,
-  //     uuid,
-  //     number: 'WA-123-123',
-  //     parcelLocker: null,
-  //     paymentUrl: 'https://google.com',
-  //     // ---
-  //     orderItems: {}
-  //   }).pipe(delay(2000)); // TODO implement
-  // }
+  public getOrder(uuid: string): Observable<OrderStore> {
+    return this.http
+      .get<OrderResponseDto>(API_URL_ORDER(uuid))
+      .pipe(map((orderResponseDto: OrderResponseDto): OrderStore => fromOrderResponse(orderResponseDto)));
+  }
 }

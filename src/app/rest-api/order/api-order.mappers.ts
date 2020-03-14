@@ -1,4 +1,4 @@
-import { OrderCreateRequestDto, OrderCreateResponseDto } from './api-order.dtos';
+import { OrderCreateRequestDto, OrderCreateResponseDto, OrderResponseDto } from './api-order.dtos';
 import { Order, OrderItem, OrderStore } from '../../models/order.model';
 
 export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
@@ -19,7 +19,19 @@ export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
 };
 
 export const fromOrderCreateResponse = (orderCreateResponseDto: OrderCreateResponseDto): OrderStore => {
+  if (!orderCreateResponseDto.uuid) {
+    throw new Error(`Missing UUID`); // TODO use class validator
+  }
+
   return {
     uuid: orderCreateResponseDto.uuid
+  };
+};
+
+export const fromOrderResponse = (orderResponseDto: OrderResponseDto): OrderStore => {
+  return {
+    uuid: orderResponseDto.uuid,
+    number: orderResponseDto.number,
+    status: orderResponseDto.status
   };
 };

@@ -22,17 +22,34 @@ export interface OrderItem extends OrderItemStore {
 }
 
 export interface OrderStore {
-  number: string;
+  id: number;
   uuid: string;
-  payUUrl: string;
+  number: string;
+  email: string;
+  phone?: string;
+  name?: string;
+  surname?: string;
+  address?: string;
+  zipCode?: string;
+  city?: string;
+  comments?: string;
+  parcelLocker: string;
+  paymentUrl: string;
+  // ---
+  orderItems: { [key: string]: OrderItemStore };
 }
 
 // -----------------------------------------------------------------------------
 
 // tslint:disable-next-line:no-empty-interface
-export interface Order {}
+export interface Order extends OrderStore {}
 
 // -----------------------------------------------------------------------------
 
 // tslint:disable-next-line:no-empty-interface
-export interface OrderDto {}
+export interface OrderDto {
+  uuid: string;
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface OrderCreateDto {}

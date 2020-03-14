@@ -2,7 +2,7 @@ import { environment } from '../../environments/environment';
 
 export const API_URL_CATEGORIES = `${environment.urlApi}category`;
 
-export const API_URL_ORDER = `${environment.urlApi}order`;
+export const API_URL_ORDER_CREATE = `${environment.urlApi}order`;
 
 export const API_URL_PRODUCT = (id: number): string => `${environment.urlApi}product/${id}`;
 

@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromOrderActions from '../actions/order.actions';
-import { OrderItemStore, Type } from '../../models/order.model';
+import { OrderItemStore, OrderStore, Type } from '../../models/order.model';
 import { ApiCall } from '../../models/generic.model';
 
 export interface State {
@@ -9,17 +9,39 @@ export interface State {
   apiCallOrder: ApiCall;
   apiCallPotentialOrderProducts: ApiCall;
   entities: {
-    [id: number]: OrderItemStore;
+    [id: number]: OrderStore;
   };
-  lastEntityId: number;
+  lastOrderItemId: number;
+  lastOrderId: number;
 }
+
+export const POTENTIAL_ORDER_ID = -1;
 
 export const initialState: State = {
   apiCallCreateOrder: ApiCall.Initial,
   apiCallOrder: ApiCall.Initial,
   apiCallPotentialOrderProducts: ApiCall.Initial,
-  entities: {},
-  lastEntityId: 0
+  entities: {
+    [POTENTIAL_ORDER_ID]: {
+      id: POTENTIAL_ORDER_ID,
+      uuid: null,
+      number: null,
+      email: null,
+      phone: null,
+      name: null,
+      surname: null,
+      address: null,
+      zipCode: null,
+      city: null,
+      comments: null,
+      parcelLocker: null,
+      paymentUrl: null,
+      // ---
+      orderItems: {}
+    }
+  },
+  lastOrderItemId: 0,
+  lastOrderId: 0
 };
 
 const orderReducer = createReducer(
@@ -45,61 +67,102 @@ const orderReducer = createReducer(
   on(
     fromOrderActions.add,
     (state: State, { productId, quantity }): State => {
-      const listId: number = state.lastEntityId + 1;
+      const lastOrderItemId: number = state.lastOrderItemId + 1;
 
       return {
         ...state,
         entities: {
           ...state.entities,
-          [listId]: { id: listId, productId, quantity, type: Type.Normal }
+          [POTENTIAL_ORDER_ID]: {
+            ...state.entities[POTENTIAL_ORDER_ID],
+            orderItems: {
+              ...state.entities[POTENTIAL_ORDER_ID].orderItems,
+              [lastOrderItemId]: { id: lastOrderItemId, productId, quantity, type: Type.Normal }
+            }
+          }
         },
-        lastEntityId: listId
+        lastOrderItemId
       };
     }
   ),
   on(
     fromOrderActions.chooseDelivery,
     (state: State, { productId }): State => {
-      const listId: number = state.lastEntityId + 1;
+      const lastOrderItemId: number = state.lastOrderItemId + 1;
 
       return {
         ...state,
         entities: {
-          ...Object.keys(state.entities)
-            .filter((key: string): boolean => [Type.Normal, Type.Payment].includes(state.entities[+key].type))
-            .reduce((acc: any, curr: string): any => ((acc[curr] = state.entities[curr]), acc), {}),
-          [listId]: { id: listId, productId, quantity: 1, type: Type.Delivery }
+          ...state.entities,
+          [POTENTIAL_ORDER_ID]: {
+            ...state.entities[POTENTIAL_ORDER_ID],
+            orderItems: {
+              ...Object.keys(state.entities[POTENTIAL_ORDER_ID].orderItems)
+                .filter(
+                  (key: string): boolean => state.entities[POTENTIAL_ORDER_ID].orderItems[+key].type !== Type.Delivery
+                )
+                .reduce(
+                  (acc: { [key: string]: OrderItemStore }, curr: string): { [key: string]: OrderItemStore } => (
+                    (acc[curr] = state.entities[POTENTIAL_ORDER_ID].orderItems[curr]), acc
+                  ),
+                  {}
+                ),
+              [lastOrderItemId]: { id: lastOrderItemId, productId, quantity: 1, type: Type.Delivery }
+            }
+          }
         },
-        lastEntityId: listId
+        lastOrderItemId
       };
     }
   ),
   on(
     fromOrderActions.choosePayment,
     (state: State, { productId }): State => {
-      const listId: number = state.lastEntityId + 1;
+      const lastOrderItemId: number = state.lastOrderItemId + 1;
 
       return {
         ...state,
         entities: {
-          ...Object.keys(state.entities)
-            .filter((key: string): boolean => [Type.Normal, Type.Delivery].includes(state.entities[+key].type))
-            .reduce((acc: any, curr: string): any => ((acc[curr] = state.entities[curr]), acc), {}),
-          [listId]: { id: listId, productId, quantity: 1, type: Type.Payment }
+          ...state.entities,
+          [POTENTIAL_ORDER_ID]: {
+            ...state.entities[POTENTIAL_ORDER_ID],
+            orderItems: {
+              ...Object.keys(state.entities[POTENTIAL_ORDER_ID].orderItems)
+                .filter(
+                  (key: string): boolean => state.entities[POTENTIAL_ORDER_ID].orderItems[+key].type !== Type.Payment
+                )
+                .reduce(
+                  (acc: { [key: string]: OrderItemStore }, curr: string): { [key: string]: OrderItemStore } => (
+                    (acc[curr] = state.entities[POTENTIAL_ORDER_ID].orderItems[curr]), acc
+                  ),
+                  {}
+                ),
+              [lastOrderItemId]: { id: lastOrderItemId, productId, quantity: 1, type: Type.Payment }
+            }
+          }
         },
-        lastEntityId: listId
+        lastOrderItemId
       };
     }
   ),
   on(
     fromOrderActions.quantityIncrement,
     (state: State, { id }): State => {
-      const orderItemStore: OrderItemStore = state.entities[id];
+      const orderItemStore: OrderItemStore = state.entities[POTENTIAL_ORDER_ID].orderItems[id];
 
       return orderItemStore
         ? {
             ...state,
-            entities: { ...state.entities, [id]: { ...orderItemStore, quantity: orderItemStore.quantity + 1 } }
+            entities: {
+              ...state.entities,
+              [POTENTIAL_ORDER_ID]: {
+                ...state.entities[POTENTIAL_ORDER_ID],
+                orderItems: {
+                  ...state.entities[POTENTIAL_ORDER_ID].orderItems,
+                  [id]: { ...orderItemStore, quantity: orderItemStore.quantity + 1 }
+                }
+              }
+            }
           }
         : state;
     }
@@ -107,12 +170,21 @@ const orderReducer = createReducer(
   on(
     fromOrderActions.quantityDecrement,
     (state: State, { id }): State => {
-      const orderItemStore: OrderItemStore = state.entities[id];
+      const orderItemStore: OrderItemStore = state.entities[POTENTIAL_ORDER_ID].orderItems[id];
 
       return orderItemStore
         ? {
             ...state,
-            entities: { ...state.entities, [id]: { ...orderItemStore, quantity: orderItemStore.quantity - 1 } }
+            entities: {
+              ...state.entities,
+              [POTENTIAL_ORDER_ID]: {
+                ...state.entities[POTENTIAL_ORDER_ID],
+                orderItems: {
+                  ...state.entities[POTENTIAL_ORDER_ID].orderItems,
+                  [id]: { ...orderItemStore, quantity: orderItemStore.quantity - 1 }
+                }
+              }
+            }
           }
         : state;
     }
@@ -120,19 +192,42 @@ const orderReducer = createReducer(
   on(
     fromOrderActions.quantitySetTo,
     (state: State, { id, quantity }): State => {
-      const orderItemStore: OrderItemStore = state.entities[id];
+      const orderItemStore: OrderItemStore = state.entities[POTENTIAL_ORDER_ID].orderItems[id];
 
       return orderItemStore
-        ? { ...state, entities: { ...state.entities, [id]: { ...orderItemStore, quantity } } }
+        ? {
+            ...state,
+            entities: {
+              ...state.entities,
+              [POTENTIAL_ORDER_ID]: {
+                ...state.entities[POTENTIAL_ORDER_ID],
+                orderItems: {
+                  ...state.entities[POTENTIAL_ORDER_ID].orderItems,
+                  [id]: { ...orderItemStore, quantity }
+                }
+              }
+            }
+          }
         : state;
     }
   ),
   on(
     fromOrderActions.remove,
     (state: State, { id }): State => {
-      const { [id]: toDelete, ...rest } = state.entities;
+      const { [id]: toDelete, ...rest } = state.entities[POTENTIAL_ORDER_ID].orderItems;
 
-      return toDelete ? { ...state, entities: rest } : state;
+      return toDelete
+        ? {
+            ...state,
+            entities: {
+              ...state.entities,
+              [POTENTIAL_ORDER_ID]: {
+                ...state.entities[POTENTIAL_ORDER_ID],
+                orderItems: rest
+              }
+            }
+          }
+        : state;
     }
   )
 );

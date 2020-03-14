@@ -14,19 +14,18 @@ import { selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.sel
   providedIn: 'root'
 })
 export class OrderFacadeService {
-  public isOrderValid$: Observable<boolean>;
+  public isOrderValid$: Observable<boolean> = this.store.pipe(select(fromOrderSelectors.selectIsOrderValid));
   public isOnOrderRoute$: Observable<boolean> = this.store.pipe(select(selectIsOnOrderRoute));
-  public isOnPotentialOrderRoute$: Observable<boolean>;
-  public potentialOrderProductsIds$: Observable<number[]>;
-  public quantityTotal$: Observable<number>;
+  public isOnPotentialOrderRoute$: Observable<boolean> = this.store.pipe(
+    select(fromOrderSelectors.selectIsOnPotentialOrderRoute$)
+  );
+  public potentialOrderProductsIds$: Observable<number[]> = this.store.pipe(
+    select(fromOrderSelectors.selectPotentialOrderProductsIds)
+  );
+  public quantityTotal$: Observable<number> = this.store.pipe(select(fromOrderSelectors.selectQuantityTotal));
   public urlOrderUuid$: Observable<string> = this.store.pipe(select(selectUrlOrderUuid));
 
-  public constructor(protected store: Store<State>) {
-    this.isOrderValid$ = store.pipe(select(fromOrderSelectors.selectIsOrderValid));
-    this.isOnPotentialOrderRoute$ = store.pipe(select(fromOrderSelectors.selectIsOnPotentialOrderRoute$));
-    this.potentialOrderProductsIds$ = store.pipe(select(fromOrderSelectors.selectPotentialOrderProductsIds));
-    this.quantityTotal$ = store.pipe(select(fromOrderSelectors.selectQuantityTotal));
-  }
+  public constructor(protected store: Store<State>) {}
 
   public add(product: Product, quantity): void {
     this.store.dispatch(fromOrderActions.add({ productId: product.id, quantity }));

@@ -14,18 +14,19 @@ import { ApiOrderService } from '../../api-services/api-order.service';
 
 @Injectable()
 export class OrderEffects {
+  /*
   public orderRequest$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromOrderActions.orderRequest)
-      // concatMap(action => of(action).pipe(withLatestFrom(this.orderFacadeService.urlOrderUuid$)))
-      // switchMap(([action, urlOrderUuid]) =>
-      //   this.apiOrderService.getOrder(urlOrderUuid).pipe(
-      //     map((orderStore: OrderStore) => fromOrderActions.orderSuccess({ orderStore })),
-      //     catchError((httpErrorResponse: HttpErrorResponse) =>
-      //       of(fromOrderActions.orderFailure({ httpErrorResponse }))
-      //     )
-      //   )
-      // )
+      concatMap(action => of(action).pipe(withLatestFrom(this.orderFacadeService.urlOrderUuid$)))
+      switchMap(([action, urlOrderUuid]) =>
+        this.apiOrderService.getOrder(urlOrderUuid).pipe(
+          map((orderStore: OrderStore) => fromOrderActions.orderSuccess({ orderStore })),
+          catchError((httpErrorResponse: HttpErrorResponse) =>
+            of(fromOrderActions.orderFailure({ httpErrorResponse }))
+          )
+        )
+      )
     )
   );
 
@@ -37,14 +38,16 @@ export class OrderEffects {
       map(() => fromOrderActions.orderRequest())
     )
   );
+  */
 
   // ---------------------------------------------------------------------------
 
+  /*
   public createOrderRequest$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromOrderActions.createOrderRequest),
       switchMap(action =>
-        this.apiOrderService.createOrder().pipe(
+        this.apiOrderService.createOrder({}).pipe(
           map((orderStore: OrderStore) => fromOrderActions.createOrderSuccess({ orderStore })),
           catchError((httpErrorResponse: HttpErrorResponse) =>
             of(fromOrderActions.createOrderFailure({ httpErrorResponse }))
@@ -65,6 +68,7 @@ export class OrderEffects {
       ),
     { dispatch: false }
   );
+  */
 
   // ---------------------------------------------------------------------------
 

@@ -12,7 +12,10 @@ export const setIsListCollapsed = createAction('[Category] Set is list collapsed
 
 export const categoriesAtInitRequest = createAction('[Category] At init request');
 
-export const categoriesAtInitSuccess = createAction('[Category] At init success', props<{ categories: CategoryStore[] }>());
+export const categoriesAtInitSuccess = createAction(
+  '[Category] At init success',
+  props<{ categories: CategoryStore[] }>()
+);
 
 export const categoriesAtInitFailure = createAction(
   '[Category] At init failure',

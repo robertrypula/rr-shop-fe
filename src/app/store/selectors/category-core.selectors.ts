@@ -18,9 +18,12 @@ export const selectCategoriesAsKeyValue = createSelector(
   (categoryFeature: fromCategoryReducers.State): { [id: number]: CategoryStore } => categoryFeature.list
 );
 
-export const selectCategoryLength = createSelector(selectCategoriesAsArray, (categoriesAsArray: CategoryStore[]): number => {
-  return categoriesAsArray.length;
-});
+export const selectCategoryLength = createSelector(
+  selectCategoriesAsArray,
+  (categoriesAsArray: CategoryStore[]): number => {
+    return categoriesAsArray.length;
+  }
+);
 
 export const selectApiCallCategoriesAtInit = createSelector(
   selectCategoryFeature,

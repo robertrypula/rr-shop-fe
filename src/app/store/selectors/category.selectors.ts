@@ -44,7 +44,10 @@ export const selectActiveLevelUpdateEntriesBasedOnRoute = createSelector(
     categoriesWithActiveLevel: CategoryStore[],
     categoriesAsKeyValue: { [key: string]: CategoryStore }
   ): ActiveLevelUpdateEntry[] => {
-    const categoriesFromLeafToRoot: CategoryStore[] = getCategoriesFromLeafToRoot(categoriesAsKeyValue, activeCategoryId);
+    const categoriesFromLeafToRoot: CategoryStore[] = getCategoriesFromLeafToRoot(
+      categoriesAsKeyValue,
+      activeCategoryId
+    );
     const result: ActiveLevelUpdateEntry[] = [];
 
     categoriesWithActiveLevel.forEach((categoryWithActiveLevel: CategoryStore): void => {
@@ -92,7 +95,10 @@ export const selectCategory = createSelector(
 
 export const selectCategoriesBy = createSelector(
   selectCategoriesAsArray,
-  (categoriesAsArray: CategoryStore[], props: { parentId: number; structuralNode: StructuralNode }): CategoryStore[] => {
+  (
+    categoriesAsArray: CategoryStore[],
+    props: { parentId: number; structuralNode: StructuralNode }
+  ): CategoryStore[] => {
     let parentId: number = null;
 
     if (props) {

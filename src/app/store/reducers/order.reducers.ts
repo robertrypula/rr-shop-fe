@@ -77,7 +77,7 @@ const orderReducer = createReducer(
             ...state.entities[POTENTIAL_ORDER_ID],
             orderItemsStore: {
               ...state.entities[POTENTIAL_ORDER_ID].orderItemsStore,
-              [lastOrderItemId]: { id: lastOrderItemId, productId, quantity, type: Type.Normal }
+              [lastOrderItemId]: { id: lastOrderItemId, productId, quantity, type: Type.Product }
             }
           }
         },

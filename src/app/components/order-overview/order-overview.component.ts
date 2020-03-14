@@ -11,7 +11,7 @@ import { OrderFacadeService } from '../../store/facades/order-facade.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderOverviewComponent implements OnInit {
-  public orderItemsNormal$: Observable<OrderItem[]> = this.orderFacadeService.orderItemsByType$([Type.Normal]);
+  public orderItemsByProductType$: Observable<OrderItem[]> = this.orderFacadeService.orderItemsByType$([Type.Product]);
 
   public constructor(protected orderFacadeService: OrderFacadeService) {}
 

@@ -20,21 +20,21 @@
             <rr-shop-clickable-action
               [clickableActionTheme]="ClickableActionTheme.Primary"
               [clickableActionType]="ClickableActionType.RouterLink"
-              [disabled]="!(quantityTotal$ | async)"
+              [disabled]="(potentialOrder$ | async).isBasketEmpty"
               [link]="'/potential-order'"
               [icon]="['fas', 'shopping-basket']"
               [label]="'Twój koszyk'"
-              [number]="quantityTotal$ | async"
+              [number]="(potentialOrder$ | async).totalQuantityProduct"
             ></rr-shop-clickable-action>
           </div>
           <div class="HeaderSticky-orderButtonSmall hidden-sm hidden-md hidden-lg">
             <rr-shop-clickable-action
               [clickableActionTheme]="ClickableActionTheme.Primary"
               [clickableActionType]="ClickableActionType.RouterLink"
-              [disabled]="!(quantityTotal$ | async)"
+              [disabled]="(potentialOrder$ | async).isBasketEmpty"
               [icon]="['fas', 'shopping-basket']"
               [link]="'/potential-order'"
-              [number]="quantityTotal$ | async"
+              [number]="(potentialOrder$ | async).totalQuantityProduct"
             ></rr-shop-clickable-action>
           </div>
         </div>

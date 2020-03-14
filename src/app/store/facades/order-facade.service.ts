@@ -14,7 +14,6 @@ import { selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.sel
   providedIn: 'root'
 })
 export class OrderFacadeService {
-  public isOrderValid$: Observable<boolean> = this.store.pipe(select(fromOrderSelectors.selectIsOrderValid));
   public isOnOrderRoute$: Observable<boolean> = this.store.pipe(select(selectIsOnOrderRoute));
   public isOnPotentialOrderRoute$: Observable<boolean> = this.store.pipe(
     select(fromOrderSelectors.selectIsOnPotentialOrderRoute$)
@@ -22,7 +21,6 @@ export class OrderFacadeService {
   public potentialOrderProductsIds$: Observable<number[]> = this.store.pipe(
     select(fromOrderSelectors.selectPotentialOrderProductsIds)
   );
-  public quantityTotal$: Observable<number> = this.store.pipe(select(fromOrderSelectors.selectQuantityTotal));
   public urlOrderUuid$: Observable<string> = this.store.pipe(select(selectUrlOrderUuid));
 
   public constructor(protected store: Store<State>) {}
@@ -65,10 +63,6 @@ export class OrderFacadeService {
       .subscribe();
 
     return result;
-  }
-
-  public priceSum$(types: Type[]): Observable<number> {
-    return this.store.pipe(select(fromOrderSelectors.selectPriceSum(types)));
   }
 
   public quantityDecrement(id: number): void {

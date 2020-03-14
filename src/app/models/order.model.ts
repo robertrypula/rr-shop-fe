@@ -2,8 +2,8 @@ import { Product } from './product.model';
 
 export enum Type {
   Delivery = 'Delivery',
-  Normal = 'Normal',
-  Payment = 'Payment'
+  Payment = 'Payment',
+  Product = 'Product'
 }
 
 // -----------------------------------------------------------------------------
@@ -30,7 +30,7 @@ export interface OrderStore {
   parcelLocker: string;
   paymentUrl: string;
   // ---
-  orderItemsStore: { [key: string]: OrderItemStore };
+  orderItemsStore: { [key: string]: OrderItemStore }; // TODO move it to separate store feature
 }
 
 // -----------------------------------------------------------------------------
@@ -41,8 +41,16 @@ export interface OrderItem extends OrderItemStore {
   totalPrice: number;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface Order extends OrderStore {}
+export interface Order extends OrderStore {
+  isBasketEmpty: boolean;
+  isValid: boolean;
+  orderItems: OrderItem[];
+  priceTotal: number;
+  priceTotalDelivery: number;
+  priceTotalPayment: number;
+  priceTotalProduct: number;
+  totalQuantityProduct: number;
+}
 
 // -----------------------------------------------------------------------------
 

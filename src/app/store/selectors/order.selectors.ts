@@ -10,7 +10,7 @@ import { StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
 import { getOrderUuid, isOnOrderRoute, isOnPotentialOrderRoute } from '../../utils/routing.util';
 
-export const selectOrderItems = (types: Type[] = [Type.Normal]) =>
+export const selectOrderItems = (types: Type[] = [Type.Product]) =>
   createSelector(
     selectOrderItemsStoreAsArray,
     selectProductsAsKeyValue,
@@ -20,6 +20,7 @@ export const selectOrderItems = (types: Type[] = [Type.Normal]) =>
         .map((orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsAsKeyValue))
   );
 
+// TODO when code that is using it will be moved to effect we can delete it
 export const selectOrderItemStoreByProductId = createSelector(
   selectOrderItemsStoreAsArray,
   (orderItemsStoreAsArray: OrderItemStore[], props: { productId: number }): OrderItemStore =>
@@ -28,24 +29,16 @@ export const selectOrderItemStoreByProductId = createSelector(
     )
 );
 
-export const selectIsOrderValid = createSelector(
-  selectOrderItems([Type.Normal]),
-  selectOrderItems([Type.Payment]),
-  selectOrderItems([Type.Delivery]),
-  (orderItemsNormal: OrderItem[], orderItemsPayment: OrderItem[], orderItemsDelivery: OrderItem[]): boolean => {
-    return orderItemsNormal.length > 0 && orderItemsDelivery.length === 1 && orderItemsPayment.length === 1;
-  }
-);
-
 export const selectOrderByUuid = (uuid: string) =>
   createSelector(
     selectOrdersStoreAsArray,
-    (ordersStoreAsArray: OrderStore[]): Order => {
+    selectProductsAsKeyValue,
+    (ordersStoreAsArray: OrderStore[], productsAsKeyValue: { [id: number]: Product }): Order => {
       const orderStoreFind: OrderStore = ordersStoreAsArray.find(
         (orderStore: OrderStore): boolean => orderStore.uuid === uuid
       );
 
-      return orderStoreFind ? toOrder(orderStoreFind) : null;
+      return orderStoreFind ? toOrder(orderStoreFind, productsAsKeyValue) : null;
     }
   );
 
@@ -54,7 +47,7 @@ export const selectIsOnPotentialOrderRoute$ = createSelector(selectUrl, (url: st
 );
 
 export const selectPotentialOrderProductsIds = createSelector(
-  selectOrderItems([Type.Normal]),
+  selectOrderItems([Type.Product]),
   selectProductsEnrichedFromCategoryByStructuralNode(StructuralNode.Delivery),
   selectProductsEnrichedFromCategoryByStructuralNode(StructuralNode.Payment),
   (
@@ -66,23 +59,6 @@ export const selectPotentialOrderProductsIds = createSelector(
     ...deliveryProductsEnriched.map((deliveryProductEnriched: ProductEnriched): number => deliveryProductEnriched.id),
     ...paymentProductsEnriched.map((paymentProductEnriched: ProductEnriched): number => paymentProductEnriched.id)
   ]
-);
-
-export const selectPriceSum = (types: Type[]) =>
-  createSelector(selectOrderItems(types), (orderItems: OrderItem[]): number =>
-    orderItems.reduce((previousValue: number, currentValue: OrderItem): number => {
-      return previousValue + currentValue.quantity * (currentValue.product ? currentValue.product.price : 0);
-    }, 0)
-  );
-
-export const selectQuantityTotal = createSelector(
-  selectOrderItemsStoreAsArray,
-  (orderItemsStoreAsArray: OrderItemStore[]): number =>
-    orderItemsStoreAsArray
-      .filter((orderItemStore: OrderItemStore): boolean => orderItemStore.type === Type.Normal)
-      .reduce((previousValue: number, currentValue: OrderItemStore): number => {
-        return previousValue + currentValue.quantity;
-      }, 0)
 );
 
 export const selectIsOnOrderRoute = createSelector(selectUrl, (url: string): boolean => {

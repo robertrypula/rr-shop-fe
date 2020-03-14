@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { ClickableActionTheme } from '../clickable-action/clickable-action.model';
-import { CategoryService } from '../../services/category.service';
-import { Observable } from 'rxjs';
-import { Category, StructuralNode } from '../../models/category.model';
+import { CategoryStore, StructuralNode } from '../../models/category.model';
+import { CategoryFacadeService } from '../../store/facades/category-facade.service';
 
 @Component({
   selector: 'rr-shop-categories',
@@ -12,25 +12,24 @@ import { Category, StructuralNode } from '../../models/category.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriesComponent implements OnInit {
-  public shopCategoryRoot$: Observable<Category>;
-  public isCollapseExpandButtonVisible$: Observable<boolean>;
-  public isListCollapsed$: Observable<boolean>;
+  public shopCategoryRoot$: Observable<CategoryStore> = this.categoryFacadeService.categoryByStructuralNode$(
+    StructuralNode.ShopCategories
+  );
+  public isCollapseExpandButtonVisible$: Observable<boolean> = this.categoryFacadeService
+    .isCollapseExpandButtonVisible$;
+  public isListCollapsed$: Observable<boolean> = this.categoryFacadeService.isListCollapsed$;
 
   public readonly ClickableActionTheme = ClickableActionTheme;
 
-  public constructor(protected categoryService: CategoryService) {
-    this.shopCategoryRoot$ = this.categoryService.categoryByStructuralNode$(StructuralNode.ShopCategories);
-    this.isCollapseExpandButtonVisible$ = categoryService.isCollapseExpandButtonVisible$;
-    this.isListCollapsed$ = categoryService.isListCollapsed$;
-  }
+  public constructor(protected categoryFacadeService: CategoryFacadeService) {}
 
   public ngOnInit(): void {}
 
   public onCollapseClick(): void {
-    this.categoryService.setIsCollapsed(true);
+    this.categoryFacadeService.setIsCollapsed(true);
   }
 
   public onExpandClick(): void {
-    this.categoryService.setIsCollapsed(false);
+    this.categoryFacadeService.setIsCollapsed(false);
   }
 }

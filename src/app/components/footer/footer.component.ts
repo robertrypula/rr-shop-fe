@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CategoryService } from '../../services/category.service';
-import { Category, StructuralNode } from '../../models/category.model';
 import { Observable } from 'rxjs';
+
+import { CategoryStore, StructuralNode } from '../../models/category.model';
+import { CategoryFacadeService } from '../../store/facades/category-facade.service';
 
 @Component({
   selector: 'rr-shop-footer',
@@ -10,17 +11,17 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent implements OnInit {
-  public categories$: Observable<Category[]>;
+  public categories$: Observable<CategoryStore[]>;
 
   public readonly StructuralNode = StructuralNode;
 
-  public constructor(protected categoryService: CategoryService) {}
+  public constructor(protected categoryFacadeService: CategoryFacadeService) {}
 
   public ngOnInit(): void {
-    this.categories$ = this.categoryService.categoriesByStructuralNode$(StructuralNode.Footer);
+    this.categories$ = this.categoryFacadeService.categoriesByStructuralNode$(StructuralNode.Footer);
   }
 
-  public trackBy(index: number, item: Category): string {
+  public trackBy(index: number, item: CategoryStore): string {
     return item.id + '';
   }
 }

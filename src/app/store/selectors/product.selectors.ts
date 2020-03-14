@@ -2,7 +2,7 @@ import { createSelector } from '@ngrx/store';
 
 import { Product, ProductEnriched } from '../../models/product.model';
 import { selectActiveCategoryAndItsChildren, selectCategoryAndItsChildren } from './category.selectors';
-import { Category, StructuralNode } from '../../models/category.model';
+import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
 import { getProductId, isOnProductRoute } from '../../utils/routing.util';
 import { OrderItemStore } from '../../models/order.model';
@@ -35,7 +35,7 @@ export const selectProductsEnrichedFromActiveCategoryAndItsChildren = createSele
   (
     productsAsArray: Product[],
     orderItemsStoreAsArray: OrderItemStore[],
-    activeCategoryAndItsChildren: Category[]
+    activeCategoryAndItsChildren: CategoryStore[]
   ): ProductEnriched[] =>
     getProductsForGivenCategories(productsAsArray, activeCategoryAndItsChildren).map(
       (product: Product): ProductEnriched => toProductEnriched(product, orderItemsStoreAsArray)
@@ -49,11 +49,11 @@ export const selectProductsEnrichedFromCategoryByStructuralNode = (structuralNod
     selectOrderItemsStoreAsArray,
     (
       productsAsArray: Product[],
-      categoriesAsArray: Category[],
+      categoriesAsArray: CategoryStore[],
       orderItemsStoreAsArray: OrderItemStore[]
     ): ProductEnriched[] => {
-      const categoriesByStructuralNode: Category[] = categoriesAsArray.filter(
-        (category: Category): boolean => category.structuralNode === structuralNode
+      const categoriesByStructuralNode: CategoryStore[] = categoriesAsArray.filter(
+        (category: CategoryStore): boolean => category.structuralNode === structuralNode
       );
 
       return getProductsForGivenCategories(productsAsArray, categoriesByStructuralNode).map(
@@ -65,7 +65,7 @@ export const selectProductsEnrichedFromCategoryByStructuralNode = (structuralNod
 export const selectProductsCountFromCategoryAndItsChildrenByCategoryId = createSelector(
   selectProductsAsArray,
   selectCategoryAndItsChildren,
-  (productsAsArray: Product[], activeCategoryAndItsChildren: Category[], props: { id: number }): number =>
+  (productsAsArray: Product[], activeCategoryAndItsChildren: CategoryStore[], props: { id: number }): number =>
     getProductsForGivenCategories(productsAsArray, activeCategoryAndItsChildren).length
 );
 

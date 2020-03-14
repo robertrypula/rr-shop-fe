@@ -1,5 +1,5 @@
 import { Product, ProductEnriched } from '../../models/product.model';
-import { Category } from '../../models/category.model';
+import { CategoryStore } from '../../models/category.model';
 import { OrderItemStore } from '../../models/order.model';
 import { toOrderItem } from './order.utils';
 import { Image } from '../../models/image.model';
@@ -8,7 +8,7 @@ export const getProductsAsArray = (productsAsKeyValue: { [id: number]: Product }
   return Object.keys(productsAsKeyValue).map((key: string): Product => productsAsKeyValue[+key]);
 };
 
-export const getProductsForGivenCategories = (productsAsArray: Product[], categories: Category[]): Product[] => {
+export const getProductsForGivenCategories = (productsAsArray: Product[], categories: CategoryStore[]): Product[] => {
   return categories.length
     ? productsAsArray.filter((product: Product): boolean => {
         let match = false;

@@ -2,7 +2,7 @@ import { Injectable, Input } from '@angular/core';
 
 import { Product, ProductEnriched } from '../../models/product.model';
 import { OrderService } from '../../services/order.service';
-import { Category } from '../../models/category.model';
+import { CategoryStore } from '../../models/category.model';
 import { Size } from '../../models/image.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 
@@ -12,7 +12,7 @@ export abstract class ProductBoxAbstractComponent {
   public productEnriched: ProductEnriched;
 
   @Input()
-  public activeCategory: Category;
+  public activeCategory: CategoryStore;
 
   public readonly Size = Size;
 

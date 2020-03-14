@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { StructuralNode } from '../../models/category.model';
 import { ProductEnriched } from '../../models/product.model';
-import { ProductService } from '../../services/product.service';
+import { ProductFacadeService } from '../../store/facades/product-facade.service';
 
 @Component({
   selector: 'rr-shop-payment-overview',
@@ -13,9 +13,9 @@ import { ProductService } from '../../services/product.service';
 export class PaymentOverviewComponent implements OnInit {
   public productsEnrichedPayment$: Observable<
     ProductEnriched[]
-  > = this.productService.productsEnrichedFromCategoryByStructuralNode$(StructuralNode.Payment);
+  > = this.productFacadeService.productsEnrichedFromCategoryByStructuralNode$(StructuralNode.Payment);
 
-  public constructor(protected productService: ProductService) {}
+  public constructor(protected productFacadeService: ProductFacadeService) {}
 
   public ngOnInit() {}
 

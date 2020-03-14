@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Category, StructuralNode } from '../../models/category.model';
-import { CategoryService } from '../../services/category.service';
+import { CategoryStore, StructuralNode } from '../../models/category.model';
+import { CategoryFacadeService } from '../../store/facades/category-facade.service';
 
 @Component({
   selector: 'rr-shop-top-menu',
@@ -11,15 +11,15 @@ import { CategoryService } from '../../services/category.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TopMenuComponent implements OnInit {
-  public categories$: Observable<Category[]>;
+  public categories$: Observable<CategoryStore[]> = this.categoryFacadeService.categoriesByStructuralNode$(
+    StructuralNode.Header
+  );
 
-  public constructor(protected categoryService: CategoryService) {
-    this.categories$ = this.categoryService.categoriesByStructuralNode$(StructuralNode.Header);
-  }
+  public constructor(protected categoryFacadeService: CategoryFacadeService) {}
 
   public ngOnInit(): void {}
 
-  public trackBy(index: number, item: Category): string {
+  public trackBy(index: number, item: CategoryStore): string {
     return item.id + '';
   }
 }

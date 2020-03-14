@@ -12,7 +12,9 @@ export interface ActiveLevelUpdateEntry {
   id: number;
 }
 
-export interface Category {
+// -----------------------------------------------------------------------------
+
+export interface CategoryStore {
   activeLevel?: number;
   content?: string;
   id: number;
@@ -22,6 +24,8 @@ export interface Category {
   slug?: string;
   structuralNode?: StructuralNode;
 }
+
+// -----------------------------------------------------------------------------
 
 // TODO reduce number of data from the backend in simple DTO
 export interface CategorySimpleDto {

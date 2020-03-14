@@ -15,12 +15,6 @@ export interface OrderItemStore {
   type: Type;
 }
 
-export interface OrderItem extends OrderItemStore {
-  isQuantityDecrementActive: boolean;
-  product: Product;
-  totalPrice: number;
-}
-
 export interface OrderStore {
   id: number;
   uuid: string;
@@ -40,6 +34,12 @@ export interface OrderStore {
 }
 
 // -----------------------------------------------------------------------------
+
+export interface OrderItem extends OrderItemStore {
+  isQuantityDecrementActive: boolean;
+  product: Product;
+  totalPrice: number;
+}
 
 // tslint:disable-next-line:no-empty-interface
 export interface Order extends OrderStore {}

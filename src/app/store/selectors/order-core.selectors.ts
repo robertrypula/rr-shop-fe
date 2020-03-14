@@ -4,7 +4,7 @@ import { State } from '../reducers';
 import * as fromOrderReducers from '../reducers/order.reducers';
 import { OrderItemStore } from '../../models/order.model';
 import { getOrderItemsStoreAsArray } from './order.utils';
-import { ApiCall } from '../../models/generic.model';
+import { ApiCall } from '../../models/page.model';
 import { POTENTIAL_ORDER_ID } from '../reducers/order.reducers';
 
 export const selectOrderFeature = (state: State): fromOrderReducers.State => state.order;

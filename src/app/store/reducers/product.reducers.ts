@@ -3,7 +3,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import * as fromOrderActions from '../actions/order.actions';
 import * as fromProductActions from '../actions/product.actions';
 import { Product } from '../../models/product.model';
-import { ApiCall } from '../../models/generic.model';
+import { ApiCall } from '../../models/page.model';
 
 export interface State {
   apiCallProduct: ApiCall;

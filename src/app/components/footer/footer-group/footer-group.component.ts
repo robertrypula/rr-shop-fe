@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { CategoryService } from '../../../services/category.service';
 import { Observable } from 'rxjs';
-import { Category } from '../../../models/category.model';
+
+import { CategoryStore } from '../../../models/category.model';
+import { CategoryFacadeService } from '../../../store/facades/category-facade.service';
 
 @Component({
   selector: 'rr-shop-footer-group',
@@ -13,15 +14,15 @@ export class FooterGroupComponent implements OnInit {
   @Input()
   public parentId: number;
 
-  public categories$: Observable<Category[]>;
+  public categories$: Observable<CategoryStore[]>;
 
-  public constructor(protected categoryService: CategoryService) {}
+  public constructor(protected categoryFacadeService: CategoryFacadeService) {}
 
   public ngOnInit(): void {
-    this.categories$ = this.categoryService.categoriesByParentId$(this.parentId);
+    this.categories$ = this.categoryFacadeService.categoriesByParentId$(this.parentId);
   }
 
-  public trackBy(index: number, item: Category): string {
+  public trackBy(index: number, item: CategoryStore): string {
     return item.id + '';
   }
 }

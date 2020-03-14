@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import { ApiCall } from '../../models/generic.model';
+import { ApiCall } from '../../models/page.model';
 import {
   selectApiCallProduct,
   selectApiCallProductsAtCategory,

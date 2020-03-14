@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ProductService } from '../../services/product.service';
 import { ProductEnriched } from '../../models/product.model';
 import { StructuralNode } from '../../models/category.model';
+import { ProductFacadeService } from '../../store/facades/product-facade.service';
 
 @Component({
   selector: 'rr-shop-delivery-overview',
@@ -13,9 +13,9 @@ import { StructuralNode } from '../../models/category.model';
 export class DeliveryOverviewComponent implements OnInit {
   public productsEnrichedDelivery$: Observable<
     ProductEnriched[]
-  > = this.productService.productsEnrichedFromCategoryByStructuralNode$(StructuralNode.Delivery);
+  > = this.productFacadeService.productsEnrichedFromCategoryByStructuralNode$(StructuralNode.Delivery);
 
-  public constructor(protected productService: ProductService) {}
+  public constructor(protected productFacadeService: ProductFacadeService) {}
 
   public ngOnInit(): void {}
 

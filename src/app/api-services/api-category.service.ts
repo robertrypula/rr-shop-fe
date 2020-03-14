@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { CategorySimpleDto, Category } from '../models/category.model';
+import { CategorySimpleDto, CategoryStore } from '../models/category.model';
 import { API_URL_CATEGORIES } from '../config/api-url.config';
 
 @Injectable({
@@ -12,17 +12,17 @@ import { API_URL_CATEGORIES } from '../config/api-url.config';
 export class ApiCategoryService {
   public constructor(protected http: HttpClient) {}
 
-  public getCategoriesAtInit(): Observable<Category[]> {
+  public getCategoriesAtInit(): Observable<CategoryStore[]> {
     return this.http
       .get<CategorySimpleDto[]>(API_URL_CATEGORIES)
       .pipe(
-        map((dtos: CategorySimpleDto[]): Category[] =>
-          dtos.map((categoryDto: CategorySimpleDto): Category => this.fromSimpleDto(categoryDto))
+        map((dtos: CategorySimpleDto[]): CategoryStore[] =>
+          dtos.map((categoryDto: CategorySimpleDto): CategoryStore => this.fromSimpleDto(categoryDto))
         )
       );
   }
 
-  public fromSimpleDto(dto: CategorySimpleDto): Category {
+  public fromSimpleDto(dto: CategorySimpleDto): CategoryStore {
     // TODO reduce number of data from the backend in simple DTO
     return {
       content: dto.content,

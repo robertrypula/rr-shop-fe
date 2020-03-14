@@ -2,7 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromOrderActions from '../actions/order.actions';
 import { OrderItemStore, OrderStore, Type } from '../../models/order.model';
-import { ApiCall } from '../../models/generic.model';
+import { ApiCall } from '../../models/page.model';
 
 export interface State {
   apiCallCreateOrder: ApiCall;

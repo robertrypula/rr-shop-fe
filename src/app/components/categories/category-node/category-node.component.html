@@ -4,7 +4,7 @@
     [routerLink]="category | categoryUrl"
     [ngClass]="{ 'CategoryNode-link--active': category.activeLevel === 1 }"
   >
-    {{ category.name }} <span>{{ something$ | async }}</span>
+    {{ category.name }} <span>{{ productsCount$ | async }}</span>
   </a>
 
   <!-- TODO simplify condition -->

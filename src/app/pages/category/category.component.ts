@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Product, ProductEnriched } from '../../models/product.model';
-import { ProductService } from '../../services/product.service';
-import { CategoryService } from '../../services/category.service';
-import { Category } from '../../models/category.model';
+import { CategoryStore } from '../../models/category.model';
+import { ProductFacadeService } from '../../store/facades/product-facade.service';
+import { CategoryFacadeService } from '../../store/facades/category-facade.service';
 
 @Component({
   selector: 'rr-shop-category',
@@ -13,14 +13,14 @@ import { Category } from '../../models/category.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryComponent implements OnInit {
-  public activeCategory$: Observable<Category>;
-  public productsEnrichedFromActiveCategoryAndItsChildren$: Observable<ProductEnriched[]>;
+  public activeCategory$: Observable<CategoryStore> = this.categoryFacadeService.activeCategory$;
+  public productsEnrichedFromActiveCategoryAndItsChildren$: Observable<ProductEnriched[]> = this.productFacadeService
+    .productsEnrichedFromActiveCategoryAndItsChildren$;
 
-  public constructor(protected productService: ProductService, protected categoryService: CategoryService) {
-    this.activeCategory$ = categoryService.activeCategory$;
-    this.productsEnrichedFromActiveCategoryAndItsChildren$ =
-      productService.productsEnrichedFromActiveCategoryAndItsChildren$;
-  }
+  public constructor(
+    protected productFacadeService: ProductFacadeService,
+    protected categoryFacadeService: CategoryFacadeService
+  ) {}
 
   public ngOnInit(): void {}
 

@@ -1,24 +1,24 @@
 import { createSelector } from '@ngrx/store';
 
 import * as fromCategoryReducers from '../reducers/category.reducers';
-import { Category } from '../../models/category.model';
+import { CategoryStore } from '../../models/category.model';
 import { State } from '../reducers';
-import { ApiCall } from '../../models/generic.model';
+import { ApiCall } from '../../models/page.model';
 import { getCategoriesAsArray } from './category.utils';
 
 export const selectCategoryFeature = (state: State): fromCategoryReducers.State => state.category;
 
 export const selectCategoriesAsArray = createSelector(
   selectCategoryFeature,
-  (categoryFeature: fromCategoryReducers.State): Category[] => getCategoriesAsArray(categoryFeature.list)
+  (categoryFeature: fromCategoryReducers.State): CategoryStore[] => getCategoriesAsArray(categoryFeature.list)
 );
 
 export const selectCategoriesAsKeyValue = createSelector(
   selectCategoryFeature,
-  (categoryFeature: fromCategoryReducers.State): { [id: number]: Category } => categoryFeature.list
+  (categoryFeature: fromCategoryReducers.State): { [id: number]: CategoryStore } => categoryFeature.list
 );
 
-export const selectCategoryLength = createSelector(selectCategoriesAsArray, (categoriesAsArray: Category[]): number => {
+export const selectCategoryLength = createSelector(selectCategoriesAsArray, (categoriesAsArray: CategoryStore[]): number => {
   return categoriesAsArray.length;
 });
 

@@ -25,10 +25,10 @@ export const getProductId = (url: string): number => {
 
 export const getOrderUuid = (url: string): string => parseUrlId(url, 'order');
 
-export const isOnCategoryRoute = (url: string): boolean => url.indexOf('/c/') !== -1;
+export const isOnCategoryRoute = (url: string): boolean => url.indexOf('/c/') === 0;
 
-export const isOnOrderRoute = (url: string): boolean => url.indexOf('/order/') !== -1;
+export const isOnOrderRoute = (url: string): boolean => url.indexOf('/order/') === 0;
 
-export const isOnPotentialOrderRoute = (url: string): boolean => url.indexOf('/potential-order') !== -1;
+export const isOnPotentialOrderRoute = (url: string): boolean => url.indexOf('/potential-order') === 0;
 
-export const isOnProductRoute = (url: string): boolean => url.indexOf('/p/') !== -1;
+export const isOnProductRoute = (url: string): boolean => url.indexOf('/p/') === 0;

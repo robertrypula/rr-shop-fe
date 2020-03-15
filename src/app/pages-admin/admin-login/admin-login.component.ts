@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { AuthInterceptor } from '../../rest-api/auth.interceptor';
 
+// Based on: https://jasonwatmore.com/post/2019/06/26/angular-8-basic-http-authentication-tutorial-example
+
 @Component({
   selector: 'rr-shop-admin-login',
   templateUrl: './admin-login.component.html',

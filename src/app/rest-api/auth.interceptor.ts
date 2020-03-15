@@ -1,4 +1,11 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -17,7 +24,15 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(request.clone({ setHeaders: { Authorization: `Bearer ${token}` } })).pipe(
       tap(
-        () => {},
+        (event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse) {
+            // const token: string = event.headers.get('Authorization');
+            // console.log(event.headers);
+            // TODO investigate why response header is not visible and refresh it in localStorage
+            // https://github.com/angular/angular/issues/18563
+            // https://github.com/angular/angular/issues/20554
+          }
+        },
         (error: any) => {
           if (error instanceof HttpErrorResponse && error.status === 401) {
             window.localStorage.removeItem(AuthInterceptor.LOCAL_STORAGE_TOKEN_KEY);

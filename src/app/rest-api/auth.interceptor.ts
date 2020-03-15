@@ -8,10 +8,14 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthInterceptor implements HttpInterceptor {
+  public static readonly LOCAL_STORAGE_TOKEN_KEY = 'token';
+
   public constructor(protected router: Router) {}
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(request.clone({ setHeaders: { Authorization: `Bearer ${'test'}` } })).pipe(
+    const token: string = window.localStorage.getItem(AuthInterceptor.LOCAL_STORAGE_TOKEN_KEY) || '-';
+
+    return next.handle(request.clone({ setHeaders: { Authorization: `Bearer ${token}` } })).pipe(
       tap(
         () => {},
         (error: any) => {

@@ -2,12 +2,53 @@
 
 <h2>Admin / logowanie</h2>
 
-<form [formGroup]="" (ngSubmit)="onSubmit()" novalidate>
-  <label for="login">Login:</label>
-  <input id="login" type="text" />
+<div class="AdminLogin">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate>
+    <div class="row margin-bottom">
+      <div class="col-xxs-4 AdminLogin-label">
+        <label class="form-label" for="username">Login:</label>
+      </div>
+      <div class="col-xxs-8">
+        <input
+          [ngClass]="{ 'form-input--invalid': submitted && formGroup.controls.username.errors }"
+          class="form-input"
+          formControlName="username"
+          id="username"
+          type="text"
+        />
+      </div>
+    </div>
 
-  <label for="password">Hasło:</label>
-  <input id="password" type="text" />
+    <div class="row margin-bottom">
+      <div class="col-xxs-4 AdminLogin-label">
+        <label class="form-label" for="password">Hasło:</label>
+      </div>
+      <div class="col-xxs-8">
+        <input
+          [ngClass]="{ 'form-input--invalid': submitted && formGroup.controls.password.errors }"
+          class="form-input"
+          formControlName="password"
+          id="password"
+          type="text"
+        />
+      </div>
+    </div>
 
-  <button type="submit">Zaloguj</button>
-</form>
+    <div class="row margin-bottom">
+      <div class="col-xxs-4"></div>
+      <div class="col-xxs-8">
+        <div *ngIf="error">
+          <div>Błąd logowania</div>
+          <div>{{ error?.error?.errorMessage }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom">
+      <div class="col-xxs-4"></div>
+      <div class="col-xxs-8">
+        <button [disabled]="submitted" type="submit">Zaloguj</button>
+      </div>
+    </div>
+  </form>
+</div>

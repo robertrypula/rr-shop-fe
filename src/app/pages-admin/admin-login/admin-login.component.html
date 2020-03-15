@@ -3,7 +3,7 @@
 <h2>Admin / logowanie</h2>
 
 <div class="AdminLogin">
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate>
+  <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate>
     <div class="row margin-bottom">
       <div class="col-xxs-4 AdminLogin-label">
         <label class="form-label" for="username">Login:</label>

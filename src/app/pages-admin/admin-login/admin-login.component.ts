@@ -34,7 +34,7 @@ export class AdminLoginComponent implements OnInit {
         tap(
           (response: { token: string }): void => {
             window.localStorage.setItem(AuthInterceptor.LOCAL_STORAGE_TOKEN_KEY, response.token);
-            this.router.navigate(['/admin/order']).then();
+            this.redirectToAdminFeature();
           },
           (error: any): void => {
             this.submitted = false;
@@ -50,5 +50,9 @@ export class AdminLoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+  }
+
+  protected redirectToAdminFeature(): void {
+    this.router.navigate(['/admin/order']).then();
   }
 }

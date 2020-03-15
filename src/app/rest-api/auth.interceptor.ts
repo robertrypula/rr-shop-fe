@@ -20,6 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
         () => {},
         (error: any) => {
           if (error instanceof HttpErrorResponse && error.status === 401) {
+            window.localStorage.removeItem(AuthInterceptor.LOCAL_STORAGE_TOKEN_KEY);
             this.router.navigate(['/admin']).then();
           }
         }

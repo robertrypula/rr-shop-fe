@@ -1,10 +1,12 @@
 <rr-shop-admin-menu></rr-shop-admin-menu>
 
-<h2>Admin - lista zamówień</h2>
+<h2>Admin / lista zamówień</h2>
 
 <span *ngIf="isLoading">Wczytywanie listy...</span>
 <span *ngIf="isError">Błąd podczas ładowania listy</span>
 
 <div *ngIf="data">
-  <pre>{{ data | json }}</pre>
+  <div *ngFor="let item of data">
+    <a [routerLink]="[item.id]">{{ item.number }}</a>
+  </div>
 </div>

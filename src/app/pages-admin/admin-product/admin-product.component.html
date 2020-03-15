@@ -1,0 +1,10 @@
+<rr-shop-admin-menu></rr-shop-admin-menu>
+
+<h2>Admin - produkt</h2>
+
+<span *ngIf="isLoading">Wczytywanie produktu...</span>
+<span *ngIf="isError">Błąd podczas ładowania produktu</span>
+
+<div *ngIf="data">
+  <pre>{{ data | json }}</pre>
+</div>

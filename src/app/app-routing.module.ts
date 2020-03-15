@@ -24,6 +24,8 @@ import { AdminProductComponent } from './pages-admin/admin-product/admin-product
 import { AdminProductListComponent } from './pages-admin/admin-product-list/admin-product-list.component';
 import { AdminProductListModule } from './pages-admin/admin-product-list/admin-product-list.module';
 import { AdminProductModule } from './pages-admin/admin-product/admin-product.module';
+import { AdminLoginComponent } from './pages-admin/admin-login/admin-login.component';
+import { AdminLoginModule } from './pages-admin/admin-login/admin-login.module';
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full' },
@@ -35,6 +37,7 @@ const routes: Routes = [
   {
     path: 'admin',
     children: [
+      { path: '', component: AdminLoginComponent, pathMatch: 'full' },
       { path: 'order', component: AdminOrderListComponent, pathMatch: 'full' },
       { path: 'product', component: AdminProductListComponent, pathMatch: 'full' },
       { path: 'order/:id', component: AdminOrderComponent },
@@ -47,6 +50,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),
+    AdminLoginModule,
     AdminOrderListModule,
     AdminOrderModule,
     AdminProductListModule,

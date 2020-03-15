@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AdminLoginComponent } from './admin-login.component';
-import { AdminMenuModule } from '../../components-admin/admin-menu/admin-menu.module';
+import { AdminMenuModule } from '../../components/admin-menu/admin-menu.module';
 
 @NgModule({
   declarations: [AdminLoginComponent],

@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RootComponent } from './root.component';
 import { RootModule } from './root.module';
 import { CoreModule } from './core/core.module';
-import { AuthInterceptor } from './rest-api/auth.interceptor';
+import { AuthInterceptor } from './admin/rest-api/auth.interceptor';
 
 @NgModule({
   imports: [AppRoutingModule, CoreModule, BrowserModule, RootModule],

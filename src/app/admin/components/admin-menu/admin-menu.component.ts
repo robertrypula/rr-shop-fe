@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ClickableActionType } from '../../components/clickable-action/clickable-action.model';
+import { ClickableActionType } from '../../../components/clickable-action/clickable-action.model';
 
 @Component({
   selector: 'rr-shop-admin-menu',

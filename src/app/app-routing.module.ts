@@ -16,16 +16,16 @@ import { SearchModule } from './pages/search/search.module';
 import { OrderComponent } from './pages/order/order.component';
 import { OrderModule } from './pages/order/order.module';
 
-import { AdminOrderComponent } from './pages-admin/admin-order/admin-order.component';
-import { AdminOrderListComponent } from './pages-admin/admin-order-list/admin-order-list.component';
-import { AdminOrderListModule } from './pages-admin/admin-order-list/admin-order-list.module';
-import { AdminOrderModule } from './pages-admin/admin-order/admin-order.module';
-import { AdminProductComponent } from './pages-admin/admin-product/admin-product.component';
-import { AdminProductListComponent } from './pages-admin/admin-product-list/admin-product-list.component';
-import { AdminProductListModule } from './pages-admin/admin-product-list/admin-product-list.module';
-import { AdminProductModule } from './pages-admin/admin-product/admin-product.module';
-import { AdminLoginComponent } from './pages-admin/admin-login/admin-login.component';
-import { AdminLoginModule } from './pages-admin/admin-login/admin-login.module';
+import { AdminOrderComponent } from './admin/pages/admin-order/admin-order.component';
+import { AdminOrderListComponent } from './admin/pages/admin-order-list/admin-order-list.component';
+import { AdminOrderListModule } from './admin/pages/admin-order-list/admin-order-list.module';
+import { AdminOrderModule } from './admin/pages/admin-order/admin-order.module';
+import { AdminProductComponent } from './admin/pages/admin-product/admin-product.component';
+import { AdminProductListComponent } from './admin/pages/admin-product-list/admin-product-list.component';
+import { AdminProductListModule } from './admin/pages/admin-product-list/admin-product-list.module';
+import { AdminProductModule } from './admin/pages/admin-product/admin-product.module';
+import { AdminLoginComponent } from './admin/pages/admin-login/admin-login.component';
+import { AdminLoginModule } from './admin/pages/admin-login/admin-login.module';
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full' },

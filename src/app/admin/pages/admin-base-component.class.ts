@@ -3,7 +3,7 @@ import { tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Injectable } from '@angular/core';
 
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 /**
  * It's not following any of the best practices but I wrote this Admin in 1 hour :)

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
 import { ViewportService } from './services/viewport.service';
@@ -8,8 +8,8 @@ import { PageFacadeService } from './store/facades/page-facade.service';
 @Component({
   selector: 'rr-shop-root',
   templateUrl: './root.component.html',
-  styleUrls: ['./root.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./root.component.scss']
+  // changeDetection: ChangeDetectionStrategy.OnPush // TODO admin is not working when OnPush is enabled
 })
 export class RootComponent {
   @ViewChild('content', { static: false })

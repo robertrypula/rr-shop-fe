@@ -12,11 +12,3 @@ export interface Image {
   filename: string;
   order: number;
 }
-
-// -----------------------------------------------------------------------------
-
-export interface ImageDto {
-  id: number;
-  filename: string;
-  order: number;
-}

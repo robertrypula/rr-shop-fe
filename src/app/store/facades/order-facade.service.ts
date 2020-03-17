@@ -24,12 +24,22 @@ export class OrderFacadeService {
 
   public constructor(protected store: Store<State>) {}
 
-  public add(product: Product): void {
-    this.store.dispatch(fromOrderActions.add({ productId: product.id }));
+  public orderByUuid$(uuid: string): Observable<Order> {
+    return this.store.pipe(select(fromOrderSelectors.selectOrderByUuid(uuid)));
   }
 
   public orderItemsByType$(types: Type[]): Observable<OrderItem[]> {
     return this.store.pipe(select(fromOrderSelectors.selectOrderItems(types)));
+  }
+
+  public promoCodeTextFieldByUuid$(uuid: string): Observable<string> {
+    return this.store.pipe(select(fromOrderSelectors.selectPromoCodeTextFieldByUuid(uuid)));
+  }
+
+  // ---------------------------------------------------------------------------
+
+  public add(product: Product): void {
+    this.store.dispatch(fromOrderActions.add({ productId: product.id }));
   }
 
   public chooseDelivery(productId: number): void {
@@ -44,10 +54,6 @@ export class OrderFacadeService {
     this.store.dispatch(fromOrderActions.createOrderRequest());
   }
 
-  public orderByUuid$(uuid: string): Observable<Order> {
-    return this.store.pipe(select(fromOrderSelectors.selectOrderByUuid(uuid)));
-  }
-
   public quantityDecrement(id: number): void {
     this.store.dispatch(fromOrderActions.quantityDecrement({ id }));
   }
@@ -58,5 +64,9 @@ export class OrderFacadeService {
 
   public remove(id: number): void {
     this.store.dispatch(fromOrderActions.remove({ id }));
+  }
+
+  public setPromoCodeTextField(promoCodeTextField: string): void {
+    this.store.dispatch(fromOrderActions.setPromoCodeTextField({ promoCodeTextField }));
   }
 }

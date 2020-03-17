@@ -11,7 +11,7 @@
       x
       {{ orderItem.quantity }}
       =
-      {{ orderItem.totalPrice | price }}
+      {{ orderItem.priceTotal | price }}
     </div>
   </a>
 
@@ -57,7 +57,7 @@
 </td>
 <td class="OrderOverviewItem-itemPrice hidden-xxs hidden-xs hidden-sm">
   <span>
-    {{ orderItem.totalPrice | price }}
+    {{ orderItem.priceTotal | price }}
   </span>
 </td>
 <td class="OrderOverviewItem-actions hidden-xxs hidden-xs hidden-sm">

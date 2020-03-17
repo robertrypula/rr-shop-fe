@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { takeUntil, tap } from 'rxjs/operators';
 
-import { Order, Type } from '../../models/order.model';
+import { Order } from '../../models/order.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { POTENTIAL_ORDER_ID } from '../../store/reducers/order.reducers';
 
@@ -11,14 +13,55 @@ import { POTENTIAL_ORDER_ID } from '../../store/reducers/order.reducers';
   styleUrls: ['./potential-order.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PotentialOrderComponent implements OnInit {
+export class PotentialOrderComponent implements OnInit, OnDestroy {
   public potentialOrder$: Observable<Order> = this.orderFacadeService.orderByUuid$(`${POTENTIAL_ORDER_ID}`);
+  public potentialOrderPromoCodeTextField$: Observable<string> = this.orderFacadeService.promoCodeTextFieldByUuid$(
+    `${POTENTIAL_ORDER_ID}`
+  );
+  public promoCodeFormGroup: FormGroup;
+  public promoCodeSubmitted = false;
 
-  public constructor(protected orderFacadeService: OrderFacadeService) {}
+  protected unsubscribe$ = new Subject<void>();
+
+  public constructor(protected orderFacadeService: OrderFacadeService, protected formBuilder: FormBuilder) {
+    this.buildPromoCodeFormGroup();
+  }
 
   public ngOnInit(): void {}
 
+  public ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   public createOrder(): void {
     this.orderFacadeService.createOrder();
+  }
+
+  public promoCodeOnSubmit(): void {
+    this.promoCodeSubmitted = true;
+
+    if (this.promoCodeFormGroup.invalid) {
+      return;
+    }
+
+    this.orderFacadeService.setPromoCodeTextField(this.promoCodeFormGroup.controls.promoCodeTextField.value);
+  }
+
+  protected buildPromoCodeFormGroup(): void {
+    this.promoCodeFormGroup = this.formBuilder.group({
+      promoCodeTextField: ['', Validators.required]
+    });
+    this.potentialOrderPromoCodeTextField$
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        tap((potentialOrderPromoCodeTextField: string): void => {
+          console.log('PATCH', potentialOrderPromoCodeTextField);
+          this.promoCodeFormGroup.patchValue({
+            promoCodeTextField: potentialOrderPromoCodeTextField
+          });
+        })
+      )
+      .subscribe();
   }
 }

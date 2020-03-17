@@ -1,4 +1,5 @@
 import { Product } from './product.model';
+import { PromoCode, PromoCodeStore } from './promo-code.model';
 
 export enum Type {
   Delivery = 'Delivery',
@@ -42,6 +43,8 @@ export interface OrderStore {
   parcelLocker?: string;
   paymentUrl?: string;
   // ---
+  promoCodeTextField?: string;
+  promoCodeStore?: PromoCodeStore;
   orderItemsStore?: { [key: string]: OrderItemStore }; // TODO move it to separate store feature
 }
 
@@ -50,7 +53,7 @@ export interface OrderStore {
 export interface OrderItem extends OrderItemStore {
   isQuantityDecrementActive: boolean;
   product: Product;
-  totalPrice: number;
+  priceTotal: number;
 }
 
 export interface Order extends OrderStore {
@@ -61,5 +64,6 @@ export interface Order extends OrderStore {
   priceTotalDelivery: number;
   priceTotalPayment: number;
   priceTotalProduct: number;
+  promoCode: PromoCode;
   quantityTotalProduct: number;
 }

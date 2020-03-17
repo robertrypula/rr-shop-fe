@@ -1,5 +1,6 @@
 import { Order, OrderItem, OrderItemStore, OrderStore, Type } from '../../models/order.model';
 import { Product } from '../../models/product.model';
+import { PromoCode, PromoCodeStore } from '../../models/promo-code.model';
 
 export const toOrder = (orderStore: OrderStore, productsAsKeyValue: { [id: number]: Product }): Order => {
   const orderItems: OrderItem[] = getAsArray(orderStore.orderItemsStore).map(
@@ -16,6 +17,7 @@ export const toOrder = (orderStore: OrderStore, productsAsKeyValue: { [id: numbe
     priceTotalDelivery: getPriceTotal(getOrderItemsByType(orderItems, [Type.Delivery])),
     priceTotalPayment: getPriceTotal(getOrderItemsByType(orderItems, [Type.Payment])),
     priceTotalProduct: getPriceTotal(orderItemsByProductType),
+    promoCode: toPromoCode(orderStore.promoCodeStore),
     quantityTotalProduct: getQuantityTotal(orderItemsByProductType)
   };
 
@@ -35,8 +37,12 @@ export const toOrderItem = (
     ...orderItemStore,
     isQuantityDecrementActive: orderItemStore.quantity > 1,
     product,
-    totalPrice: product ? product.priceUnit * orderItemStore.quantity : 0
+    priceTotal: product ? product.priceUnit * orderItemStore.quantity : 0
   };
+};
+
+export const toPromoCode = (promoCodeStore: PromoCodeStore): PromoCode => {
+  return { ...promoCodeStore };
 };
 
 export const getAsArray = <T>(asKeyValue: { [key: number]: T }): T[] => {

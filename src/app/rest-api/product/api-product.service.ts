@@ -4,8 +4,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { API_URL_PRODUCT, API_URL_PRODUCTS } from '../endpoints';
-import { Product, ProductFullDto, ProductInitDto, ProductSimpleDto } from '../../models/product.model';
-import { Image, ImageDto } from '../../models/image.model';
+import { Product } from '../../models/product.model';
+import { Image } from '../../models/image.model';
+import { ProductFullDto, ProductInitDto, ProductSimpleDto } from './api-product.dtos';
+import { ImageDto } from '../image/image.dtos';
 
 @Injectable({
   providedIn: 'root'

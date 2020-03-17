@@ -28,6 +28,11 @@ export class AdminLoginComponent implements OnInit {
 
   public onSubmit(): void {
     this.submitted = true;
+
+    if (this.formGroup.invalid) {
+      return;
+    }
+
     this.http
       .post<{ token: string }>(`${environment.urlApi}auth/login`, {
         username: this.formGroup.controls.username.value,

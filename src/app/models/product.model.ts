@@ -1,4 +1,4 @@
-import { Image, ImageDto } from './image.model';
+import { Image } from './image.model';
 import { OrderItem } from './order.model';
 
 export interface Product {
@@ -16,23 +16,4 @@ export interface Product {
 
 export interface ProductEnriched extends Product {
   orderItem: OrderItem;
-}
-
-// -----------------------------------------------------------------------------
-
-export interface ProductInitDto {
-  categoryIds: number[];
-  id: number;
-}
-
-export interface ProductSimpleDto extends ProductInitDto {
-  images?: ImageDto[];
-  name: string;
-  priceUnit?: number;
-  slug: string;
-}
-
-export interface ProductFullDto extends ProductSimpleDto {
-  description?: string;
-  quantity?: number;
 }

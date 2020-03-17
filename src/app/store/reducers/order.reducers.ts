@@ -208,6 +208,21 @@ const orderReducer = createReducer(
           }
         : state;
     }
+  ),
+  on(
+    fromOrderActions.setPromoCodeTextField,
+    (state: State, { promoCodeTextField }): State => {
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [POTENTIAL_ORDER_ID]: {
+            ...state.entities[POTENTIAL_ORDER_ID],
+            promoCodeTextField
+          }
+        }
+      };
+    }
   )
 );
 

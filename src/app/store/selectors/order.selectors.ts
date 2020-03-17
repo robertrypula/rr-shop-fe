@@ -10,15 +10,13 @@ import { StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
 import { getOrderUuid, isOnOrderRoute, isOnPotentialOrderRoute } from '../../utils/routing.util';
 
-export const selectOrderItems = (types: Type[] = [Type.Product]) =>
-  createSelector(
-    selectOrderItemsStoreAsArray,
-    selectProductsAsKeyValue,
-    (orderItemsStoreAsArray: OrderItemStore[], productsAsKeyValue: { [id: number]: Product }): OrderItem[] =>
-      orderItemsStoreAsArray
-        .filter((orderItemStore: OrderItemStore): boolean => types.includes(orderItemStore.type))
-        .map((orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsAsKeyValue))
-  );
+export const selectIsOnOrderRoute = createSelector(selectUrl, (url: string): boolean => {
+  return isOnOrderRoute(url);
+});
+
+export const selectIsOnPotentialOrderRoute$ = createSelector(selectUrl, (url: string): boolean =>
+  isOnPotentialOrderRoute(url)
+);
 
 export const selectOrderByUuid = (uuid: string) =>
   createSelector(
@@ -33,9 +31,15 @@ export const selectOrderByUuid = (uuid: string) =>
     }
   );
 
-export const selectIsOnPotentialOrderRoute$ = createSelector(selectUrl, (url: string): boolean =>
-  isOnPotentialOrderRoute(url)
-);
+export const selectOrderItems = (types: Type[] = [Type.Product]) =>
+  createSelector(
+    selectOrderItemsStoreAsArray,
+    selectProductsAsKeyValue,
+    (orderItemsStoreAsArray: OrderItemStore[], productsAsKeyValue: { [id: number]: Product }): OrderItem[] =>
+      orderItemsStoreAsArray
+        .filter((orderItemStore: OrderItemStore): boolean => types.includes(orderItemStore.type))
+        .map((orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsAsKeyValue))
+  );
 
 export const selectPotentialOrderProductsIds = createSelector(
   selectOrderItems([Type.Product]),
@@ -52,9 +56,14 @@ export const selectPotentialOrderProductsIds = createSelector(
   ]
 );
 
-export const selectIsOnOrderRoute = createSelector(selectUrl, (url: string): boolean => {
-  return isOnOrderRoute(url);
-});
+export const selectPromoCodeTextFieldByUuid = (uuid: string) =>
+  createSelector(selectOrdersStoreAsArray, selectProductsAsKeyValue, (ordersStoreAsArray: OrderStore[]): string => {
+    const orderStoreFind: OrderStore = ordersStoreAsArray.find(
+      (orderStore: OrderStore): boolean => orderStore.uuid === uuid
+    );
+
+    return orderStoreFind ? orderStoreFind.promoCodeTextField : '';
+  });
 
 export const selectUrlOrderUuid = createSelector(selectUrl, (url: string): string => {
   return getOrderUuid(url);

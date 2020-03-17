@@ -49,6 +49,19 @@
         <div class="PotentialOrder-summaryPriceTotal">
           Do zapłaty: <span>{{ (potentialOrder$ | async)?.priceTotal | price }}</span>
         </div>
+        <div>
+          Kod rabatowy:
+          <form [formGroup]="promoCodeFormGroup" (ngSubmit)="promoCodeOnSubmit()" novalidate>
+            <input
+              type="text"
+              formControlName="promoCodeTextField"
+              [ngClass]="{
+                'form-input--invalid': promoCodeSubmitted && promoCodeFormGroup.controls.promoCodeTextField.errors
+              }"
+            />
+            <button type="submit">Aktywuj</button>
+          </form>
+        </div>
         <rr-shop-clickable-action
           [label]="'Złóż zamówienie'"
           (actionClick)="createOrder()"

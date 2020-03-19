@@ -3,6 +3,7 @@ import { createAction, props } from '@ngrx/store';
 
 import { Product } from '../../models/product.model';
 import { OrderStore } from '../../models/order.model';
+import { PromoCodeStore } from '../../models/promo-code.model';
 
 export const add = createAction('[Order] Add', props<{ productId: number }>());
 
@@ -34,6 +35,17 @@ export const potentialOrderProductsSuccess = createAction(
 
 export const potentialOrderProductsFailure = createAction(
   '[Order] Potential order products failure',
+  props<{ httpErrorResponse: HttpErrorResponse }>()
+);
+
+export const promoCodeRequest = createAction('[Order] Promo code request');
+
+export const promoCodeReset = createAction('[Order] Promo code reset');
+
+export const promoCodeSuccess = createAction('[Order] Promo code success', props<{ promoCodeStore: PromoCodeStore }>());
+
+export const promoCodeFailure = createAction(
+  '[Order] Promo code failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 

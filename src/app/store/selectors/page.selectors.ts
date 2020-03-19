@@ -10,7 +10,8 @@ import { selectApiCallCategoriesAtInit } from './category-core.selectors';
 import {
   selectApiCallCreateOrder,
   selectApiCallOrder,
-  selectApiCallPotentialOrderProducts
+  selectApiCallPotentialOrderProducts,
+  selectApiCallPromoCode
 } from './order-core.selectors';
 
 export const selectIsLoadingOverlayVisible = createSelector(
@@ -21,6 +22,7 @@ export const selectIsLoadingOverlayVisible = createSelector(
   selectApiCallProduct,
   selectApiCallProductsAtCategory,
   selectApiCallProductsAtInit,
+  selectApiCallPromoCode,
   (
     apiCallCategoriesAtInit: ApiCall,
     apiCallCreateOrder: ApiCall,
@@ -28,7 +30,8 @@ export const selectIsLoadingOverlayVisible = createSelector(
     apiCallPotentialOrderProducts: ApiCall,
     apiCallProduct: ApiCall,
     apiCallProductsAtCategory: ApiCall,
-    apiCallProductsAtInit: ApiCall
+    apiCallProductsAtInit: ApiCall,
+    apiCallPromoCode: ApiCall
   ): boolean =>
     [ApiCall.Initial, ApiCall.Request].includes(apiCallCategoriesAtInit) ||
     [ApiCall.Request].includes(apiCallCreateOrder) ||
@@ -36,5 +39,6 @@ export const selectIsLoadingOverlayVisible = createSelector(
     [ApiCall.Request].includes(apiCallPotentialOrderProducts) ||
     [ApiCall.Request].includes(apiCallProduct) ||
     [ApiCall.Request].includes(apiCallProductsAtCategory) ||
+    [ApiCall.Request].includes(apiCallPromoCode) ||
     [ApiCall.Initial, ApiCall.Request].includes(apiCallProductsAtInit)
 );

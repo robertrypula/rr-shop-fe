@@ -8,6 +8,8 @@ import * as fromOrderSelectors from '../selectors/order.selectors';
 import { Product } from '../../models/product.model';
 import { Order, OrderItem, Type } from '../../models/order.model';
 import { selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.selectors';
+import { selectApiCallPromoCode } from '../selectors/order-core.selectors';
+import { ApiCall } from '../../models/page.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,10 @@ export class OrderFacadeService {
   public urlOrderUuid$: Observable<string> = this.store.pipe(select(selectUrlOrderUuid));
 
   public constructor(protected store: Store<State>) {}
+
+  public apiCallPromoCode$(): Observable<ApiCall> {
+    return this.store.pipe(select(selectApiCallPromoCode));
+  }
 
   public orderByUuid$(uuid: string): Observable<Order> {
     return this.store.pipe(select(fromOrderSelectors.selectOrderByUuid(uuid)));
@@ -68,5 +74,13 @@ export class OrderFacadeService {
 
   public setPromoCodeTextField(promoCodeTextField: string): void {
     this.store.dispatch(fromOrderActions.setPromoCodeTextField({ promoCodeTextField }));
+  }
+
+  public promoCodeRequest(): void {
+    this.store.dispatch(fromOrderActions.promoCodeRequest());
+  }
+
+  public promoCodeReset(): void {
+    this.store.dispatch(fromOrderActions.promoCodeReset());
   }
 }

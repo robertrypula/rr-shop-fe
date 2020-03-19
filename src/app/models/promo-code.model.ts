@@ -1,4 +1,5 @@
 export interface PromoCodeStore {
+  name: string;
   percentageDiscount: number;
 }
 

@@ -30,6 +30,39 @@
     potentialOrder$ | async | json
   }}</pre>
 
+  <h2>Kod rabatowy</h2>
+  <div class="PotentialOrder-section PotentialOrder-promoCode">
+    <form *ngIf="(apiCallPromoCode$ | async) === ApiCall.Initial" [formGroup]="promoCodeFormGroup" novalidate>
+      <input
+        type="text"
+        formControlName="promoCodeTextField"
+        [ngClass]="{
+          'form-input--invalid': promoCodeSubmitted && promoCodeFormGroup.controls.promoCodeTextField.errors
+        }"
+      />
+      <rr-shop-clickable-action [label]="'Aktywuj'" (actionClick)="promoCodeOnSubmit()"></rr-shop-clickable-action>
+    </form>
+    <div *ngIf="(apiCallPromoCode$ | async) === ApiCall.Request">
+      Wczytywanie kodu <b>{{ (potentialOrder$ | async)?.promoCodeTextField }}</b>
+    </div>
+    <div *ngIf="(apiCallPromoCode$ | async) === ApiCall.Failure">
+      <div>
+        Kod <b>{{ (potentialOrder$ | async)?.promoCodeTextField }}</b> stracił ważność lub nie istnieje
+      </div>
+      <rr-shop-clickable-action [label]="'Podaj inny kod'" (actionClick)="promoCodeReset()"></rr-shop-clickable-action>
+    </div>
+    <div *ngIf="(potentialOrder$ | async)?.promoCode">
+      <div>
+        Kod <b>{{ (potentialOrder$ | async).promoCode.name }}</b> daje
+        {{ (potentialOrder$ | async).promoCode.percentageDiscount }}% zniżki
+      </div>
+      <rr-shop-clickable-action
+        [label]="'Zrezygnuj z kodu'"
+        (actionClick)="promoCodeReset()"
+      ></rr-shop-clickable-action>
+    </div>
+  </div>
+
   <h2>Podsumowanie</h2>
   <div class="PotentialOrder-section PotentialOrder-summary">
     <div class="row">
@@ -49,19 +82,7 @@
         <div class="PotentialOrder-summaryPriceTotal">
           Do zapłaty: <span>{{ (potentialOrder$ | async)?.priceTotal | price }}</span>
         </div>
-        <div>
-          Kod rabatowy:
-          <form [formGroup]="promoCodeFormGroup" (ngSubmit)="promoCodeOnSubmit()" novalidate>
-            <input
-              type="text"
-              formControlName="promoCodeTextField"
-              [ngClass]="{
-                'form-input--invalid': promoCodeSubmitted && promoCodeFormGroup.controls.promoCodeTextField.errors
-              }"
-            />
-            <button type="submit">Aktywuj</button>
-          </form>
-        </div>
+
         <rr-shop-clickable-action
           [label]="'Złóż zamówienie'"
           (actionClick)="createOrder()"

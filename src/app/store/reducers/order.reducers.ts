@@ -8,6 +8,7 @@ export interface State {
   apiCallCreateOrder: ApiCall;
   apiCallOrder: ApiCall;
   apiCallPotentialOrderProducts: ApiCall;
+  apiCallPromoCode: ApiCall;
   entities: {
     [id: number]: OrderStore;
   };
@@ -20,6 +21,7 @@ export const initialState: State = {
   apiCallCreateOrder: ApiCall.Initial,
   apiCallOrder: ApiCall.Initial,
   apiCallPotentialOrderProducts: ApiCall.Initial,
+  apiCallPromoCode: ApiCall.Initial,
   entities: {
     [POTENTIAL_ORDER_ID]: {
       uuid: `${POTENTIAL_ORDER_ID}`,
@@ -37,6 +39,8 @@ export const initialState: State = {
       parcelLocker: null,
       paymentUrl: null,
       // ---
+      promoCodeTextField: '',
+      promoCodeStore: null,
       orderItemsStore: {}
     }
   },
@@ -62,6 +66,50 @@ const orderReducer = createReducer(
   on(
     fromOrderActions.potentialOrderProductsFailure,
     (state: State): State => ({ ...state, apiCallPotentialOrderProducts: ApiCall.Failure })
+  ),
+  on(fromOrderActions.promoCodeRequest, (state: State): State => ({ ...state, apiCallPromoCode: ApiCall.Request })),
+  on(
+    fromOrderActions.promoCodeReset,
+    (state: State): State => ({
+      ...state,
+      apiCallPromoCode: ApiCall.Initial,
+      entities: {
+        ...state.entities,
+        [POTENTIAL_ORDER_ID]: {
+          ...state.entities[POTENTIAL_ORDER_ID],
+          promoCodeTextField: '',
+          promoCodeStore: null
+        }
+      }
+    })
+  ),
+  on(
+    fromOrderActions.promoCodeSuccess,
+    (state: State, { promoCodeStore }): State => ({
+      ...state,
+      apiCallPromoCode: ApiCall.Success,
+      entities: {
+        ...state.entities,
+        [POTENTIAL_ORDER_ID]: {
+          ...state.entities[POTENTIAL_ORDER_ID],
+          promoCodeStore
+        }
+      }
+    })
+  ),
+  on(
+    fromOrderActions.promoCodeFailure,
+    (state: State): State => ({
+      ...state,
+      apiCallPromoCode: ApiCall.Failure,
+      entities: {
+        ...state.entities,
+        [POTENTIAL_ORDER_ID]: {
+          ...state.entities[POTENTIAL_ORDER_ID],
+          promoCodeStore: null
+        }
+      }
+    })
   ),
   on(
     fromOrderActions.add,

@@ -6,6 +6,7 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { Order } from '../../models/order.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { POTENTIAL_ORDER_ID } from '../../store/reducers/order.reducers';
+import { ApiCall } from '../../models/page.model';
 
 @Component({
   selector: 'rr-shop-potential-order',
@@ -14,12 +15,15 @@ import { POTENTIAL_ORDER_ID } from '../../store/reducers/order.reducers';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PotentialOrderComponent implements OnInit, OnDestroy {
+  public apiCallPromoCode$: Observable<ApiCall> = this.orderFacadeService.apiCallPromoCode$();
   public potentialOrder$: Observable<Order> = this.orderFacadeService.orderByUuid$(`${POTENTIAL_ORDER_ID}`);
-  public potentialOrderPromoCodeTextField$: Observable<string> = this.orderFacadeService.promoCodeTextFieldByUuid$(
+  public promoCodeTextField$: Observable<string> = this.orderFacadeService.promoCodeTextFieldByUuid$(
     `${POTENTIAL_ORDER_ID}`
   );
   public promoCodeFormGroup: FormGroup;
   public promoCodeSubmitted = false;
+
+  public readonly ApiCall = ApiCall;
 
   protected unsubscribe$ = new Subject<void>();
 
@@ -46,17 +50,21 @@ export class PotentialOrderComponent implements OnInit, OnDestroy {
     }
 
     this.orderFacadeService.setPromoCodeTextField(this.promoCodeFormGroup.controls.promoCodeTextField.value);
+    this.orderFacadeService.promoCodeRequest();
+  }
+
+  public promoCodeReset(): void {
+    this.orderFacadeService.promoCodeReset();
   }
 
   protected buildPromoCodeFormGroup(): void {
     this.promoCodeFormGroup = this.formBuilder.group({
       promoCodeTextField: ['', Validators.required]
     });
-    this.potentialOrderPromoCodeTextField$
+    this.promoCodeTextField$
       .pipe(
         takeUntil(this.unsubscribe$),
         tap((potentialOrderPromoCodeTextField: string): void => {
-          console.log('PATCH', potentialOrderPromoCodeTextField);
           this.promoCodeFormGroup.patchValue({
             promoCodeTextField: potentialOrderPromoCodeTextField
           });

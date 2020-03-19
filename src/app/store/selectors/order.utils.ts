@@ -42,7 +42,7 @@ export const toOrderItem = (
 };
 
 export const toPromoCode = (promoCodeStore: PromoCodeStore): PromoCode => {
-  return { ...promoCodeStore };
+  return promoCodeStore ? { ...promoCodeStore } : null;
 };
 
 export const getAsArray = <T>(asKeyValue: { [key: number]: T }): T[] => {

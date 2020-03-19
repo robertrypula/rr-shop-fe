@@ -17,3 +17,5 @@ export const API_URL_PRODUCTS = (isSimple: boolean, categoryIds: number[], ids: 
 
   return `${environment.urlApi}product${params.length ? '?' : ''}${params.join('&')}`;
 };
+
+export const API_URL_PROMO_CODE = (name: string): string => `${environment.urlApi}promo-code?name=${name}`;

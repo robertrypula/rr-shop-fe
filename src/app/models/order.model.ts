@@ -53,17 +53,22 @@ export interface OrderStore {
 export interface OrderItem extends OrderItemStore {
   isQuantityDecrementActive: boolean;
   product: Product;
-  priceTotal: number;
+  priceTotalOriginal: number;
+  priceTotalSelling: number;
 }
 
 export interface Order extends OrderStore {
   isBasketEmpty: boolean;
   isValid: boolean;
   orderItems: OrderItem[];
-  priceTotal: number;
-  priceTotalDelivery: number;
-  priceTotalPayment: number;
-  priceTotalProduct: number;
+  priceTotalAllOriginal: number;
+  priceTotalAllSelling: number;
+  priceTotalDeliveryOriginal: number;
+  priceTotalDeliverySelling: number;
+  priceTotalPaymentOriginal: number;
+  priceTotalPaymentSelling: number;
+  priceTotalProductOriginal: number;
+  priceTotalProductSelling: number;
   promoCode: PromoCode;
   quantityTotalProduct: number;
 }

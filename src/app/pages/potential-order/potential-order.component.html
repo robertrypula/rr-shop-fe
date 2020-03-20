@@ -36,19 +36,19 @@
     <div class="row">
       <div class="col-xxs-12 col-sm-5 col-md-6">
         <div class="PotentialOrder-summaryPriceNormal">
-          Produkty: <span>{{ (potentialOrder$ | async)?.priceTotalProduct | price }}</span>
+          Produkty: <span>{{ (potentialOrder$ | async)?.priceTotalProductOriginal | price }}</span>
         </div>
         <div class="PotentialOrder-summaryPriceDelivery">
-          Dostawa: <span>{{ (potentialOrder$ | async)?.priceTotalDelivery | price }}</span>
+          Dostawa: <span>{{ (potentialOrder$ | async)?.priceTotalDeliveryOriginal | price }}</span>
         </div>
         <div class="PotentialOrder-summaryPricePayment">
-          Płatność: <span>{{ (potentialOrder$ | async)?.priceTotalPayment | price }}</span>
+          Płatność: <span>{{ (potentialOrder$ | async)?.priceTotalPaymentOriginal | price }}</span>
         </div>
       </div>
 
       <div class="col-xxs-12 col-sm-7 col-md-6">
         <div class="PotentialOrder-summaryPriceTotal">
-          Do zapłaty: <span>{{ (potentialOrder$ | async)?.priceTotal | price }}</span>
+          Do zapłaty: <span>{{ (potentialOrder$ | async)?.priceTotalAllOriginal | price }}</span>
         </div>
 
         <rr-shop-clickable-action

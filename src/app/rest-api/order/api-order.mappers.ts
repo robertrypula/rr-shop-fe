@@ -10,10 +10,10 @@ export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
       quantity: orderItem.quantity,
       type: orderItem.type
     })),
-    priceTotal: order.priceTotal,
-    priceTotalDelivery: order.priceTotalDelivery,
-    priceTotalPayment: order.priceTotalPayment,
-    priceTotalProduct: order.priceTotalProduct,
+    priceTotal: order.priceTotalAllOriginal,
+    priceTotalDelivery: order.priceTotalDeliveryOriginal,
+    priceTotalPayment: order.priceTotalPaymentOriginal,
+    priceTotalProduct: order.priceTotalProductOriginal,
     quantityTotalProduct: order.quantityTotalProduct
   };
 };

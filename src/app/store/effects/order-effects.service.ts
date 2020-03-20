@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { catchError, concatMap, filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { EMPTY, of } from 'rxjs';
+import { catchError, concatMap, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { OrderFacadeService } from '../facades/order-facade.service';
 import { OrderStore } from '../../models/order.model';
 import { ApiOrderService } from '../../rest-api/order/api-order.service';
 import { POTENTIAL_ORDER_ID } from '../reducers/order.reducers';
-import { PromoCode, PromoCodeStore } from '../../models/promo-code.model';
+import { PromoCodeStore } from '../../models/promo-code.model';
 import { ApiPromoCodeService } from '../../rest-api/promo-code/api-promo-code.service';
 
 @Injectable()
@@ -80,12 +80,35 @@ export class OrderEffects {
 
   // ---------------------------------------------------------------------------
 
-  public triggerPotentialOrderRequests$ = createEffect(() =>
+  // Promo codes checks the idea of not using switchMap for dispatching multiple actions in single effect:
+  // https://twitter.com/MikeRyanDev/status/938108618133602304
+  // "I see developers using the "mergeMap into an array of actions" pattern frequently in Effects to dispatch
+  // multiple actions at the same time. This is a big anti-pattern!"
+
+  public triggerPotentialOrderLoad$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromRouterActions.customRouterNavigated),
       concatMap(action => of(action).pipe(withLatestFrom(this.orderFacadeService.isOnPotentialOrderRoute$))),
       filter(([action, isOnPotentialOrderRoute]): boolean => isOnPotentialOrderRoute),
-      mergeMap(() => [fromOrderActions.potentialOrderProductsRequest(), fromOrderActions.promoCodeRequest()])
+      map(() => fromOrderActions.potentialOrderLoad())
+    )
+  );
+
+  public triggerPotentialOrderProductsRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromOrderActions.potentialOrderLoad),
+      map(() => fromOrderActions.potentialOrderProductsRequest())
+    )
+  );
+
+  public triggerPotentialOrderPromoCodeRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromOrderActions.potentialOrderLoad),
+      concatMap(action =>
+        of(action).pipe(withLatestFrom(this.orderFacadeService.promoCodeTextFieldByUuid$(`${POTENTIAL_ORDER_ID}`)))
+      ),
+      filter(([action, promoCodeTextField]) => !!promoCodeTextField),
+      map(() => fromOrderActions.promoCodeRequest())
     )
   );
 

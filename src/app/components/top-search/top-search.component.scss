@@ -4,22 +4,6 @@
   position: relative;
   padding-right: 40px;
 
-  input {
-    background-color: $input-background-color;
-    border: none; // 1px solid $input-border-color;
-    display: block;
-    height: 40px;
-    padding: 6px 10px;
-    width: 100%;
-    color: $input-color;
-    &::-ms-clear {
-      display: none;
-    }
-    &::placeholder {
-      color: $input-color;
-    }
-  }
-
   .TopSearch-form {
   }
 

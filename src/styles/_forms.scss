@@ -1,0 +1,26 @@
+@import 'configs-and-mixins';
+
+input.FormInput {
+  background-color: $input-background-color;
+  border: none; // 1px solid $input-border-color;
+  display: block;
+  height: 40px;
+  font-size: 16px;
+  padding: 6px 10px;
+  width: 100%;
+  color: $input-color;
+  outline: none;
+  &::-ms-clear {
+    display: none;
+  }
+  &::placeholder {
+    color: $input-color;
+  }
+  &.FormInput--invalid {
+    background-color: $red-light-color;
+  }
+}
+
+.FormInput-error {
+  color: $red-color;
+}

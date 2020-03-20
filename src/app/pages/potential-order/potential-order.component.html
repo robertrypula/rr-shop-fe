@@ -26,41 +26,9 @@
     </div>
   -->
 
-  <pre style="height: 120px; overflow: auto; font-size: 10px; line-height: 1.1em;">{{
-    potentialOrder$ | async | json
-  }}</pre>
-
-  <h2>Kod rabatowy</h2>
-  <div class="PotentialOrder-section PotentialOrder-promoCode">
-    <form *ngIf="(apiCallPromoCode$ | async) === ApiCall.Initial" [formGroup]="promoCodeFormGroup" novalidate>
-      <input
-        type="text"
-        formControlName="promoCodeTextField"
-        [ngClass]="{
-          'form-input--invalid': promoCodeSubmitted && promoCodeFormGroup.controls.promoCodeTextField.errors
-        }"
-      />
-      <rr-shop-clickable-action [label]="'Aktywuj'" (actionClick)="promoCodeOnSubmit()"></rr-shop-clickable-action>
-    </form>
-    <div *ngIf="(apiCallPromoCode$ | async) === ApiCall.Request">
-      Wczytywanie kodu <b>{{ (potentialOrder$ | async)?.promoCodeTextField }}</b>
-    </div>
-    <div *ngIf="(apiCallPromoCode$ | async) === ApiCall.Failure">
-      <div>
-        Kod <b>{{ (potentialOrder$ | async)?.promoCodeTextField }}</b> stracił ważność lub nie istnieje
-      </div>
-      <rr-shop-clickable-action [label]="'Podaj inny kod'" (actionClick)="promoCodeReset()"></rr-shop-clickable-action>
-    </div>
-    <div *ngIf="(potentialOrder$ | async)?.promoCode">
-      <div>
-        Kod <b>{{ (potentialOrder$ | async).promoCode.name }}</b> daje
-        {{ (potentialOrder$ | async).promoCode.percentageDiscount }}% zniżki
-      </div>
-      <rr-shop-clickable-action
-        [label]="'Zrezygnuj z kodu'"
-        (actionClick)="promoCodeReset()"
-      ></rr-shop-clickable-action>
-    </div>
+  <div class="PotentialOrder-section">
+    <h2>Kod rabatowy</h2>
+    <rr-shop-promo-code></rr-shop-promo-code>
   </div>
 
   <h2>Podsumowanie</h2>
@@ -91,4 +59,10 @@
       </div>
     </div>
   </div>
+
+  <hr />
+
+  <pre style="height: 120px; overflow: auto; font-size: 10px; line-height: 1.1em;">{{
+    potentialOrder$ | async | json
+  }}</pre>
 </div>

@@ -1,0 +1,48 @@
+<div class="PromoCode">
+  <form
+    *ngIf="(apiCallPromoCode$ | async) === ApiCall.Initial"
+    [formGroup]="promoCodeFormGroup"
+    class="PromoCode-form"
+    novalidate
+  >
+    <div>
+      <input
+        class="FormInput"
+        type="text"
+        formControlName="promoCodeTextField"
+        [ngClass]="{
+          'FormInput--invalid': promoCodeSubmitted && promoCodeFormGroup.controls.promoCodeTextField.errors
+        }"
+      />
+      <rr-shop-clickable-action [label]="'Aktywuj'" (actionClick)="promoCodeOnSubmit()"></rr-shop-clickable-action>
+    </div>
+    <div class="FormInput-error" *ngIf="promoCodeSubmitted && promoCodeFormGroup.controls.promoCodeTextField.errors">
+      <div *ngIf="promoCodeFormGroup.controls.promoCodeTextField.errors.required">
+        Pole kod nie może być puste
+      </div>
+    </div>
+  </form>
+
+  <div *ngIf="(apiCallPromoCode$ | async) === ApiCall.Request" class="PromoCode-request">
+    Wczytywanie kodu <b>'{{ (potentialOrder$ | async)?.promoCodeTextField }}'</b>
+  </div>
+
+  <div *ngIf="(apiCallPromoCode$ | async) === ApiCall.Failure" class="PromoCode-failure">
+    <div>
+      Kod <b>'{{ (potentialOrder$ | async)?.promoCodeTextField }}'</b> stracił ważność lub nie istnieje
+    </div>
+    <rr-shop-clickable-action [label]="'Podaj inny kod'" (actionClick)="promoCodeReset()"></rr-shop-clickable-action>
+  </div>
+
+  <div *ngIf="(potentialOrder$ | async)?.promoCode" class="PromoCode-success">
+    <div>
+      Kod <b>'{{ (potentialOrder$ | async).promoCode.name }}'</b> daje
+      {{ (potentialOrder$ | async).promoCode.percentageDiscount }}% zniżki na każdą cenę jednostkową
+    </div>
+    <rr-shop-clickable-action
+      (actionClick)="promoCodeReset()"
+      [icon]="['far', 'trash-alt']"
+      [label]="'Zrezygnuj z kodu'"
+    ></rr-shop-clickable-action>
+  </div>
+</div>

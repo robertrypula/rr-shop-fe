@@ -26,6 +26,8 @@ export const orderSuccess = createAction('[Order] Order success', props<{ orderS
 
 export const orderFailure = createAction('[Order] Order failure', props<{ httpErrorResponse: HttpErrorResponse }>());
 
+export const potentialOrderLoad = createAction('[Order] Potential order load');
+
 export const potentialOrderProductsRequest = createAction('[Order] Potential order products request');
 
 export const potentialOrderProductsSuccess = createAction(

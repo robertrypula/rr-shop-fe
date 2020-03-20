@@ -7,7 +7,7 @@ import { DeliveryOverviewModule } from '../../components/delivery-overview/deliv
 import { PaymentOverviewModule } from '../../components/payment-overview/payment-overview.module';
 import { ClickableActionModule } from '../../components/clickable-action/clickable-action.module';
 import { PipesModule } from '../../pipes/pipes.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { PromoCodeModule } from '../../components/promo-code/promo-code.module';
 
 @NgModule({
   declarations: [PotentialOrderComponent],
@@ -18,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     PaymentOverviewModule,
     ClickableActionModule,
     PipesModule,
-    ReactiveFormsModule
+    PromoCodeModule
   ]
 })
 export class PotentialOrderModule {}

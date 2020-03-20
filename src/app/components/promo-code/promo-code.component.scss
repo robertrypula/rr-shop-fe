@@ -1,0 +1,29 @@
+@import 'configs-and-mixins';
+
+.PromoCode {
+  .PromoCode-form,
+  .PromoCode-failure,
+  .PromoCode-success {
+    > div {
+      margin-bottom: 16px;
+    }
+  }
+  .PromoCode-form {
+    > div:first-child {
+      input {
+        display: inline-block;
+        width: 150px;
+      }
+      > :not(input) {
+        display: inline-block;
+        margin-left: 8px;
+      }
+    }
+  }
+  .PromoCode-success {
+    color: $a-color;
+  }
+  .PromoCode-failure {
+    color: $red-color;
+  }
+}

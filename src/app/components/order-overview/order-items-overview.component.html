@@ -14,7 +14,7 @@
         <tbody>
           <tr
             *ngFor="let orderItem of orderItemsByProductType$ | async; trackBy: trackBy"
-            rr-shop-order-overview-item
+            rr-shop-order-item-overview
             [orderItem]="orderItem"
           ></tr>
         </tbody>

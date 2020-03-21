@@ -6,7 +6,7 @@ td {
   vertical-align: top;
   text-align: left;
 
-  .OrderOverviewItem-aggregation {
+  .OrderItemOverview-aggregation {
     padding-top: 8px;
     div {
       float: right;
@@ -17,13 +17,13 @@ td {
   }
 }
 
-.OrderOverviewItem-name {
+.OrderItemOverview-name {
   a {
     display: block;
     width: 100%;
     min-height: 64px;
     position: relative;
-    .OrderOverviewItem-image {
+    .OrderItemOverview-image {
       position: absolute;
       display: block;
       width: 64px;
@@ -43,7 +43,7 @@ td {
   }
 }
 
-.OrderOverviewItem-quantity {
+.OrderItemOverview-quantity {
   width: 150px;
   div {
     width: 120px;
@@ -65,12 +65,12 @@ td {
   }
 }
 
-.OrderOverviewItem-price {
+.OrderItemOverview-price {
   width: 100px;
 }
 
-.OrderOverviewItem-price,
-.OrderOverviewItem-itemPrice {
+.OrderItemOverview-price,
+.OrderItemOverview-itemPrice {
   width: 100px;
   span {
     display: inline-block;
@@ -78,6 +78,6 @@ td {
   }
 }
 
-.OrderOverviewItem-actions {
+.OrderItemOverview-actions {
   width: 100px;
 }

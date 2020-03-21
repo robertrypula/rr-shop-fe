@@ -1,9 +1,9 @@
-<td class="OrderOverviewItem-name">
+<td class="OrderItemOverview-name">
   <a [routerLink]="orderItem?.product | productUrl">
     <rr-shop-image
       [images]="orderItem.product?.images"
       [size]="Size.Thumb064px"
-      class="OrderOverviewItem-image"
+      class="OrderItemOverview-image"
     ></rr-shop-image>
     <span>{{ orderItem.product?.name }}</span>
     <div class="hidden-md hidden-lg">
@@ -15,7 +15,7 @@
     </div>
   </a>
 
-  <div class="OrderOverviewItem-aggregation hidden-md hidden-lg">
+  <div class="OrderItemOverview-aggregation hidden-md hidden-lg">
     <rr-shop-clickable-action
       (actionClick)="remove(orderItem.id)"
       [icon]="['far', 'trash-alt']"
@@ -34,7 +34,7 @@
     </div>
   </div>
 </td>
-<td class="OrderOverviewItem-quantity hidden-xxs hidden-xs hidden-sm">
+<td class="OrderItemOverview-quantity hidden-xxs hidden-xs hidden-sm">
   <div>
     <rr-shop-clickable-action
       (actionClick)="quantityDecrement(orderItem.id)"
@@ -50,17 +50,17 @@
     ></rr-shop-clickable-action>
   </div>
 </td>
-<td class="OrderOverviewItem-price hidden-xxs hidden-xs hidden-sm">
+<td class="OrderItemOverview-price hidden-xxs hidden-xs hidden-sm">
   <span>
     {{ orderItem.product?.priceUnit | price }}
   </span>
 </td>
-<td class="OrderOverviewItem-itemPrice hidden-xxs hidden-xs hidden-sm">
+<td class="OrderItemOverview-itemPrice hidden-xxs hidden-xs hidden-sm">
   <span>
     {{ orderItem.priceTotalOriginal | price }}
   </span>
 </td>
-<td class="OrderOverviewItem-actions hidden-xxs hidden-xs hidden-sm">
+<td class="OrderItemOverview-actions hidden-xxs hidden-xs hidden-sm">
   <rr-shop-clickable-action
     (actionClick)="remove(orderItem.id)"
     [icon]="['far', 'trash-alt']"

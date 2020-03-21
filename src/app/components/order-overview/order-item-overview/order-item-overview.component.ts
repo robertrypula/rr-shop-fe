@@ -7,12 +7,12 @@ import { OrderFacadeService } from '../../../store/facades/order-facade.service'
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: '[rr-shop-order-overview-item]',
-  templateUrl: './order-overview-item.component.html',
-  styleUrls: ['./order-overview-item.component.scss'],
+  selector: '[rr-shop-order-item-overview]',
+  templateUrl: './order-item-overview.component.html',
+  styleUrls: ['./order-item-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OrderOverviewItemComponent implements OnInit {
+export class OrderItemOverviewComponent implements OnInit {
   @Input()
   public orderItem: OrderItem;
 

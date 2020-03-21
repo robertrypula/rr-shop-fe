@@ -11,7 +11,7 @@
       x
       {{ orderItem.quantity }}
       =
-      {{ orderItem.priceTotalOriginal | price }}
+      {{ orderItem.getPriceTotalOriginal() | price }}
     </div>
   </a>
 
@@ -24,7 +24,7 @@
     <div>
       <rr-shop-clickable-action
         (actionClick)="quantityDecrement(orderItem.id)"
-        [disabled]="!orderItem.isQuantityDecrementActive"
+        [disabled]="!orderItem.isQuantityDecrementActive()"
         [icon]="['fas', 'minus']"
       ></rr-shop-clickable-action>
       <rr-shop-clickable-action
@@ -38,7 +38,7 @@
   <div>
     <rr-shop-clickable-action
       (actionClick)="quantityDecrement(orderItem.id)"
-      [disabled]="!orderItem.isQuantityDecrementActive"
+      [disabled]="!orderItem.isQuantityDecrementActive()"
       [icon]="['fas', 'minus']"
     ></rr-shop-clickable-action>
     <span>
@@ -57,7 +57,7 @@
 </td>
 <td class="OrderItemOverview-itemPrice hidden-xxs hidden-xs hidden-sm">
   <span>
-    {{ orderItem.priceTotalOriginal | price }}
+    {{ orderItem.getPriceTotalOriginal() | price }}
   </span>
 </td>
 <td class="OrderItemOverview-actions hidden-xxs hidden-xs hidden-sm">

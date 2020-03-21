@@ -45,15 +45,11 @@ export const toOrderItem = (
   orderItemStore: OrderItemStore,
   productsAsKeyValue: { [id: number]: Product } = null
 ): OrderItem => {
-  const product: Product = productsAsKeyValue ? productsAsKeyValue[orderItemStore.productId] : null;
+  const orderItem: OrderItem = new OrderItem().fromStore(orderItemStore);
 
-  return {
-    ...orderItemStore,
-    isQuantityDecrementActive: orderItemStore.quantity > 1,
-    product,
-    priceTotalOriginal: (product ? product.priceUnit : 0) * orderItemStore.quantity,
-    priceTotalSelling: (product ? product.priceUnit : 0) * orderItemStore.quantity
-  };
+  orderItem.product = productsAsKeyValue ? productsAsKeyValue[orderItemStore.productId] : null;
+
+  return orderItem;
 };
 
 export const getAsArray = <T>(asKeyValue: { [key: number]: T }): T[] => {
@@ -65,13 +61,13 @@ export const getOrderItemsByType = (orderItems: OrderItem[], types: Type[]): Ord
 
 export const getPriceTotalOriginal = (orderItems: OrderItem[]): number =>
   orderItems.reduce(
-    (accumulator: number, orderItem: OrderItem): number => accumulator + orderItem.priceTotalOriginal,
+    (accumulator: number, orderItem: OrderItem): number => accumulator + orderItem.getPriceTotalOriginal(),
     0
   );
 
 export const getPriceTotalSelling = (orderItems: OrderItem[]): number =>
   orderItems.reduce(
-    (accumulator: number, orderItem: OrderItem): number => accumulator + orderItem.priceTotalSelling,
+    (accumulator: number, orderItem: OrderItem): number => accumulator + orderItem.getPriceTotalSelling(),
     0
   );
 

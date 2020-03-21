@@ -1,8 +1,8 @@
 import { Product, ProductEnriched } from '../../models/product.model';
 import { CategoryStore } from '../../models/category.model';
-import { OrderItemStore } from '../../models/order.model';
 import { toOrderItem } from './order.utils';
 import { Image } from '../../models/image.model';
+import { OrderItemStore } from '../../models/order-item.model';
 
 export const getProductsAsArray = (productsAsKeyValue: { [id: number]: Product }): Product[] => {
   return Object.keys(productsAsKeyValue).map((key: string): Product => productsAsKeyValue[+key]);

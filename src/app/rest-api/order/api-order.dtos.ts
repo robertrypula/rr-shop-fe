@@ -1,4 +1,5 @@
-import { Status, Type } from '../../models/order.model';
+import { Status } from '../../models/order.model';
+import { Type } from '../../models/order-item.model';
 
 export interface OrderCreateRequestDto {
   orderItems: Array<{

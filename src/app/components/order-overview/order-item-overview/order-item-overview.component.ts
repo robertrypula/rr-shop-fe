@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { OrderItem } from '../../../models/order.model';
 import { OrderService } from '../../../services/order.service';
 import { Size } from '../../../models/image.model';
 import { OrderFacadeService } from '../../../store/facades/order-facade.service';
+import { OrderItem } from '../../../models/order-item.model';
 
 @Component({
   // tslint:disable-next-line:component-selector

@@ -6,10 +6,11 @@ import { State } from '../reducers';
 import * as fromOrderActions from '../actions/order.actions';
 import * as fromOrderSelectors from '../selectors/order.selectors';
 import { Product } from '../../models/product.model';
-import { Order, OrderItem, Type } from '../../models/order.model';
+import { Order } from '../../models/order.model';
 import { selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.selectors';
 import { selectApiCallPromoCode } from '../selectors/order-core.selectors';
 import { ApiCall } from '../../models/page.model';
+import { OrderItem, Type } from '../../models/order-item.model';
 
 @Injectable({
   providedIn: 'root'

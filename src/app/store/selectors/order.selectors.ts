@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import { Order, OrderItem, OrderItemStore, OrderStore, Type } from '../../models/order.model';
+import { Order, OrderStore } from '../../models/order.model';
 import { Product, ProductEnriched } from '../../models/product.model';
 import { selectProductsAsKeyValue } from './product-core.selectors';
 import { selectOrderItemsStoreAsArray, selectOrdersStoreAsArray } from './order-core.selectors';
@@ -9,6 +9,7 @@ import { selectProductsEnrichedFromCategoryByStructuralNode } from './product.se
 import { StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
 import { getOrderUuid, isOnOrderRoute, isOnPotentialOrderRoute } from '../../utils/routing.util';
+import { OrderItem, OrderItemStore, Type } from '../../models/order-item.model';
 
 export const selectIsOnOrderRoute = createSelector(selectUrl, (url: string): boolean => {
   return isOnOrderRoute(url);

@@ -5,11 +5,11 @@ import { selectActiveCategoryAndItsChildren, selectCategoryAndItsChildren } from
 import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
 import { getProductId, isOnProductRoute } from '../../utils/routing.util';
-import { OrderItemStore } from '../../models/order.model';
 import { selectProductsAsArray, selectProductsAsKeyValue } from './product-core.selectors';
 import { selectOrderItemsStoreAsArray } from './order-core.selectors';
 import { getProductsForGivenCategories, toProductEnriched } from './product.utils';
 import { selectCategoriesAsArray } from './category-core.selectors';
+import { OrderItemStore } from '../../models/order-item.model';
 
 export const selectUrlProductId = createSelector(selectUrl, (url: string): number => {
   return getProductId(url);

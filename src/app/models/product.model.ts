@@ -1,6 +1,7 @@
 import { Image } from './image.model';
-import { OrderItem } from './order.model';
+import { OrderItem } from './order-item.model';
 
+// TODO rename from 'Product' to 'ProductStore'
 export interface Product {
   categoryIds: number[];
   description?: string;
@@ -14,6 +15,8 @@ export interface Product {
 
 // -----------------------------------------------------------------------------
 
+// TODO rename from 'ProductEnriched' to 'Product'
+// TODO migrate from interface to class
 export interface ProductEnriched extends Product {
   orderItem: OrderItem;
 }

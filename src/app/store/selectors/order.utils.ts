@@ -1,6 +1,7 @@
-import { Order, OrderItem, OrderItemStore, OrderStore, Type } from '../../models/order.model';
+import { Order, OrderStore } from '../../models/order.model';
 import { Product } from '../../models/product.model';
 import { PromoCode } from '../../models/promo-code.model';
+import { OrderItem, OrderItemStore, Type } from '../../models/order-item.model';
 
 export const toOrderWithAllRelations = (
   orderStore: OrderStore,

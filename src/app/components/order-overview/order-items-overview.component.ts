@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { OrderItem, Type } from '../../models/order.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
+import { OrderItem, Type } from '../../models/order-item.model';
 
 @Component({
   selector: 'rr-shop-order-items-overview',

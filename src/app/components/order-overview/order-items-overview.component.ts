@@ -5,12 +5,12 @@ import { OrderItem, Type } from '../../models/order.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 
 @Component({
-  selector: 'rr-shop-order-overview',
-  templateUrl: './order-overview.component.html',
-  styleUrls: ['./order-overview.component.scss'],
+  selector: 'rr-shop-order-items-overview',
+  templateUrl: './order-items-overview.component.html',
+  styleUrls: ['./order-items-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OrderOverviewComponent implements OnInit {
+export class OrderItemsOverviewComponent implements OnInit {
   public orderItemsByProductType$: Observable<OrderItem[]> = this.orderFacadeService.orderItemsByType$([Type.Product]);
 
   public constructor(protected orderFacadeService: OrderFacadeService) {}

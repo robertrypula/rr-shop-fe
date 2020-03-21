@@ -1,4 +1,4 @@
-<div class="OrderOverview">
+<div class="OrderItemsOverview">
   <div *ngIf="(orderItemsByProductType$ | async).length; else orderEmpty">
     <div class="OrderOverview-section">
       <table>
@@ -23,7 +23,7 @@
   </div>
 
   <ng-template #orderEmpty>
-    <div class="OrderOverview-empty">
+    <div class="OrderItemsOverview-empty">
       Twój koszyk jest pusty :(
       <br />
       Zapraszamy do zakupów!

@@ -1,4 +1,5 @@
 import { Product } from './product.model';
+import { Order } from './order.model';
 
 export enum Type {
   Delivery = 'Delivery',
@@ -29,6 +30,7 @@ export class OrderItem implements OrderItemStore {
   public quantity: number;
   public type: Type;
 
+  public order: Order;
   public product: Product; // TODO this is actually ProductStore, rename it when ProductEnriched will switch to Product
 
   public fromStore(orderItemStore: OrderItemStore): OrderItem {
@@ -57,5 +59,11 @@ export class OrderItem implements OrderItemStore {
 
   public getPriceTotalSelling(): number {
     return (this.product ? this.product.priceUnit : 0) * this.quantity;
+  }
+
+  public setOrder(order: Order): OrderItem {
+    this.order = order;
+
+    return this;
   }
 }

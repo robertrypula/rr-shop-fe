@@ -10,9 +10,11 @@ export const toOrderWithAllRelations = (
   const order: Order = new Order().fromStore(orderStore);
 
   order.orderItems = getAsArray(orderStore.orderItemsStore).map(
-    (orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsAsKeyValue)
+    (orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsAsKeyValue).setOrder(order)
   );
-  order.promoCode = orderStore.promoCodeStore ? new PromoCode().fromStore(orderStore.promoCodeStore) : null;
+  order.promoCode = orderStore.promoCodeStore
+    ? new PromoCode().fromStore(orderStore.promoCodeStore).setOrder(order)
+    : null;
 
   return order;
 };
@@ -21,6 +23,7 @@ export const toOrderItem = (
   orderItemStore: OrderItemStore,
   productsAsKeyValue: { [id: number]: Product } = null
 ): OrderItem => {
+  // TODO refactor this when Product will follow class model pattern
   const orderItem: OrderItem = new OrderItem().fromStore(orderItemStore);
 
   orderItem.product = productsAsKeyValue ? productsAsKeyValue[orderItemStore.productId] : null;

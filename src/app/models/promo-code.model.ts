@@ -10,6 +10,7 @@ export interface PromoCodeStore {
 export class PromoCode implements PromoCodeStore {
   public name: string;
   public percentageDiscount: number;
+
   public order: Order;
 
   public fromStore(promoCodeStore: PromoCodeStore): PromoCode {
@@ -19,6 +20,12 @@ export class PromoCode implements PromoCodeStore {
 
     this.name = promoCodeStore.name;
     this.percentageDiscount = promoCodeStore.percentageDiscount;
+
+    return this;
+  }
+
+  public setOrder(order: Order): PromoCode {
+    this.order = order;
 
     return this;
   }

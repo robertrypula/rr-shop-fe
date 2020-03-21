@@ -59,7 +59,7 @@ export class ApiProductService {
       id: dto.id,
       images: dto.images.map((image: ImageDto): Image => ({ ...image })),
       name: dto.name,
-      priceUnit: dto.priceUnit,
+      priceUnit: parseFloat(dto.priceUnit),
       quantity: dto.quantity,
       slug: dto.slug
     };
@@ -78,7 +78,7 @@ export class ApiProductService {
       id: dto.id,
       images: dto.images.map((image: ImageDto): Image => ({ ...image })),
       name: dto.name,
-      priceUnit: dto.priceUnit,
+      priceUnit: parseFloat(dto.priceUnit),
       slug: dto.slug
     };
   }

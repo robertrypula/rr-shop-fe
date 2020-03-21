@@ -8,7 +8,7 @@ export interface ProductInitDto {
 export interface ProductSimpleDto extends ProductInitDto {
   images?: ImageDto[];
   name: string;
-  priceUnit?: number;
+  priceUnit?: string;
   slug: string;
 }
 

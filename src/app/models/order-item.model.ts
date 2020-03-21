@@ -54,16 +54,36 @@ export class OrderItem implements OrderItemStore {
   }
 
   public getPriceTotalOriginal(): number {
-    return (this.product ? this.product.priceUnit : 0) * this.quantity;
+    const unitPrice: number = this.isPriceUnitOriginalComingFromTheBackend()
+      ? this.priceUnitOriginal
+      : this.product
+      ? this.product.priceUnit
+      : 0;
+
+    return unitPrice * this.quantity;
   }
 
   public getPriceTotalSelling(): number {
-    return (this.product ? this.product.priceUnit : 0) * this.quantity;
+    const unitPrice: number = this.isPriceUnitSellingComingFromTheBackend()
+      ? this.priceUnitSelling
+      : this.product
+      ? this.product.priceUnit * (this.order && this.order.promoCode ? this.order.promoCode.getDiscountMultiplier() : 1)
+      : 0;
+
+    return unitPrice * this.quantity;
   }
 
   public setOrder(order: Order): OrderItem {
     this.order = order;
 
     return this;
+  }
+
+  protected isPriceUnitOriginalComingFromTheBackend(): boolean {
+    return !!this.priceUnitOriginal || this.priceUnitOriginal === 0;
+  }
+
+  protected isPriceUnitSellingComingFromTheBackend(): boolean {
+    return !!this.priceUnitSelling || this.priceUnitSelling === 0;
   }
 }

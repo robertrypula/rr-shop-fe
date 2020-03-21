@@ -24,6 +24,10 @@ export class PromoCode implements PromoCodeStore {
     return this;
   }
 
+  public getDiscountMultiplier(): number {
+    return (100 - this.percentageDiscount) / 100;
+  }
+
   public setOrder(order: Order): PromoCode {
     this.order = order;
 

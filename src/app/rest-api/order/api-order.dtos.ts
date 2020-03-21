@@ -9,11 +9,10 @@ export interface OrderCreateRequestDto {
     quantity: number;
     type: Type;
   }>;
-  priceTotal: number;
+  priceTotalAll: number;
   priceTotalDelivery: number;
   priceTotalPayment: number;
   priceTotalProduct: number;
-  quantityTotalProduct: number;
 }
 
 export interface OrderCreateResponseDto {

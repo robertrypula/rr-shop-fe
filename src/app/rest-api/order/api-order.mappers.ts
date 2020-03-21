@@ -1,6 +1,6 @@
 import { OrderCreateRequestDto, OrderCreateResponseDto, OrderResponseDto } from './api-order.dtos';
 import { Order, OrderStore } from '../../models/order.model';
-import { OrderItem } from '../../models/order-item.model';
+import { OrderItem, Type } from '../../models/order-item.model';
 
 export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
   return {
@@ -11,11 +11,10 @@ export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
       quantity: orderItem.quantity,
       type: orderItem.type
     })),
-    priceTotal: order.priceTotalAllOriginal,
-    priceTotalDelivery: order.priceTotalDeliveryOriginal,
-    priceTotalPayment: order.priceTotalPaymentOriginal,
-    priceTotalProduct: order.priceTotalProductOriginal,
-    quantityTotalProduct: order.quantityTotalProduct
+    priceTotalAll: order.getPriceTotalOriginal([Type.Delivery, Type.Payment, Type.Product]),
+    priceTotalDelivery: order.getPriceTotalOriginal([Type.Delivery]),
+    priceTotalPayment: order.getPriceTotalOriginal([Type.Payment]),
+    priceTotalProduct: order.getPriceTotalOriginal([Type.Product])
   };
 };
 

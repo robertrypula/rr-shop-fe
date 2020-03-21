@@ -14,6 +14,7 @@ import {
   faChevronDown as fasChevronDown,
   faChevronUp as fasChevronUp,
   faMinus as fasMinus,
+  faPercent as fasPercent,
   faPlus as fasPlus,
   faSearch as fasSearch,
   faShoppingBasket as fasShoppingBasket
@@ -40,6 +41,7 @@ export class IconModule {
       fasChevronDown,
       fasChevronUp,
       fasMinus,
+      fasPercent,
       fasPlus,
       fasSearch,
       fasShoppingBasket

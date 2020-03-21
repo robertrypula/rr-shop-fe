@@ -4,7 +4,7 @@ import { Order, OrderItem, OrderItemStore, OrderStore, Type } from '../../models
 import { Product, ProductEnriched } from '../../models/product.model';
 import { selectProductsAsKeyValue } from './product-core.selectors';
 import { selectOrderItemsStoreAsArray, selectOrdersStoreAsArray } from './order-core.selectors';
-import { toOrder, toOrderItem } from './order.utils';
+import { toOrderWithAllRelations, toOrderItem } from './order.utils';
 import { selectProductsEnrichedFromCategoryByStructuralNode } from './product.selectors';
 import { StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
@@ -27,7 +27,7 @@ export const selectOrderByUuid = (uuid: string) =>
         (orderStore: OrderStore): boolean => orderStore.uuid === uuid
       );
 
-      return orderStoreFind ? toOrder(orderStoreFind, productsAsKeyValue) : null;
+      return orderStoreFind ? toOrderWithAllRelations(orderStoreFind, productsAsKeyValue) : null;
     }
   );
 

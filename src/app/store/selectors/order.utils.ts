@@ -1,8 +1,11 @@
 import { Order, OrderItem, OrderItemStore, OrderStore, Type } from '../../models/order.model';
 import { Product } from '../../models/product.model';
-import { PromoCode, PromoCodeStore } from '../../models/promo-code.model';
+import { PromoCode } from '../../models/promo-code.model';
 
-export const toOrder = (orderStore: OrderStore, productsAsKeyValue: { [id: number]: Product }): Order => {
+export const toOrderWithAllRelations = (
+  orderStore: OrderStore,
+  productsAsKeyValue: { [id: number]: Product }
+): Order => {
   const orderItems: OrderItem[] = getAsArray(orderStore.orderItemsStore).map(
     (orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsAsKeyValue)
   );
@@ -28,7 +31,7 @@ export const toOrder = (orderStore: OrderStore, productsAsKeyValue: { [id: numbe
     priceTotalPaymentSelling: getPriceTotalSelling(orderItemsByPaymentType),
     priceTotalProductOriginal: getPriceTotalOriginal(orderItemsByProductType),
     priceTotalProductSelling: getPriceTotalSelling(orderItemsByProductType),
-    promoCode: toPromoCode(orderStore.promoCodeStore),
+    promoCode: orderStore.promoCodeStore ? new PromoCode().fromStore(orderStore.promoCodeStore) : null,
     quantityTotalProduct: getQuantityTotal(orderItemsByProductType)
   };
 
@@ -51,10 +54,6 @@ export const toOrderItem = (
     priceTotalOriginal: (product ? product.priceUnit : 0) * orderItemStore.quantity,
     priceTotalSelling: (product ? product.priceUnit : 0) * orderItemStore.quantity
   };
-};
-
-export const toPromoCode = (promoCodeStore: PromoCodeStore): PromoCode => {
-  return promoCodeStore ? { ...promoCodeStore } : null;
 };
 
 export const getAsArray = <T>(asKeyValue: { [key: number]: T }): T[] => {

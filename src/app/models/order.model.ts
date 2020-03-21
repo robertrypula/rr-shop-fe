@@ -4,6 +4,7 @@ import { OrderItem, OrderItemStore, Type } from './order-item.model';
 export enum Status {
   PaymentWait = 'PaymentWait',
   PaymentCompleted = 'PaymentCompleted',
+  ReadyForPickup = 'ReadyForPickup',
   Shipped = 'Shipped',
   Completed = 'Completed',
   Cancelled = 'Cancelled'

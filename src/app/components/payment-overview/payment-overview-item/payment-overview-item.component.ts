@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { ClickableActionTheme } from '../../clickable-action/clickable-action.model';
 import { ProductEnriched } from '../../../models/product.model';
@@ -8,7 +8,8 @@ import { OrderFacadeService } from '../../../store/facades/order-facade.service'
   // tslint:disable-next-line:component-selector
   selector: '[rr-shop-payment-overview-item]',
   templateUrl: './payment-overview-item.component.html',
-  styleUrls: ['./payment-overview-item.component.scss']
+  styleUrls: ['./payment-overview-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaymentOverviewItemComponent implements OnInit {
   @Input()

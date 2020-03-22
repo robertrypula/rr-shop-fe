@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Image, Size } from '../../models/image.model';
 import { ClickableActionTheme } from '../clickable-action/clickable-action.model';
 
 @Component({
   selector: 'rr-shop-image',
   templateUrl: './image.component.html',
-  styleUrls: ['./image.component.scss']
+  styleUrls: ['./image.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImageComponent implements OnInit {
   @Input()

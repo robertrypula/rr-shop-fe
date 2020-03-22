@@ -100,6 +100,10 @@ export class Order implements OrderStore {
     );
   }
 
+  public getOrderItemsByType(types: Type[]): OrderItem[] {
+    return this.orderItems.filter((orderItem: OrderItem): boolean => types.includes(orderItem.type));
+  }
+
   public getPriceTotalOriginal(types: Type[]): number {
     return normalizePrice(
       this.getOrderItemsByType(types).reduce(
@@ -123,9 +127,5 @@ export class Order implements OrderStore {
       (accumulator: number, orderItem: OrderItem): number => accumulator + orderItem.quantity,
       0
     );
-  }
-
-  protected getOrderItemsByType(types: Type[]): OrderItem[] {
-    return this.orderItems.filter((orderItem: OrderItem): boolean => types.includes(orderItem.type));
   }
 }

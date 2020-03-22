@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,7 +11,8 @@ import { Order } from '../../models/order.model';
 @Component({
   selector: 'rr-shop-promo-code',
   templateUrl: './promo-code.component.html',
-  styleUrls: ['./promo-code.component.scss']
+  styleUrls: ['./promo-code.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PromoCodeComponent implements OnInit, OnDestroy {
   public apiCallPromoCode$: Observable<ApiCall> = this.orderFacadeService.apiCallPromoCode$();

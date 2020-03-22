@@ -4,7 +4,7 @@ import { Order, OrderStore } from '../../models/order.model';
 import { Product, ProductEnriched } from '../../models/product.model';
 import { selectProductsAsKeyValue } from './product-core.selectors';
 import { selectOrderItemsStoreAsArray, selectOrdersStoreAsArray } from './order-core.selectors';
-import { toOrderWithAllRelations, toOrderItem } from './order.utils';
+import { toOrderWithAllRelations, toOrderItem, extractClientDetailsForm } from './order.utils';
 import { selectProductsEnrichedFromCategoryByStructuralNode } from './product.selectors';
 import { StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
@@ -18,6 +18,18 @@ export const selectIsOnOrderRoute = createSelector(selectUrl, (url: string): boo
 export const selectIsOnPotentialOrderRoute$ = createSelector(selectUrl, (url: string): boolean =>
   isOnPotentialOrderRoute(url)
 );
+
+export const selectClientDetailsFormByUuid = (uuid: string) =>
+  createSelector(
+    selectOrdersStoreAsArray,
+    (ordersStoreAsArray: OrderStore[]): ClientDetailsForm => {
+      const orderStoreFind: OrderStore = ordersStoreAsArray.find(
+        (orderStore: OrderStore): boolean => orderStore.uuid === uuid
+      );
+
+      return orderStoreFind ? extractClientDetailsForm(orderStoreFind) : null;
+    }
+  );
 
 export const selectOrderByUuid = (uuid: string) =>
   createSelector(

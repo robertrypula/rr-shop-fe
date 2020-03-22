@@ -2,6 +2,7 @@ import { Order, OrderStore } from '../../models/order.model';
 import { Product } from '../../models/product.model';
 import { PromoCode } from '../../models/promo-code.model';
 import { OrderItem, OrderItemStore } from '../../models/order-item.model';
+import { ControlValueAccessor } from '@angular/forms';
 
 export const toOrderWithAllRelations = (
   orderStore: OrderStore,
@@ -17,6 +18,19 @@ export const toOrderWithAllRelations = (
     : null;
 
   return order;
+};
+
+export const extractClientDetailsForm = (orderStore: OrderStore): ClientDetailsForm => {
+  return {
+    email: orderStore.email,
+    phone: orderStore.phone,
+    name: orderStore.name,
+    surname: orderStore.surname,
+    address: orderStore.address,
+    zipCode: orderStore.zipCode,
+    city: orderStore.city,
+    comments: orderStore.comments
+  };
 };
 
 export const toOrderItem = (

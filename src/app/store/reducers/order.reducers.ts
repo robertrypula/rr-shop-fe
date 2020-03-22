@@ -37,6 +37,7 @@ export const initialState: State = {
       zipCode: null,
       city: null,
       comments: null,
+      // ---
       parcelLocker: null,
       paymentUrl: null,
       // ---

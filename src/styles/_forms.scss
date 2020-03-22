@@ -1,6 +1,7 @@
 @import 'configs-and-mixins';
 
-input.FormInput {
+input.FormInput,
+textarea.FormInput {
   background-color: $input-background-color;
   border: none; // 1px solid $input-border-color;
   display: block;
@@ -10,15 +11,20 @@ input.FormInput {
   width: 100%;
   color: $input-color;
   outline: none;
+  @include font-primary();
   &::-ms-clear {
     display: none;
   }
   &::placeholder {
-    color: $input-color;
+    color: $color;
   }
   &.FormInput--invalid {
     background-color: $red-light-color;
   }
+}
+
+textarea.FormInput {
+  min-height: 120px;
 }
 
 .FormInput-error {

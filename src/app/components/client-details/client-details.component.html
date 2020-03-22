@@ -1,0 +1,242 @@
+<div class="ClientDetails">
+  <form [formGroup]="clientDetailsFormGroup" class="PromoCode-form" novalidate id="client-details-form">
+    <div class="row">
+      <div class="col-xxs-12 col-md-6">
+        <!-- --- -->
+        <div class="row">
+          <div class="col-xxs-4 margin-bottom">
+            <label for="client-details-form-email">Email</label>
+          </div>
+          <div class="col-xxs-8 margin-bottom">
+            <input
+              autocomplete="client-details-form-email"
+              id="client-details-form-email"
+              class="FormInput"
+              type="text"
+              formControlName="email"
+              [ngClass]="{
+                'FormInput--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.email.errors
+              }"
+            />
+            <div class="FormInput-error" *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.email.errors">
+              <div *ngIf="clientDetailsFormGroup.controls.email.errors.required">
+                Pole email nie może być puste
+              </div>
+              <div *ngIf="clientDetailsFormGroup.controls.email.errors.email">
+                Podany email nie jest poprawny
+              </div>
+              <div *ngIf="clientDetailsFormGroup.controls.email.errors.maxlength as maxlength">
+                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- --- -->
+        <div class="row">
+          <div class="col-xxs-4 margin-bottom">
+            <label for="client-details-form-name">Imię</label>
+          </div>
+          <div class="col-xxs-8 margin-bottom">
+            <input
+              autocomplete="client-details-form-name"
+              id="client-details-form-name"
+              class="FormInput"
+              type="text"
+              formControlName="name"
+              [ngClass]="{
+                'FormInput--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.name.errors
+              }"
+            />
+            <div class="FormInput-error" *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.name.errors">
+              <div *ngIf="clientDetailsFormGroup.controls.name.errors.required">
+                Pole imię nie może być puste
+              </div>
+              <div *ngIf="clientDetailsFormGroup.controls.name.errors.maxlength as maxlength">
+                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- --- -->
+        <div class="row">
+          <div class="col-xxs-4 margin-bottom">
+            <label for="client-details-form-surname">Nazwisko</label>
+          </div>
+          <div class="col-xxs-8 margin-bottom">
+            <input
+              autocomplete="client-details-form-surname"
+              id="client-details-form-surname"
+              class="FormInput"
+              type="text"
+              formControlName="surname"
+              [ngClass]="{
+                'FormInput--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.surname.errors
+              }"
+            />
+            <div
+              class="FormInput-error"
+              *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.surname.errors"
+            >
+              <div *ngIf="clientDetailsFormGroup.controls.surname.errors.required">
+                Pole nazwisko nie może być puste
+              </div>
+              <div *ngIf="clientDetailsFormGroup.controls.surname.errors.maxlength as maxlength">
+                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- --- -->
+        <div class="row">
+          <div class="col-xxs-4 margin-bottom">
+            <label for="client-details-form-comments">Komentarz</label>
+          </div>
+          <div class="col-xxs-8 margin-bottom">
+            <textarea
+              autocomplete="client-details-form-comments"
+              id="client-details-form-comments"
+              class="FormInput"
+              type="text"
+              formControlName="comments"
+              [ngClass]="{
+                'FormInput--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.comments.errors
+              }"
+            ></textarea>
+            <div
+              class="FormInput-error"
+              *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.comments.errors"
+            >
+              <div *ngIf="clientDetailsFormGroup.controls.comments.errors.required">
+                Pole miasto nie może być puste
+              </div>
+              <div *ngIf="clientDetailsFormGroup.controls.comments.errors.maxlength as maxlength">
+                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ---------------------- -->
+      <div class="col-xxs-12 col-md-6">
+        <!-- --- -->
+        <div class="row">
+          <div class="col-xxs-4 margin-bottom">
+            <label for="client-details-form-phone">Telefon</label>
+          </div>
+          <div class="col-xxs-8 margin-bottom">
+            <input
+              autocomplete="client-details-form-phone"
+              id="client-details-form-phone"
+              class="FormInput"
+              type="text"
+              formControlName="phone"
+              [ngClass]="{
+                'FormInput--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.phone.errors
+              }"
+            />
+            <div class="FormInput-error" *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.phone.errors">
+              <pre>{{ clientDetailsFormGroup.controls.phone.errors | json }}</pre>
+              <div *ngIf="clientDetailsFormGroup.controls.phone.errors.required">
+                Pole phone nie może być puste
+              </div>
+              <div *ngIf="clientDetailsFormGroup.controls.phone.errors.maxlength as maxlength">
+                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- --- -->
+        <div class="row">
+          <div class="col-xxs-4 margin-bottom">
+            <label for="client-details-form-address">Ulica i nr.</label>
+          </div>
+          <div class="col-xxs-8 margin-bottom">
+            <input
+              autocomplete="client-details-form-address"
+              id="client-details-form-address"
+              class="FormInput"
+              type="text"
+              formControlName="address"
+              [ngClass]="{
+                'FormInput--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.address.errors
+              }"
+            />
+            <div
+              class="FormInput-error"
+              *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.address.errors"
+            >
+              <div *ngIf="clientDetailsFormGroup.controls.address.errors.required">
+                Pole ulica i numer nie może być puste
+              </div>
+              <div *ngIf="clientDetailsFormGroup.controls.address.errors.maxlength as maxlength">
+                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- --- -->
+        <div class="row">
+          <div class="col-xxs-4 margin-bottom">
+            <label for="client-details-form-zipCode">Kod</label>
+          </div>
+          <div class="col-xxs-8 margin-bottom">
+            <input
+              autocomplete="client-details-form-zipCode"
+              id="client-details-form-zipCode"
+              class="FormInput"
+              type="text"
+              formControlName="zipCode"
+              [ngClass]="{
+                'FormInput--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.zipCode.errors
+              }"
+            />
+            <div
+              class="FormInput-error"
+              *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.zipCode.errors"
+            >
+              <div *ngIf="clientDetailsFormGroup.controls.zipCode.errors.required">
+                Pole kod nie może być puste
+              </div>
+              <div *ngIf="clientDetailsFormGroup.controls.zipCode.errors.maxlength as maxlength">
+                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- --- -->
+        <div class="row">
+          <div class="col-xxs-4 margin-bottom">
+            <label for="client-details-form-city">Miasto</label>
+          </div>
+          <div class="col-xxs-8 margin-bottom">
+            <input
+              autocomplete="client-details-form-city"
+              id="client-details-form-city"
+              class="FormInput"
+              type="text"
+              formControlName="city"
+              [ngClass]="{
+                'FormInput--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.city.errors
+              }"
+            />
+            <div class="FormInput-error" *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.city.errors">
+              <div *ngIf="clientDetailsFormGroup.controls.city.errors.required">
+                Pole miasto nie może być puste
+              </div>
+              <div *ngIf="clientDetailsFormGroup.controls.city.errors.maxlength as maxlength">
+                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- --- -->
+      </div>
+    </div>
+
+    <rr-shop-clickable-action
+      (actionClick)="clientDetailsOnSubmit()"
+      [icon]="['fas', 'percent']"
+      [label]="'Zapisz dane adresowe'"
+    ></rr-shop-clickable-action>
+  </form>
+</div>

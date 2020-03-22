@@ -30,6 +30,10 @@ export class OrderFacadeService {
     return this.store.pipe(select(selectApiCallPromoCode));
   }
 
+  public clientDetailsFormByUuid$(uuid: string): Observable<ClientDetailsForm> {
+    return this.store.pipe(select(fromOrderSelectors.selectClientDetailsFormByUuid(uuid)));
+  }
+
   public orderByUuid$(uuid: string): Observable<Order> {
     return this.store.pipe(select(fromOrderSelectors.selectOrderByUuid(uuid)));
   }

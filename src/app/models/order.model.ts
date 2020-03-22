@@ -49,6 +49,7 @@ export class Order implements OrderStore {
   public zipCode?: string;
   public city?: string;
   public comments?: string;
+  // ---
   public parcelLocker?: string;
   public paymentUrl?: string;
   // ---

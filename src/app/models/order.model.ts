@@ -1,5 +1,6 @@
 import { PromoCode, PromoCodeStore } from './promo-code.model';
 import { OrderItem, OrderItemStore, Type } from './order-item.model';
+import { normalizePrice } from '../utils/math.utils';
 
 export enum Status {
   PaymentWait = 'PaymentWait',
@@ -100,16 +101,20 @@ export class Order implements OrderStore {
   }
 
   public getPriceTotalOriginal(types: Type[]): number {
-    return this.getOrderItemsByType(types).reduce(
-      (accumulator: number, orderItem: OrderItem): number => accumulator + orderItem.getPriceTotalOriginal(),
-      0
+    return normalizePrice(
+      this.getOrderItemsByType(types).reduce(
+        (accumulator: number, orderItem: OrderItem): number => accumulator + orderItem.getPriceTotalOriginal(),
+        0
+      )
     );
   }
 
   public getPriceTotalSelling(types: Type[]): number {
-    return this.getOrderItemsByType(types).reduce(
-      (accumulator: number, orderItem: OrderItem): number => accumulator + orderItem.getPriceTotalSelling(),
-      0
+    return normalizePrice(
+      this.getOrderItemsByType(types).reduce(
+        (accumulator: number, orderItem: OrderItem): number => accumulator + orderItem.getPriceTotalSelling(),
+        0
+      )
     );
   }
 

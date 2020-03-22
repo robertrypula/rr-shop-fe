@@ -8,7 +8,7 @@ import { toOrderWithAllRelations, toOrderItem } from './order.utils';
 import { selectProductsEnrichedFromCategoryByStructuralNode } from './product.selectors';
 import { StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
-import { getOrderUuid, isOnOrderRoute, isOnPotentialOrderRoute } from '../../utils/routing.util';
+import { getOrderUuid, isOnOrderRoute, isOnPotentialOrderRoute } from '../../utils/routing.utils';
 import { OrderItem, OrderItemStore, Type } from '../../models/order-item.model';
 
 export const selectIsOnOrderRoute = createSelector(selectUrl, (url: string): boolean => {

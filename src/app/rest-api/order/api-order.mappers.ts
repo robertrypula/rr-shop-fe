@@ -5,16 +5,21 @@ import { OrderItem, Type } from '../../models/order-item.model';
 export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
   return {
     orderItems: order.orderItems.map((orderItem: OrderItem) => ({
-      priceUnitOriginal: orderItem.product.priceUnit,
-      priceUnitSelling: orderItem.product.priceUnit, // TODO here put price after discount
+      priceUnitOriginal: orderItem.getPriceUnitOriginal(),
+      priceUnitSelling: orderItem.getPriceUnitSelling(),
       productId: orderItem.productId,
       quantity: orderItem.quantity,
       type: orderItem.type
     })),
-    priceTotalAll: order.getPriceTotalOriginal([Type.Delivery, Type.Payment, Type.Product]),
-    priceTotalDelivery: order.getPriceTotalOriginal([Type.Delivery]),
-    priceTotalPayment: order.getPriceTotalOriginal([Type.Payment]),
-    priceTotalProduct: order.getPriceTotalOriginal([Type.Product])
+    priceTotalOriginalAll: order.getPriceTotalOriginal([Type.Delivery, Type.Payment, Type.Product]),
+    priceTotalOriginalDelivery: order.getPriceTotalOriginal([Type.Delivery]),
+    priceTotalOriginalPayment: order.getPriceTotalOriginal([Type.Payment]),
+    priceTotalOriginalProduct: order.getPriceTotalOriginal([Type.Product]),
+    priceTotalSellingAll: order.getPriceTotalSelling([Type.Delivery, Type.Payment, Type.Product]),
+    priceTotalSellingDelivery: order.getPriceTotalSelling([Type.Delivery]),
+    priceTotalSellingPayment: order.getPriceTotalSelling([Type.Payment]),
+    priceTotalSellingProduct: order.getPriceTotalSelling([Type.Product]),
+    promoCodeTextField: order.promoCodeTextField
   };
 };
 

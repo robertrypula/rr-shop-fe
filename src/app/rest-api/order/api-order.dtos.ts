@@ -9,10 +9,15 @@ export interface OrderCreateRequestDto {
     quantity: number;
     type: Type;
   }>;
-  priceTotalAll: number;
-  priceTotalDelivery: number;
-  priceTotalPayment: number;
-  priceTotalProduct: number;
+  priceTotalOriginalAll: number;
+  priceTotalOriginalDelivery: number;
+  priceTotalOriginalPayment: number;
+  priceTotalOriginalProduct: number;
+  priceTotalSellingAll: number;
+  priceTotalSellingDelivery: number;
+  priceTotalSellingPayment: number;
+  priceTotalSellingProduct: number;
+  promoCodeTextField: string;
 }
 
 export interface OrderCreateResponseDto {

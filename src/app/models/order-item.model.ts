@@ -1,5 +1,6 @@
 import { Product } from './product.model';
 import { Order } from './order.model';
+import { normalizePrice } from '../utils/math.utils';
 
 export enum Type {
   Delivery = 'Delivery',
@@ -54,23 +55,30 @@ export class OrderItem implements OrderItemStore {
   }
 
   public getPriceTotalOriginal(): number {
-    const unitPrice: number = this.isPriceUnitOriginalComingFromTheBackend()
+    return this.getPriceUnitOriginal() * this.quantity;
+  }
+
+  public getPriceTotalSelling(): number {
+    return this.getPriceUnitSelling() * this.quantity;
+  }
+
+  public getPriceUnitOriginal(): number {
+    return this.isPriceUnitOriginalComingFromTheBackend()
       ? this.priceUnitOriginal
       : this.product
       ? this.product.priceUnit
       : 0;
-
-    return unitPrice * this.quantity;
   }
 
-  public getPriceTotalSelling(): number {
-    const unitPrice: number = this.isPriceUnitSellingComingFromTheBackend()
+  public getPriceUnitSelling(): number {
+    return this.isPriceUnitSellingComingFromTheBackend()
       ? this.priceUnitSelling
       : this.product
-      ? this.product.priceUnit * (this.order && this.order.promoCode ? this.order.promoCode.getDiscountMultiplier() : 1)
+      ? normalizePrice(
+          this.product.priceUnit *
+            (this.order && this.order.promoCode ? this.order.promoCode.getDiscountMultiplier() : 1)
+        )
       : 0;
-
-    return unitPrice * this.quantity;
   }
 
   public setOrder(order: Order): OrderItem {

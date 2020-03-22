@@ -2,7 +2,7 @@ import { createSelector } from '@ngrx/store';
 
 import { ActiveLevelUpdateEntry, CategoryStore, StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
-import { getCategoryId, isOnCategoryRoute } from '../../utils/routing.util';
+import { getCategoryId, isOnCategoryRoute } from '../../utils/routing.utils';
 import { selectIsSmallDevice } from './viewport.selectors';
 import { selectCategoriesAsArray, selectCategoriesAsKeyValue } from './category-core.selectors';
 import { getCategoriesFromLeafToRoot, getCategoryAndItsChildren } from './category.utils';

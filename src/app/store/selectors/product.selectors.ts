@@ -4,7 +4,7 @@ import { Product, ProductEnriched } from '../../models/product.model';
 import { selectActiveCategoryAndItsChildren, selectCategoryAndItsChildren } from './category.selectors';
 import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
-import { getProductId, isOnProductRoute } from '../../utils/routing.util';
+import { getProductId, isOnProductRoute } from '../../utils/routing.utils';
 import { selectProductsAsArray, selectProductsAsKeyValue } from './product-core.selectors';
 import { selectOrderItemsStoreAsArray } from './order-core.selectors';
 import { getProductsForGivenCategories, toProductEnriched } from './product.utils';

@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { OrderFacadeService } from '../../store/facades/order-facade.service';
-import { OrderItem, Type } from '../../models/order-item.model';
+import { OrderItem } from '../../models/order-item.model';
 
 @Component({
   selector: 'rr-shop-order-items-overview',
@@ -11,9 +9,10 @@ import { OrderItem, Type } from '../../models/order-item.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderItemsOverviewComponent implements OnInit {
-  public orderItemsByProductType$: Observable<OrderItem[]> = this.orderFacadeService.orderItemsByType$([Type.Product]);
+  @Input()
+  public orderItemsByProductType: OrderItem[] = [];
 
-  public constructor(protected orderFacadeService: OrderFacadeService) {}
+  public constructor() {}
 
   public ngOnInit(): void {}
 

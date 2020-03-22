@@ -10,7 +10,6 @@ import { Order } from '../../models/order.model';
 import { selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.selectors';
 import { selectApiCallPromoCode } from '../selectors/order-core.selectors';
 import { ApiCall } from '../../models/page.model';
-import { OrderItem, Type } from '../../models/order-item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,10 +32,6 @@ export class OrderFacadeService {
 
   public orderByUuid$(uuid: string): Observable<Order> {
     return this.store.pipe(select(fromOrderSelectors.selectOrderByUuid(uuid)));
-  }
-
-  public orderItemsByType$(types: Type[]): Observable<OrderItem[]> {
-    return this.store.pipe(select(fromOrderSelectors.selectOrderItems(types)));
   }
 
   public promoCodeTextFieldByUuid$(uuid: string): Observable<string> {

@@ -78,7 +78,6 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.unsubscribe$),
         tap((clientDetailsForm: ClientDetailsForm): void => {
-          console.log(clientDetailsForm);
           clientDetailsForm && this.clientDetailsFormGroup.patchValue(clientDetailsForm);
         })
       )

@@ -20,7 +20,7 @@
             <rr-shop-clickable-action
               [clickableActionTheme]="ClickableActionTheme.Primary"
               [clickableActionType]="ClickableActionType.RouterLink"
-              [disabled]="(potentialOrder$ | async)?.isBasketEmpty()"
+              [disabled]="(potentialOrder$ | async)?.isOrderItemsListEmpty([Type.Product])"
               [link]="'/potential-order'"
               [icon]="['fas', 'shopping-basket']"
               [label]="'Twój koszyk'"
@@ -31,7 +31,7 @@
             <rr-shop-clickable-action
               [clickableActionTheme]="ClickableActionTheme.Primary"
               [clickableActionType]="ClickableActionType.RouterLink"
-              [disabled]="(potentialOrder$ | async)?.isBasketEmpty()"
+              [disabled]="(potentialOrder$ | async)?.isOrderItemsListEmpty([Type.Product])"
               [icon]="['fas', 'shopping-basket']"
               [link]="'/potential-order'"
               [number]="(potentialOrder$ | async)?.getQuantityTotal([Type.Product])"

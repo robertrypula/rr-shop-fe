@@ -1,6 +1,4 @@
 <div
-  [ngSwitch]="clickableActionType"
-  class="ClickableAction"
   [ngClass]="{
     'ClickableAction--disabled': disabled,
     'ClickableAction--primary': clickableActionTheme === ClickableActionTheme.Primary,
@@ -9,6 +7,8 @@
     'ClickableAction--transparentDark': clickableActionTheme === ClickableActionTheme.TransparentDark,
     'ClickableAction--iconOnRight': icon && label
   }"
+  [ngSwitch]="clickableActionType"
+  class="ClickableAction"
 >
   <a *ngSwitchCase="ClickableActionType.Anchor" class="ClickableAction-anchor" [href]="link" target="_blank">
     <ng-container [ngTemplateOutlet]="content"></ng-container>

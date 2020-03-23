@@ -24,6 +24,7 @@ export class PromoCodeComponent implements OnInit, OnDestroy {
   public promoCodeSubmitted = false;
 
   public readonly ApiCall = ApiCall;
+  public readonly fieldMaxLength = 12;
 
   protected unsubscribe$ = new Subject<void>();
 
@@ -55,7 +56,7 @@ export class PromoCodeComponent implements OnInit, OnDestroy {
 
   protected buildPromoCodeFormGroup(): void {
     this.promoCodeFormGroup = this.formBuilder.group({
-      promoCodeTextField: ['', Validators.required]
+      promoCodeTextField: ['', [Validators.required, Validators.maxLength(this.fieldMaxLength)]]
     });
     this.promoCodeTextField$
       .pipe(

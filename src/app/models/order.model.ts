@@ -95,8 +95,8 @@ export class Order implements OrderStore {
     return this;
   }
 
-  public isBasketEmpty(): boolean {
-    return this.getOrderItemsByType([Type.Product]).length === 0;
+  public isOrderItemsListEmpty(types: Type[]): boolean {
+    return this.getOrderItemsByType(types).length === 0;
   }
 
   public isValid(): boolean {

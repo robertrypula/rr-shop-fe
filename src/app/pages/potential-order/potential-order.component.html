@@ -8,32 +8,57 @@
 
   <div class="row">
     <div class="col-xxs-12 col-md-6">
-      <div class="PotentialOrder-section">
+      <div
+        [ngClass]="{
+          'u-block-overlay': (potentialOrder$ | async)?.isOrderItemsListEmpty([Type.Product])
+        }"
+        class="PotentialOrder-section"
+      >
         <h2>Dostawa</h2>
         <rr-shop-delivery-overview></rr-shop-delivery-overview>
       </div>
     </div>
 
     <div class="col-xxs-12 col-md-6">
-      <div class="PotentialOrder-section">
+      <div
+        [ngClass]="{
+          'u-block-overlay': (potentialOrder$ | async)?.isOrderItemsListEmpty([Type.Delivery])
+        }"
+        class="PotentialOrder-section"
+      >
         <h2>Płatność</h2>
         <rr-shop-payment-overview></rr-shop-payment-overview>
       </div>
     </div>
   </div>
 
-  <h2>Dane klienta</h2>
-  <div class="PotentialOrder-section PotentialOrder--withBorder">
+  <div
+    [ngClass]="{
+      'u-block-overlay': (potentialOrder$ | async)?.isOrderItemsListEmpty([Type.Payment])
+    }"
+    class="PotentialOrder-section PotentialOrder--withBorder"
+  >
+    <h2>Dane klienta</h2>
     <rr-shop-client-details></rr-shop-client-details>
   </div>
 
-  <div class="PotentialOrder-section PotentialOrder--withBorder">
+  <div
+    [ngClass]="{
+      'u-block-overlay': (potentialOrder$ | async)?.isClientDetailsFormActive
+    }"
+    class="PotentialOrder-section PotentialOrder--withBorder"
+  >
     <h2>Kod rabatowy</h2>
     <rr-shop-promo-code></rr-shop-promo-code>
   </div>
 
-  <h2>Podsumowanie</h2>
-  <div class="PotentialOrder-section PotentialOrder-summary">
+  <div
+    [ngClass]="{
+      'u-block-overlay': (potentialOrder$ | async)?.isClientDetailsFormActive
+    }"
+    class="PotentialOrder-section PotentialOrder-summary"
+  >
+    <h2>Podsumowanie</h2>
     <div class="row">
       <div class="col-xxs-12 col-sm-5 col-md-6">
         <div class="PotentialOrder-summaryPriceNormal">

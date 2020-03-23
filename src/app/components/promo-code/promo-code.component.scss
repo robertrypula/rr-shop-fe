@@ -1,7 +1,6 @@
 @import 'configs-and-mixins';
 
 .PromoCode {
-  .PromoCode-form,
   .PromoCode-failure,
   .PromoCode-success {
     > div {
@@ -12,12 +11,18 @@
     > div:first-child {
       input {
         display: inline-block;
-        width: 150px;
+        width: 135px;
       }
       > :not(input) {
         display: inline-block;
         margin-left: 8px;
       }
+    }
+    .u-form-error-container {
+      padding-top: 2px;
+    }
+    .PromoCode-formNoCodeInfo {
+      padding-top: 16px;
     }
   }
   .PromoCode-success {

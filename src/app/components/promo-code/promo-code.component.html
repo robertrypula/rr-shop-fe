@@ -28,6 +28,12 @@
       <div *ngIf="promoCodeFormGroup.controls.promoCodeTextField.errors.required">
         Pole kod nie może być puste
       </div>
+      <div *ngIf="promoCodeFormGroup.controls.promoCodeTextField.errors.maxlength as maxlength">
+        Podany kod ma za dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
+      </div>
+    </div>
+    <div class="PromoCode-formNoCodeInfo">
+      Nie musisz podawać kodu jeśli go nie znasz
     </div>
   </form>
 

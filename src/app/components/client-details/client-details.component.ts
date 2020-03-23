@@ -38,15 +38,29 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  public clientDetailsOnSubmit(): void {
+  public clientDetailsOnEdit(): void {
+    this.orderFacadeService.clientDetailsEdit();
+  }
+
+  public clientDetailsOnSave(): void {
     this.clientDetailsSubmitted = true;
 
     if (this.clientDetailsFormGroup.invalid) {
       return;
     }
 
-    console.log(Object.keys(this.clientDetailsFormGroup.controls));
-    // this.orderFacadeService.setClientDetails(this.clientDetailsFormGroup.controls.clientDetailsTextField.value);
+    this.orderFacadeService.clientDetailsSave({
+      isClientDetailsFormActive: false,
+      isClientDetailsFormValid: true,
+      email: this.clientDetailsFormGroup.controls.email.value,
+      phone: this.clientDetailsFormGroup.controls.phone.value,
+      name: this.clientDetailsFormGroup.controls.name.value,
+      surname: this.clientDetailsFormGroup.controls.surname.value,
+      address: this.clientDetailsFormGroup.controls.address.value,
+      zipCode: this.clientDetailsFormGroup.controls.zipCode.value,
+      city: this.clientDetailsFormGroup.controls.city.value,
+      comments: this.clientDetailsFormGroup.controls.comments.value
+    });
   }
 
   protected buildPromoCodeFormGroup(): void {

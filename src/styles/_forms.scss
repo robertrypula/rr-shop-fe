@@ -1,7 +1,7 @@
 @import 'configs-and-mixins';
 
-input.FormInput,
-textarea.FormInput {
+input.u-form-input,
+textarea.u-form-input {
   background-color: $input-background-color;
   border: none; // 1px solid $input-border-color;
   display: block;
@@ -18,15 +18,22 @@ textarea.FormInput {
   &::placeholder {
     color: $color;
   }
-  &.FormInput--invalid {
+  &.u-form-input--invalid {
     background-color: $red-light-color;
   }
 }
 
-textarea.FormInput {
+textarea.u-form-input {
   min-height: 120px;
+  padding: 9px 10px;
 }
 
-.FormInput-error {
+label.u-form-label {
+  padding: 12px 0 0 0;
+  display: block;
+}
+
+.u-form-error-container {
   color: $red-color;
+  font-size: 12px;
 }

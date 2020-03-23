@@ -2,7 +2,13 @@
 
 .PotentialOrder {
   .PotentialOrder-section {
-    padding-bottom: 40px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid transparent;
+  }
+
+  .PotentialOrder--withBorder {
+    border-bottom-color: $border-color;
   }
 
   .PotentialOrder-summary {

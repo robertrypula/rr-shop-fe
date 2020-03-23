@@ -29,6 +29,8 @@ export const initialState: State = {
       number: null,
       status: null,
       // ---
+      isClientDetailsFormActive: true,
+      isClientDetailsFormValid: false,
       email: null,
       phone: null,
       name: null,
@@ -193,6 +195,37 @@ const orderReducer = createReducer(
           }
         },
         lastOrderItemId
+      };
+    }
+  ),
+  on(
+    fromOrderActions.clientDetailsEdit,
+    (state: State): State => {
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [POTENTIAL_ORDER_ID]: {
+            ...state.entities[POTENTIAL_ORDER_ID],
+            isClientDetailsFormActive: true,
+            isClientDetailsFormValid: false
+          }
+        }
+      };
+    }
+  ),
+  on(
+    fromOrderActions.clientDetailsSave,
+    (state: State, { clientDetailsForm }): State => {
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [POTENTIAL_ORDER_ID]: {
+            ...state.entities[POTENTIAL_ORDER_ID],
+            ...clientDetailsForm
+          }
+        }
       };
     }
   ),

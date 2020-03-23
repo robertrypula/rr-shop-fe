@@ -23,11 +23,11 @@
   </div>
 
   <h2>Dane klienta</h2>
-  <div class="PotentialOrder-section">
+  <div class="PotentialOrder-section PotentialOrder--withBorder">
     <rr-shop-client-details></rr-shop-client-details>
   </div>
 
-  <div class="PotentialOrder-section">
+  <div class="PotentialOrder-section PotentialOrder--withBorder">
     <h2>Kod rabatowy</h2>
     <rr-shop-promo-code></rr-shop-promo-code>
   </div>
@@ -79,7 +79,7 @@
         <rr-shop-clickable-action
           [label]="'Złóż zamówienie'"
           (actionClick)="createOrder()"
-          [disabled]="!(potentialOrder$ | async)?.isValid"
+          [disabled]="!(potentialOrder$ | async)?.isValid()"
         ></rr-shop-clickable-action>
       </div>
     </div>

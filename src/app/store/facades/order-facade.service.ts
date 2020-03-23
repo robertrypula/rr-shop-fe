@@ -56,6 +56,14 @@ export class OrderFacadeService {
     this.store.dispatch(fromOrderActions.choosePayment({ productId }));
   }
 
+  public clientDetailsEdit(): void {
+    this.store.dispatch(fromOrderActions.clientDetailsEdit());
+  }
+
+  public clientDetailsSave(clientDetailsForm: ClientDetailsForm): void {
+    this.store.dispatch(fromOrderActions.clientDetailsSave({ clientDetailsForm }));
+  }
+
   public createOrder(): void {
     this.store.dispatch(fromOrderActions.createOrderRequest());
   }

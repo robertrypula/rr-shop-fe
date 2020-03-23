@@ -11,6 +11,13 @@ export const chooseDelivery = createAction('[Order] Choose delivery', props<{ pr
 
 export const choosePayment = createAction('[Order] Choose payment', props<{ productId: number }>());
 
+export const clientDetailsEdit = createAction('[Order] Client details edit');
+
+export const clientDetailsSave = createAction(
+  '[Order] Client details save',
+  props<{ clientDetailsForm: ClientDetailsForm }>()
+);
+
 export const createOrderRequest = createAction('[Order] Create order request');
 
 export const createOrderSuccess = createAction('[Order] Create order success', props<{ orderStore: OrderStore }>());

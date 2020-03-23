@@ -18,6 +18,8 @@ export interface OrderStore {
   number?: string;
   status?: Status;
   // ---
+  isClientDetailsFormActive?: boolean;
+  isClientDetailsFormValid?: boolean;
   email?: string;
   phone?: string;
   name?: string;
@@ -41,6 +43,8 @@ export class Order implements OrderStore {
   public number: string;
   public status: Status;
   // ---
+  public isClientDetailsFormActive: boolean;
+  public isClientDetailsFormValid: boolean;
   public email: string;
   public phone?: string;
   public name?: string;
@@ -71,6 +75,8 @@ export class Order implements OrderStore {
     this.number = orderStore.number;
     this.status = orderStore.status;
     // ---
+    this.isClientDetailsFormActive = orderStore.isClientDetailsFormActive;
+    this.isClientDetailsFormValid = orderStore.isClientDetailsFormValid;
     this.email = orderStore.email;
     this.phone = orderStore.phone;
     this.name = orderStore.name;
@@ -95,6 +101,7 @@ export class Order implements OrderStore {
 
   public isValid(): boolean {
     return (
+      this.isClientDetailsFormValid &&
       this.getOrderItemsByType([Type.Product]).length > 0 &&
       this.getOrderItemsByType([Type.Delivery]).length === 1 &&
       this.getOrderItemsByType([Type.Payment]).length === 1

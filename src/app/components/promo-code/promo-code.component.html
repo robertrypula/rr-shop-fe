@@ -7,12 +7,12 @@
   >
     <div>
       <input
-        class="FormInput"
+        class="u-form-input"
         type="text"
         formControlName="promoCodeTextField"
         placeholder="Podaj kod"
         [ngClass]="{
-          'FormInput--invalid': promoCodeSubmitted && promoCodeFormGroup.controls.promoCodeTextField.errors
+          'u-form-input--invalid': promoCodeSubmitted && promoCodeFormGroup.controls.promoCodeTextField.errors
         }"
       />
       <rr-shop-clickable-action
@@ -21,7 +21,10 @@
         [label]="'Aktywuj'"
       ></rr-shop-clickable-action>
     </div>
-    <div class="FormInput-error" *ngIf="promoCodeSubmitted && promoCodeFormGroup.controls.promoCodeTextField.errors">
+    <div
+      class="u-form-error-container"
+      *ngIf="promoCodeSubmitted && promoCodeFormGroup.controls.promoCodeTextField.errors"
+    >
       <div *ngIf="promoCodeFormGroup.controls.promoCodeTextField.errors.required">
         Pole kod nie może być puste
       </div>

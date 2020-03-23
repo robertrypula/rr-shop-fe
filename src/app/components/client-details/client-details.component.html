@@ -260,9 +260,7 @@
       <div>{{ clientDetailsForm.name }} {{ clientDetailsForm.surname }}</div>
       <div>{{ clientDetailsForm.address }}</div>
       <div>{{ clientDetailsForm.zipCode }} {{ clientDetailsForm.city }}</div>
-      <div *ngIf="clientDetailsForm.comments" class="ClientDetails-readOnlyComments">
-        {{ clientDetailsForm.comments }}
-      </div>
+      <div *ngIf="clientDetailsForm.comments as comments" class="ClientDetails-readOnlyComments">{{ comments }}</div>
     </div>
 
     <rr-shop-clickable-action (actionClick)="clientDetailsOnEdit()" [label]="'Edytuj'"></rr-shop-clickable-action>

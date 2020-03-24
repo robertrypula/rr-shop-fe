@@ -37,7 +37,9 @@ export const toProductEnriched = (product: Product, orderItemsStoreAsArray: Orde
   return {
     ...product,
     images: product.images
-      ? [...product.images].sort((a: Image, b: Image): number => (a.order === b.order ? 0 : a.order < b.order ? -1 : 1))
+      ? [...product.images].sort((a: Image, b: Image): number =>
+          a.sortOrder === b.sortOrder ? 0 : a.sortOrder < b.sortOrder ? -1 : 1
+        )
       : [],
     orderItem: orderItemStoreFound ? toOrderItem(orderItemStoreFound) : null
   };

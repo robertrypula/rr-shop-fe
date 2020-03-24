@@ -44,7 +44,7 @@ export interface OrderResponseDto {
   status: Status;
   // ---
   orderItems: Array<{
-    nameOriginal: string;
+    name: string;
     priceUnitOriginal: number;
     priceUnitSelling: number;
     productId: number;

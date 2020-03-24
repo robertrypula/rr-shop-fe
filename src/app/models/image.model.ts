@@ -10,5 +10,5 @@ export enum Size {
 export interface Image {
   id: number;
   filename: string;
-  order: number;
+  sortOrder: number;
 }

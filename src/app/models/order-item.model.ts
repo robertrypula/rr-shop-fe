@@ -12,7 +12,7 @@ export enum Type {
 
 export interface OrderItemStore {
   id?: number;
-  nameOriginal?: string;
+  name?: string;
   priceUnitOriginal?: number;
   priceUnitSelling?: number;
   productId: number;
@@ -24,7 +24,7 @@ export interface OrderItemStore {
 
 export class OrderItem implements OrderItemStore {
   public id?: number;
-  public nameOriginal?: string;
+  public name?: string;
   public priceUnitOriginal?: number;
   public priceUnitSelling?: number;
   public productId: number;
@@ -40,7 +40,7 @@ export class OrderItem implements OrderItemStore {
     }
 
     this.id = orderItemStore.id;
-    this.nameOriginal = orderItemStore.nameOriginal;
+    this.name = orderItemStore.name;
     this.priceUnitOriginal = orderItemStore.priceUnitOriginal;
     this.priceUnitSelling = orderItemStore.priceUnitSelling;
     this.productId = orderItemStore.productId;

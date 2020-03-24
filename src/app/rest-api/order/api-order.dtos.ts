@@ -9,6 +9,21 @@ export interface OrderCreateRequestDto {
     quantity: number;
     type: Type;
   }>;
+  // ---
+  email?: string;
+  phone?: string;
+  name?: string;
+  surname?: string;
+  address?: string;
+  zipCode?: string;
+  city?: string;
+  comments?: string;
+  // ---
+  promoCode?: {
+    name: string;
+    percentageDiscount: number;
+  };
+  // ---
   priceTotalOriginalAll: number;
   priceTotalOriginalDelivery: number;
   priceTotalOriginalPayment: number;
@@ -17,7 +32,6 @@ export interface OrderCreateRequestDto {
   priceTotalSellingDelivery: number;
   priceTotalSellingPayment: number;
   priceTotalSellingProduct: number;
-  promoCodeTextField: string;
 }
 
 export interface OrderCreateResponseDto {

@@ -11,6 +11,23 @@ export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
       quantity: orderItem.quantity,
       type: orderItem.type
     })),
+    // ---
+    email: order.email,
+    phone: order.phone,
+    name: order.name,
+    surname: order.surname,
+    address: order.address,
+    zipCode: order.zipCode,
+    city: order.city,
+    comments: order.comments,
+    // ---
+    promoCode: order.promoCode
+      ? {
+          name: order.promoCode.name,
+          percentageDiscount: order.promoCode.percentageDiscount
+        }
+      : null,
+    // ---
     priceTotalOriginalAll: order.getPriceTotalOriginal([Type.Delivery, Type.Payment, Type.Product]),
     priceTotalOriginalDelivery: order.getPriceTotalOriginal([Type.Delivery]),
     priceTotalOriginalPayment: order.getPriceTotalOriginal([Type.Payment]),
@@ -18,8 +35,7 @@ export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
     priceTotalSellingAll: order.getPriceTotalSelling([Type.Delivery, Type.Payment, Type.Product]),
     priceTotalSellingDelivery: order.getPriceTotalSelling([Type.Delivery]),
     priceTotalSellingPayment: order.getPriceTotalSelling([Type.Payment]),
-    priceTotalSellingProduct: order.getPriceTotalSelling([Type.Product]),
-    promoCodeTextField: order.promoCodeTextField
+    priceTotalSellingProduct: order.getPriceTotalSelling([Type.Product])
   };
 };
 

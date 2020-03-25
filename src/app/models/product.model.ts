@@ -1,16 +1,39 @@
 import { Image } from './image.model';
 import { OrderItem } from './order-item.model';
 
+export enum Type {
+  Delivery = 'Delivery',
+  Payment = 'Payment',
+  Product = 'Product'
+}
+
+export enum DeliveryType {
+  Courier = 'Courier',
+  Own = 'Own',
+  Paczkomaty = 'Paczkomaty',
+  Post = 'Post'
+}
+
+export enum PaymentType {
+  BankTransfer = 'BankTransfer',
+  PayU = 'PayU'
+}
+
+// -----------------------------------------------------------------------------
+
 // TODO rename from 'Product' to 'ProductStore'
 export interface Product {
-  categoryIds: number[];
-  description?: string;
   id: number;
-  images?: Image[];
   name?: string;
-  priceUnit?: number;
-  quantity?: number;
   slug?: string;
+  description?: string;
+  quantity?: number;
+  priceUnit?: number;
+  type?: Type;
+  deliveryType?: DeliveryType;
+  paymentType?: PaymentType;
+  images?: Image[];
+  categoryIds: number[];
 }
 
 // -----------------------------------------------------------------------------

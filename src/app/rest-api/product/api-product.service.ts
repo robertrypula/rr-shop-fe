@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { API_URL_PRODUCT, API_URL_PRODUCTS } from '../endpoints';
 import { Product } from '../../models/product.model';
 import { Image } from '../../models/image.model';
-import { ProductFullDto, ProductInitDto, ProductSimpleDto } from './api-product.dtos';
+import { FetchType, ProductFullDto, ProductMediumDto, ProductMinimalDto } from './api-product.dtos';
 import { ImageDto } from '../image/image.dtos';
 
 @Injectable({
@@ -21,9 +21,29 @@ export class ApiProductService {
       .pipe(map((productDto: ProductFullDto): Product => this.fromFullDto(productDto)));
   }
 
-  public getProducts(ids: number[]): Observable<Product[]> {
+  public getProductsAtInit(): Observable<Product[]> {
     return this.http
-      .get<ProductFullDto[]>(API_URL_PRODUCTS(false, null, ids))
+      .get<ProductMinimalDto[]>(API_URL_PRODUCTS(FetchType.Minimal, null, null, null))
+      .pipe(
+        map((dtos: ProductMinimalDto[]): Product[] =>
+          dtos.map((productDto: ProductMinimalDto): Product => this.fromMinimalDto(productDto))
+        )
+      );
+  }
+
+  public getProductsAtCategory(categoryIds: number[] = null): Observable<Product[]> {
+    return this.http
+      .get<ProductMediumDto[]>(API_URL_PRODUCTS(FetchType.Medium, categoryIds, null, null))
+      .pipe(
+        map((dtos: ProductMediumDto[]): Product[] =>
+          dtos.map((productDto: ProductMediumDto): Product => this.fromMediumDto(productDto))
+        )
+      );
+  }
+
+  public getProducts(productIds: number[]): Observable<Product[]> {
+    return this.http
+      .get<ProductFullDto[]>(API_URL_PRODUCTS(FetchType.Full, null, productIds, null))
       .pipe(
         map((dtos: ProductFullDto[]): Product[] =>
           dtos.map((productDto: ProductFullDto): Product => this.fromFullDto(productDto))
@@ -31,48 +51,14 @@ export class ApiProductService {
       );
   }
 
-  public getProductsAtCategory(categoryIds: number[] = null): Observable<Product[]> {
-    return this.http
-      .get<ProductSimpleDto[]>(API_URL_PRODUCTS(false, categoryIds, null))
-      .pipe(
-        map((dtos: ProductSimpleDto[]): Product[] =>
-          dtos.map((productDto: ProductSimpleDto): Product => this.fromSimpleDto(productDto))
-        )
-      );
-  }
-
-  public getProductsAtInit(): Observable<Product[]> {
-    return this.http
-      .get<ProductInitDto[]>(API_URL_PRODUCTS(true, null, null))
-      .pipe(
-        map((dtos: ProductInitDto[]): Product[] =>
-          dtos.map((productDto: ProductInitDto): Product => this.fromInitDto(productDto))
-        )
-      );
-  }
-
-  // TODO move to dedicated file same as Order
-  public fromFullDto(dto: ProductFullDto): Product {
-    return {
-      categoryIds: dto.categoryIds,
-      description: dto.description,
-      id: dto.id,
-      images: dto.images.map((image: ImageDto): Image => ({ ...image })),
-      name: dto.name,
-      priceUnit: dto.priceUnit,
-      quantity: dto.quantity,
-      slug: dto.slug
-    };
-  }
-
-  public fromInitDto(dto: ProductInitDto): Product {
+  public fromMinimalDto(dto: ProductMinimalDto): Product {
     return {
       categoryIds: dto.categoryIds,
       id: dto.id
     };
   }
 
-  public fromSimpleDto(dto: ProductSimpleDto): Product {
+  public fromMediumDto(dto: ProductMediumDto): Product {
     return {
       categoryIds: dto.categoryIds,
       id: dto.id,
@@ -80,6 +66,23 @@ export class ApiProductService {
       name: dto.name,
       priceUnit: dto.priceUnit,
       slug: dto.slug
+    };
+  }
+
+  // TODO move to dedicated file same as Order
+  public fromFullDto(dto: ProductFullDto): Product {
+    return {
+      categoryIds: dto.categoryIds,
+      deliveryType: dto.deliveryType,
+      description: dto.description,
+      id: dto.id,
+      images: dto.images.map((image: ImageDto): Image => ({ ...image })),
+      name: dto.name,
+      paymentType: dto.paymentType,
+      priceUnit: dto.priceUnit,
+      quantity: dto.quantity,
+      slug: dto.slug,
+      type: dto.type
     };
   }
 }

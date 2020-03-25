@@ -6,7 +6,7 @@ import { ClickableActionTheme, ClickableActionType } from '../clickable-action/c
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { POTENTIAL_ORDER_ID } from '../../store/reducers/order.reducers';
 import { Order } from '../../models/order.model';
-import { Type } from '../../models/order-item.model';
+import { Type } from '../../models/product.model';
 
 @Component({
   selector: 'rr-shop-header-sticky',

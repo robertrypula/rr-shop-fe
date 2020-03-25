@@ -1,12 +1,6 @@
-import { Product } from './product.model';
+import { Product, Type } from './product.model';
 import { Order } from './order.model';
 import { normalizePrice } from '../utils/math.utils';
-
-export enum Type {
-  Delivery = 'Delivery',
-  Payment = 'Payment',
-  Product = 'Product'
-}
 
 // -----------------------------------------------------------------------------
 
@@ -88,10 +82,12 @@ export class OrderItem implements OrderItemStore {
   }
 
   protected isPriceUnitOriginalComingFromTheBackend(): boolean {
+    // TODO look at uuid of the order - if it's not -1 when is order from backend
     return !!this.priceUnitOriginal || this.priceUnitOriginal === 0;
   }
 
   protected isPriceUnitSellingComingFromTheBackend(): boolean {
+    // TODO look at uuid of the order - if it's not -1 when is order from backend
     return !!this.priceUnitSelling || this.priceUnitSelling === 0;
   }
 }

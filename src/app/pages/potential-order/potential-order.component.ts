@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Order } from '../../models/order.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { POTENTIAL_ORDER_ID } from '../../store/reducers/order.reducers';
-import { Type } from '../../models/order-item.model';
+import { Type } from '../../models/product.model';
 
 @Component({
   selector: 'rr-shop-potential-order',

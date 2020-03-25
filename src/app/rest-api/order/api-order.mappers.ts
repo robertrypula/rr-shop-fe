@@ -1,6 +1,7 @@
 import { OrderCreateRequestDto, OrderCreateResponseDto, OrderResponseDto } from './api-order.dtos';
 import { Order, OrderStore } from '../../models/order.model';
-import { OrderItem, Type } from '../../models/order-item.model';
+import { OrderItem } from '../../models/order-item.model';
+import { Type } from '../../models/product.model';
 
 export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
   return {

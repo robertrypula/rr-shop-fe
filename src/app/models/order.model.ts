@@ -1,6 +1,7 @@
 import { PromoCode, PromoCodeStore } from './promo-code.model';
-import { OrderItem, OrderItemStore, Type } from './order-item.model';
+import { OrderItem, OrderItemStore } from './order-item.model';
 import { normalizePrice } from '../utils/math.utils';
+import { Type } from './product.model';
 
 export enum Status {
   PaymentWait = 'PaymentWait',

@@ -1,7 +1,7 @@
 <div class="Product" *ngIf="activeProductEnriched$ | async as activeProductEnriched">
   <div class="row">
     <div class="col-xxs-12 col-md-6 Product-imageContainer">
-      <rr-shop-image [images]="activeProductEnriched.images" [size]="Size.Thumb300px" [slider]="true"></rr-shop-image>
+      <rr-shop-image [images]="activeProductEnriched.images" [size]="Size.Px0300" [slider]="true"></rr-shop-image>
     </div>
     <div class="col-xxs-12 col-md-6 Product-overviewContainer">
       <h2>{{ activeProductEnriched.name }}</h2>
@@ -27,8 +27,10 @@
           ></rr-shop-clickable-action>
           <rr-shop-clickable-action
             (actionClick)="quantityIncrement(activeProductEnriched.orderItem.id)"
+            [disabled]="!activeProductEnriched.orderItem.isQuantityIncrementActive()"
             [icon]="['fas', 'plus']"
           ></rr-shop-clickable-action>
+          <span>{{ activeProductEnriched.quantity }}</span>
         </div>
       </div>
 

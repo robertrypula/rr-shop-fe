@@ -15,12 +15,14 @@ export class ImagePipe implements PipeTransform {
     switch (size) {
       case Size.Full:
         return 'full';
-      case Size.Thumb064px:
-        return '064px';
-      case Size.Thumb200px:
-        return '200px';
-      case Size.Thumb300px:
-        return '300px';
+      case Size.Px0064:
+        return '0064px';
+      case Size.Px0200:
+        return '0200px';
+      case Size.Px0300:
+        return '0300px';
+      case Size.Px1600:
+        return '1600px';
       default:
         return '';
     }

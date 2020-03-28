@@ -1,8 +1,9 @@
 export enum Size {
   Full = 'Full',
-  Thumb064px = 'Thumb064px',
-  Thumb200px = 'Thumb200px',
-  Thumb300px = 'Thumb300px'
+  Px0064 = 'Px0064',
+  Px0200 = 'Px0200',
+  Px0300 = 'Px0300',
+  Px1600 = 'Px1600'
 }
 
 // -----------------------------------------------------------------------------

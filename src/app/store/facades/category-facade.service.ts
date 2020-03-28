@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { take, tap } from 'rxjs/operators';
 
 import * as fromCategoryActions from '../actions/category.actions';
 import * as fromCategorySelectors from '../selectors/category.selectors';
@@ -46,32 +45,12 @@ export class CategoryFacadeService {
     return this.store.pipe(select(fromCategorySelectors.selectCategoryStore, { structuralNode }));
   }
 
-  public categoryById$(id: number): Observable<CategoryStore> {
-    return this.store.pipe(select(fromCategorySelectors.selectCategoryStore, { id }));
-  }
-
   public categoriesByStructuralNode$(structuralNode: StructuralNode): Observable<CategoryStore[]> {
     return this.store.pipe(select(fromCategorySelectors.selectCategoriesStoreBy, { structuralNode }));
   }
 
   public categoriesByParentId$(parentId: number): Observable<CategoryStore[]> {
     return this.store.pipe(select(fromCategorySelectors.selectCategoriesStoreBy, { parentId }));
-  }
-
-  public getCategoryById(id: number): CategoryStore {
-    let result: CategoryStore = null;
-
-    this.store
-      .pipe(
-        select(fromCategorySelectors.selectCategoryStore, { id }),
-        take(1),
-        tap((category: CategoryStore): void => {
-          result = category;
-        })
-      )
-      .subscribe();
-
-    return result;
   }
 
   public setIsCollapsed(newValue: boolean): void {

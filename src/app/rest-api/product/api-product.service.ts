@@ -34,13 +34,19 @@ export class ApiProductService {
     return this.http
       .get<ProductMediumDto[]>(API_URL_PRODUCTS(FetchType.Medium, categoryIds, null, null))
       .pipe(
-        map((dtos: ProductMediumDto[]): ProductStore[] => dtos.map((dto: ProductMediumDto): ProductStore => fromMediumDto(dto)))
+        map((dtos: ProductMediumDto[]): ProductStore[] =>
+          dtos.map((dto: ProductMediumDto): ProductStore => fromMediumDto(dto))
+        )
       );
   }
 
   public getProducts(productIds: number[]): Observable<ProductStore[]> {
     return this.http
       .get<ProductFullDto[]>(API_URL_PRODUCTS(FetchType.Full, null, productIds, null))
-      .pipe(map((dtos: ProductFullDto[]): ProductStore[] => dtos.map((dto: ProductFullDto): ProductStore => fromFullDto(dto))));
+      .pipe(
+        map((dtos: ProductFullDto[]): ProductStore[] =>
+          dtos.map((dto: ProductFullDto): ProductStore => fromFullDto(dto))
+        )
+      );
   }
 }

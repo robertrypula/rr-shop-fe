@@ -70,13 +70,17 @@ export const selectPotentialOrderProductsIds = createSelector(
 );
 
 export const selectPromoCodeTextFieldByUuid = (uuid: string) =>
-  createSelector(selectOrdersStoreAsArray, selectProductsStoreAsKeyValue, (ordersStoreAsArray: OrderStore[]): string => {
-    const orderStoreFind: OrderStore = ordersStoreAsArray.find(
-      (orderStore: OrderStore): boolean => orderStore.uuid === uuid
-    );
+  createSelector(
+    selectOrdersStoreAsArray,
+    selectProductsStoreAsKeyValue,
+    (ordersStoreAsArray: OrderStore[]): string => {
+      const orderStoreFind: OrderStore = ordersStoreAsArray.find(
+        (orderStore: OrderStore): boolean => orderStore.uuid === uuid
+      );
 
-    return orderStoreFind ? orderStoreFind.promoCodeTextField : '';
-  });
+      return orderStoreFind ? orderStoreFind.promoCodeTextField : '';
+    }
+  );
 
 export const selectUrlOrderUuid = createSelector(selectUrl, (url: string): string => {
   return getOrderUuid(url);

@@ -1,26 +1,29 @@
 import { createSelector } from '@ngrx/store';
 
 import * as fromProductReducers from '../reducers/product.reducers';
-import { Product } from '../../models/product.model';
+import { ProductStore } from '../../models/product.model';
 import { State } from '../reducers';
 import { ApiCall } from '../../models/page.model';
 import { getAsArray } from '../../utils/transfomation.utils';
 
 export const selectProductFeature = (state: State): fromProductReducers.State => state.product;
 
-export const selectProductsAsArray = createSelector(
+export const selectProductsStoreAsArray = createSelector(
   selectProductFeature,
-  (productFeature: fromProductReducers.State): Product[] => getAsArray(productFeature.list)
+  (productFeature: fromProductReducers.State): ProductStore[] => getAsArray(productFeature.list)
 );
 
-export const selectProductsAsKeyValue = createSelector(
+export const selectProductsStoreAsKeyValue = createSelector(
   selectProductFeature,
-  (productFeature: fromProductReducers.State): { [id: number]: Product } => productFeature.list
+  (productFeature: fromProductReducers.State): { [id: number]: ProductStore } => productFeature.list
 );
 
-export const selectProductsLength = createSelector(selectProductsAsArray, (productsAsArray: Product[]): number => {
-  return productsAsArray.length;
-});
+export const selectProductsStoreLength = createSelector(
+  selectProductsStoreAsArray,
+  (productsStoreAsArray: ProductStore[]): number => {
+    return productsStoreAsArray.length;
+  }
+);
 
 export const selectApiCallProduct = createSelector(
   selectProductFeature,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BarService } from './bar.service';
-import { Product } from '../models/product.model';
+import { ProductEnriched } from '../models/product.model';
 import { OrderFacadeService } from '../store/facades/order-facade.service';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class OrderService {
   // TODO migrate everything to facade and remove service
   public constructor(protected barService: BarService, protected orderFacadeService: OrderFacadeService) {}
 
-  public add(product: Product): void {
+  public add(product: ProductEnriched): void {
     this.orderFacadeService.add(product);
     this.barService.showSuccess(`Produkt '${product.name}' dodany do koszyka`); // TODO translations
   }

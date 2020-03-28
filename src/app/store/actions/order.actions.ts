@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 
-import { Product } from '../../models/product.model';
+import { ProductStore } from '../../models/product.model';
 import { OrderStore } from '../../models/order.model';
 import { PromoCodeStore } from '../../models/promo-code.model';
 
@@ -39,7 +39,7 @@ export const potentialOrderProductsRequest = createAction('[Order] Potential ord
 
 export const potentialOrderProductsSuccess = createAction(
   '[Order] Potential order products success',
-  props<{ products: Product[] }>()
+  props<{ productsStore: ProductStore[] }>()
 );
 
 export const potentialOrderProductsFailure = createAction(

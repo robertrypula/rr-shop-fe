@@ -1,16 +1,16 @@
 import { ProductFullDto, ProductMediumDto, ProductMinimalDto } from './api-product.dtos';
-import { Product } from '../../models/product.model';
+import { ProductStore } from '../../models/product.model';
 import { ImageDto } from '../image/image.dtos';
 import { Image } from '../../models/image.model';
 
-export const fromMinimalDto = (dto: ProductMinimalDto): Product => {
+export const fromMinimalDto = (dto: ProductMinimalDto): ProductStore => {
   return {
     categoryIds: dto.categoryIds,
     id: dto.id
   };
 };
 
-export const fromMediumDto = (dto: ProductMediumDto): Product => {
+export const fromMediumDto = (dto: ProductMediumDto): ProductStore => {
   return {
     categoryIds: dto.categoryIds,
     id: dto.id,
@@ -21,7 +21,7 @@ export const fromMediumDto = (dto: ProductMediumDto): Product => {
   };
 };
 
-export const fromFullDto = (dto: ProductFullDto): Product => {
+export const fromFullDto = (dto: ProductFullDto): ProductStore => {
   return {
     categoryIds: dto.categoryIds,
     deliveryType: dto.deliveryType,

@@ -1,17 +1,17 @@
 import { Order, OrderStore } from '../../models/order.model';
-import { Product } from '../../models/product.model';
+import { ProductStore } from '../../models/product.model';
 import { PromoCode } from '../../models/promo-code.model';
 import { OrderItem, OrderItemStore } from '../../models/order-item.model';
 import { getAsArray } from '../../utils/transfomation.utils';
 
 export const toOrderWithAllRelations = (
   orderStore: OrderStore,
-  productsAsKeyValue: { [id: number]: Product }
+  productsStoreAsKeyValue: { [id: number]: ProductStore }
 ): Order => {
   const order: Order = new Order().fromStore(orderStore);
 
   order.orderItems = getAsArray(orderStore.orderItemsStore).map(
-    (orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsAsKeyValue).setOrder(order)
+    (orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsStoreAsKeyValue).setOrder(order)
   );
   order.promoCode = orderStore.promoCodeStore
     ? new PromoCode().fromStore(orderStore.promoCodeStore).setOrder(order)
@@ -37,12 +37,13 @@ export const extractClientDetailsForm = (orderStore: OrderStore): ClientDetailsF
 
 export const toOrderItem = (
   orderItemStore: OrderItemStore,
-  productsAsKeyValue: { [id: number]: Product } = null
+  productsStoreAsKeyValue: { [id: number]: ProductStore } = null
 ): OrderItem => {
   // TODO refactor this when Product will follow class model pattern
   const orderItem: OrderItem = new OrderItem().fromStore(orderItemStore);
 
-  orderItem.product = productsAsKeyValue ? productsAsKeyValue[orderItemStore.productId] : null;
+  orderItem.productStore = productsStoreAsKeyValue ? productsStoreAsKeyValue[orderItemStore.productId] : null;
+  // TODO add product member and create product object - currently it's ProductEnriched
 
   return orderItem;
 };

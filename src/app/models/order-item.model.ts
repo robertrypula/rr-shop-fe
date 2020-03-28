@@ -1,4 +1,4 @@
-import { Product, Type } from './product.model';
+import { ProductStore, Type } from './product.model';
 import { Order } from './order.model';
 import { normalizePrice } from '../utils/math.utils';
 
@@ -25,8 +25,11 @@ export class OrderItem implements OrderItemStore {
   public quantity: number;
   public type: Type;
 
+  public productStore: ProductStore; // remove me as productId foreign key exists
+
+  // ----
   public order: Order;
-  public product: Product; // TODO this is actually ProductStore, rename it when ProductEnriched will switch to Product
+  // TODO implement 'product' member
 
   public fromStore(orderItemStore: OrderItemStore): OrderItem {
     if (!orderItemStore) {
@@ -49,7 +52,7 @@ export class OrderItem implements OrderItemStore {
   }
 
   public isQuantityIncrementActive(): boolean {
-    return (this.product ? this.product.quantity : 0) > this.quantity;
+    return (this.productStore ? this.productStore.quantity : 0) > this.quantity;
   }
 
   public getPriceTotalOriginal(): number {
@@ -63,17 +66,17 @@ export class OrderItem implements OrderItemStore {
   public getPriceUnitOriginal(): number {
     return this.isPriceUnitOriginalComingFromTheBackend()
       ? this.priceUnitOriginal
-      : this.product
-      ? this.product.priceUnit
+      : this.productStore
+      ? this.productStore.priceUnit
       : 0;
   }
 
   public getPriceUnitSelling(): number {
     return this.isPriceUnitSellingComingFromTheBackend()
       ? this.priceUnitSelling
-      : this.product
+      : this.productStore
       ? normalizePrice(
-          this.product.priceUnit *
+          this.productStore.priceUnit *
             (this.order && this.order.promoCode ? this.order.promoCode.getDiscountMultiplier() : 1)
         )
       : 0;

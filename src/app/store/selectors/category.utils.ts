@@ -1,44 +1,47 @@
 import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../../config/config';
 
-export const findChildren = (categoriesAsArray: CategoryStore[], parentId: number, result: CategoryStore[]): void => {
-  const children: CategoryStore[] = categoriesAsArray.filter(
-    (category: CategoryStore): boolean => category.parentId === parentId
+export const findChildren = (categoriesStoreAsArray: CategoryStore[], parentId: number, result: CategoryStore[]): void => {
+  const children: CategoryStore[] = categoriesStoreAsArray.filter(
+    (categoryStore: CategoryStore): boolean => categoryStore.parentId === parentId
   );
   children.forEach((child: CategoryStore): void => {
     result.push(child);
-    findChildren(categoriesAsArray, child.id, result);
+    findChildren(categoriesStoreAsArray, child.id, result);
   });
 };
 
-export const getCategoriesFromLeafToRoot = (
+export const getCategoriesStoreFromLeafToRoot = (
   categoriesAsKeyValue: { [key: string]: CategoryStore },
   leafId: number,
   structuralNodeLimit: StructuralNode[] = BREADCRUMBS_STRUCTURAL_NODES_LIMIT
 ): CategoryStore[] => {
-  const categoriesFromLeafToRoot: CategoryStore[] = [];
-  let category: CategoryStore;
+  const categoriesStoreFromLeafToRoot: CategoryStore[] = [];
+  let categoryStore: CategoryStore;
   let id: number = leafId;
 
   while (true) {
-    category = categoriesAsKeyValue[id];
-    if (!category || structuralNodeLimit.includes(category.structuralNode)) {
+    categoryStore = categoriesAsKeyValue[id];
+    if (!categoryStore || structuralNodeLimit.includes(categoryStore.structuralNode)) {
       break;
     }
-    categoriesFromLeafToRoot.push(category);
-    id = category.parentId;
+    categoriesStoreFromLeafToRoot.push(categoryStore);
+    id = categoryStore.parentId;
   }
 
-  return categoriesFromLeafToRoot;
+  return categoriesStoreFromLeafToRoot;
 };
 
-export const getCategoryAndItsChildren = (categoriesAsArray: CategoryStore[], id: number): CategoryStore[] => {
-  const category: CategoryStore = categoriesAsArray.find((c: CategoryStore): boolean => c.id === id);
+export const getCategoryStoreAndItsChildren = (
+  categoriesStoreAsArray: CategoryStore[],
+  id: number
+): CategoryStore[] => {
+  const categoryStore: CategoryStore = categoriesStoreAsArray.find((c: CategoryStore): boolean => c.id === id);
   const result: CategoryStore[] = [];
 
-  if (category) {
-    result.push(category);
-    findChildren(categoriesAsArray, category.id, result);
+  if (categoryStore) {
+    result.push(categoryStore);
+    findChildren(categoriesStoreAsArray, categoryStore.id, result);
   }
 
   return result;

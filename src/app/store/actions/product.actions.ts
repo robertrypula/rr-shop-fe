@@ -1,17 +1,20 @@
 import { createAction, props } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { Product } from '../../models/product.model';
+import { ProductStore } from '../../models/product.model';
 
 export const productRequest = createAction('[Product] Request');
 
-export const productSuccess = createAction('[Product] Success', props<{ product: Product }>());
+export const productSuccess = createAction('[Product] Success', props<{ productStore: ProductStore }>());
 
 export const productFailure = createAction('[Product] Failure', props<{ httpErrorResponse: HttpErrorResponse }>());
 
 export const productsAtInitRequest = createAction('[Product] At init request');
 
-export const productsAtInitSuccess = createAction('[Product] At init success', props<{ products: Product[] }>());
+export const productsAtInitSuccess = createAction(
+  '[Product] At init success',
+  props<{ productsStore: ProductStore[] }>()
+);
 
 export const productsAtInitFailure = createAction(
   '[Product] At init failure',
@@ -22,7 +25,7 @@ export const productsAtCategoryRequest = createAction('[Product] At category req
 
 export const productsAtCategorySuccess = createAction(
   '[Product] At category success',
-  props<{ products: Product[] }>()
+  props<{ productsStore: ProductStore[] }>()
 );
 
 export const productsAtCategoryFailure = createAction(

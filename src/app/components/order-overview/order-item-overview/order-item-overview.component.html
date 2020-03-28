@@ -1,13 +1,13 @@
 <td class="OrderItemOverview-name">
-  <a [routerLink]="orderItem?.product | productUrl">
+  <a [routerLink]="orderItem?.productStore | productUrl">
     <rr-shop-image
-      [images]="orderItem.product?.images"
+      [images]="orderItem.productStore?.images"
       [size]="Size.Thumb064px"
       class="OrderItemOverview-image"
     ></rr-shop-image>
-    <span>{{ orderItem.product?.name }}</span>
+    <span>{{ orderItem.productStore?.name }}</span>
     <div class="hidden-md hidden-lg">
-      {{ orderItem.product?.priceUnit | price }}
+      {{ orderItem.productStore?.priceUnit | price }}
       x
       {{ orderItem.quantity }}
       =
@@ -52,7 +52,7 @@
 </td>
 <td class="OrderItemOverview-price hidden-xxs hidden-xs hidden-sm">
   <span>
-    {{ orderItem.product?.priceUnit | price }}
+    {{ orderItem.productStore?.priceUnit | price }}
   </span>
 </td>
 <td class="OrderItemOverview-itemPrice hidden-xxs hidden-xs hidden-sm">

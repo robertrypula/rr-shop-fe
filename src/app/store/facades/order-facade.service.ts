@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { State } from '../reducers';
 import * as fromOrderActions from '../actions/order.actions';
 import * as fromOrderSelectors from '../selectors/order.selectors';
-import { Product } from '../../models/product.model';
+import { ProductEnriched } from '../../models/product.model';
 import { Order } from '../../models/order.model';
 import { selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.selectors';
 import { selectApiCallPromoCode } from '../selectors/order-core.selectors';
@@ -44,8 +44,8 @@ export class OrderFacadeService {
 
   // ---------------------------------------------------------------------------
 
-  public add(product: Product): void {
-    this.store.dispatch(fromOrderActions.add({ productId: product.id }));
+  public add(productEnriched: ProductEnriched): void {
+    this.store.dispatch(fromOrderActions.add({ productId: productEnriched.id }));
   }
 
   public chooseDelivery(productId: number): void {

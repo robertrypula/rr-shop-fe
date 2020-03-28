@@ -21,8 +21,7 @@ export enum PaymentType {
 
 // -----------------------------------------------------------------------------
 
-// TODO rename from 'Product' to 'ProductStore'
-export interface Product {
+export interface ProductStore {
   id: number;
   name?: string;
   slug?: string;
@@ -32,7 +31,7 @@ export interface Product {
   type?: Type;
   deliveryType?: DeliveryType;
   paymentType?: PaymentType;
-  images?: Image[];
+  images?: Image[]; // TODO it should be imagesStore
   categoryIds: number[];
 }
 
@@ -40,6 +39,8 @@ export interface Product {
 
 // TODO rename from 'ProductEnriched' to 'Product'
 // TODO migrate from interface to class
-export interface ProductEnriched extends Product {
+export interface ProductEnriched extends ProductStore {
+  // NOTE: actually products have OneToMany relation to orderItems but I limited it to only
+  // on single 'basket' which have one entry per product (multiple products are modeled as quantity)
   orderItem: OrderItem;
 }

@@ -7,12 +7,13 @@ import * as fromCategoryActions from '../actions/category.actions';
 import * as fromCategorySelectors from '../selectors/category.selectors';
 import { ActiveLevelUpdateEntry, CategoryStore, StructuralNode } from '../../models/category.model';
 import { State } from '../reducers';
-import { selectCategoryLength, selectIsListCollapsed } from '../selectors/category-core.selectors';
+import { selectCategoryStoreLength, selectIsListCollapsed } from '../selectors/category-core.selectors';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryFacadeService {
+  // TODO when 'Category' class will be implemented rename variables
   public activeCategory$: Observable<CategoryStore>;
   public activeCategoryAndItsChildren$: Observable<CategoryStore[]>;
   public activeLevelUpdateEntriesBasedOnRoute$: Observable<ActiveLevelUpdateEntry[]>;
@@ -23,7 +24,7 @@ export class CategoryFacadeService {
   public isOnCategoryRoute$: Observable<boolean>;
 
   public constructor(protected store: Store<State>) {
-    this.activeCategory$ = this.store.pipe(select(fromCategorySelectors.selectActiveCategory));
+    this.activeCategory$ = this.store.pipe(select(fromCategorySelectors.selectActiveCategoryStore));
     this.activeCategoryAndItsChildren$ = this.store.pipe(
       select(fromCategorySelectors.selectActiveCategoryAndItsChildren)
     );
@@ -33,7 +34,7 @@ export class CategoryFacadeService {
     this.categoriesWithActiveLevelSorted$ = this.store.pipe(
       select(fromCategorySelectors.selectCategoriesWithActiveLevelSorted)
     );
-    this.categoryLength$ = this.store.pipe(select(selectCategoryLength));
+    this.categoryLength$ = this.store.pipe(select(selectCategoryStoreLength));
     this.isCollapseExpandButtonVisible$ = this.store.pipe(
       select(fromCategorySelectors.selectIsCollapseExpandButtonVisible)
     );
@@ -42,19 +43,19 @@ export class CategoryFacadeService {
   }
 
   public categoryByStructuralNode$(structuralNode: StructuralNode): Observable<CategoryStore> {
-    return this.store.pipe(select(fromCategorySelectors.selectCategory, { structuralNode }));
+    return this.store.pipe(select(fromCategorySelectors.selectCategoryStore, { structuralNode }));
   }
 
   public categoryById$(id: number): Observable<CategoryStore> {
-    return this.store.pipe(select(fromCategorySelectors.selectCategory, { id }));
+    return this.store.pipe(select(fromCategorySelectors.selectCategoryStore, { id }));
   }
 
   public categoriesByStructuralNode$(structuralNode: StructuralNode): Observable<CategoryStore[]> {
-    return this.store.pipe(select(fromCategorySelectors.selectCategoriesBy, { structuralNode }));
+    return this.store.pipe(select(fromCategorySelectors.selectCategoriesStoreBy, { structuralNode }));
   }
 
   public categoriesByParentId$(parentId: number): Observable<CategoryStore[]> {
-    return this.store.pipe(select(fromCategorySelectors.selectCategoriesBy, { parentId }));
+    return this.store.pipe(select(fromCategorySelectors.selectCategoriesStoreBy, { parentId }));
   }
 
   public getCategoryById(id: number): CategoryStore {
@@ -62,7 +63,7 @@ export class CategoryFacadeService {
 
     this.store
       .pipe(
-        select(fromCategorySelectors.selectCategory, { id }),
+        select(fromCategorySelectors.selectCategoryStore, { id }),
         take(1),
         tap((category: CategoryStore): void => {
           result = category;

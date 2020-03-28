@@ -2,7 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromOrderActions from '../actions/order.actions';
 import * as fromProductActions from '../actions/product.actions';
-import { Product } from '../../models/product.model';
+import { ProductStore } from '../../models/product.model';
 import { ApiCall } from '../../models/page.model';
 
 export interface State {
@@ -10,7 +10,7 @@ export interface State {
   apiCallProductsAtCategory: ApiCall;
   apiCallProductsAtInit: ApiCall;
   list: {
-    [id: number]: Product;
+    [id: number]: ProductStore;
   };
 }
 
@@ -52,20 +52,20 @@ const productReducer = createReducer(
   ),
   on(
     fromProductActions.productSuccess,
-    (state: State, { product }): State => ({
+    (state: State, { productStore }): State => ({
       ...state,
-      list: { ...state.list, [product.id]: { ...state.list[product.id], ...product } }
+      list: { ...state.list, [productStore.id]: { ...state.list[productStore.id], ...productStore } }
     })
   ),
   on(
     fromOrderActions.potentialOrderProductsSuccess,
     fromProductActions.productsAtCategorySuccess,
     fromProductActions.productsAtInitSuccess,
-    (state: State, { products }): State => {
+    (state: State, { productsStore }): State => {
       const newState: State = { ...state, list: { ...state.list } };
 
-      products.forEach((product: Product): void => {
-        newState.list[product.id] = { ...state.list[product.id], ...product };
+      productsStore.forEach((productStore: ProductStore): void => {
+        newState.list[productStore.id] = { ...state.list[productStore.id], ...productStore };
       });
 
       return newState;

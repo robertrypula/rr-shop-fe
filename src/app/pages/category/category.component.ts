@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Product, ProductEnriched } from '../../models/product.model';
+import { ProductEnriched } from '../../models/product.model';
 import { CategoryStore } from '../../models/category.model';
 import { ProductFacadeService } from '../../store/facades/product-facade.service';
 import { CategoryFacadeService } from '../../store/facades/category-facade.service';
@@ -24,7 +24,7 @@ export class CategoryComponent implements OnInit {
 
   public ngOnInit(): void {}
 
-  public trackBy(index: number, item: Product): string {
+  public trackBy(index: number, item: ProductEnriched): string {
     return item.id + '';
   }
 }

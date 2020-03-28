@@ -8,18 +8,18 @@ import { getAsArray } from '../../utils/transfomation.utils';
 
 export const selectCategoryFeature = (state: State): fromCategoryReducers.State => state.category;
 
-export const selectCategoriesAsArray = createSelector(
+export const selectCategoriesStoreAsArray = createSelector(
   selectCategoryFeature,
   (categoryFeature: fromCategoryReducers.State): CategoryStore[] => getAsArray(categoryFeature.list)
 );
 
-export const selectCategoriesAsKeyValue = createSelector(
+export const selectCategoriesStoreAsKeyValue = createSelector(
   selectCategoryFeature,
   (categoryFeature: fromCategoryReducers.State): { [id: number]: CategoryStore } => categoryFeature.list
 );
 
-export const selectCategoryLength = createSelector(
-  selectCategoriesAsArray,
+export const selectCategoryStoreLength = createSelector(
+  selectCategoriesStoreAsArray,
   (categoriesAsArray: CategoryStore[]): number => {
     return categoriesAsArray.length;
   }

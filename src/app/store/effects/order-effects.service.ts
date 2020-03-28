@@ -15,6 +15,7 @@ import { ApiOrderService } from '../../rest-api/order/api-order.service';
 import { POTENTIAL_ORDER_ID } from '../reducers/order.reducers';
 import { PromoCodeStore } from '../../models/promo-code.model';
 import { ApiPromoCodeService } from '../../rest-api/promo-code/api-promo-code.service';
+import { ProductStore } from '../../models/product.model';
 
 @Injectable()
 export class OrderEffects {
@@ -118,7 +119,7 @@ export class OrderEffects {
       concatMap(action => of(action).pipe(withLatestFrom(this.orderFacadeService.potentialOrderProductsIds$))),
       switchMap(([action, potentialOrderProductsIds]) =>
         this.apiProductService.getProducts(potentialOrderProductsIds).pipe(
-          map(products => fromOrderActions.potentialOrderProductsSuccess({ products })),
+          map((productsStore: ProductStore[]) => fromOrderActions.potentialOrderProductsSuccess({ productsStore })),
           catchError((httpErrorResponse: HttpErrorResponse) =>
             of(fromOrderActions.potentialOrderProductsFailure({ httpErrorResponse }))
           )

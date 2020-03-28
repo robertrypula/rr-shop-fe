@@ -1,14 +1,14 @@
 import { createSelector } from '@ngrx/store';
 
-import { Product, ProductEnriched } from '../../models/product.model';
-import { selectActiveCategoryAndItsChildren, selectCategoryAndItsChildren } from './category.selectors';
+import { ProductStore, ProductEnriched } from '../../models/product.model';
+import { selectActiveCategoryAndItsChildren, selectCategoryStoreAndItsChildren } from './category.selectors';
 import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
 import { getProductId, isOnProductRoute } from '../../utils/routing.utils';
-import { selectProductsAsArray, selectProductsAsKeyValue } from './product-core.selectors';
+import { selectProductsStoreAsArray, selectProductsStoreAsKeyValue } from './product-core.selectors';
 import { selectOrderItemsStoreAsArray } from './order-core.selectors';
-import { getProductsForGivenCategories, toProductEnriched } from './product.utils';
-import { selectCategoriesAsArray } from './category-core.selectors';
+import { getProductsStoreForGivenCategoriesStore, toProductEnriched } from './product.utils';
+import { selectCategoriesStoreAsArray } from './category-core.selectors';
 import { OrderItemStore } from '../../models/order-item.model';
 
 export const selectUrlProductId = createSelector(selectUrl, (url: string): number => {
@@ -17,58 +17,61 @@ export const selectUrlProductId = createSelector(selectUrl, (url: string): numbe
 
 export const selectActiveProductEnriched = createSelector(
   selectUrlProductId,
-  selectProductsAsKeyValue,
+  selectProductsStoreAsKeyValue,
   selectOrderItemsStoreAsArray,
   (
     urlProductId: number,
-    productsAsKeyValue: { [key: string]: Product },
+    productsStoreAsKeyValue: { [key: string]: ProductStore },
     orderItemsStoreAsArray: OrderItemStore[]
   ): ProductEnriched => {
     return urlProductId
-      ? toProductEnriched(productsAsKeyValue[urlProductId], orderItemsStoreAsArray, productsAsKeyValue)
+      ? toProductEnriched(productsStoreAsKeyValue[urlProductId], orderItemsStoreAsArray, productsStoreAsKeyValue)
       : null;
   }
 );
 
 export const selectProductsEnrichedFromActiveCategoryAndItsChildren = createSelector(
-  selectProductsAsArray,
+  selectProductsStoreAsArray,
   selectOrderItemsStoreAsArray,
   selectActiveCategoryAndItsChildren,
   (
-    productsAsArray: Product[],
+    productsStoreAsArray: ProductStore[],
     orderItemsStoreAsArray: OrderItemStore[],
     activeCategoryAndItsChildren: CategoryStore[]
   ): ProductEnriched[] =>
-    getProductsForGivenCategories(productsAsArray, activeCategoryAndItsChildren).map(
-      (product: Product): ProductEnriched => toProductEnriched(product, orderItemsStoreAsArray)
+    getProductsStoreForGivenCategoriesStore(productsStoreAsArray, activeCategoryAndItsChildren).map(
+      (productStore: ProductStore): ProductEnriched => toProductEnriched(productStore, orderItemsStoreAsArray)
     )
 );
 
 export const selectProductsEnrichedFromCategoryByStructuralNode = (structuralNode: StructuralNode) =>
   createSelector(
-    selectProductsAsArray,
-    selectCategoriesAsArray,
+    selectProductsStoreAsArray,
+    selectCategoriesStoreAsArray,
     selectOrderItemsStoreAsArray,
     (
-      productsAsArray: Product[],
-      categoriesAsArray: CategoryStore[],
+      productsStoreAsArray: ProductStore[],
+      categoriesStoreAsArray: CategoryStore[],
       orderItemsStoreAsArray: OrderItemStore[]
     ): ProductEnriched[] => {
-      const categoriesByStructuralNode: CategoryStore[] = categoriesAsArray.filter(
+      const categoriesStoreByStructuralNode: CategoryStore[] = categoriesStoreAsArray.filter(
         (category: CategoryStore): boolean => category.structuralNode === structuralNode
       );
 
-      return getProductsForGivenCategories(productsAsArray, categoriesByStructuralNode).map(
-        (product: Product): ProductEnriched => toProductEnriched(product, orderItemsStoreAsArray)
+      return getProductsStoreForGivenCategoriesStore(productsStoreAsArray, categoriesStoreByStructuralNode).map(
+        (productStore: ProductStore): ProductEnriched => toProductEnriched(productStore, orderItemsStoreAsArray)
       );
     }
   );
 
 export const selectProductsCountFromCategoryAndItsChildrenByCategoryId = createSelector(
-  selectProductsAsArray,
-  selectCategoryAndItsChildren,
-  (productsAsArray: Product[], activeCategoryAndItsChildren: CategoryStore[], props: { id: number }): number =>
-    getProductsForGivenCategories(productsAsArray, activeCategoryAndItsChildren).length
+  selectProductsStoreAsArray,
+  selectCategoryStoreAndItsChildren,
+  (
+    productsStoreAsArray: ProductStore[],
+    activeCategoryStoreAndItsChildren: CategoryStore[],
+    props: { id: number }
+  ): number => getProductsStoreForGivenCategoriesStore(productsStoreAsArray, activeCategoryStoreAndItsChildren).length
 );
 
 export const selectIsOnProductRoute = createSelector(selectUrl, (url: string): boolean => isOnProductRoute(url));

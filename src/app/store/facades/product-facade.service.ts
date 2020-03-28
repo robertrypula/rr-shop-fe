@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { State } from '../reducers';
 import { ProductEnriched } from '../../models/product.model';
 import * as fromProductSelectors from '../selectors/product.selectors';
-import { selectProductsLength } from '../selectors/product-core.selectors';
+import { selectProductsStoreLength } from '../selectors/product-core.selectors';
 import { StructuralNode } from '../../models/category.model';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class ProductFacadeService {
   public productsEnrichedFromActiveCategoryAndItsChildren$: Observable<ProductEnriched[]> = this.store.pipe(
     select(fromProductSelectors.selectProductsEnrichedFromActiveCategoryAndItsChildren)
   );
-  public productsLength$: Observable<number> = this.store.pipe(select(selectProductsLength));
+  public productsLength$: Observable<number> = this.store.pipe(select(selectProductsStoreLength));
   public urlProductId$: Observable<number> = this.store.pipe(select(fromProductSelectors.selectUrlProductId));
 
   public constructor(protected store: Store<State>) {}

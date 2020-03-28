@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Product, ProductEnriched } from '../../models/product.model';
+import { ProductEnriched } from '../../models/product.model';
 import { OrderService } from '../../services/order.service';
 import { Size } from '../../models/image.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
@@ -26,8 +26,8 @@ export class ProductComponent implements OnInit {
 
   public ngOnInit(): void {}
 
-  public addToOrder(product: Product): void {
-    this.orderService.add(product);
+  public addToOrder(productEnriched: ProductEnriched): void {
+    this.orderService.add(productEnriched);
   }
 
   public quantityDecrement(id: number): void {

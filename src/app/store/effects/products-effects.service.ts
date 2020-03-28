@@ -9,6 +9,7 @@ import * as fromRouterActions from '../actions/router.actions';
 import { ApiProductService } from '../../rest-api/product/api-product.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
 import { ProductFacadeService } from '../facades/product-facade.service';
+import { ProductStore } from '../../models/product.model';
 
 @Injectable()
 export class ProductsEffects {
@@ -18,7 +19,7 @@ export class ProductsEffects {
       concatMap(action => of(action).pipe(withLatestFrom(this.productFacadeService.urlProductId$))),
       switchMap(([action, activeProductId]) =>
         this.apiProductService.getProduct(activeProductId).pipe(
-          map(product => fromProductActions.productSuccess({ product })),
+          map((productStore: ProductStore) => fromProductActions.productSuccess({ productStore })),
           catchError((httpErrorResponse: HttpErrorResponse) =>
             of(fromProductActions.productFailure({ httpErrorResponse }))
           )
@@ -44,7 +45,7 @@ export class ProductsEffects {
       concatMap(action => of(action).pipe(withLatestFrom(this.categoryFacadeService.activeCategoryAndItsChildren$))),
       switchMap(([action, activeCategoryAndItsChildren]) =>
         this.apiProductService.getProductsAtCategory(activeCategoryAndItsChildren.map(c => c.id)).pipe(
-          map(products => fromProductActions.productsAtCategorySuccess({ products })),
+          map((productsStore: ProductStore[]) => fromProductActions.productsAtCategorySuccess({ productsStore })),
           catchError((httpErrorResponse: HttpErrorResponse) =>
             of(fromProductActions.productsAtCategoryFailure({ httpErrorResponse }))
           )
@@ -69,7 +70,7 @@ export class ProductsEffects {
       ofType(fromProductActions.productsAtInitRequest),
       switchMap(() =>
         this.apiProductService.getProductsAtInit().pipe(
-          map(products => fromProductActions.productsAtInitSuccess({ products })),
+          map((productsStore: ProductStore[]) => fromProductActions.productsAtInitSuccess({ productsStore })),
           catchError((httpErrorResponse: HttpErrorResponse) =>
             of(fromProductActions.productsAtInitFailure({ httpErrorResponse }))
           )

@@ -8,3 +8,21 @@
   padding: 32px 0;
   background-color: $secondary-background-color;
 }
+
+.Category-3ColumnsRowSeparator {
+  display: none;
+  @include viewport-desktop-medium-and-up {
+    display: block;
+    float: left;
+    width: 100%;
+  }
+}
+
+.Category-2ColumnsRowSeparator {
+  display: none;
+  @include viewport-tablet-only {
+    display: block;
+    float: left;
+    width: 100%;
+  }
+}

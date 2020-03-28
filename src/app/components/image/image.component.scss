@@ -8,10 +8,13 @@
     width: 19200px;
     left: 0;
     transition: left ease-in-out 200ms;
+    a {
+      display: block;
+      float: left;
+    }
     img {
       display: block;
       background-color: $image-background-color;
-      float: left;
     }
   }
 
@@ -36,19 +39,22 @@
 }
 
 .Image-thumb-064px,
-.Image-thumb-064px img {
+.Image-thumb-064px img,
+.Image-thumb-064px a {
   width: 64px;
   height: 64px;
 }
 
 .Image-thumb-200px,
-.Image-thumb-200px img {
+.Image-thumb-200px img,
+.Image-thumb-200px a {
   width: 200px;
   height: 200px;
 }
 
 .Image-thumb-300px,
-.Image-thumb-300px img {
+.Image-thumb-300px img,
+.Image-thumb-300px a {
   width: 300px;
   height: 300px;
 }

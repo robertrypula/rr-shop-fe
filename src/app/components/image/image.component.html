@@ -2,12 +2,22 @@
   class="Image"
   [ngClass]="{
     'Image-thumb-064px': size === Size.Px0064,
-    'Image-thumb-200px': size === Size.Px1600,
+    'Image-thumb-200px': size === Size.Px0200,
     'Image-thumb-300px': size === Size.Px0300
   }"
 >
-  <div class="Image-slider" [ngStyle]="{ left: -300 * position + 'px' }">
-    <img [attr.src]="image | image: size" [attr.alt]="image.filename" *ngFor="let image of images; trackBy: trackBy" />
+  <!-- TODO work on the conditions logic -->
+
+  <img *ngIf="!slider && images.length === 1" [attr.src]="images[0] | image: size" [attr.alt]="images[0].filename" />
+
+  <div *ngIf="slider" class="Image-slider" [ngStyle]="{ left: -300 * position + 'px' }">
+    <a [attr.href]="images[0] | image: Size.Px1600" target="_blank">
+      <img
+        [attr.src]="image | image: size"
+        [attr.alt]="image.filename"
+        *ngFor="let image of images; trackBy: trackBy"
+      />
+    </a>
   </div>
 
   <rr-shop-clickable-action

@@ -6,12 +6,22 @@
   <div [innerHTML]="(activeCategory$ | async)?.content"></div>
 
   <div class="row" *ngIf="(productsEnrichedFromActiveCategoryAndItsChildren$ | async).length; else noProducts">
-    <rr-shop-product-box-compact
-      *ngFor="let productEnriched of productsEnrichedFromActiveCategoryAndItsChildren$ | async; trackBy: trackBy"
-      [productEnriched]="productEnriched"
-      [activeCategory]="activeCategory$ | async"
-      class="col-xxs-12 col-sm-6 col-md-4"
-    ></rr-shop-product-box-compact>
+    <ng-container
+      *ngFor="
+        let productEnriched of productsEnrichedFromActiveCategoryAndItsChildren$ | async;
+        trackBy: trackBy;
+        index as index
+      "
+    >
+      <rr-shop-product-box-compact
+        [productEnriched]="productEnriched"
+        [activeCategory]="activeCategory$ | async"
+        class="col-xxs-12 col-sm-6 col-md-4"
+      ></rr-shop-product-box-compact>
+
+      <div class="Category-3ColumnsRowSeparator clearfix" *ngIf="index % 3 === 2"></div>
+      <div class="Category-2ColumnsRowSeparator clearfix" *ngIf="index % 2 === 1"></div>
+    </ng-container>
   </div>
 
   <ng-template #noProducts>

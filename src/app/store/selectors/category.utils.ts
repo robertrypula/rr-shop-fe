@@ -11,10 +11,6 @@ export const findChildren = (categoriesAsArray: CategoryStore[], parentId: numbe
   });
 };
 
-export const getCategoriesAsArray = (categoriesAsKeyValue: { [key: number]: CategoryStore }): CategoryStore[] => {
-  return Object.keys(categoriesAsKeyValue).map((key: string): CategoryStore => categoriesAsKeyValue[+key]);
-};
-
 export const getCategoriesFromLeafToRoot = (
   categoriesAsKeyValue: { [key: string]: CategoryStore },
   leafId: number,

@@ -3,9 +3,10 @@ import { createSelector } from '@ngrx/store';
 import { State } from '../reducers';
 import { Bar } from '../../models/bar.model';
 import * as fromBarReducers from '../reducers/bar.reducers';
+import { getAsArray } from '../../utils/transfomation.utils';
 
 export const selectBarFeature = (state: State): fromBarReducers.State => state.bar;
 
 export const selectBars = createSelector(selectBarFeature, (barFeature: fromBarReducers.State): Bar[] =>
-  Object.keys(barFeature).map((key: string): Bar => barFeature[+key])
+  getAsArray(barFeature)
 );

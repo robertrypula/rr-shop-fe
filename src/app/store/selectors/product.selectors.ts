@@ -24,7 +24,9 @@ export const selectActiveProductEnriched = createSelector(
     productsAsKeyValue: { [key: string]: Product },
     orderItemsStoreAsArray: OrderItemStore[]
   ): ProductEnriched => {
-    return urlProductId ? toProductEnriched(productsAsKeyValue[urlProductId], orderItemsStoreAsArray) : null;
+    return urlProductId
+      ? toProductEnriched(productsAsKeyValue[urlProductId], orderItemsStoreAsArray, productsAsKeyValue)
+      : null;
   }
 );
 

@@ -3,10 +3,10 @@ import { createSelector } from '@ngrx/store';
 import { State } from '../reducers';
 import * as fromOrderReducers from '../reducers/order.reducers';
 import { OrderStore } from '../../models/order.model';
-import { getAsArray } from './order.utils';
 import { ApiCall } from '../../models/page.model';
 import { POTENTIAL_ORDER_ID } from '../reducers/order.reducers';
 import { OrderItemStore } from '../../models/order-item.model';
+import { getAsArray } from '../../utils/transfomation.utils';
 
 export const selectOrderFeature = (state: State): fromOrderReducers.State => state.order;
 

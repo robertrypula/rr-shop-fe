@@ -2,6 +2,7 @@ import { Order, OrderStore } from '../../models/order.model';
 import { Product } from '../../models/product.model';
 import { PromoCode } from '../../models/promo-code.model';
 import { OrderItem, OrderItemStore } from '../../models/order-item.model';
+import { getAsArray } from '../../utils/transfomation.utils';
 
 export const toOrderWithAllRelations = (
   orderStore: OrderStore,
@@ -44,8 +45,4 @@ export const toOrderItem = (
   orderItem.product = productsAsKeyValue ? productsAsKeyValue[orderItemStore.productId] : null;
 
   return orderItem;
-};
-
-export const getAsArray = <T>(asKeyValue: { [key: number]: T }): T[] => {
-  return Object.keys(asKeyValue).map((key: string): T => asKeyValue[+key]);
 };

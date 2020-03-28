@@ -4,13 +4,13 @@ import * as fromProductReducers from '../reducers/product.reducers';
 import { Product } from '../../models/product.model';
 import { State } from '../reducers';
 import { ApiCall } from '../../models/page.model';
-import { getProductsAsArray } from './product.utils';
+import { getAsArray } from '../../utils/transfomation.utils';
 
 export const selectProductFeature = (state: State): fromProductReducers.State => state.product;
 
 export const selectProductsAsArray = createSelector(
   selectProductFeature,
-  (productFeature: fromProductReducers.State): Product[] => getProductsAsArray(productFeature.list)
+  (productFeature: fromProductReducers.State): Product[] => getAsArray(productFeature.list)
 );
 
 export const selectProductsAsKeyValue = createSelector(

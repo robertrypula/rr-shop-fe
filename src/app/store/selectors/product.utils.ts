@@ -4,10 +4,6 @@ import { toOrderItem } from './order.utils';
 import { Image } from '../../models/image.model';
 import { OrderItemStore } from '../../models/order-item.model';
 
-export const getProductsAsArray = (productsAsKeyValue: { [id: number]: Product }): Product[] => {
-  return Object.keys(productsAsKeyValue).map((key: string): Product => productsAsKeyValue[+key]);
-};
-
 export const getProductsForGivenCategories = (productsAsArray: Product[], categories: CategoryStore[]): Product[] => {
   return categories.length
     ? productsAsArray.filter((product: Product): boolean => {
@@ -25,7 +21,11 @@ export const getProductsForGivenCategories = (productsAsArray: Product[], catego
     : [];
 };
 
-export const toProductEnriched = (product: Product, orderItemsStoreAsArray: OrderItemStore[]): ProductEnriched => {
+export const toProductEnriched = (
+  product: Product,
+  orderItemsStoreAsArray: OrderItemStore[],
+  productsAsKeyValue: { [id: number]: Product } = null
+): ProductEnriched => {
   if (!product) {
     return null;
   }
@@ -41,6 +41,6 @@ export const toProductEnriched = (product: Product, orderItemsStoreAsArray: Orde
           a.sortOrder === b.sortOrder ? 0 : a.sortOrder < b.sortOrder ? -1 : 1
         )
       : [],
-    orderItem: orderItemStoreFound ? toOrderItem(orderItemStoreFound) : null
+    orderItem: orderItemStoreFound ? toOrderItem(orderItemStoreFound, productsAsKeyValue) : null
   };
 };

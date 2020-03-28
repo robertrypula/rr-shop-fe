@@ -48,6 +48,10 @@ export class OrderItem implements OrderItemStore {
     return this.quantity > 1;
   }
 
+  public isQuantityIncrementActive(): boolean {
+    return (this.product ? this.product.quantity : 0) > this.quantity;
+  }
+
   public getPriceTotalOriginal(): number {
     return this.getPriceUnitOriginal() * this.quantity;
   }

@@ -4,13 +4,13 @@ import * as fromCategoryReducers from '../reducers/category.reducers';
 import { CategoryStore } from '../../models/category.model';
 import { State } from '../reducers';
 import { ApiCall } from '../../models/page.model';
-import { getCategoriesAsArray } from './category.utils';
+import { getAsArray } from '../../utils/transfomation.utils';
 
 export const selectCategoryFeature = (state: State): fromCategoryReducers.State => state.category;
 
 export const selectCategoriesAsArray = createSelector(
   selectCategoryFeature,
-  (categoryFeature: fromCategoryReducers.State): CategoryStore[] => getCategoriesAsArray(categoryFeature.list)
+  (categoryFeature: fromCategoryReducers.State): CategoryStore[] => getAsArray(categoryFeature.list)
 );
 
 export const selectCategoriesAsKeyValue = createSelector(

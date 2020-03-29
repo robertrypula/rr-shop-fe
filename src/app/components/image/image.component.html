@@ -8,20 +8,16 @@
 >
   <!-- TODO work on the conditions logic -->
 
-  <img *ngIf="!slider && images.length === 1" [attr.src]="images[0] | image: size" [attr.alt]="images[0].filename" />
+  <img *ngIf="!slider && images?.length === 1" [attr.src]="images[0] | image: size" [attr.alt]="images[0].filename" />
 
   <div *ngIf="slider" class="Image-slider" [ngStyle]="{ left: -300 * position + 'px' }">
-    <a [attr.href]="images[0] | image: Size.Px1600" target="_blank">
-      <img
-        [attr.src]="image | image: size"
-        [attr.alt]="image.filename"
-        *ngFor="let image of images; trackBy: trackBy"
-      />
+    <a *ngFor="let image of images; trackBy: trackBy" [attr.href]="image | image: Size.Px1600" target="_blank">
+      <img [attr.src]="image | image: size" [attr.alt]="image.filename" />
     </a>
   </div>
 
   <rr-shop-clickable-action
-    *ngIf="slider && images.length > 1"
+    *ngIf="slider && images?.length > 1"
     (actionClick)="onLeftClick()"
     [clickableActionTheme]="ClickableActionTheme.TransparentDark"
     [icon]="['fas', 'arrow-circle-left']"
@@ -29,7 +25,7 @@
   ></rr-shop-clickable-action>
 
   <rr-shop-clickable-action
-    *ngIf="slider && images.length > 1"
+    *ngIf="slider && images?.length > 1"
     (actionClick)="onRightClick()"
     [clickableActionTheme]="ClickableActionTheme.TransparentDark"
     [icon]="['fas', 'arrow-circle-right']"

@@ -3,7 +3,7 @@
 <h2>Admin / logowanie</h2>
 
 <div class="AdminLogin">
-  <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate>
+  <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate id="admin-login-form">
     <div class="row margin-bottom">
       <div class="col-xxs-4 AdminLogin-label">
         <label class="form-label" for="username">Login:</label>
@@ -11,6 +11,7 @@
       <div class="col-xxs-8">
         <input
           [ngClass]="{ 'form-input--invalid': submitted && formGroup.controls.username.errors }"
+          autocomplete="admin-login"
           class="form-input"
           formControlName="username"
           id="username"
@@ -26,6 +27,7 @@
       <div class="col-xxs-8">
         <input
           [ngClass]="{ 'form-input--invalid': submitted && formGroup.controls.password.errors }"
+          autocomplete="admin-password"
           class="form-input"
           formControlName="password"
           id="password"

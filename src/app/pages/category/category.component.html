@@ -1,35 +1,38 @@
 <div class="Category">
-  <h2>
-    {{ (activeCategory$ | async)?.name }}
-  </h2>
+  <ng-container *ngIf="(activeCategory$ | async)?.content; else withoutContent">
+    <div class="u-formatted-content" markdown [data]="(activeCategory$ | async)?.content"></div>
+  </ng-container>
 
-  <div></div>
-
-  <div class="u-formatted-content" markdown [data]="(activeCategory$ | async)?.content"></div>
-
-  <div class="row" *ngIf="(productsEnrichedFromActiveCategoryAndItsChildren$ | async).length; else noProducts">
-    <ng-container
-      *ngFor="
-        let productEnriched of productsEnrichedFromActiveCategoryAndItsChildren$ | async;
-        trackBy: trackBy;
-        index as index
-      "
-    >
-      <rr-shop-product-box-compact
-        [productEnriched]="productEnriched"
-        [activeCategory]="activeCategory$ | async"
-        class="col-xxs-12 col-sm-6 col-md-4"
-      ></rr-shop-product-box-compact>
-
-      <div class="Category-3ColumnsRowSeparator clearfix" *ngIf="index % 3 === 2"></div>
-      <div class="Category-2ColumnsRowSeparator clearfix" *ngIf="index % 2 === 1"></div>
-    </ng-container>
-  </div>
-
-  <ng-template #noProducts>
-    <!-- TODO fix issue with static pages - there it should not show 'no products' info -->
-    <!--    <div class="Category-noProducts">-->
-    <!--      Brak produktów w tej kategori-->
-    <!--    </div>-->
+  <ng-template #withoutContent>
+    <h2>
+      {{ (activeCategory$ | async)?.name }}
+    </h2>
   </ng-template>
+
+  <ng-container *ngIf="!(activeCategory$ | async)?.isWithoutProducts">
+    <div class="row" *ngIf="(productsEnrichedFromActiveCategoryAndItsChildren$ | async).length; else noProducts">
+      <ng-container
+        *ngFor="
+          let productEnriched of productsEnrichedFromActiveCategoryAndItsChildren$ | async;
+          trackBy: trackBy;
+          index as index
+        "
+      >
+        <rr-shop-product-box-compact
+          [productEnriched]="productEnriched"
+          [activeCategory]="activeCategory$ | async"
+          class="col-xxs-12 col-sm-6 col-md-4"
+        ></rr-shop-product-box-compact>
+
+        <div class="Category-3ColumnsRowSeparator clearfix" *ngIf="index % 3 === 2"></div>
+        <div class="Category-2ColumnsRowSeparator clearfix" *ngIf="index % 2 === 1"></div>
+      </ng-container>
+    </div>
+
+    <ng-template #noProducts>
+      <div class="Category-noProducts">
+        Brak produktów w tej kategorii
+      </div>
+    </ng-template>
+  </ng-container>
 </div>

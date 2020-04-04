@@ -1,9 +1,12 @@
 export enum StructuralNode {
+  BestSellers = 'BestSellers',
   Delivery = 'Delivery',
   Footer = 'Footer',
   FooterMap = 'FooterMap',
   Header = 'Header',
+  News = 'News',
   Payment = 'Payment',
+  Recommended = 'Recommended',
   ShopCategories = 'ShopCategories'
 }
 
@@ -19,6 +22,7 @@ export interface CategoryStore {
   content?: string;
   id: number;
   isUnAccessible?: boolean;
+  isWithoutProducts?: boolean;
   name: string;
   parentId: number;
   slug?: string;
@@ -31,16 +35,3 @@ export interface CategoryStore {
 // export interface Category extends CategoryStore {
 //   productsCount: number; // TODO calculate products count in the store, not select this value in component
 // }
-
-// -----------------------------------------------------------------------------
-
-// TODO reduce number of data from the backend in simple DTO
-export interface CategorySimpleDto {
-  content?: string;
-  id: number;
-  isUnAccessible?: boolean;
-  name: string;
-  parentId: number;
-  slug?: string;
-  structuralNode?: StructuralNode;
-}

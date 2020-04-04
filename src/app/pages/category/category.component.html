@@ -3,7 +3,9 @@
     {{ (activeCategory$ | async)?.name }}
   </h2>
 
-  <div [innerHTML]="(activeCategory$ | async)?.content"></div>
+  <div></div>
+
+  <div class="u-formatted-content" markdown [data]="(activeCategory$ | async)?.content"></div>
 
   <div class="row" *ngIf="(productsEnrichedFromActiveCategoryAndItsChildren$ | async).length; else noProducts">
     <ng-container

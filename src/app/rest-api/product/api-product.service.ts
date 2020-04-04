@@ -42,7 +42,7 @@ export class ApiProductService {
 
   public getProducts(productIds: number[]): Observable<ProductStore[]> {
     return this.http
-      .get<ProductFullDto[]>(API_URL_PRODUCTS(FetchType.Full, null, productIds, null))
+      .get<ProductFullDto[]>(API_URL_PRODUCTS(FetchType.Medium, null, productIds, null))
       .pipe(
         map((dtos: ProductFullDto[]): ProductStore[] =>
           dtos.map((dto: ProductFullDto): ProductStore => fromFullDto(dto))

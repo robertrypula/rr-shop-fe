@@ -3,7 +3,7 @@ import { createSelector } from '@ngrx/store';
 import { Order, OrderStore } from '../../models/order.model';
 import { ProductStore, Product, Type } from '../../models/product.model';
 import { selectProductsStore } from './product-core.selectors';
-import { selectOrderItemsStore, selectOrdersStoreAsArray } from './order-core.selectors';
+import { selectOrderItemsStore, selectOrdersStore } from './order-core.selectors';
 import { toOrderWithAllRelations, toOrderItem, extractClientDetailsForm } from './order.utils';
 import { selectProductsFromCategoryByStructuralNode } from './product.selectors';
 import { StructuralNode } from '../../models/category.model';
@@ -21,26 +21,26 @@ export const selectIsOnPotentialOrderRoute$ = createSelector(selectUrl, (url: st
 
 export const selectClientDetailsFormByUuid = (uuid: string) =>
   createSelector(
-    selectOrdersStoreAsArray,
-    (ordersStoreAsArray: OrderStore[]): ClientDetailsForm => {
-      const orderStoreFind: OrderStore = ordersStoreAsArray.find(
+    selectOrdersStore,
+    (ordersStore: OrderStore[]): ClientDetailsForm => {
+      const foundOrderStore: OrderStore = ordersStore.find(
         (orderStore: OrderStore): boolean => orderStore.uuid === uuid
       );
 
-      return orderStoreFind ? extractClientDetailsForm(orderStoreFind) : null;
+      return foundOrderStore ? extractClientDetailsForm(foundOrderStore) : null;
     }
   );
 
 export const selectOrderByUuid = (uuid: string) =>
   createSelector(
-    selectOrdersStoreAsArray,
+    selectOrdersStore,
     selectProductsStore,
-    (ordersStoreAsArray: OrderStore[], productsStore: ProductStore[]): Order => {
-      const orderStoreFind: OrderStore = ordersStoreAsArray.find(
+    (ordersStore: OrderStore[], productsStore: ProductStore[]): Order => {
+      const foundOrderStore: OrderStore = ordersStore.find(
         (orderStore: OrderStore): boolean => orderStore.uuid === uuid
       );
 
-      return orderStoreFind ? toOrderWithAllRelations(orderStoreFind, productsStore) : null;
+      return foundOrderStore ? toOrderWithAllRelations(foundOrderStore, productsStore) : null;
     }
   );
 
@@ -66,8 +66,8 @@ export const selectPotentialOrderProductsIds = createSelector(
 );
 
 export const selectPromoCodeTextFieldByUuid = (uuid: string) =>
-  createSelector(selectOrdersStoreAsArray, (ordersStoreAsArray: OrderStore[]): string => {
-    const orderStoreFind: OrderStore = ordersStoreAsArray.find(
+  createSelector(selectOrdersStore, (ordersStore: OrderStore[]): string => {
+    const orderStoreFind: OrderStore = ordersStore.find(
       (orderStore: OrderStore): boolean => orderStore.uuid === uuid
     );
 

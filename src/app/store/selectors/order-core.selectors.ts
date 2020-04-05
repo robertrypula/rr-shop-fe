@@ -36,7 +36,7 @@ export const selectOrderItemsStore = createSelector(
     getAsArray(orderFeature.entities[POTENTIAL_ORDER_ID].orderItemsStore)
 );
 
-export const selectOrdersStoreAsArray = createSelector(
+export const selectOrdersStore = createSelector(
   selectOrderFeature,
   (orderFeature: fromOrderReducers.State): OrderStore[] => getAsArray(orderFeature.entities)
 );

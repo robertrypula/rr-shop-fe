@@ -18,7 +18,9 @@ export class ApiPromoCodeService {
     return this.http
       .get<PromoCodeResponseDto>(API_URL_PROMO_CODE(promoCodeTextField))
       .pipe(
-        map((promoCodeResponseDto: PromoCodeResponseDto): PromoCodeStore => fromPromoCodeResponseDto(promoCodeResponseDto))
+        map(
+          (promoCodeResponseDto: PromoCodeResponseDto): PromoCodeStore => fromPromoCodeResponseDto(promoCodeResponseDto)
+        )
       );
   }
 }

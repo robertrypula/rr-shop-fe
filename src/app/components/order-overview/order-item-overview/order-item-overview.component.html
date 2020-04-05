@@ -18,16 +18,30 @@
         {{ orderItem.getPriceTotalOriginal() | price }}
       </div>
 
-      <div *ngIf="orderItem.isProductQuantityExceededTextVisible()" class="u-form-error-container">
+      <div
+        *ngIf="orderItem.isProductQuantityExceededTextVisible()"
+        class="OrderItemOverview-alreadyInBasketNotification u-form-error-container"
+      >
         Niestety nie posiadamy tylu sztuk produktu na magazynie :(
         <br />
-        Dostępnych na magazynie: <b>{{ orderItem.productStore?.quantity }}</b>
+        Dostępnych na magazynie:&nbsp;<b>{{ orderItem.productStore?.quantity }}</b>
+        <ng-container *ngIf="orderItem.productStore?.quantity === 0">
+          <br /><br />
+          <b>Prosimy usunąć ten produkt z koszyka przed złożeniem zamówienia</b>
+        </ng-container>
+        <ng-container *ngIf="orderItem.productStore?.quantity > 0">
+          <br /><br />
+          <b>Prosimy zredukować liczbę produktów dodanych do koszyka przed złożeniem zamówienia</b>
+        </ng-container>
       </div>
 
-      <div *ngIf="orderItem.isProductQuantityReached()" class="u-form-warning-container">
+      <div
+        *ngIf="orderItem.isProductQuantityReached()"
+        class="OrderItemOverview-alreadyInBasketNotification u-form-warning-container"
+      >
         Nie można dodać więcej sztuk
         <br />
-        Dostępnych na magazynie: <b>{{ orderItem.productStore?.quantity }}</b>
+        Dostępnych na magazynie:&nbsp;<b>{{ orderItem.productStore?.quantity }}</b>
       </div>
     </div>
   </div>

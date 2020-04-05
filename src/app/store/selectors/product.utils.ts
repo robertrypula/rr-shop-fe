@@ -27,13 +27,13 @@ export const getProductsStoreForGivenCategoriesStore = (
 export const toProduct = (
   productStore: ProductStore,
   orderItemsStoreAsArray: OrderItemStore[],
-  productsStoreAsKeyValue: { [id: number]: ProductStore } = null
+  productsStore: ProductStore[] = null
 ): Product => {
   if (!productStore) {
     return null;
   }
 
-  const orderItemStoreFound: OrderItemStore = orderItemsStoreAsArray.find(
+  const foundOrderItemStore: OrderItemStore = orderItemsStoreAsArray.find(
     (orderItemStore: OrderItemStore): boolean => orderItemStore.productId === productStore.id
   );
 
@@ -44,6 +44,6 @@ export const toProduct = (
           a.sortOrder === b.sortOrder ? 0 : a.sortOrder < b.sortOrder ? -1 : 1
         )
       : [],
-    orderItem: orderItemStoreFound ? toOrderItem(orderItemStoreFound, productsStoreAsKeyValue) : null
+    orderItem: foundOrderItemStore ? toOrderItem(foundOrderItemStore, productsStore) : null
   };
 };

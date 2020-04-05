@@ -5,7 +5,7 @@ import { selectActiveCategoryAndItsChildren, selectCategoryStoreAndItsChildren }
 import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
 import { getProductId, isOnProductRoute } from '../../utils/routing.utils';
-import { selectProductsStoreAsArray, selectProductsStoreAsKeyValue } from './product-core.selectors';
+import { selectProductsStoreAsArray } from './product-core.selectors';
 import { selectOrderItemsStoreAsArray } from './order-core.selectors';
 import { getProductsStoreForGivenCategoriesStore, toProduct } from './product.utils';
 import { selectCategoriesStore } from './category-core.selectors';
@@ -17,15 +17,15 @@ export const selectUrlProductId = createSelector(selectUrl, (url: string): numbe
 
 export const selectActiveProduct = createSelector(
   selectUrlProductId,
-  selectProductsStoreAsKeyValue,
+  selectProductsStoreAsArray,
   selectOrderItemsStoreAsArray,
-  (
-    urlProductId: number,
-    productsStoreAsKeyValue: { [key: string]: ProductStore },
-    orderItemsStoreAsArray: OrderItemStore[]
-  ): Product => {
+  (urlProductId: number, productsStoreAsArray: ProductStore[], orderItemsStoreAsArray: OrderItemStore[]): Product => {
     return urlProductId
-      ? toProduct(productsStoreAsKeyValue[urlProductId], orderItemsStoreAsArray, productsStoreAsKeyValue)
+      ? toProduct(
+          productsStoreAsArray.find((productStore: ProductStore): boolean => productStore.id === urlProductId),
+          orderItemsStoreAsArray,
+          productsStoreAsArray
+        )
       : null;
   }
 );

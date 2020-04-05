@@ -2,7 +2,7 @@ import { createSelector } from '@ngrx/store';
 
 import { Order, OrderStore } from '../../models/order.model';
 import { ProductStore, Product, Type } from '../../models/product.model';
-import { selectProductsStoreAsKeyValue } from './product-core.selectors';
+import { selectProductsStoreAsArray } from './product-core.selectors';
 import { selectOrderItemsStoreAsArray, selectOrdersStoreAsArray } from './order-core.selectors';
 import { toOrderWithAllRelations, toOrderItem, extractClientDetailsForm } from './order.utils';
 import { selectProductsFromCategoryByStructuralNode } from './product.selectors';
@@ -34,24 +34,24 @@ export const selectClientDetailsFormByUuid = (uuid: string) =>
 export const selectOrderByUuid = (uuid: string) =>
   createSelector(
     selectOrdersStoreAsArray,
-    selectProductsStoreAsKeyValue,
-    (ordersStoreAsArray: OrderStore[], productsStoreAsKeyValue: { [id: number]: ProductStore }): Order => {
+    selectProductsStoreAsArray,
+    (ordersStoreAsArray: OrderStore[], productsStoreAsArray: ProductStore[]): Order => {
       const orderStoreFind: OrderStore = ordersStoreAsArray.find(
         (orderStore: OrderStore): boolean => orderStore.uuid === uuid
       );
 
-      return orderStoreFind ? toOrderWithAllRelations(orderStoreFind, productsStoreAsKeyValue) : null;
+      return orderStoreFind ? toOrderWithAllRelations(orderStoreFind, productsStoreAsArray) : null;
     }
   );
 
 export const selectOrderItems = (types: Type[] = [Type.Product]) =>
   createSelector(
     selectOrderItemsStoreAsArray,
-    selectProductsStoreAsKeyValue,
-    (orderItemsStoreAsArray: OrderItemStore[], productsAsKeyValue: { [id: number]: ProductStore }): OrderItem[] =>
+    selectProductsStoreAsArray,
+    (orderItemsStoreAsArray: OrderItemStore[], productsStoreAsArray: ProductStore[] ): OrderItem[] =>
       orderItemsStoreAsArray
         .filter((orderItemStore: OrderItemStore): boolean => types.includes(orderItemStore.type))
-        .map((orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsAsKeyValue))
+        .map((orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsStoreAsArray))
   );
 
 export const selectPotentialOrderProductsIds = createSelector(

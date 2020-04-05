@@ -6,12 +6,12 @@ import { getAsArray } from '../../utils/transfomation.utils';
 
 export const toOrderWithAllRelations = (
   orderStore: OrderStore,
-  productsStoreAsKeyValue: { [id: number]: ProductStore }
+  productsStoreAsArray: ProductStore[]
 ): Order => {
   const order: Order = new Order().fromStore(orderStore);
 
   order.orderItems = getAsArray(orderStore.orderItemsStore).map(
-    (orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsStoreAsKeyValue).setOrder(order)
+    (orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsStoreAsArray).setOrder(order)
   );
   order.promoCode = orderStore.promoCodeStore
     ? new PromoCode().fromStore(orderStore.promoCodeStore).setOrder(order)
@@ -35,15 +35,14 @@ export const extractClientDetailsForm = (orderStore: OrderStore): ClientDetailsF
   };
 };
 
-export const toOrderItem = (
-  orderItemStore: OrderItemStore,
-  productsStoreAsKeyValue: { [id: number]: ProductStore } = null
-): OrderItem => {
+export const toOrderItem = (orderItemStore: OrderItemStore, productsStore: ProductStore[] = null): OrderItem => {
   // TODO refactor this when Product will follow class model pattern
   const orderItem: OrderItem = new OrderItem().fromStore(orderItemStore);
 
-  orderItem.productStore = productsStoreAsKeyValue ? productsStoreAsKeyValue[orderItemStore.productId] : null;
-  // TODO add product member and create product object - currently it's ProductEnricheed
+  orderItem.productStore = (productsStore || []).find(
+    (productStore: ProductStore): boolean => productStore.id === orderItemStore.productId
+  );
+  // TODO add product member and create product object - currently it's ProductEnriched
 
   return orderItem;
 };

@@ -13,11 +13,6 @@ export const selectProductsStoreAsArray = createSelector(
   (productFeature: fromProductReducers.State): ProductStore[] => getAsArray(productFeature.list)
 );
 
-export const selectProductsStoreAsKeyValue = createSelector(
-  selectProductFeature,
-  (productFeature: fromProductReducers.State): { [id: number]: ProductStore } => productFeature.list
-);
-
 export const selectProductsStoreLength = createSelector(
   selectProductsStoreAsArray,
   (productsStoreAsArray: ProductStore[]): number => {

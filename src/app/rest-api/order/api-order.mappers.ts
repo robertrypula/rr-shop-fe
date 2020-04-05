@@ -9,8 +9,7 @@ export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
       priceUnitOriginal: orderItem.getPriceUnitOriginal(),
       priceUnitSelling: orderItem.getPriceUnitSelling(),
       productId: orderItem.productId,
-      quantity: orderItem.quantity,
-      type: orderItem.type
+      quantity: orderItem.quantity
     })),
     // ---
     email: order.email,
@@ -40,7 +39,7 @@ export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
   };
 };
 
-export const fromOrderCreateResponse = (orderCreateResponseDto: OrderCreateResponseDto): OrderStore => {
+export const fromOrderCreateResponseDto = (orderCreateResponseDto: OrderCreateResponseDto): OrderStore => {
   if (!orderCreateResponseDto.uuid) {
     throw new Error(`Missing UUID`); // TODO use class validator
   }
@@ -50,7 +49,7 @@ export const fromOrderCreateResponse = (orderCreateResponseDto: OrderCreateRespo
   };
 };
 
-export const fromOrderResponse = (orderResponseDto: OrderResponseDto): OrderStore => {
+export const fromOrderResponseDto = (orderResponseDto: OrderResponseDto): OrderStore => {
   return {
     uuid: orderResponseDto.uuid,
     number: orderResponseDto.number,

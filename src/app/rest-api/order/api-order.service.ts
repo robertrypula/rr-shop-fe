@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { API_URL_ORDER, API_URL_ORDER_CREATE } from '../endpoints';
 import { OrderStore, Order } from '../../models/order.model';
 import { OrderCreateResponseDto, OrderResponseDto } from './api-order.dtos';
-import { fromOrderCreateResponse, fromOrderResponse, toOrderCreateRequest } from './api-order.mappers';
+import { fromOrderCreateResponseDto, fromOrderResponseDto, toOrderCreateRequest } from './api-order.mappers';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class ApiOrderService {
       .pipe(
         map(
           (orderCreateResponseDto: OrderCreateResponseDto): OrderStore =>
-            fromOrderCreateResponse(orderCreateResponseDto)
+            fromOrderCreateResponseDto(orderCreateResponseDto)
         )
       );
   }
@@ -28,6 +28,6 @@ export class ApiOrderService {
   public getOrder(uuid: string): Observable<OrderStore> {
     return this.http
       .get<OrderResponseDto>(API_URL_ORDER(uuid))
-      .pipe(map((orderResponseDto: OrderResponseDto): OrderStore => fromOrderResponse(orderResponseDto)));
+      .pipe(map((orderResponseDto: OrderResponseDto): OrderStore => fromOrderResponseDto(orderResponseDto)));
   }
 }

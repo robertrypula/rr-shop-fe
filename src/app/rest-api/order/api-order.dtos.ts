@@ -7,7 +7,6 @@ export interface OrderCreateRequestDto {
     priceUnitSelling: number;
     productId: number;
     quantity: number;
-    type: Type;
   }>;
   // ---
   email?: string;
@@ -42,7 +41,6 @@ export interface OrderResponseDto {
   uuid: string; // uuid to avoid sharing information about e-shop orders amount
   number: string;
   status: Status;
-  // ---
   orderItems: Array<{
     name: string;
     priceUnitOriginal: number;
@@ -51,4 +49,8 @@ export interface OrderResponseDto {
     quantity: number;
     type: Type;
   }>;
+  promoCode: {
+    name: string;
+    percentageDiscount: number;
+  };
 }

@@ -16,10 +16,10 @@ export const selectUrlProductId = createSelector(selectUrl, (url: string): numbe
 });
 
 export const selectActiveProduct = createSelector(
-  selectUrlProductId,
   selectProductsStore,
   selectOrderItemsStore,
-  (urlProductId: number, productsStore: ProductStore[], orderItemsStore: OrderItemStore[]): Product => {
+  selectUrlProductId,
+  (productsStore: ProductStore[], orderItemsStore: OrderItemStore[], urlProductId: number): Product => {
     return urlProductId
       ? toProduct(
           productsStore.find((productStore: ProductStore): boolean => productStore.id === urlProductId),
@@ -40,7 +40,7 @@ export const selectProductsFromActiveCategoryAndItsChildren = createSelector(
     activeCategoryAndItsChildren: CategoryStore[]
   ): Product[] =>
     getProductsStoreForGivenCategoriesStore(productsStore, activeCategoryAndItsChildren).map(
-      (productStore: ProductStore): Product => toProduct(productStore, orderItemsStore)
+      (productStore: ProductStore): Product => toProduct(productStore, orderItemsStore, productsStore)
     )
 );
 

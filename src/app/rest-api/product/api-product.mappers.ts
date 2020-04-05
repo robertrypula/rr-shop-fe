@@ -17,6 +17,7 @@ export const fromMediumDto = (dto: ProductMediumDto): ProductStore => {
     images: dto.images.map((image: ImageDto): Image => ({ ...image })),
     name: dto.name,
     priceUnit: dto.priceUnit,
+    quantity: dto.quantity,
     slug: dto.slug
   };
 };

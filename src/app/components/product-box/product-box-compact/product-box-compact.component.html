@@ -26,9 +26,9 @@
         ></rr-shop-clickable-action>
         <rr-shop-clickable-action
           (actionClick)="quantityIncrement(product.orderItem.id)"
+          [disabled]="!product.orderItem.isQuantityIncrementActive()"
           [icon]="['fas', 'plus']"
         ></rr-shop-clickable-action>
-        <!-- TODO fix increment button: [disabled]="!product.orderItem.isQuantityIncrementActive()" -->
       </div>
     </div>
 

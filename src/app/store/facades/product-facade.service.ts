@@ -24,7 +24,7 @@ export class ProductFacadeService {
 
   public productsCountFromCategoryAndItsChildrenByCategoryId$(categoryId: number): Observable<number> {
     return this.store.pipe(
-      select(fromProductSelectors.selectProductsCountFromCategoryAndItsChildrenByCategoryId, { id: categoryId })
+      select(fromProductSelectors.selectProductsCountFromCategoryAndItsChildrenByCategoryId, { categoryId })
     );
   }
 

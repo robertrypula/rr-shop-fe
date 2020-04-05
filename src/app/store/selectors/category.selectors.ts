@@ -63,8 +63,8 @@ export const selectActiveLevelUpdateEntriesBasedOnRoute = createSelector(
 
 export const selectCategoryStoreAndItsChildren = createSelector(
   selectCategoriesStore,
-  (categoriesStore: CategoryStore[], props: { id: number }): CategoryStore[] =>
-    getCategoryStoreAndItsChildren(categoriesStore, props.id)
+  (categoriesStore: CategoryStore[], props: { categoryId: number }): CategoryStore[] =>
+    getCategoryStoreAndItsChildren(categoriesStore, props.categoryId)
 );
 
 export const selectActiveCategoryAndItsChildren = createSelector(

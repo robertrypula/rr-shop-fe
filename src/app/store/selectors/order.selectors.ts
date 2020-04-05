@@ -44,6 +44,7 @@ export const selectOrderByUuid = (uuid: string) =>
     }
   );
 
+// TODO remove this selector
 export const selectOrderItems = (types: Type[] = [Type.Product]) =>
   createSelector(
     selectOrderItemsStore,

@@ -32,8 +32,11 @@ export const getCategoriesStoreFromLeafToRoot = (
   return categoriesStoreFromLeafToRoot;
 };
 
-export const getCategoryStoreAndItsChildren = (categoriesStore: CategoryStore[], id: number): CategoryStore[] => {
-  const categoryStore: CategoryStore = categoriesStore.find((c: CategoryStore): boolean => c.id === id);
+export const getCategoryStoreAndItsChildren = (
+  categoriesStore: CategoryStore[],
+  categoryId: number
+): CategoryStore[] => {
+  const categoryStore: CategoryStore = categoriesStore.find((c: CategoryStore): boolean => c.id === categoryId);
   const result: CategoryStore[] = [];
 
   if (categoryStore) {

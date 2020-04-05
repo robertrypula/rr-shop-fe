@@ -47,9 +47,9 @@ export const selectProductsFromActiveCategoryAndItsChildren = createSelector(
 export const selectProductsFromCategoryByStructuralNode = (structuralNode: StructuralNode) =>
   createSelector(
     selectProductsStore,
-    selectCategoriesStore,
     selectOrderItemsStore,
-    (productsStore: ProductStore[], categoriesStore: CategoryStore[], orderItemsStore: OrderItemStore[]): Product[] => {
+    selectCategoriesStore,
+    (productsStore: ProductStore[], orderItemsStore: OrderItemStore[], categoriesStore: CategoryStore[]): Product[] => {
       const categoriesStoreByStructuralNode: CategoryStore[] = categoriesStore.filter(
         (category: CategoryStore): boolean => category.structuralNode === structuralNode
       );
@@ -60,11 +60,16 @@ export const selectProductsFromCategoryByStructuralNode = (structuralNode: Struc
     }
   );
 
+// TODO refactor categories (use class approach with relations to products) and remove this selector
+// TODO as category object itself will be able to calculate this number by traversing the tree
 export const selectProductsCountFromCategoryAndItsChildrenByCategoryId = createSelector(
   selectProductsStore,
   selectCategoryStoreAndItsChildren,
-  (productsStore: ProductStore[], activeCategoryStoreAndItsChildren: CategoryStore[], props: { id: number }): number =>
-    getProductsStoreForGivenCategoriesStore(productsStore, activeCategoryStoreAndItsChildren).length
+  (
+    productsStore: ProductStore[],
+    activeCategoryStoreAndItsChildren: CategoryStore[],
+    props: { categoryId: number }
+  ): number => getProductsStoreForGivenCategoriesStore(productsStore, activeCategoryStoreAndItsChildren).length
 );
 
 export const selectIsOnProductRoute = createSelector(selectUrl, (url: string): boolean => isOnProductRoute(url));

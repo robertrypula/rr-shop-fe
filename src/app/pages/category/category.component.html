@@ -12,11 +12,7 @@
   <ng-container *ngIf="!(activeCategory$ | async)?.isWithoutProducts">
     <div class="row" *ngIf="(productsFromActiveCategoryAndItsChildren$ | async).length; else noProducts">
       <ng-container
-        *ngFor="
-          let product of productsFromActiveCategoryAndItsChildren$ | async;
-          trackBy: trackBy;
-          index as index
-        "
+        *ngFor="let product of productsFromActiveCategoryAndItsChildren$ | async; trackBy: trackBy; index as index"
       >
         <rr-shop-product-box-compact
           [product]="product"

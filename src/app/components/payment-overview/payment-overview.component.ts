@@ -12,9 +12,9 @@ import { ProductFacadeService } from '../../store/facades/product-facade.service
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaymentOverviewComponent implements OnInit {
-  public productsPayment$: Observable<
-    Product[]
-  > = this.productFacadeService.productsFromCategoryByStructuralNode$(StructuralNode.Payment);
+  public productsPayment$: Observable<Product[]> = this.productFacadeService.productsFromCategoryByStructuralNode$(
+    StructuralNode.Payment
+  );
 
   public constructor(protected productFacadeService: ProductFacadeService) {}
 

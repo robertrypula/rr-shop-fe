@@ -58,11 +58,7 @@ export const selectPotentialOrderProductsIds = createSelector(
   selectOrderItems([Type.Product]),
   selectProductsFromCategoryByStructuralNode(StructuralNode.Delivery),
   selectProductsFromCategoryByStructuralNode(StructuralNode.Payment),
-  (
-    orderItems: OrderItem[],
-    deliveryProducts: Product[],
-    paymentProducts: Product[]
-  ): number[] => [
+  (orderItems: OrderItem[], deliveryProducts: Product[], paymentProducts: Product[]): number[] => [
     ...orderItems.map((orderItem: OrderItem): number => orderItem.productId),
     ...deliveryProducts.map((deliveryProduct: Product): number => deliveryProduct.id),
     ...paymentProducts.map((paymentProduct: Product): number => paymentProduct.id)

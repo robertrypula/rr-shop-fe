@@ -12,9 +12,7 @@ import { StructuralNode } from '../../models/category.model';
   providedIn: 'root'
 })
 export class ProductFacadeService {
-  public activeProduct$: Observable<Product> = this.store.pipe(
-    select(fromProductSelectors.selectActiveProduct)
-  );
+  public activeProduct$: Observable<Product> = this.store.pipe(select(fromProductSelectors.selectActiveProduct));
   public isOnProductRoute$: Observable<boolean> = this.store.pipe(select(fromProductSelectors.selectIsOnProductRoute));
   public productsFromActiveCategoryAndItsChildren$: Observable<Product[]> = this.store.pipe(
     select(fromProductSelectors.selectProductsFromActiveCategoryAndItsChildren)
@@ -31,8 +29,6 @@ export class ProductFacadeService {
   }
 
   public productsFromCategoryByStructuralNode$(structuralNode: StructuralNode): Observable<Product[]> {
-    return this.store.pipe(
-      select(fromProductSelectors.selectProductsFromCategoryByStructuralNode(structuralNode))
-    );
+    return this.store.pipe(select(fromProductSelectors.selectProductsFromCategoryByStructuralNode(structuralNode)));
   }
 }

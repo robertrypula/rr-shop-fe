@@ -49,11 +49,7 @@ export const selectProductsFromCategoryByStructuralNode = (structuralNode: Struc
     selectProductsStore,
     selectCategoriesStore,
     selectOrderItemsStore,
-    (
-      productsStore: ProductStore[],
-      categoriesStore: CategoryStore[],
-      orderItemsStore: OrderItemStore[]
-    ): Product[] => {
+    (productsStore: ProductStore[], categoriesStore: CategoryStore[], orderItemsStore: OrderItemStore[]): Product[] => {
       const categoriesStoreByStructuralNode: CategoryStore[] = categoriesStore.filter(
         (category: CategoryStore): boolean => category.structuralNode === structuralNode
       );

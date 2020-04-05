@@ -11,7 +11,11 @@
   <img *ngIf="!slider && images?.length === 1" [attr.src]="images[0] | image: size" [attr.alt]="images[0].filename" />
 
   <div *ngIf="slider" class="Image-slider" [ngStyle]="{ left: -300 * position + 'px' }">
-    <a *ngFor="let image of images; trackBy: trackBy" [attr.href]="image | image: Size.Px1600" target="_blank">
+    <a
+      *ngFor="let image of images; trackBy: trackBy"
+      [attr.href]="image | image: Size.Px1600:Transparency.Disabled"
+      target="_blank"
+    >
       <img [attr.src]="image | image: size" [attr.alt]="image.filename" />
     </a>
   </div>

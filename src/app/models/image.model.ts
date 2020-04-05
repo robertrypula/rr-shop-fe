@@ -6,6 +6,11 @@ export enum Size {
   Px1600 = 'Px1600'
 }
 
+export enum Transparency {
+  Disabled = 'Disabled',
+  Enabled = 'Enabled'
+}
+
 // -----------------------------------------------------------------------------
 
 export interface Image {

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Image, Size } from '../../models/image.model';
+
+import { Image, Size, Transparency } from '../../models/image.model';
 import { ClickableActionTheme } from '../clickable-action/clickable-action.model';
 
 @Component({
@@ -20,8 +21,9 @@ export class ImageComponent implements OnInit {
 
   public position = 0;
 
-  public readonly Size = Size;
   public readonly ClickableActionTheme = ClickableActionTheme;
+  public readonly Size = Size;
+  public readonly Transparency = Transparency;
 
   public constructor() {}
 

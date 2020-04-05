@@ -1,6 +1,6 @@
 import { Injectable, Input } from '@angular/core';
 
-import { ProductEnriched } from '../../models/product.model';
+import { Product } from '../../models/product.model';
 import { OrderService } from '../../services/order.service';
 import { CategoryStore } from '../../models/category.model';
 import { Size } from '../../models/image.model';
@@ -9,7 +9,7 @@ import { OrderFacadeService } from '../../store/facades/order-facade.service';
 @Injectable()
 export abstract class ProductBoxAbstractComponent {
   @Input()
-  public productEnriched: ProductEnriched;
+  public product: Product;
 
   @Input()
   public activeCategory: CategoryStore;
@@ -18,8 +18,8 @@ export abstract class ProductBoxAbstractComponent {
 
   public constructor(protected orderService: OrderService, protected orderFacadeService: OrderFacadeService) {}
 
-  public addToOrder(productEnriched: ProductEnriched): void {
-    this.orderService.add(productEnriched);
+  public addToOrder(product: Product): void {
+    this.orderService.add(product);
   }
 
   public quantityDecrement(orderItemId: number): void {

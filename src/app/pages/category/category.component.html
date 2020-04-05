@@ -10,16 +10,16 @@
   </ng-template>
 
   <ng-container *ngIf="!(activeCategory$ | async)?.isWithoutProducts">
-    <div class="row" *ngIf="(productsEnrichedFromActiveCategoryAndItsChildren$ | async).length; else noProducts">
+    <div class="row" *ngIf="(productsFromActiveCategoryAndItsChildren$ | async).length; else noProducts">
       <ng-container
         *ngFor="
-          let productEnriched of productsEnrichedFromActiveCategoryAndItsChildren$ | async;
+          let product of productsFromActiveCategoryAndItsChildren$ | async;
           trackBy: trackBy;
           index as index
         "
       >
         <rr-shop-product-box-compact
-          [productEnriched]="productEnriched"
+          [product]="product"
           [activeCategory]="activeCategory$ | async"
           class="col-xxs-12 col-sm-6 col-md-4"
         ></rr-shop-product-box-compact>

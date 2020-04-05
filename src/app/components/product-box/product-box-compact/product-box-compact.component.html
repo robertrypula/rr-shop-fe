@@ -1,64 +1,64 @@
-<div class="ProductBoxCompact" [ngClass]="{ 'ProductBoxCompact--inOrder': productEnriched.orderItem }">
-  <a [routerLink]="productEnriched | productUrl: activeCategory" class="ProductBoxCompact-link">
+<div class="ProductBoxCompact" [ngClass]="{ 'ProductBoxCompact--inOrder': product.orderItem }">
+  <a [routerLink]="product | productUrl: activeCategory" class="ProductBoxCompact-link">
     <rr-shop-image
-      [images]="productEnriched.images"
+      [images]="product.images"
       [size]="Size.Px0200"
       class="ProductBoxCompact-image"
     ></rr-shop-image>
-    <span>{{ productEnriched.name }}</span>
+    <span>{{ product.name }}</span>
   </a>
 
   <div class="ProductBoxCompact-price">
-    {{ productEnriched.priceUnit | price }}
+    {{ product.priceUnit | price }}
   </div>
 
-  <ng-container *ngIf="productEnriched.orderItem">
+  <ng-container *ngIf="product.orderItem">
     <div class="ProductBoxCompact-alreadyInBasketQuantityAndActions">
       <div class="ProductBoxCompact-alreadyInBasketQuantity">
-        W koszyku: <b>{{ productEnriched.orderItem.quantity }}</b>
+        W koszyku: <b>{{ product.orderItem.quantity }}</b>
       </div>
       <div class="ProductBoxCompact-alreadyInBasketActions">
         <rr-shop-clickable-action
-          *ngIf="!productEnriched.orderItem.isQuantityDecrementActive()"
-          (actionClick)="remove(productEnriched.orderItem.id)"
+          *ngIf="!product.orderItem.isQuantityDecrementActive()"
+          (actionClick)="remove(product.orderItem.id)"
           [icon]="['far', 'trash-alt']"
         ></rr-shop-clickable-action>
         <rr-shop-clickable-action
-          *ngIf="productEnriched.orderItem.isQuantityDecrementActive()"
-          (actionClick)="quantityDecrement(productEnriched.orderItem.id)"
+          *ngIf="product.orderItem.isQuantityDecrementActive()"
+          (actionClick)="quantityDecrement(product.orderItem.id)"
           [icon]="['fas', 'minus']"
         ></rr-shop-clickable-action>
         <rr-shop-clickable-action
-          (actionClick)="quantityIncrement(productEnriched.orderItem.id)"
+          (actionClick)="quantityIncrement(product.orderItem.id)"
           [icon]="['fas', 'plus']"
         ></rr-shop-clickable-action>
-        <!-- TODO fix increment button: [disabled]="!productEnriched.orderItem.isQuantityIncrementActive()" -->
+        <!-- TODO fix increment button: [disabled]="!product.orderItem.isQuantityIncrementActive()" -->
       </div>
     </div>
 
     <div
-      *ngIf="productEnriched.orderItem.isProductQuantityExceededTextVisible()"
+      *ngIf="product.orderItem.isProductQuantityExceededTextVisible()"
       class="ProductBoxCompact-alreadyInBasketNotification u-form-error-container"
     >
       Niestety nie posiadamy tylu sztuk produktu na magazynie :(
       <br />
-      Dostępnych na magazynie: <b>{{ productEnriched.quantity }}</b>
+      Dostępnych na magazynie: <b>{{ product.quantity }}</b>
     </div>
 
     <div
-      *ngIf="productEnriched.orderItem.isProductQuantityReached()"
+      *ngIf="product.orderItem.isProductQuantityReached()"
       class="ProductBoxCompact-alreadyInBasketNotification u-form-warning-container"
     >
       Nie można dodać więcej sztuk
       <br />
-      Dostępnych na magazynie: <b>{{ productEnriched.quantity }}</b>
+      Dostępnych na magazynie: <b>{{ product.quantity }}</b>
     </div>
   </ng-container>
 
-  <div *ngIf="!productEnriched.orderItem" class="ProductBoxCompact-notInBasketYet">
+  <div *ngIf="!product.orderItem" class="ProductBoxCompact-notInBasketYet">
     <rr-shop-clickable-action
-      *ngIf="productEnriched.quantity !== 0; else notAvailable"
-      (actionClick)="addToOrder(productEnriched)"
+      *ngIf="product.quantity !== 0; else notAvailable"
+      (actionClick)="addToOrder(product)"
       [label]="'Do koszyka'"
       [icon]="['fas', 'shopping-basket']"
     ></rr-shop-clickable-action>

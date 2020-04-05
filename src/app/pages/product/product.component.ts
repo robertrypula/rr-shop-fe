@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ProductEnriched } from '../../models/product.model';
+import { Product } from '../../models/product.model';
 import { OrderService } from '../../services/order.service';
 import { Size } from '../../models/image.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
@@ -14,7 +14,7 @@ import { ProductFacadeService } from '../../store/facades/product-facade.service
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductComponent implements OnInit {
-  public activeProductEnriched$: Observable<ProductEnriched> = this.productFacadeService.activeProductEnriched$;
+  public activeProduct$: Observable<Product> = this.productFacadeService.activeProduct$;
 
   public readonly Size = Size;
 
@@ -26,8 +26,8 @@ export class ProductComponent implements OnInit {
 
   public ngOnInit(): void {}
 
-  public addToOrder(productEnriched: ProductEnriched): void {
-    this.orderService.add(productEnriched);
+  public addToOrder(product: Product): void {
+    this.orderService.add(product);
   }
 
   public quantityDecrement(id: number): void {

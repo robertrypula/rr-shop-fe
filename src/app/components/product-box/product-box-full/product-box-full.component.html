@@ -1,8 +1,8 @@
 FULL1!
 
-<pre>{{ productEnriched | json }}</pre>
+<pre>{{ product | json }}</pre>
 
 <rr-shop-clickable-action
-  (actionClick)="addToOrder(productEnriched)"
+  (actionClick)="addToOrder(product)"
   [label]="'Add to order'"
 ></rr-shop-clickable-action>

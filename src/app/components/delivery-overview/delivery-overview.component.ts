@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ProductEnriched } from '../../models/product.model';
+import { Product } from '../../models/product.model';
 import { StructuralNode } from '../../models/category.model';
 import { ProductFacadeService } from '../../store/facades/product-facade.service';
 
@@ -12,15 +12,15 @@ import { ProductFacadeService } from '../../store/facades/product-facade.service
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DeliveryOverviewComponent implements OnInit {
-  public productsEnrichedDelivery$: Observable<
-    ProductEnriched[]
-  > = this.productFacadeService.productsEnrichedFromCategoryByStructuralNode$(StructuralNode.Delivery);
+  public productsDelivery$: Observable<
+    Product[]
+  > = this.productFacadeService.productsFromCategoryByStructuralNode$(StructuralNode.Delivery);
 
   public constructor(protected productFacadeService: ProductFacadeService) {}
 
   public ngOnInit(): void {}
 
-  public trackBy(index: number, item: ProductEnriched): string {
+  public trackBy(index: number, item: Product): string {
     return item.id + '';
   }
 }

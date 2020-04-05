@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ProductEnriched } from '../../models/product.model';
+import { Product } from '../../models/product.model';
 import { CategoryStore } from '../../models/category.model';
 import { ProductFacadeService } from '../../store/facades/product-facade.service';
 import { CategoryFacadeService } from '../../store/facades/category-facade.service';
@@ -14,8 +14,8 @@ import { CategoryFacadeService } from '../../store/facades/category-facade.servi
 })
 export class CategoryComponent implements OnInit {
   public activeCategory$: Observable<CategoryStore> = this.categoryFacadeService.activeCategory$;
-  public productsEnrichedFromActiveCategoryAndItsChildren$: Observable<ProductEnriched[]> = this.productFacadeService
-    .productsEnrichedFromActiveCategoryAndItsChildren$;
+  public productsFromActiveCategoryAndItsChildren$: Observable<Product[]> = this.productFacadeService
+    .productsFromActiveCategoryAndItsChildren$;
 
   public constructor(
     protected productFacadeService: ProductFacadeService,
@@ -24,7 +24,7 @@ export class CategoryComponent implements OnInit {
 
   public ngOnInit(): void {}
 
-  public trackBy(index: number, item: ProductEnriched): string {
+  public trackBy(index: number, item: Product): string {
     return item.id + '';
   }
 }

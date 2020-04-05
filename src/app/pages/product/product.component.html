@@ -1,61 +1,61 @@
-<div class="Product" *ngIf="activeProductEnriched$ | async as activeProductEnriched">
+<div class="Product" *ngIf="activeProduct$ | async as activeProduct">
   <div class="row">
     <div class="col-xxs-12 col-md-6 Product-imageContainer">
-      <rr-shop-image [images]="activeProductEnriched.images" [size]="Size.Px0300" [slider]="true"></rr-shop-image>
+      <rr-shop-image [images]="activeProduct.images" [size]="Size.Px0300" [slider]="true"></rr-shop-image>
     </div>
     <div class="col-xxs-12 col-md-6 Product-overviewContainer">
-      <h2>{{ activeProductEnriched.name }}</h2>
+      <h2>{{ activeProduct.name }}</h2>
 
       <div class="Product-price">
-        {{ activeProductEnriched.priceUnit | price }}
+        {{ activeProduct.priceUnit | price }}
       </div>
 
-      <ng-container *ngIf="activeProductEnriched.orderItem">
+      <ng-container *ngIf="activeProduct.orderItem">
         <div class="Product-alreadyInBasketQuantityAndActions">
           <div class="Product-alreadyInBasketQuantity">
-            W koszyku: <b>{{ activeProductEnriched.orderItem.quantity }}</b>
+            W koszyku: <b>{{ activeProduct.orderItem.quantity }}</b>
           </div>
           <div class="Product-alreadyInBasketActions">
             <rr-shop-clickable-action
-              (actionClick)="remove(activeProductEnriched.orderItem.id)"
+              (actionClick)="remove(activeProduct.orderItem.id)"
               [label]="'Usuń z koszyka'"
               [icon]="['far', 'trash-alt']"
             ></rr-shop-clickable-action>
             <rr-shop-clickable-action
-              (actionClick)="quantityDecrement(activeProductEnriched.orderItem.id)"
-              [disabled]="!activeProductEnriched.orderItem.isQuantityDecrementActive()"
+              (actionClick)="quantityDecrement(activeProduct.orderItem.id)"
+              [disabled]="!activeProduct.orderItem.isQuantityDecrementActive()"
               [icon]="['fas', 'minus']"
             ></rr-shop-clickable-action>
             <rr-shop-clickable-action
-              (actionClick)="quantityIncrement(activeProductEnriched.orderItem.id)"
-              [disabled]="!activeProductEnriched.orderItem.isQuantityIncrementActive()"
+              (actionClick)="quantityIncrement(activeProduct.orderItem.id)"
+              [disabled]="!activeProduct.orderItem.isQuantityIncrementActive()"
               [icon]="['fas', 'plus']"
             ></rr-shop-clickable-action>
           </div>
         </div>
 
         <div
-          *ngIf="activeProductEnriched.orderItem.isProductQuantityExceededTextVisible()"
+          *ngIf="activeProduct.orderItem.isProductQuantityExceededTextVisible()"
           class="Product-alreadyInBasketNotification u-form-error-container"
         >
           Niestety nie posiadamy tylu sztuk produktu na magazynie :(
           <br />
-          Dostępnych na magazynie: <b>{{ activeProductEnriched.quantity }}</b>
+          Dostępnych na magazynie: <b>{{ activeProduct.quantity }}</b>
         </div>
         <div
-          *ngIf="activeProductEnriched.orderItem.isProductQuantityReached()"
+          *ngIf="activeProduct.orderItem.isProductQuantityReached()"
           class="Product-alreadyInBasketNotification u-form-warning-container"
         >
           Nie można dodać więcej sztuk
           <br />
-          Dostępnych na magazynie: <b>{{ activeProductEnriched.quantity }}</b>
+          Dostępnych na magazynie: <b>{{ activeProduct.quantity }}</b>
         </div>
       </ng-container>
 
-      <div *ngIf="!activeProductEnriched.orderItem" class="Product-notInBasketYet">
+      <div *ngIf="!activeProduct.orderItem" class="Product-notInBasketYet">
         <rr-shop-clickable-action
-          *ngIf="activeProductEnriched.quantity !== 0; else notAvailable"
-          (actionClick)="addToOrder(activeProductEnriched)"
+          *ngIf="activeProduct.quantity !== 0; else notAvailable"
+          (actionClick)="addToOrder(activeProduct)"
           [label]="'Do koszyka'"
           [icon]="['fas', 'shopping-basket']"
         ></rr-shop-clickable-action>
@@ -67,5 +67,5 @@
     </div>
   </div>
 
-  <div class="u-formatted-content Product-description" markdown [data]="activeProductEnriched.description"></div>
+  <div class="u-formatted-content Product-description" markdown [data]="activeProduct.description"></div>
 </div>

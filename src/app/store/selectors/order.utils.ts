@@ -43,7 +43,7 @@ export const toOrderItem = (
   const orderItem: OrderItem = new OrderItem().fromStore(orderItemStore);
 
   orderItem.productStore = productsStoreAsKeyValue ? productsStoreAsKeyValue[orderItemStore.productId] : null;
-  // TODO add product member and create product object - currently it's ProductEnriched
+  // TODO add product member and create product object - currently it's ProductEnricheed
 
   return orderItem;
 };

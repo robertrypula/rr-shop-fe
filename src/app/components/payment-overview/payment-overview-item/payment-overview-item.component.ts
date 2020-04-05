@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { ClickableActionTheme } from '../../clickable-action/clickable-action.model';
-import { ProductEnriched } from '../../../models/product.model';
+import { Product } from '../../../models/product.model';
 import { OrderFacadeService } from '../../../store/facades/order-facade.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { OrderFacadeService } from '../../../store/facades/order-facade.service'
 })
 export class PaymentOverviewItemComponent implements OnInit {
   @Input()
-  public productEnriched: ProductEnriched;
+  public product: Product;
 
   public ClickableActionTheme = ClickableActionTheme;
 

@@ -36,9 +36,9 @@ export interface ProductStore {
 
 // -----------------------------------------------------------------------------
 
-// TODO rename from 'ProductEnriched' to 'Product'
+// TODO rename from 'ProductEnricheed' to 'Product'
 // TODO migrate from interface to class
-export interface ProductEnriched extends ProductStore {
+export interface Product extends ProductStore {
   // NOTE: actually products have OneToMany relation to orderItems but I limited it to only
   // on single 'basket' which have one entry per product (multiple products are modeled as quantity)
   orderItem: OrderItem;

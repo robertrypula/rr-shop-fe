@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { State } from '../reducers';
-import { ProductEnriched } from '../../models/product.model';
+import { Product } from '../../models/product.model';
 import * as fromProductSelectors from '../selectors/product.selectors';
 import { selectProductsStoreLength } from '../selectors/product-core.selectors';
 import { StructuralNode } from '../../models/category.model';
@@ -12,12 +12,12 @@ import { StructuralNode } from '../../models/category.model';
   providedIn: 'root'
 })
 export class ProductFacadeService {
-  public activeProductEnriched$: Observable<ProductEnriched> = this.store.pipe(
-    select(fromProductSelectors.selectActiveProductEnriched)
+  public activeProduct$: Observable<Product> = this.store.pipe(
+    select(fromProductSelectors.selectActiveProduct)
   );
   public isOnProductRoute$: Observable<boolean> = this.store.pipe(select(fromProductSelectors.selectIsOnProductRoute));
-  public productsEnrichedFromActiveCategoryAndItsChildren$: Observable<ProductEnriched[]> = this.store.pipe(
-    select(fromProductSelectors.selectProductsEnrichedFromActiveCategoryAndItsChildren)
+  public productsFromActiveCategoryAndItsChildren$: Observable<Product[]> = this.store.pipe(
+    select(fromProductSelectors.selectProductsFromActiveCategoryAndItsChildren)
   );
   public productsLength$: Observable<number> = this.store.pipe(select(selectProductsStoreLength));
   public urlProductId$: Observable<number> = this.store.pipe(select(fromProductSelectors.selectUrlProductId));
@@ -30,9 +30,9 @@ export class ProductFacadeService {
     );
   }
 
-  public productsEnrichedFromCategoryByStructuralNode$(structuralNode: StructuralNode): Observable<ProductEnriched[]> {
+  public productsFromCategoryByStructuralNode$(structuralNode: StructuralNode): Observable<Product[]> {
     return this.store.pipe(
-      select(fromProductSelectors.selectProductsEnrichedFromCategoryByStructuralNode(structuralNode))
+      select(fromProductSelectors.selectProductsFromCategoryByStructuralNode(structuralNode))
     );
   }
 }

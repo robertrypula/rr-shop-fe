@@ -1,11 +1,11 @@
 import { createSelector } from '@ngrx/store';
 
 import { Order, OrderStore } from '../../models/order.model';
-import { ProductStore, ProductEnriched, Type } from '../../models/product.model';
+import { ProductStore, Product, Type } from '../../models/product.model';
 import { selectProductsStoreAsKeyValue } from './product-core.selectors';
 import { selectOrderItemsStoreAsArray, selectOrdersStoreAsArray } from './order-core.selectors';
 import { toOrderWithAllRelations, toOrderItem, extractClientDetailsForm } from './order.utils';
-import { selectProductsEnrichedFromCategoryByStructuralNode } from './product.selectors';
+import { selectProductsFromCategoryByStructuralNode } from './product.selectors';
 import { StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
 import { getOrderUuid, isOnOrderRoute, isOnPotentialOrderRoute } from '../../utils/routing.utils';
@@ -56,16 +56,16 @@ export const selectOrderItems = (types: Type[] = [Type.Product]) =>
 
 export const selectPotentialOrderProductsIds = createSelector(
   selectOrderItems([Type.Product]),
-  selectProductsEnrichedFromCategoryByStructuralNode(StructuralNode.Delivery),
-  selectProductsEnrichedFromCategoryByStructuralNode(StructuralNode.Payment),
+  selectProductsFromCategoryByStructuralNode(StructuralNode.Delivery),
+  selectProductsFromCategoryByStructuralNode(StructuralNode.Payment),
   (
     orderItems: OrderItem[],
-    deliveryProductsEnriched: ProductEnriched[],
-    paymentProductsEnriched: ProductEnriched[]
+    deliveryProducts: Product[],
+    paymentProducts: Product[]
   ): number[] => [
     ...orderItems.map((orderItem: OrderItem): number => orderItem.productId),
-    ...deliveryProductsEnriched.map((deliveryProductEnriched: ProductEnriched): number => deliveryProductEnriched.id),
-    ...paymentProductsEnriched.map((paymentProductEnriched: ProductEnriched): number => paymentProductEnriched.id)
+    ...deliveryProducts.map((deliveryProduct: Product): number => deliveryProduct.id),
+    ...paymentProducts.map((paymentProduct: Product): number => paymentProduct.id)
   ]
 );
 

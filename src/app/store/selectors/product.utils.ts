@@ -1,4 +1,4 @@
-import { ProductStore, ProductEnriched } from '../../models/product.model';
+import { ProductStore, Product } from '../../models/product.model';
 import { CategoryStore } from '../../models/category.model';
 import { toOrderItem } from './order.utils';
 import { Image } from '../../models/image.model';
@@ -24,11 +24,11 @@ export const getProductsStoreForGivenCategoriesStore = (
     : [];
 };
 
-export const toProductEnriched = (
+export const toProduct = (
   productStore: ProductStore,
   orderItemsStoreAsArray: OrderItemStore[],
   productsStoreAsKeyValue: { [id: number]: ProductStore } = null
-): ProductEnriched => {
+): Product => {
   if (!productStore) {
     return null;
   }

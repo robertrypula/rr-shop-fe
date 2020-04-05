@@ -1,12 +1,12 @@
 <div class="PaymentOverview">
-  <div *ngIf="(productsEnrichedPayment$ | async).length; else noDeliveries">
+  <div *ngIf="(productsPayment$ | async).length; else noDeliveries">
     <div class="OrderOverview-section">
       <table>
         <tbody>
           <tr
-            *ngFor="let productEnriched of productsEnrichedPayment$ | async; trackBy: trackBy"
+            *ngFor="let product of productsPayment$ | async; trackBy: trackBy"
             rr-shop-payment-overview-item
-            [productEnriched]="productEnriched"
+            [product]="product"
           ></tr>
         </tbody>
       </table>

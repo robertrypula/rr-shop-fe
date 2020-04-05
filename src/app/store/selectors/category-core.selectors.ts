@@ -8,13 +8,13 @@ import { getAsArray } from '../../utils/transfomation.utils';
 
 export const selectCategoryFeature = (state: State): fromCategoryReducers.State => state.category;
 
-export const selectCategoriesStoreAsArray = createSelector(
+export const selectCategoriesStore = createSelector(
   selectCategoryFeature,
   (categoryFeature: fromCategoryReducers.State): CategoryStore[] => getAsArray(categoryFeature.list)
 );
 
 export const selectCategoryStoreLength = createSelector(
-  selectCategoriesStoreAsArray,
+  selectCategoriesStore,
   (categoriesAsArray: CategoryStore[]): number => {
     return categoriesAsArray.length;
   }

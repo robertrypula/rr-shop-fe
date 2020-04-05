@@ -8,7 +8,7 @@ import { getProductId, isOnProductRoute } from '../../utils/routing.utils';
 import { selectProductsStoreAsArray, selectProductsStoreAsKeyValue } from './product-core.selectors';
 import { selectOrderItemsStoreAsArray } from './order-core.selectors';
 import { getProductsStoreForGivenCategoriesStore, toProduct } from './product.utils';
-import { selectCategoriesStoreAsArray } from './category-core.selectors';
+import { selectCategoriesStore } from './category-core.selectors';
 import { OrderItemStore } from '../../models/order-item.model';
 
 export const selectUrlProductId = createSelector(selectUrl, (url: string): number => {
@@ -47,14 +47,14 @@ export const selectProductsFromActiveCategoryAndItsChildren = createSelector(
 export const selectProductsFromCategoryByStructuralNode = (structuralNode: StructuralNode) =>
   createSelector(
     selectProductsStoreAsArray,
-    selectCategoriesStoreAsArray,
+    selectCategoriesStore,
     selectOrderItemsStoreAsArray,
     (
       productsStoreAsArray: ProductStore[],
-      categoriesStoreAsArray: CategoryStore[],
+      categoriesStore: CategoryStore[],
       orderItemsStoreAsArray: OrderItemStore[]
     ): Product[] => {
-      const categoriesStoreByStructuralNode: CategoryStore[] = categoriesStoreAsArray.filter(
+      const categoriesStoreByStructuralNode: CategoryStore[] = categoriesStore.filter(
         (category: CategoryStore): boolean => category.structuralNode === structuralNode
       );
 

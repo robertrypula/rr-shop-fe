@@ -2,21 +2,21 @@ import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../../config/config';
 
 export const findChildren = (
-  categoriesStoreAsArray: CategoryStore[],
+  categoriesStore: CategoryStore[],
   parentId: number,
   result: CategoryStore[]
 ): void => {
-  const children: CategoryStore[] = categoriesStoreAsArray.filter(
+  const children: CategoryStore[] = categoriesStore.filter(
     (categoryStore: CategoryStore): boolean => categoryStore.parentId === parentId
   );
   children.forEach((child: CategoryStore): void => {
     result.push(child);
-    findChildren(categoriesStoreAsArray, child.id, result);
+    findChildren(categoriesStore, child.id, result);
   });
 };
 
 export const getCategoriesStoreFromLeafToRoot = (
-  categoriesStoreAsArray: CategoryStore[],
+  categoriesStore: CategoryStore[],
   leafId: number,
   structuralNodeLimit: StructuralNode[] = BREADCRUMBS_STRUCTURAL_NODES_LIMIT
 ): CategoryStore[] => {
@@ -25,7 +25,7 @@ export const getCategoriesStoreFromLeafToRoot = (
   let id: number = leafId;
 
   while (true) {
-    categoryStore = categoriesStoreAsArray.find((categoriesStore: CategoryStore): boolean => categoriesStore.id === id);
+    categoryStore = categoriesStore.find((categoriesStore: CategoryStore): boolean => categoriesStore.id === id);
     if (!categoryStore || structuralNodeLimit.includes(categoryStore.structuralNode)) {
       break;
     }
@@ -37,15 +37,15 @@ export const getCategoriesStoreFromLeafToRoot = (
 };
 
 export const getCategoryStoreAndItsChildren = (
-  categoriesStoreAsArray: CategoryStore[],
+  categoriesStore: CategoryStore[],
   id: number
 ): CategoryStore[] => {
-  const categoryStore: CategoryStore = categoriesStoreAsArray.find((c: CategoryStore): boolean => c.id === id);
+  const categoryStore: CategoryStore = categoriesStore.find((c: CategoryStore): boolean => c.id === id);
   const result: CategoryStore[] = [];
 
   if (categoryStore) {
     result.push(categoryStore);
-    findChildren(categoriesStoreAsArray, categoryStore.id, result);
+    findChildren(categoriesStore, categoryStore.id, result);
   }
 
   return result;

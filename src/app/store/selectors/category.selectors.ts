@@ -4,7 +4,7 @@ import { ActiveLevelUpdateEntry, CategoryStore, StructuralNode } from '../../mod
 import { selectUrl } from './router.selectors';
 import { getCategoryId, isOnCategoryRoute } from '../../utils/routing.utils';
 import { selectIsSmallDevice } from './viewport.selectors';
-import { selectCategoriesStoreAsArray } from './category-core.selectors';
+import { selectCategoriesStore } from './category-core.selectors';
 import { getCategoriesStoreFromLeafToRoot, getCategoryStoreAndItsChildren } from './category.utils';
 
 export const selectActiveCategoryId = createSelector(selectUrl, (url: string): number => {
@@ -13,18 +13,18 @@ export const selectActiveCategoryId = createSelector(selectUrl, (url: string): n
 
 export const selectActiveCategoryStore = createSelector(
   selectActiveCategoryId,
-  selectCategoriesStoreAsArray,
-  (activeCategoryId: number, categoriesStoreAsArray: CategoryStore[]): CategoryStore => {
-    return categoriesStoreAsArray.find(
+  selectCategoriesStore,
+  (activeCategoryId: number, categoriesStore: CategoryStore[]): CategoryStore => {
+    return categoriesStore.find(
       (categoriesStore: CategoryStore): boolean => categoriesStore.id === activeCategoryId
     );
   }
 );
 
 export const selectCategoriesStoreWithActiveLevel = createSelector(
-  selectCategoriesStoreAsArray,
-  (categoriesStoreAsArray: CategoryStore[]): CategoryStore[] => {
-    return categoriesStoreAsArray.filter((categoryStore: CategoryStore): boolean => !!categoryStore.activeLevel);
+  selectCategoriesStore,
+  (categoriesStore: CategoryStore[]): CategoryStore[] => {
+    return categoriesStore.filter((categoryStore: CategoryStore): boolean => !!categoryStore.activeLevel);
   }
 );
 
@@ -40,14 +40,14 @@ export const selectCategoriesWithActiveLevelSorted = createSelector(
 export const selectActiveLevelUpdateEntriesBasedOnRoute = createSelector(
   selectActiveCategoryId,
   selectCategoriesStoreWithActiveLevel,
-  selectCategoriesStoreAsArray,
+  selectCategoriesStore,
   (
     activeCategoryId: number,
     categoriesStoreWithActiveLevel: CategoryStore[],
-    categoriesStoreAsArray: CategoryStore[]
+    categoriesStore: CategoryStore[]
   ): ActiveLevelUpdateEntry[] => {
     const categoriesStoreFromLeafToRoot: CategoryStore[] = getCategoriesStoreFromLeafToRoot(
-      categoriesStoreAsArray,
+      categoriesStore,
       activeCategoryId
     );
     const result: ActiveLevelUpdateEntry[] = [];
@@ -64,30 +64,30 @@ export const selectActiveLevelUpdateEntriesBasedOnRoute = createSelector(
 );
 
 export const selectCategoryStoreAndItsChildren = createSelector(
-  selectCategoriesStoreAsArray,
-  (categoriesStoreAsArray: CategoryStore[], props: { id: number }): CategoryStore[] =>
-    getCategoryStoreAndItsChildren(categoriesStoreAsArray, props.id)
+  selectCategoriesStore,
+  (categoriesStore: CategoryStore[], props: { id: number }): CategoryStore[] =>
+    getCategoryStoreAndItsChildren(categoriesStore, props.id)
 );
 
 export const selectActiveCategoryAndItsChildren = createSelector(
-  selectCategoriesStoreAsArray,
+  selectCategoriesStore,
   selectActiveCategoryId,
-  (categoriesStoreAsArray: CategoryStore[], activeCategoryId: number): CategoryStore[] =>
-    getCategoryStoreAndItsChildren(categoriesStoreAsArray, activeCategoryId)
+  (categoriesStore: CategoryStore[], activeCategoryId: number): CategoryStore[] =>
+    getCategoryStoreAndItsChildren(categoriesStore, activeCategoryId)
 );
 
 export const selectCategoryStore = createSelector(
-  selectCategoriesStoreAsArray,
-  (categoriesStoreAsArray: CategoryStore[], props: { id: number; structuralNode: StructuralNode }): CategoryStore => {
+  selectCategoriesStore,
+  (categoriesStore: CategoryStore[], props: { id: number; structuralNode: StructuralNode }): CategoryStore => {
     let foundCategoryStore: CategoryStore = null;
 
     if (props) {
       if (props.structuralNode) {
-        foundCategoryStore = categoriesStoreAsArray.find(
+        foundCategoryStore = categoriesStore.find(
           (categoryStore: CategoryStore): boolean => categoryStore.structuralNode === props.structuralNode
         );
       } else if (props.id) {
-        foundCategoryStore = categoriesStoreAsArray.find(
+        foundCategoryStore = categoriesStore.find(
           (categoryStore: CategoryStore): boolean => categoryStore.id === props.id
         );
       }
@@ -98,16 +98,16 @@ export const selectCategoryStore = createSelector(
 );
 
 export const selectCategoriesStoreBy = createSelector(
-  selectCategoriesStoreAsArray,
+  selectCategoriesStore,
   (
-    categoriesStoreAsArray: CategoryStore[],
+    categoriesStore: CategoryStore[],
     props: { parentId: number; structuralNode: StructuralNode }
   ): CategoryStore[] => {
     let parentId: number = null;
 
     if (props) {
       if (props.structuralNode) {
-        const structuralNodeCategoryStore: CategoryStore = categoriesStoreAsArray.find(
+        const structuralNodeCategoryStore: CategoryStore = categoriesStore.find(
           (categoryStore: CategoryStore): boolean => categoryStore.structuralNode === props.structuralNode
         );
         parentId = structuralNodeCategoryStore ? structuralNodeCategoryStore.id : null;
@@ -117,8 +117,8 @@ export const selectCategoriesStoreBy = createSelector(
     }
 
     return props
-      ? categoriesStoreAsArray.filter((categoryStore: CategoryStore): boolean => categoryStore.parentId === parentId)
-      : categoriesStoreAsArray;
+      ? categoriesStore.filter((categoryStore: CategoryStore): boolean => categoryStore.parentId === parentId)
+      : categoriesStore;
   }
 );
 

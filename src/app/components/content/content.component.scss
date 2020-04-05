@@ -5,7 +5,13 @@
     background-color: $primary-background-color;
     padding-top: 24px;
   }
+
+  .Content-categories {
+    margin-bottom: 24px;
+  }
+
   .Content-main {
-    min-height: 250px;
+    // min-height: 250px;
+    margin-bottom: 24px;
   }
 }

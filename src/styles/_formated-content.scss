@@ -8,9 +8,23 @@
   ul,
   ol {
     display: block;
-    padding: 0 0 16px 32px;
+    padding: 0 0 0 32px;
     li {
-      padding: 0 0 16px 0;
+      padding: 0 0 8px 0;
     }
+  }
+
+  ul,
+  ol {
+    > li {
+      ul,
+      ol {
+        padding-top: 8px;
+      }
+    }
+  }
+
+  h3 {
+    margin-top: 24px;
   }
 }

@@ -23,6 +23,7 @@
       color: $footer-header-color;
       padding-bottom: $gutter-width * 2;
       position: relative;
+      margin: 0;
       display: block;
       &:after {
         content: ' ';

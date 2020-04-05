@@ -34,22 +34,40 @@ h1 {
   line-height: 1.1em;
 }
 
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: $h2-color;
-  font-size: 25px;
   font-weight: normal;
   line-height: 1.1em;
-  margin-bottom: 24px;
+
+}
+
+h2 {
+  font-size: 25px;
+  margin-bottom: 36px;
 }
 
 h3 {
   font-size: 23px;
-  line-height: 1.1em;
+  margin-bottom: 20px;
 }
 
 h4 {
   font-size: 21px;
-  line-height: 1.1em;
+  margin-bottom: 16px;
+}
+
+h5 {
+  font-size: 19px;
+  margin-bottom: 4px;
+}
+
+h5 {
+  font-size: 17px;
+  margin-bottom: 4px;
 }
 
 .wrapper {

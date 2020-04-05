@@ -18,7 +18,7 @@ td {
 }
 
 .OrderItemOverview-name {
-  a {
+  > div:first-child {
     display: block;
     width: 100%;
     min-height: 64px;
@@ -29,16 +29,21 @@ td {
       width: 64px;
       height: 64px;
     }
-    span {
+    > div {
       display: block;
-      padding: 0px 0 0 75px;
+      padding: 0 0 0 75px;
+
       @include viewport-desktop-medium-and-up {
         padding: 12px 0 0 75px;
       }
-    }
-    div {
-      padding: 8px 0 8px 75px;
-      color: $color;
+
+      > a {
+        display: block;
+        padding: 0 0 8px 0;
+      }
+      > div {
+        padding: 0 0 16px 0;
+      }
     }
   }
 }

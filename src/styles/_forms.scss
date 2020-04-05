@@ -33,6 +33,11 @@ label.u-form-label {
   display: block;
 }
 
+.u-form-warning-container {
+  color: $orange-color;
+  font-size: 12px;
+}
+
 .u-form-error-container {
   color: $red-color;
   font-size: 12px;

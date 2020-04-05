@@ -52,7 +52,15 @@ export class OrderItem implements OrderItemStore {
   }
 
   public isQuantityIncrementActive(): boolean {
-    return (this.productStore ? this.productStore.quantity : 0) > this.quantity;
+    return this.getProductQuantity() > this.quantity;
+  }
+
+  public isProductQuantityExceededTextVisible(): boolean {
+    return this.getProductQuantity() < this.quantity;
+  }
+
+  public isProductQuantityReached(): boolean {
+    return this.getProductQuantity() === this.quantity;
   }
 
   public getPriceTotalOriginal(): number {
@@ -96,5 +104,9 @@ export class OrderItem implements OrderItemStore {
   protected isPriceUnitSellingComingFromTheBackend(): boolean {
     // TODO look at uuid of the order - if it's not -1 when is order from backend
     return !!this.priceUnitSelling || this.priceUnitSelling === 0;
+  }
+
+  protected getProductQuantity(): number {
+    return this.productStore ? this.productStore.quantity : 0;
   }
 }

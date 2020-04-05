@@ -10,36 +10,60 @@
         {{ activeProductEnriched.priceUnit | price }}
       </div>
 
-      <div *ngIf="activeProductEnriched.orderItem" class="Product-orderQuantity">
-        <span>
-          W koszyku: <b>{{ activeProductEnriched.orderItem.quantity }}</b>
-        </span>
-        <div>
-          <rr-shop-clickable-action
-            (actionClick)="remove(activeProductEnriched.orderItem.id)"
-            [label]="'Usuń z koszyka'"
-            [icon]="['far', 'trash-alt']"
-          ></rr-shop-clickable-action>
-          <rr-shop-clickable-action
-            (actionClick)="quantityDecrement(activeProductEnriched.orderItem.id)"
-            [disabled]="!activeProductEnriched.orderItem.isQuantityDecrementActive()"
-            [icon]="['fas', 'minus']"
-          ></rr-shop-clickable-action>
-          <rr-shop-clickable-action
-            (actionClick)="quantityIncrement(activeProductEnriched.orderItem.id)"
-            [disabled]="!activeProductEnriched.orderItem.isQuantityIncrementActive()"
-            [icon]="['fas', 'plus']"
-          ></rr-shop-clickable-action>
-          <span>{{ activeProductEnriched.quantity }}</span>
+      <ng-container *ngIf="activeProductEnriched.orderItem">
+        <div class="Product-alreadyInBasketQuantityAndActions">
+          <div class="Product-alreadyInBasketQuantity">
+            W koszyku: <b>{{ activeProductEnriched.orderItem.quantity }}</b>
+          </div>
+          <div class="Product-alreadyInBasketActions">
+            <rr-shop-clickable-action
+              (actionClick)="remove(activeProductEnriched.orderItem.id)"
+              [label]="'Usuń z koszyka'"
+              [icon]="['far', 'trash-alt']"
+            ></rr-shop-clickable-action>
+            <rr-shop-clickable-action
+              (actionClick)="quantityDecrement(activeProductEnriched.orderItem.id)"
+              [disabled]="!activeProductEnriched.orderItem.isQuantityDecrementActive()"
+              [icon]="['fas', 'minus']"
+            ></rr-shop-clickable-action>
+            <rr-shop-clickable-action
+              (actionClick)="quantityIncrement(activeProductEnriched.orderItem.id)"
+              [disabled]="!activeProductEnriched.orderItem.isQuantityIncrementActive()"
+              [icon]="['fas', 'plus']"
+            ></rr-shop-clickable-action>
+          </div>
         </div>
-      </div>
 
-      <rr-shop-clickable-action
-        *ngIf="!activeProductEnriched.orderItem"
-        (actionClick)="addToOrder(activeProductEnriched)"
-        [label]="'Do koszyka'"
-        [icon]="['fas', 'shopping-basket']"
-      ></rr-shop-clickable-action>
+        <div
+          *ngIf="activeProductEnriched.orderItem.isProductQuantityExceededTextVisible()"
+          class="Product-alreadyInBasketNotification u-form-error-container"
+        >
+          Niestety nie posiadamy tylu sztuk produktu na magazynie :(
+          <br />
+          Dostępnych na magazynie: <b>{{ activeProductEnriched.quantity }}</b>
+        </div>
+        <div
+          *ngIf="activeProductEnriched.orderItem.isProductQuantityReached()"
+          class="Product-alreadyInBasketNotification u-form-warning-container"
+        >
+          Nie można dodać więcej sztuk
+          <br />
+          Dostępnych na magazynie: <b>{{ activeProductEnriched.quantity }}</b>
+        </div>
+      </ng-container>
+
+      <div *ngIf="!activeProductEnriched.orderItem" class="Product-notInBasketYet">
+        <rr-shop-clickable-action
+          *ngIf="activeProductEnriched.quantity !== 0; else notAvailable"
+          (actionClick)="addToOrder(activeProductEnriched)"
+          [label]="'Do koszyka'"
+          [icon]="['fas', 'shopping-basket']"
+        ></rr-shop-clickable-action>
+
+        <ng-template #notAvailable>
+          <span>Produkt niedostępny</span>
+        </ng-template>
+      </div>
     </div>
   </div>
 

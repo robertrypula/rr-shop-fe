@@ -68,16 +68,16 @@ export class OrderFacadeService {
     this.store.dispatch(fromOrderActions.createOrderRequest());
   }
 
-  public quantityDecrement(id: number): void {
-    this.store.dispatch(fromOrderActions.quantityDecrement({ id }));
+  public quantityDecrement(orderItemId: number): void {
+    this.store.dispatch(fromOrderActions.quantityDecrement({ id: orderItemId }));
   }
 
-  public quantityIncrement(id: number): void {
-    this.store.dispatch(fromOrderActions.quantityIncrement({ id }));
+  public quantityIncrement(orderItemId: number): void {
+    this.store.dispatch(fromOrderActions.quantityIncrement({ id: orderItemId }));
   }
 
-  public remove(id: number): void {
-    this.store.dispatch(fromOrderActions.remove({ id }));
+  public remove(orderItemId: number): void {
+    this.store.dispatch(fromOrderActions.remove({ id: orderItemId }));
   }
 
   public setPromoCodeTextField(promoCodeTextField: string): void {

@@ -13,6 +13,7 @@
 
   .Product-overviewContainer {
     margin-bottom: 2 * $gutter-width;
+
     .Product-price {
       font-size: 20px;
       color: $product-box-price-color;
@@ -20,18 +21,18 @@
       padding: 16px 0;
     }
 
-    .Product-orderQuantity {
-      > span {
-        padding-bottom: 16px;
-        display: block;
+    .Product-alreadyInBasketQuantity {
+      padding-bottom: 16px;
+      display: block;
+    }
+
+    .Product-alreadyInBasketActions {
+      padding-bottom: 16px;
+      > *:nth-child(2) {
+        margin-left: 16px;
       }
-      > div {
-        > *:nth-child(2) {
-          margin-left: 16px;
-        }
-        > *:nth-child(3) {
-          margin-left: 4px;
-        }
+      > *:nth-child(3) {
+        margin-left: 4px;
       }
     }
   }

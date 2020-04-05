@@ -19,7 +19,7 @@
     }
     span {
       display: block;
-      padding: 10px 0 0 0;
+      padding: 10px 4px 0 4px;
       color: $product-box-name-color;
       line-height: 1.3em;
     }
@@ -32,18 +32,21 @@
     padding: 16px 0;
   }
 
-  .ProductBoxCompact-orderQuantity {
-    > span {
-      padding: 12px 0;
-      display: inline-block;
+  .ProductBoxCompact-alreadyInBasketQuantity {
+    padding: 12px 0;
+    display: inline-block;
+  }
+
+  .ProductBoxCompact-alreadyInBasketActions {
+    display: inline-block;
+    padding-left: 8px;
+    > *:last-child {
+      margin-left: 4px;
     }
-    > div {
-      display: inline-block;
-      padding-left: 8px;
-      > *:last-child {
-        margin-left: 4px;
-      }
-    }
+  }
+
+  .ProductBoxCompact-alreadyInBasketNotification {
+    padding: 8px 4px 0 4px;
   }
 
   rr-shop-clickable-action {

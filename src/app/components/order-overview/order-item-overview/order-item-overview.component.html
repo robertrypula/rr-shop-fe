@@ -1,27 +1,43 @@
 <td class="OrderItemOverview-name">
-  <a [routerLink]="orderItem?.productStore | productUrl">
+  <div>
     <rr-shop-image
       [images]="orderItem.productStore?.images"
       [size]="Size.Px0064"
       class="OrderItemOverview-image"
     ></rr-shop-image>
-    <span>{{ orderItem.productStore?.name }}</span>
-    <div class="hidden-md hidden-lg">
-      {{ orderItem.productStore?.priceUnit | price }}
-      x
-      {{ orderItem.quantity }}
-      =
-      {{ orderItem.getPriceTotalOriginal() | price }}
+    <div>
+      <a [routerLink]="orderItem?.productStore | productUrl">
+        {{ orderItem.productStore?.name }}
+      </a>
+
+      <div class="hidden-md hidden-lg">
+        {{ orderItem.productStore?.priceUnit | price }}
+        x
+        {{ orderItem.quantity }}
+        =
+        {{ orderItem.getPriceTotalOriginal() | price }}
+      </div>
+
+      <div *ngIf="orderItem.isProductQuantityExceededTextVisible()" class="u-form-error-container">
+        Niestety nie posiadamy tylu sztuk produktu na magazynie :(
+        <br />
+        Dostępnych na magazynie: <b>{{ orderItem.productStore?.quantity }}</b>
+      </div>
+
+      <div *ngIf="orderItem.isProductQuantityReached()" class="u-form-warning-container">
+        Nie można dodać więcej sztuk
+        <br />
+        Dostępnych na magazynie: <b>{{ orderItem.productStore?.quantity }}</b>
+      </div>
     </div>
-  </a>
+  </div>
 
   <div class="OrderItemOverview-aggregation hidden-md hidden-lg">
-    <rr-shop-clickable-action
-      (actionClick)="remove(orderItem.id)"
-      [icon]="['far', 'trash-alt']"
-    ></rr-shop-clickable-action>
-
     <div>
+      <rr-shop-clickable-action
+        (actionClick)="remove(orderItem.id)"
+        [icon]="['far', 'trash-alt']"
+      ></rr-shop-clickable-action>
       <rr-shop-clickable-action
         (actionClick)="quantityDecrement(orderItem.id)"
         [disabled]="!orderItem.isQuantityDecrementActive()"
@@ -29,6 +45,7 @@
       ></rr-shop-clickable-action>
       <rr-shop-clickable-action
         (actionClick)="quantityIncrement(orderItem.id)"
+        [disabled]="!orderItem.isQuantityIncrementActive()"
         [icon]="['fas', 'plus']"
       ></rr-shop-clickable-action>
     </div>
@@ -46,6 +63,7 @@
     </span>
     <rr-shop-clickable-action
       (actionClick)="quantityIncrement(orderItem.id)"
+      [disabled]="!orderItem.isQuantityIncrementActive()"
       [icon]="['fas', 'plus']"
     ></rr-shop-clickable-action>
   </div>

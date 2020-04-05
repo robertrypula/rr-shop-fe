@@ -22,15 +22,15 @@ export class OrderItemOverviewComponent implements OnInit {
 
   public ngOnInit(): void {}
 
-  public quantityDecrement(id: number): void {
-    this.orderFacadeService.quantityDecrement(id);
+  public quantityDecrement(orderItemId: number): void {
+    this.orderFacadeService.quantityDecrement(orderItemId);
   }
 
-  public quantityIncrement(id: number): void {
-    this.orderFacadeService.quantityIncrement(id);
+  public quantityIncrement(orderItemId: number): void {
+    this.orderFacadeService.quantityIncrement(orderItemId);
   }
 
-  public remove(id: number): void {
-    this.orderService.remove(id);
+  public remove(orderItemId: number): void {
+    this.orderService.remove(orderItemId);
   }
 }

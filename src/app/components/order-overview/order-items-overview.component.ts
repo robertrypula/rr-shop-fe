@@ -10,7 +10,7 @@ import { OrderItem } from '../../models/order-item.model';
 })
 export class OrderItemsOverviewComponent implements OnInit {
   @Input()
-  public orderItemsByProductType: OrderItem[] = [];
+  public orderItems: OrderItem[] = [];
 
   public constructor() {}
 

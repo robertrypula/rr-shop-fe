@@ -2,7 +2,7 @@
   <div class="PotentialOrder-section">
     <h2>Zawartość koszyka</h2>
     <rr-shop-order-items-overview
-      [orderItemsByProductType]="(potentialOrder$ | async)?.getOrderItemsByType([Type.Product])"
+      [orderItems]="(potentialOrder$ | async)?.getOrderItemsByType([Type.Product])"
     ></rr-shop-order-items-overview>
   </div>
 

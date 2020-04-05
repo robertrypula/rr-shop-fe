@@ -1,5 +1,5 @@
 <div class="OrderItemsOverview">
-  <div *ngIf="orderItemsByProductType?.length; else orderEmpty">
+  <div *ngIf="orderItems?.length; else orderEmpty">
     <div class="OrderOverview-section">
       <table>
         <thead>
@@ -13,7 +13,7 @@
         </thead>
         <tbody>
           <tr
-            *ngFor="let orderItem of orderItemsByProductType; trackBy: trackBy"
+            *ngFor="let orderItem of orderItems; trackBy: trackBy"
             rr-shop-order-item-overview
             [orderItem]="orderItem"
           ></tr>

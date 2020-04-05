@@ -4,10 +4,7 @@ import { PromoCode } from '../../models/promo-code.model';
 import { OrderItem, OrderItemStore } from '../../models/order-item.model';
 import { getAsArray } from '../../utils/transfomation.utils';
 
-export const toOrderWithAllRelations = (
-  orderStore: OrderStore,
-  productsStore: ProductStore[]
-): Order => {
+export const toOrderWithAllRelations = (orderStore: OrderStore, productsStore: ProductStore[]): Order => {
   const order: Order = new Order().fromStore(orderStore);
 
   order.orderItems = getAsArray(orderStore.orderItemsStore).map(

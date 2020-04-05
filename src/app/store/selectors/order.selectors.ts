@@ -48,7 +48,7 @@ export const selectOrderItems = (types: Type[] = [Type.Product]) =>
   createSelector(
     selectOrderItemsStoreAsArray,
     selectProductsStore,
-    (orderItemsStoreAsArray: OrderItemStore[], productsStore: ProductStore[] ): OrderItem[] =>
+    (orderItemsStoreAsArray: OrderItemStore[], productsStore: ProductStore[]): OrderItem[] =>
       orderItemsStoreAsArray
         .filter((orderItemStore: OrderItemStore): boolean => types.includes(orderItemStore.type))
         .map((orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsStore))

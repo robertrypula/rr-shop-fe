@@ -67,11 +67,8 @@ export const selectProductsFromCategoryByStructuralNode = (structuralNode: Struc
 export const selectProductsCountFromCategoryAndItsChildrenByCategoryId = createSelector(
   selectProductsStore,
   selectCategoryStoreAndItsChildren,
-  (
-    productsStore: ProductStore[],
-    activeCategoryStoreAndItsChildren: CategoryStore[],
-    props: { id: number }
-  ): number => getProductsStoreForGivenCategoriesStore(productsStore, activeCategoryStoreAndItsChildren).length
+  (productsStore: ProductStore[], activeCategoryStoreAndItsChildren: CategoryStore[], props: { id: number }): number =>
+    getProductsStoreForGivenCategoriesStore(productsStore, activeCategoryStoreAndItsChildren).length
 );
 
 export const selectIsOnProductRoute = createSelector(selectUrl, (url: string): boolean => isOnProductRoute(url));

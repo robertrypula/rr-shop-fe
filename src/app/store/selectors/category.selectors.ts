@@ -4,7 +4,7 @@ import { ActiveLevelUpdateEntry, CategoryStore, StructuralNode } from '../../mod
 import { selectUrl } from './router.selectors';
 import { getCategoryId, isOnCategoryRoute } from '../../utils/routing.utils';
 import { selectIsSmallDevice } from './viewport.selectors';
-import { selectCategoriesStoreAsArray, selectCategoriesStoreAsKeyValue } from './category-core.selectors';
+import { selectCategoriesStoreAsArray } from './category-core.selectors';
 import { getCategoriesStoreFromLeafToRoot, getCategoryStoreAndItsChildren } from './category.utils';
 
 export const selectActiveCategoryId = createSelector(selectUrl, (url: string): number => {
@@ -13,9 +13,11 @@ export const selectActiveCategoryId = createSelector(selectUrl, (url: string): n
 
 export const selectActiveCategoryStore = createSelector(
   selectActiveCategoryId,
-  selectCategoriesStoreAsKeyValue,
-  (activeCategoryId: number, categoriesStoreAsKeyValue: { [key: string]: CategoryStore }): CategoryStore => {
-    return activeCategoryId ? categoriesStoreAsKeyValue[activeCategoryId] : null;
+  selectCategoriesStoreAsArray,
+  (activeCategoryId: number, categoriesStoreAsArray: CategoryStore[]): CategoryStore => {
+    return categoriesStoreAsArray.find(
+      (categoriesStore: CategoryStore): boolean => categoriesStore.id === activeCategoryId
+    );
   }
 );
 
@@ -38,14 +40,14 @@ export const selectCategoriesWithActiveLevelSorted = createSelector(
 export const selectActiveLevelUpdateEntriesBasedOnRoute = createSelector(
   selectActiveCategoryId,
   selectCategoriesStoreWithActiveLevel,
-  selectCategoriesStoreAsKeyValue,
+  selectCategoriesStoreAsArray,
   (
     activeCategoryId: number,
     categoriesStoreWithActiveLevel: CategoryStore[],
-    categoriesStoreAsKeyValue: { [key: string]: CategoryStore }
+    categoriesStoreAsArray: CategoryStore[]
   ): ActiveLevelUpdateEntry[] => {
     const categoriesStoreFromLeafToRoot: CategoryStore[] = getCategoriesStoreFromLeafToRoot(
-      categoriesStoreAsKeyValue,
+      categoriesStoreAsArray,
       activeCategoryId
     );
     const result: ActiveLevelUpdateEntry[] = [];

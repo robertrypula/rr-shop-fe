@@ -13,11 +13,6 @@ export const selectCategoriesStoreAsArray = createSelector(
   (categoryFeature: fromCategoryReducers.State): CategoryStore[] => getAsArray(categoryFeature.list)
 );
 
-export const selectCategoriesStoreAsKeyValue = createSelector(
-  selectCategoryFeature,
-  (categoryFeature: fromCategoryReducers.State): { [id: number]: CategoryStore } => categoryFeature.list
-);
-
 export const selectCategoryStoreLength = createSelector(
   selectCategoriesStoreAsArray,
   (categoriesAsArray: CategoryStore[]): number => {

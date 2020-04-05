@@ -16,7 +16,7 @@ export const findChildren = (
 };
 
 export const getCategoriesStoreFromLeafToRoot = (
-  categoriesAsKeyValue: { [key: string]: CategoryStore },
+  categoriesStoreAsArray: CategoryStore[],
   leafId: number,
   structuralNodeLimit: StructuralNode[] = BREADCRUMBS_STRUCTURAL_NODES_LIMIT
 ): CategoryStore[] => {
@@ -25,7 +25,7 @@ export const getCategoriesStoreFromLeafToRoot = (
   let id: number = leafId;
 
   while (true) {
-    categoryStore = categoriesAsKeyValue[id];
+    categoryStore = categoriesStoreAsArray.find((categoriesStore: CategoryStore): boolean => categoriesStore.id === id);
     if (!categoryStore || structuralNodeLimit.includes(categoryStore.structuralNode)) {
       break;
     }

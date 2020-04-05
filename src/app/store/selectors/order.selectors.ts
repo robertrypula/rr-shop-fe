@@ -3,7 +3,7 @@ import { createSelector } from '@ngrx/store';
 import { Order, OrderStore } from '../../models/order.model';
 import { ProductStore, Product, Type } from '../../models/product.model';
 import { selectProductsStore } from './product-core.selectors';
-import { selectOrderItemsStoreAsArray, selectOrdersStoreAsArray } from './order-core.selectors';
+import { selectOrderItemsStore, selectOrdersStoreAsArray } from './order-core.selectors';
 import { toOrderWithAllRelations, toOrderItem, extractClientDetailsForm } from './order.utils';
 import { selectProductsFromCategoryByStructuralNode } from './product.selectors';
 import { StructuralNode } from '../../models/category.model';
@@ -46,10 +46,10 @@ export const selectOrderByUuid = (uuid: string) =>
 
 export const selectOrderItems = (types: Type[] = [Type.Product]) =>
   createSelector(
-    selectOrderItemsStoreAsArray,
+    selectOrderItemsStore,
     selectProductsStore,
-    (orderItemsStoreAsArray: OrderItemStore[], productsStore: ProductStore[]): OrderItem[] =>
-      orderItemsStoreAsArray
+    (orderItemsStore: OrderItemStore[], productsStore: ProductStore[]): OrderItem[] =>
+      orderItemsStore
         .filter((orderItemStore: OrderItemStore): boolean => types.includes(orderItemStore.type))
         .map((orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsStore))
   );

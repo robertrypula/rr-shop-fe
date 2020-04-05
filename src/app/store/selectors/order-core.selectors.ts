@@ -30,7 +30,7 @@ export const selectApiCallPromoCode = createSelector(
   (orderFeature: fromOrderReducers.State): ApiCall => orderFeature.apiCallPromoCode
 );
 
-export const selectOrderItemsStoreAsArray = createSelector(
+export const selectOrderItemsStore = createSelector(
   selectOrderFeature,
   (orderFeature: fromOrderReducers.State): OrderItemStore[] =>
     getAsArray(orderFeature.entities[POTENTIAL_ORDER_ID].orderItemsStore)

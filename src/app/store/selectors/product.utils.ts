@@ -26,14 +26,14 @@ export const getProductsStoreForGivenCategoriesStore = (
 
 export const toProduct = (
   productStore: ProductStore,
-  orderItemsStoreAsArray: OrderItemStore[],
+  orderItemsStore: OrderItemStore[],
   productsStore: ProductStore[] = null
 ): Product => {
   if (!productStore) {
     return null;
   }
 
-  const foundOrderItemStore: OrderItemStore = orderItemsStoreAsArray.find(
+  const foundOrderItemStore: OrderItemStore = orderItemsStore.find(
     (orderItemStore: OrderItemStore): boolean => orderItemStore.productId === productStore.id
   );
 

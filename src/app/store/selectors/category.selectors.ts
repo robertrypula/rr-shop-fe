@@ -15,9 +15,7 @@ export const selectActiveCategoryStore = createSelector(
   selectActiveCategoryId,
   selectCategoriesStore,
   (activeCategoryId: number, categoriesStore: CategoryStore[]): CategoryStore => {
-    return categoriesStore.find(
-      (categoriesStore: CategoryStore): boolean => categoriesStore.id === activeCategoryId
-    );
+    return categoriesStore.find((categoryStore: CategoryStore): boolean => categoryStore.id === activeCategoryId);
   }
 );
 
@@ -99,10 +97,7 @@ export const selectCategoryStore = createSelector(
 
 export const selectCategoriesStoreBy = createSelector(
   selectCategoriesStore,
-  (
-    categoriesStore: CategoryStore[],
-    props: { parentId: number; structuralNode: StructuralNode }
-  ): CategoryStore[] => {
+  (categoriesStore: CategoryStore[], props: { parentId: number; structuralNode: StructuralNode }): CategoryStore[] => {
     let parentId: number = null;
 
     if (props) {

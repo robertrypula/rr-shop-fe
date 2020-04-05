@@ -5,11 +5,11 @@ import { Image } from '../../models/image.model';
 import { OrderItemStore } from '../../models/order-item.model';
 
 export const getProductsStoreForGivenCategoriesStore = (
-  productsStoreAsArray: ProductStore[],
+  productsStore: ProductStore[],
   categoriesStore: CategoryStore[]
 ): ProductStore[] => {
   return categoriesStore.length
-    ? productsStoreAsArray.filter((product: ProductStore): boolean => {
+    ? productsStore.filter((product: ProductStore): boolean => {
         let match = false;
 
         for (let i = 0; i < categoriesStore.length; i++) {

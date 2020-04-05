@@ -6,12 +6,12 @@ import { getAsArray } from '../../utils/transfomation.utils';
 
 export const toOrderWithAllRelations = (
   orderStore: OrderStore,
-  productsStoreAsArray: ProductStore[]
+  productsStore: ProductStore[]
 ): Order => {
   const order: Order = new Order().fromStore(orderStore);
 
   order.orderItems = getAsArray(orderStore.orderItemsStore).map(
-    (orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsStoreAsArray).setOrder(order)
+    (orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsStore).setOrder(order)
   );
   order.promoCode = orderStore.promoCodeStore
     ? new PromoCode().fromStore(orderStore.promoCodeStore).setOrder(order)

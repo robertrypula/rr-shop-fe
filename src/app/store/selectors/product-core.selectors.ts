@@ -8,15 +8,15 @@ import { getAsArray } from '../../utils/transfomation.utils';
 
 export const selectProductFeature = (state: State): fromProductReducers.State => state.product;
 
-export const selectProductsStoreAsArray = createSelector(
+export const selectProductsStore = createSelector(
   selectProductFeature,
   (productFeature: fromProductReducers.State): ProductStore[] => getAsArray(productFeature.list)
 );
 
 export const selectProductsStoreLength = createSelector(
-  selectProductsStoreAsArray,
-  (productsStoreAsArray: ProductStore[]): number => {
-    return productsStoreAsArray.length;
+  selectProductsStore,
+  (productsStore: ProductStore[]): number => {
+    return productsStore.length;
   }
 );
 

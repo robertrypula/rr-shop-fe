@@ -1,5 +1,6 @@
 import { Image } from './image.model';
 import { OrderItem } from './order-item.model';
+import { Manufacturer } from './manufacturer.model';
 
 export enum Type {
   Delivery = 'Delivery',
@@ -31,12 +32,12 @@ export interface ProductStore {
   deliveryType?: DeliveryType;
   paymentType?: PaymentType;
   images?: Image[]; // TODO it should be imagesStore
+  manufacturer?: Manufacturer; // TODO it should be manufacturerStore
   categoryIds: number[];
 }
 
 // -----------------------------------------------------------------------------
 
-// TODO rename from 'ProductEnricheed' to 'Product'
 // TODO migrate from interface to class
 export interface Product extends ProductStore {
   // NOTE: actually products have OneToMany relation to orderItems but I limited it to only

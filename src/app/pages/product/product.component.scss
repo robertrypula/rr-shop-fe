@@ -43,8 +43,18 @@
 
   .Product-description {
     padding: 24px;
-    background-color: $product-description-background-color;
     color: $product-description-color;
     margin-bottom: 64px;
+    font-size: 14px;
+    line-height: 1.6em;
+    ::ng-deep h4 {
+      margin-top: 10px;
+      margin-bottom: 8px;
+    }
+    ::ng-deep h4:first-child {
+      margin-top: 0;
+    }
+    ::ng-deep p {
+    }
   }
 }

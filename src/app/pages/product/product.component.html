@@ -4,7 +4,10 @@
       <rr-shop-image [images]="activeProduct.images" [size]="Size.Px0300" [slider]="true"></rr-shop-image>
     </div>
     <div class="col-xxs-12 col-md-6 Product-overviewContainer">
-      <h2>{{ activeProduct.name }}</h2>
+      <h2>
+        {{ activeProduct.name }}<ng-container *ngIf="activeProduct?.manufacturer?.name">, </ng-container>
+        {{ activeProduct?.manufacturer?.name }}
+      </h2>
 
       <div class="Product-price">
         {{ activeProduct.priceUnit | price }}

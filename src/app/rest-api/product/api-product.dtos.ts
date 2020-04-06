@@ -1,5 +1,6 @@
 import { ImageDto } from '../image/image.dtos';
 import { DeliveryType, PaymentType, Type } from '../../models/product.model';
+import { ManufacturerDto } from '../manufacturer/manufacturer.dtos';
 
 export enum FetchType {
   Minimal = 'Minimal',
@@ -18,6 +19,7 @@ export interface ProductMediumDto extends ProductMinimalDto {
   quantity: number;
   priceUnit: number;
   images: ImageDto[];
+  manufacturer: ManufacturerDto;
 }
 
 export interface ProductFullDto extends ProductMediumDto {

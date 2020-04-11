@@ -1,6 +1,6 @@
 import { PromoCode, PromoCodeStore } from './promo-code.model';
 import { OrderItem, OrderItemStore } from './order-item.model';
-import { normalizePrice } from '../utils/math.utils';
+import { getNormalizedPrice } from '../utils/math.utils';
 import { Type } from './product.model';
 
 export enum Status {
@@ -114,7 +114,7 @@ export class Order implements OrderStore {
   }
 
   public getPriceTotalOriginal(types: Type[]): number {
-    return normalizePrice(
+    return getNormalizedPrice(
       this.getOrderItemsByType(types).reduce(
         (accumulator: number, orderItem: OrderItem): number => accumulator + orderItem.getPriceTotalOriginal(),
         0
@@ -123,7 +123,7 @@ export class Order implements OrderStore {
   }
 
   public getPriceTotalSelling(types: Type[]): number {
-    return normalizePrice(
+    return getNormalizedPrice(
       this.getOrderItemsByType(types).reduce(
         (accumulator: number, orderItem: OrderItem): number => accumulator + orderItem.getPriceTotalSelling(),
         0

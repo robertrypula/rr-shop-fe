@@ -1,6 +1,6 @@
 import { ProductStore, Type } from './product.model';
 import { Order } from './order.model';
-import { normalizePrice } from '../utils/math.utils';
+import { getNormalizedPrice } from '../utils/math.utils';
 
 // -----------------------------------------------------------------------------
 
@@ -83,7 +83,7 @@ export class OrderItem implements OrderItemStore {
     return this.isPriceUnitSellingComingFromTheBackend()
       ? this.priceUnitSelling
       : this.productStore
-      ? normalizePrice(
+      ? getNormalizedPrice(
           this.productStore.priceUnit *
             (this.order && this.order.promoCode ? this.order.promoCode.getDiscountMultiplier() : 1)
         )

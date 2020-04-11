@@ -75,7 +75,16 @@ export class OrderEffects {
   public createOrderFailure$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromOrderActions.createOrderFailure),
-      map(() => fromBarActions.showError({ message: `Wystąpił błąd podczas składania zamówienia` }))
+      tap(() => {
+        // TODO implement proper error handling it should check the response code
+        window.scrollTo && window.scrollTo(0, 120);
+      }),
+      switchMap(() => [
+        fromOrderActions.potentialOrderLoad(),
+        fromBarActions.showError({
+          message: `Wystąpił błąd podczas składania zamówienia - prosimy o sprawdzenie liczby sztuk w koszyku`
+        })
+      ])
     )
   );
 

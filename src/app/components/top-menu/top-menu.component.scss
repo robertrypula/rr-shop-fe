@@ -38,10 +38,4 @@
       margin: 0 25px 0 0;
     }
   }
-
-  @include viewport-desktop-medium-and-up {
-    li {
-      margin: 0 50px 0 0;
-    }
-  }
 }

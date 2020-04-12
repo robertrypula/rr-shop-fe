@@ -4,7 +4,7 @@ import { StructuralNode } from '../../models/category.model';
 export interface CategoryDto {
   content?: string;
   id: number;
-  isUnAccessible?: boolean;
+  isNotClickable?: boolean;
   isWithoutProducts?: boolean;
   name: string;
   parentId: number;

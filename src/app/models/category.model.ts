@@ -21,7 +21,7 @@ export interface CategoryStore {
   activeLevel?: number;
   content?: string;
   id: number;
-  isUnAccessible?: boolean;
+  isNotClickable?: boolean;
   isWithoutProducts?: boolean;
   name: string;
   parentId: number;

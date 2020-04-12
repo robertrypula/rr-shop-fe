@@ -6,7 +6,7 @@ export const fromDto = (dto: CategoryDto): CategoryStore => {
   return {
     content: dto.content,
     id: dto.id,
-    isUnAccessible: dto.isUnAccessible,
+    isNotClickable: dto.isNotClickable,
     isWithoutProducts: dto.isWithoutProducts,
     name: dto.name,
     parentId: dto.parentId,

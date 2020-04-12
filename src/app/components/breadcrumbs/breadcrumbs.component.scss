@@ -1,6 +1,7 @@
 @import 'configs-and-mixins';
 
 .Breadcrumbs {
+  border-top: 1px solid $border-color;
   border-bottom: 1px solid $border-color;
   padding: 17px 0;
   background-color: $primary-background-color;

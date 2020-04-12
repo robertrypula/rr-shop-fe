@@ -1,12 +1,12 @@
 @import 'configs-and-mixins';
 
 .Footer {
-  background: url('../../../assets/bg-mobile.jpg') no-repeat top center #121a02;
-  background-position-y: -220px;
+  // background: url('../../../assets/bg-mobile.jpg') no-repeat top center #121a02;
+  // background-position-y: -220px;
 
-  @include viewport-tablet-and-up {
-    background-image: url('../../../assets/bg.jpg');
-  }
+  // @include viewport-tablet-and-up {
+  //   background-image: url('../../../assets/bg.jpg');
+  // }
 
   .Footer-content {
     background-color: rgba(0, 0, 0, 0.65);

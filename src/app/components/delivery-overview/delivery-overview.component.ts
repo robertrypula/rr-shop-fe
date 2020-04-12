@@ -29,7 +29,7 @@ export class DeliveryOverviewComponent implements OnInit, OnDestroy {
   }
 
   public onParcelLockerClick(): void {
-    (window as any).openInPostParcelLockerModal && (window as any).openInPostParcelLockerModal(400, 800);
+    (window as any).openInPostParcelLockerModal && (window as any).openInPostParcelLockerModal(900, 600);
   }
 
   protected onInPostParcelLockerChange(name: string): void {

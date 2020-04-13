@@ -24,7 +24,4 @@ export class CategoryComponent implements OnInit {
 
   public ngOnInit(): void {}
 
-  public trackBy(index: number, item: Product): string {
-    return item.id + '';
-  }
 }

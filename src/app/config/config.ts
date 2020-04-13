@@ -8,6 +8,8 @@ export const ORDER_BAR_SUCCESS_MESSAGE_HIDE_DELAY = 800;
 export const NO_PICTURE_FILENAME = '-no-picture-.jpg';
 export const H1_TEXT = 'Waleriana.pl - Twoja zielarnia';
 
+export const MAIN_PAGE_PRODUCTS_IN_SECTION_LIMIT = 8;
+
 export const GRID_MOBILE = 390;
 export const GRID_TABLET = 768;
 export const GRID_DESKTOP_MEDIUM = 992;

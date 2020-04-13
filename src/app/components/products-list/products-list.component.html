@@ -1,0 +1,27 @@
+<div class="row" *ngIf="products.length; else noProducts">
+  <ng-container *ngFor="let product of products; trackBy: trackBy; index as index">
+    <rr-shop-product-box-compact
+      [product]="product"
+      [activeCategory]="category"
+      class="col-xxs-12 col-xs-6 col-md-4 col-xlg-3"
+    ></rr-shop-product-box-compact>
+
+    <div class="ProductsList-4ColumnsRowSeparator" *ngIf="index % 4 === 3"></div>
+    <div class="ProductsList-3ColumnsRowSeparator" *ngIf="index % 3 === 2"></div>
+    <div class="ProductsList-2ColumnsRowSeparator" *ngIf="index % 2 === 1"></div>
+  </ng-container>
+
+  <div *ngIf="isCategoryButtonVisible" class="ProductsList-more">
+    <rr-shop-clickable-action
+      [label]="'Więcej z tej kategorii'"
+      [clickableActionType]="ClickableActionType.RouterLink"
+      [link]="category | categoryUrl"
+    ></rr-shop-clickable-action>
+  </div>
+</div>
+
+<ng-template #noProducts>
+  <div class="ProductsList-noProducts">
+    Brak produktów w tej kategorii
+  </div>
+</ng-template>

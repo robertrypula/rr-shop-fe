@@ -6,9 +6,10 @@ import { MarkdownModule } from 'ngx-markdown';
 import { CategoryComponent } from './category.component';
 import { ProductModule } from '../product/product.module';
 import { ProductBoxModule } from '../../components/product-box/product-box.module';
+import { ProductsListModule } from "../../components/products-list/products-list.module";
 
 @NgModule({
   declarations: [CategoryComponent],
-  imports: [CommonModule, RouterModule, ProductModule, ProductBoxModule, MarkdownModule]
+  imports: [CommonModule, RouterModule, ProductModule, ProductBoxModule, MarkdownModule, ProductsListModule]
 })
 export class CategoryModule {}

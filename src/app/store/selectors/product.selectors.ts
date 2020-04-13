@@ -44,7 +44,7 @@ export const selectProductsFromActiveCategoryAndItsChildren = createSelector(
     )
 );
 
-export const selectProductsFromCategoryByStructuralNode = (structuralNode: StructuralNode) =>
+export const selectProductsFromCategoryByStructuralNode = (structuralNode: StructuralNode, limit = Infinity) =>
   createSelector(
     selectProductsStore,
     selectOrderItemsStore,
@@ -53,8 +53,16 @@ export const selectProductsFromCategoryByStructuralNode = (structuralNode: Struc
       const categoriesStoreByStructuralNode: CategoryStore[] = categoriesStore.filter(
         (category: CategoryStore): boolean => category.structuralNode === structuralNode
       );
+      let productsStoreForGivenCategories: ProductStore[] = getProductsStoreForGivenCategoriesStore(
+        productsStore,
+        categoriesStoreByStructuralNode
+      );
 
-      return getProductsStoreForGivenCategoriesStore(productsStore, categoriesStoreByStructuralNode).map(
+      if (limit !== Infinity) {
+        productsStoreForGivenCategories = productsStoreForGivenCategories.slice(0, limit);
+      }
+
+      return productsStoreForGivenCategories.map(
         (productStore: ProductStore): Product => toProduct(productStore, orderItemsStore)
       );
     }

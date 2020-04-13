@@ -1,0 +1,49 @@
+@import 'configs-and-mixins';
+
+.ProductsList-more {
+  text-align: center;
+  padding: 36px 0;
+  float: left;
+  width: 100%;
+  > * {
+    display: inline-block;
+  }
+}
+
+.ProductsList-noProducts {
+  text-align: center;
+  padding: 32px 0;
+  background-color: $secondary-background-color;
+}
+
+.ProductsList-4ColumnsRowSeparator,
+.ProductsList-3ColumnsRowSeparator,
+.ProductsList-2ColumnsRowSeparator {
+  float: left;
+  width: 100%;
+  display: none;
+}
+
+.ProductsList-4ColumnsRowSeparator {
+  @include viewport-desktop-extra-large-only {
+    display: block;
+  }
+}
+
+.ProductsList-3ColumnsRowSeparator {
+  @include viewport-desktop-medium-only {
+    display: block;
+  }
+  @include viewport-desktop-large-only {
+    display: block;
+  }
+}
+
+.ProductsList-2ColumnsRowSeparator {
+  @include viewport-phone-only {
+    display: block;
+  }
+  @include viewport-tablet-only {
+    display: block;
+  }
+}

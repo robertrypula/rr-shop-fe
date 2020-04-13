@@ -28,7 +28,12 @@ export class ProductFacadeService {
     );
   }
 
-  public productsFromCategoryByStructuralNode$(structuralNode: StructuralNode): Observable<Product[]> {
-    return this.store.pipe(select(fromProductSelectors.selectProductsFromCategoryByStructuralNode(structuralNode)));
+  public productsFromCategoryByStructuralNode$(
+    structuralNode: StructuralNode,
+    limit = Infinity
+  ): Observable<Product[]> {
+    return this.store.pipe(
+      select(fromProductSelectors.selectProductsFromCategoryByStructuralNode(structuralNode, limit))
+    );
   }
 }

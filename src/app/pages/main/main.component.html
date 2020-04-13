@@ -1,3 +1,25 @@
 <div class="Main">
   <img class="Main-motto" src="../../../assets/motto.jpg" width="850" height="340" />
+
+  <div class="Main-section">
+    <h2>
+      {{ (categoryRecommended$ | async)?.name }}
+    </h2>
+    <rr-shop-products-list
+      [category]="categoryRecommended$ | async"
+      [isCategoryButtonVisible]="true"
+      [products]="productsRecommended$ | async"
+    ></rr-shop-products-list>
+  </div>
+
+  <div class="Main-section">
+    <h2>
+      {{ (categoryPromotions$ | async)?.name }}
+    </h2>
+    <rr-shop-products-list
+      [category]="categoryPromotions$ | async"
+      [isCategoryButtonVisible]="true"
+      [products]="productsPromotions$ | async"
+    ></rr-shop-products-list>
+  </div>
 </div>

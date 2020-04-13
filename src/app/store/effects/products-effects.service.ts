@@ -59,8 +59,8 @@ export class ProductsEffects {
   public triggerProductsAtCategoryRequest$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromRouterActions.customRouterNavigated),
-      concatMap(action => of(action).pipe(withLatestFrom(this.categoryFacadeService.isOnCategoryRoute$))),
-      filter(([action, isOnCategoryRoute]): boolean => isOnCategoryRoute),
+      concatMap(action => of(action).pipe(withLatestFrom(this.categoryFacadeService.shouldCallForProducts$))),
+      filter(([action, shouldCallForProducts]): boolean => shouldCallForProducts),
       map(() => fromProductActions.productsAtCategoryRequest())
     )
   );

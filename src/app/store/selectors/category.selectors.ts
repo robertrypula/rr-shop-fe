@@ -122,4 +122,10 @@ export const selectIsCollapseExpandButtonVisible = createSelector(
   (isSmallDevice: boolean): boolean => isSmallDevice
 );
 
-export const selectIsOnCategoryRoute = createSelector(selectUrl, (url: string): boolean => isOnCategoryRoute(url));
+export const selectShouldCallForProducts = createSelector(
+  selectUrl,
+  selectActiveCategoryStore,
+  (url: string, activeCategoryStore: CategoryStore): boolean => {
+    return isOnCategoryRoute(url) && !activeCategoryStore.isWithoutProducts;
+  }
+);

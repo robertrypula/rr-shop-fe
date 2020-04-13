@@ -16,6 +16,7 @@ import {
 import { selectUrl } from './router.selectors';
 import { selectApiCallProductsAtMainPage } from './page-core.selectors';
 import { CategoryStore, StructuralNode } from '../../models/category.model';
+import { isOnMainPageRoute } from '../../utils/routing.utils';
 
 const selectIsLoadingOverlayVisibleFromOrderPerspective = createSelector(
   selectApiCallCreateOrder,
@@ -70,4 +71,6 @@ export const selectMainPageSectionsCategories = createSelector(
   }
 );
 
-export const selectIsOnMainPageRoute = createSelector(selectUrl, (url: string): boolean => true);
+export const selectIsOnMainPageRoute = createSelector(selectUrl, (url: string): boolean => {
+  return isOnMainPageRoute(url);
+});

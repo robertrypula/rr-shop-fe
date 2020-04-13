@@ -30,8 +30,8 @@ export class CategoryFacadeService {
     select(fromCategorySelectors.selectIsCollapseExpandButtonVisible)
   );
   public isListCollapsed$: Observable<boolean> = this.store.pipe(select(selectIsListCollapsed));
-  public isOnCategoryRoute$: Observable<boolean> = this.store.pipe(
-    select(fromCategorySelectors.selectIsOnCategoryRoute)
+  public shouldCallForProducts$: Observable<boolean> = this.store.pipe(
+    select(fromCategorySelectors.selectShouldCallForProducts)
   );
 
   public constructor(protected store: Store<State>) {}

@@ -27,6 +27,8 @@ export const getOrderUuid = (url: string): string => parseUrlId(url, 'order');
 
 export const isOnCategoryRoute = (url: string): boolean => url.indexOf('/c/') === 0;
 
+export const isOnMainPageRoute = (url: string): boolean => url === '/';
+
 export const isOnOrderRoute = (url: string): boolean => url.indexOf('/order/') === 0;
 
 export const isOnPotentialOrderRoute = (url: string): boolean => url.indexOf('/potential-order') === 0;

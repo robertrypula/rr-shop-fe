@@ -30,7 +30,7 @@ export class ApiProductService {
       );
   }
 
-  public getProductsAtCategory(categoryIds: number[] = null): Observable<ProductStore[]> {
+  public getProductsByCategoryIds(categoryIds: number[] = null): Observable<ProductStore[]> {
     return this.http
       .get<ProductMediumDto[]>(API_URL_PRODUCTS(FetchType.Medium, categoryIds, null, null))
       .pipe(
@@ -40,7 +40,7 @@ export class ApiProductService {
       );
   }
 
-  public getProducts(productIds: number[]): Observable<ProductStore[]> {
+  public getProductsByProductIds(productIds: number[]): Observable<ProductStore[]> {
     return this.http
       .get<ProductFullDto[]>(API_URL_PRODUCTS(FetchType.Medium, null, productIds, null))
       .pipe(

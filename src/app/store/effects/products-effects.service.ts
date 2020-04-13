@@ -44,7 +44,7 @@ export class ProductsEffects {
       ofType(fromProductActions.productsAtCategoryRequest),
       concatMap(action => of(action).pipe(withLatestFrom(this.categoryFacadeService.activeCategoryAndItsChildren$))),
       switchMap(([action, activeCategoryAndItsChildren]) =>
-        this.apiProductService.getProductsAtCategory(activeCategoryAndItsChildren.map(c => c.id)).pipe(
+        this.apiProductService.getProductsByCategoryIds(activeCategoryAndItsChildren.map(c => c.id)).pipe(
           map((productsStore: ProductStore[]) => fromProductActions.productsAtCategorySuccess({ productsStore })),
           catchError((httpErrorResponse: HttpErrorResponse) =>
             of(fromProductActions.productsAtCategoryFailure({ httpErrorResponse }))

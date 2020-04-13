@@ -127,7 +127,7 @@ export class OrderEffects {
       ofType(fromOrderActions.potentialOrderProductsRequest),
       concatMap(action => of(action).pipe(withLatestFrom(this.orderFacadeService.potentialOrderProductsIds$))),
       switchMap(([action, potentialOrderProductsIds]) =>
-        this.apiProductService.getProducts(potentialOrderProductsIds).pipe(
+        this.apiProductService.getProductsByProductIds(potentialOrderProductsIds).pipe(
           map((productsStore: ProductStore[]) => fromOrderActions.potentialOrderProductsSuccess({ productsStore })),
           catchError((httpErrorResponse: HttpErrorResponse) =>
             of(fromOrderActions.potentialOrderProductsFailure({ httpErrorResponse }))

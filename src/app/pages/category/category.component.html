@@ -17,11 +17,12 @@
         <rr-shop-product-box-compact
           [product]="product"
           [activeCategory]="activeCategory$ | async"
-          class="col-xxs-12 col-sm-6 col-md-4"
+          class="col-xxs-12 col-xs-6 col-md-4 col-xlg-3"
         ></rr-shop-product-box-compact>
 
-        <div class="Category-3ColumnsRowSeparator clearfix" *ngIf="index % 3 === 2"></div>
-        <div class="Category-2ColumnsRowSeparator clearfix" *ngIf="index % 2 === 1"></div>
+        <div class="Category-4ColumnsRowSeparator" *ngIf="index % 4 === 3"></div>
+        <div class="Category-3ColumnsRowSeparator" *ngIf="index % 3 === 2"></div>
+        <div class="Category-2ColumnsRowSeparator" *ngIf="index % 2 === 1"></div>
       </ng-container>
     </div>
 

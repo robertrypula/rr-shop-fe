@@ -16,9 +16,7 @@
         <rr-shop-clickable-action
           (actionClick)="close(bar.id)"
           [icon]="['far', 'times-circle']"
-          [clickableActionTheme]="
-            BarType.Error === bar.type ? ClickableActionTheme.TransparentBright : ClickableActionTheme.TransparentDark
-          "
+          [clickableActionTheme]="ClickableActionTheme.TransparentBright"
         ></rr-shop-clickable-action>
       </div>
     </div>

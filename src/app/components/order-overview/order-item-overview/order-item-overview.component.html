@@ -11,7 +11,7 @@
         {{ orderItem.productStore?.name }}
       </a>
 
-      <div class="hidden-md hidden-lg">
+      <div class="hidden-md hidden-lg hidden-xlg">
         {{ orderItem.productStore?.priceUnit | price }}
         x
         {{ orderItem.quantity }}
@@ -47,7 +47,7 @@
     </div>
   </div>
 
-  <div class="OrderItemOverview-aggregation hidden-md hidden-lg">
+  <div class="OrderItemOverview-aggregation hidden-md hidden-lg hidden-xlg">
     <div>
       <rr-shop-clickable-action
         (actionClick)="remove(orderItem.id)"

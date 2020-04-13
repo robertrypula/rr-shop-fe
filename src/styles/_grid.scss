@@ -97,3 +97,13 @@
 @include viewport-desktop-large-only {
   @include display('lg');
 }
+
+// ----------------------------------------------------------------
+
+@include viewport-desktop-extra-large-and-up {
+  @include generate-cols($container-xlg, 'xlg');
+}
+
+@include viewport-desktop-extra-large-only {
+  @include display('xlg');
+}

@@ -22,6 +22,7 @@ $image-background-color: #ddd;
 $dark-color: black;
 $white-color: white;
 $light-main-color: #f9f7ff;
+$light-main-color-darker: #f4f0ff;
 $primary-background-color: white;
 $secondary-background-color: #ebebeb;
 $font-size: 16px;
@@ -74,15 +75,17 @@ $container-xs: 100%;
 $container-sm: 750px;
 $container-md: 970px;
 $container-lg: 1170px;
+$container-xlg: 1670px;
 
 $grid-columns: 12;
 $gutter-width: 15px;
 
 $screen-xxs-min: 1px;
-$screen-xs-min: 390px;
+$screen-xs-min: 500px;
 $screen-sm-min: 768px;
 $screen-md-min: 992px;
 $screen-lg-min: 1200px;
+$screen-xlg-min: 1700px;
 $screen-max: 100000px;
 
 @mixin col() {
@@ -153,7 +156,13 @@ $screen-max: 100000px;
 }
 
 @mixin viewport-desktop-large-only {
-  @include viewport-min-max($screen-lg-min, $screen-max) {
+  @include viewport-min-max($screen-lg-min, $screen-xlg-min) {
+    @content;
+  }
+}
+
+@mixin viewport-desktop-extra-large-only {
+  @include viewport-min-max($screen-xlg-min, $screen-max) {
     @content;
   }
 }
@@ -184,6 +193,12 @@ $screen-max: 100000px;
 
 @mixin viewport-desktop-large-and-up {
   @include viewport-min-max($screen-lg-min, $screen-max) {
+    @content;
+  }
+}
+
+@mixin viewport-desktop-extra-large-and-up {
+  @include viewport-min-max($screen-xlg-min, $screen-max) {
     @content;
   }
 }

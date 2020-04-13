@@ -3,6 +3,7 @@
 .Image {
   position: relative;
   overflow: hidden;
+
   .Image-slider {
     position: absolute;
     width: 19200px;
@@ -37,23 +38,23 @@
   }
 }
 
-.Image-thumb-064px,
-.Image-thumb-064px img,
-.Image-thumb-064px a {
+.Image-sizeContainer064px,
+.Image-sizeContainer064px img,
+.Image-sizeContainer064px a {
   width: 64px;
   height: 64px;
 }
 
-.Image-thumb-200px,
-.Image-thumb-200px img,
-.Image-thumb-200px a {
+.Image-sizeContainer200px,
+.Image-sizeContainer200px img,
+.Image-sizeContainer200px a {
   width: 200px;
   height: 200px;
 }
 
-.Image-thumb-300px,
-.Image-thumb-300px img,
-.Image-thumb-300px a {
+.Image-sizeContainer300px,
+.Image-sizeContainer300px img,
+.Image-sizeContainer300px a {
   width: 300px;
   height: 300px;
 }

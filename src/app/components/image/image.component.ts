@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { Image, Size, Transparency } from '../../models/image.model';
+import { Image, SizeImage, SizeImageContainer, Transparency } from '../../models/image.model';
 import { ClickableActionTheme } from '../clickable-action/clickable-action.model';
 
 @Component({
@@ -14,7 +14,10 @@ export class ImageComponent implements OnInit {
   public images: Image[] = [];
 
   @Input()
-  public size: Size;
+  public sizeImage: SizeImage;
+
+  @Input()
+  public sizeImageContainer: SizeImageContainer;
 
   @Input()
   public slider = false;
@@ -22,7 +25,8 @@ export class ImageComponent implements OnInit {
   public position = 0;
 
   public readonly ClickableActionTheme = ClickableActionTheme;
-  public readonly Size = Size;
+  public readonly SizeImage = SizeImage;
+  public readonly SizeImageContainer = SizeImageContainer;
   public readonly Transparency = Transparency;
 
   public constructor() {}

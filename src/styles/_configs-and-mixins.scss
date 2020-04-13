@@ -3,31 +3,38 @@
 
 $h2-color: #3e3e3e;
 
-$clickable-action-primary-background-color: #84a056;
-$clickable-action-primary-color: white;
+$clickable-action-disabled-background-color: white;
+$clickable-action-disabled-border-color: transparent;
+$clickable-action-disabled-color: rgba(147, 112, 152, 0.25);
+
+$clickable-action-primary-background-color: white;
+$clickable-action-primary-border-color: #937098;
+$clickable-action-primary-color: #937098;
 
 $clickable-action-transparent-background-color: transparent;
+$clickable-action-transparent-border-color: #3e3e3e;
 $clickable-action-transparent-color: #3e3e3e;
 
-$a-color: #84a056;
+$a-color: #937098;
 $border-color: #d4d4d4;
 $color: #909090;
 $image-background-color: #ddd;
 $dark-color: black;
 $white-color: white;
-$light-green-color: #f9fff3;
+$light-main-color: #f9f7ff;
 $primary-background-color: white;
 $secondary-background-color: #ebebeb;
 $font-size: 16px;
 $red-color: #a02127;
 $orange-color: #a0702c;
 $red-light-color: #f4cdd2;
+$light-gray-color: #f7f7f7;
 
 $input-background-color: $secondary-background-color;
 $input-border-color: #d7d7d7;
 $input-color: $h2-color;
 
-$category-box-background-color: $secondary-background-color;
+$category-box-background-color: $light-gray-color;
 
 $product-box-name-color: $color;
 $product-box-price-color: $a-color;

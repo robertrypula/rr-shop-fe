@@ -1,7 +1,12 @@
 <div class="Product" *ngIf="activeProduct$ | async as activeProduct">
   <div class="row">
     <div class="col-xxs-12 col-md-6 Product-imageContainer">
-      <rr-shop-image [images]="activeProduct.images" [size]="Size.Px0300" [slider]="true"></rr-shop-image>
+      <rr-shop-image
+        [images]="activeProduct.images"
+        [sizeImage]="SizeImage.Px0600"
+        [sizeImageContainer]="SizeImageContainer.Px0300"
+        [slider]="true"
+      ></rr-shop-image>
     </div>
     <div class="col-xxs-12 col-md-6 Product-overviewContainer">
       <h2>

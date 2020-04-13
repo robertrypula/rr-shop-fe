@@ -5,9 +5,22 @@
   padding-bottom: 16px;
   margin-bottom: 36px;
   text-align: center;
+  border: 1px solid $white-color;
+  border-radius: 20px;
+  transition: border 0.2s, background-color 0.2s;
+
+  a {
+    display: block;
+    > *:not(span) {
+      transition: transform 0.2s;
+    }
+  }
 
   &:hover {
     background-color: #fafafa;
+    a > *:not(span) {
+      transform: scale(1.1);
+    }
   }
 
   .ProductBoxCompact-link {
@@ -55,6 +68,6 @@
 }
 
 .ProductBoxCompact--inOrder {
-  outline: 1px solid $a-color;
-  background-color: $light-green-color;
+  border-color: $a-color;
+  background-color: $light-main-color;
 }

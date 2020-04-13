@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { OrderService } from '../../../services/order.service';
-import { Size } from '../../../models/image.model';
+import { SizeImage, SizeImageContainer } from '../../../models/image.model';
 import { OrderFacadeService } from '../../../store/facades/order-facade.service';
 import { OrderItem } from '../../../models/order-item.model';
 
@@ -16,7 +16,8 @@ export class OrderItemOverviewComponent implements OnInit {
   @Input()
   public orderItem: OrderItem;
 
-  public readonly Size = Size;
+  public readonly SizeImage = SizeImage;
+  public readonly SizeImageContainer = SizeImageContainer;
 
   public constructor(protected orderFacadeService: OrderFacadeService, protected orderService: OrderService) {}
 

@@ -3,7 +3,7 @@ import { Injectable, Input } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { OrderService } from '../../services/order.service';
 import { CategoryStore } from '../../models/category.model';
-import { Size } from '../../models/image.model';
+import { SizeImage, SizeImageContainer } from '../../models/image.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 
 @Injectable()
@@ -14,7 +14,8 @@ export abstract class ProductBoxAbstractComponent {
   @Input()
   public activeCategory: CategoryStore;
 
-  public readonly Size = Size;
+  public readonly SizeImage = SizeImage;
+  public readonly SizeImageContainer = SizeImageContainer;
 
   public constructor(protected orderService: OrderService, protected orderFacadeService: OrderFacadeService) {}
 

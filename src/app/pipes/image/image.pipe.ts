@@ -1,15 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Image, Size, Transparency } from '../../models/image.model';
+import { Image, SizeImage, Transparency } from '../../models/image.model';
 import { environment } from '../../../environments/environment';
 
 @Pipe({
   name: 'image'
 })
 export class ImagePipe implements PipeTransform {
-  public transform(image: Image, size: Size = Size.Full, transparency: Transparency = Transparency.Enabled): string {
+  public transform(
+    image: Image,
+    sizeImage: SizeImage = SizeImage.Full,
+    transparency: Transparency = Transparency.Enabled
+  ): string {
     return [
-      `${environment.urlStatic}products/${this.getSizeDirectory(size)}/`,
+      `${environment.urlStatic}products/${this.getSizeDirectory(sizeImage)}/`,
       `${image.filename}.${this.getExtension(transparency)}`
     ].join('');
   }
@@ -24,17 +28,17 @@ export class ImagePipe implements PipeTransform {
     }
   }
 
-  protected getSizeDirectory(size: Size): string {
-    switch (size) {
-      case Size.Full:
+  protected getSizeDirectory(sizeImage: SizeImage): string {
+    switch (sizeImage) {
+      case SizeImage.Full:
         return 'full';
-      case Size.Px0064:
-        return '0064px';
-      case Size.Px0200:
-        return '0200px';
-      case Size.Px0300:
-        return '0300px';
-      case Size.Px1600:
+      case SizeImage.Px0128:
+        return '0128px';
+      case SizeImage.Px0400:
+        return '0400px';
+      case SizeImage.Px0600:
+        return '0600px';
+      case SizeImage.Px1600:
         return '1600px';
       default:
         return '';

@@ -13,33 +13,28 @@ import { selectCategoryStoreLength, selectIsListCollapsed } from '../selectors/c
 })
 export class CategoryFacadeService {
   // TODO when 'Category' class will be implemented rename variables
-  public activeCategory$: Observable<CategoryStore>;
-  public activeCategoryAndItsChildren$: Observable<CategoryStore[]>;
-  public activeLevelUpdateEntriesBasedOnRoute$: Observable<ActiveLevelUpdateEntry[]>;
-  public categoriesWithActiveLevelSorted$: Observable<CategoryStore[]>;
-  public categoryLength$: Observable<number>;
-  public isCollapseExpandButtonVisible$: Observable<boolean>;
-  public isListCollapsed$: Observable<boolean>;
-  public isOnCategoryRoute$: Observable<boolean>;
+  public activeCategory$: Observable<CategoryStore> = this.store.pipe(
+    select(fromCategorySelectors.selectActiveCategoryStore)
+  );
+  public activeCategoryAndItsChildren$: Observable<CategoryStore[]> = this.store.pipe(
+    select(fromCategorySelectors.selectActiveCategoryAndItsChildren)
+  );
+  public activeLevelUpdateEntriesBasedOnRoute$: Observable<ActiveLevelUpdateEntry[]> = this.store.pipe(
+    select(fromCategorySelectors.selectActiveLevelUpdateEntriesBasedOnRoute)
+  );
+  public categoriesWithActiveLevelSorted$: Observable<CategoryStore[]> = this.store.pipe(
+    select(fromCategorySelectors.selectCategoriesWithActiveLevelSorted)
+  );
+  public categoryLength$: Observable<number> = this.store.pipe(select(selectCategoryStoreLength));
+  public isCollapseExpandButtonVisible$: Observable<boolean> = this.store.pipe(
+    select(fromCategorySelectors.selectIsCollapseExpandButtonVisible)
+  );
+  public isListCollapsed$: Observable<boolean> = this.store.pipe(select(selectIsListCollapsed));
+  public isOnCategoryRoute$: Observable<boolean> = this.store.pipe(
+    select(fromCategorySelectors.selectIsOnCategoryRoute)
+  );
 
-  public constructor(protected store: Store<State>) {
-    this.activeCategory$ = this.store.pipe(select(fromCategorySelectors.selectActiveCategoryStore));
-    this.activeCategoryAndItsChildren$ = this.store.pipe(
-      select(fromCategorySelectors.selectActiveCategoryAndItsChildren)
-    );
-    this.activeLevelUpdateEntriesBasedOnRoute$ = this.store.pipe(
-      select(fromCategorySelectors.selectActiveLevelUpdateEntriesBasedOnRoute)
-    );
-    this.categoriesWithActiveLevelSorted$ = this.store.pipe(
-      select(fromCategorySelectors.selectCategoriesWithActiveLevelSorted)
-    );
-    this.categoryLength$ = this.store.pipe(select(selectCategoryStoreLength));
-    this.isCollapseExpandButtonVisible$ = this.store.pipe(
-      select(fromCategorySelectors.selectIsCollapseExpandButtonVisible)
-    );
-    this.isListCollapsed$ = this.store.pipe(select(selectIsListCollapsed));
-    this.isOnCategoryRoute$ = this.store.pipe(select(fromCategorySelectors.selectIsOnCategoryRoute));
-  }
+  public constructor(protected store: Store<State>) {}
 
   public categoryByStructuralNode$(structuralNode: StructuralNode): Observable<CategoryStore> {
     return this.store.pipe(select(fromCategorySelectors.selectCategoryStore, { structuralNode }));

@@ -12,11 +12,9 @@ import { barId } from '../reducers/bar.reducers';
   providedIn: 'root'
 })
 export class BarFacadeService {
-  public bars$: Observable<Bar[]>;
+  public bars$: Observable<Bar[]> = this.store.pipe(select(fromBarSelectors.selectBars));
 
-  public constructor(protected store: Store<State>) {
-    this.bars$ = store.pipe(select(fromBarSelectors.selectBars));
-  }
+  public constructor(protected store: Store<State>) {}
 
   public showError(message: string): void {
     this.store.dispatch(fromBarActions.showError({ message }));

@@ -11,21 +11,16 @@ import { Device } from '../../models/viewport.model';
   providedIn: 'root'
 })
 export class ViewportFacadeService {
-  public device$: Observable<Device>;
-  public getFurtherNavigationIdOnlyAtSmallerDevices$: Observable<number>;
-  public isScrolledDownThatHeaderIsNotVisible$: Observable<boolean>;
-  public isSmallDevice$: Observable<boolean>;
+  public device$: Observable<Device> = this.store.pipe(select(fromViewportSelectors.selectDevice));
+  public getFurtherNavigationIdOnlyAtSmallerDevices$: Observable<number> = this.store.pipe(
+    select(fromViewportSelectors.selectGetFurtherNavigationIdOnlyAtSmallerDevices)
+  );
+  public isScrolledDownThatHeaderIsNotVisible$: Observable<boolean> = this.store.pipe(
+    select(fromViewportSelectors.selectIsScrolledDownThatHeaderIsNotVisible)
+  );
+  public isSmallDevice$: Observable<boolean> = this.store.pipe(select(fromViewportSelectors.selectIsSmallDevice));
 
-  public constructor(protected store: Store<State>) {
-    this.device$ = store.pipe(select(fromViewportSelectors.selectDevice));
-    this.getFurtherNavigationIdOnlyAtSmallerDevices$ = store.pipe(
-      select(fromViewportSelectors.selectGetFurtherNavigationIdOnlyAtSmallerDevices)
-    );
-    this.isScrolledDownThatHeaderIsNotVisible$ = store.pipe(
-      select(fromViewportSelectors.selectIsScrolledDownThatHeaderIsNotVisible)
-    );
-    this.isSmallDevice$ = store.pipe(select(fromViewportSelectors.selectIsSmallDevice));
-  }
+  public constructor(protected store: Store<State>) {}
 
   public setDevice(newValue: Device): void {
     this.store.dispatch(fromViewportActions.setDevice({ newValue }));

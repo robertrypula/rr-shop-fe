@@ -23,5 +23,4 @@ export class CategoryComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {}
-
 }

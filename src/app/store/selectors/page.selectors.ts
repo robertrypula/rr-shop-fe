@@ -6,39 +6,68 @@ import {
   selectApiCallProductsAtCategory,
   selectApiCallProductsAtInit
 } from './product-core.selectors';
-import { selectApiCallCategoriesAtInit } from './category-core.selectors';
+import { selectApiCallCategoriesAtInit, selectCategoriesStore } from './category-core.selectors';
 import {
   selectApiCallCreateOrder,
   selectApiCallOrder,
   selectApiCallPotentialOrderProducts,
   selectApiCallPromoCode
 } from './order-core.selectors';
+import { selectUrl } from './router.selectors';
+import { selectApiCallProductsAtMainPage } from './page-core.selectors';
+import { CategoryStore, StructuralNode } from '../../models/category.model';
 
-export const selectIsLoadingOverlayVisible = createSelector(
-  selectApiCallCategoriesAtInit,
+const selectIsLoadingOverlayVisibleFromOrderPerspective = createSelector(
   selectApiCallCreateOrder,
   selectApiCallOrder,
+  (apiCallCreateOrder: ApiCall, apiCallOrder: ApiCall): boolean =>
+    [ApiCall.Request].includes(apiCallCreateOrder) || [ApiCall.Request].includes(apiCallOrder)
+);
+
+const selectIsLoadingOverlayVisibleFromProductPerspective = createSelector(
   selectApiCallPotentialOrderProducts,
   selectApiCallProduct,
   selectApiCallProductsAtCategory,
   selectApiCallProductsAtInit,
-  selectApiCallPromoCode,
+  selectApiCallProductsAtMainPage,
   (
-    apiCallCategoriesAtInit: ApiCall,
-    apiCallCreateOrder: ApiCall,
-    apiCallOrder: ApiCall,
     apiCallPotentialOrderProducts: ApiCall,
     apiCallProduct: ApiCall,
     apiCallProductsAtCategory: ApiCall,
     apiCallProductsAtInit: ApiCall,
-    apiCallPromoCode: ApiCall
+    apiCallProductsAtMainPage: ApiCall
   ): boolean =>
-    [ApiCall.Initial, ApiCall.Request].includes(apiCallCategoriesAtInit) ||
-    [ApiCall.Request].includes(apiCallCreateOrder) ||
-    [ApiCall.Request].includes(apiCallOrder) ||
+    [ApiCall.Initial, ApiCall.Request].includes(apiCallProductsAtInit) ||
     [ApiCall.Request].includes(apiCallPotentialOrderProducts) ||
     [ApiCall.Request].includes(apiCallProduct) ||
     [ApiCall.Request].includes(apiCallProductsAtCategory) ||
-    [ApiCall.Request].includes(apiCallPromoCode) ||
-    [ApiCall.Initial, ApiCall.Request].includes(apiCallProductsAtInit)
+    [ApiCall.Request].includes(apiCallProductsAtMainPage)
 );
+
+export const selectIsLoadingOverlayVisible = createSelector(
+  selectApiCallCategoriesAtInit,
+  selectIsLoadingOverlayVisibleFromOrderPerspective,
+  selectIsLoadingOverlayVisibleFromProductPerspective,
+  selectApiCallPromoCode,
+  (
+    apiCallCategoriesAtInit: ApiCall,
+    isLoadingOverlayVisibleFromOrderPerspective: boolean,
+    isLoadingOverlayVisibleFromProductPerspective: boolean,
+    apiCallPromoCode: ApiCall
+  ): boolean =>
+    [ApiCall.Initial, ApiCall.Request].includes(apiCallCategoriesAtInit) ||
+    isLoadingOverlayVisibleFromOrderPerspective ||
+    [ApiCall.Request].includes(apiCallPromoCode) ||
+    isLoadingOverlayVisibleFromProductPerspective
+);
+
+export const selectMainPageSectionsCategories = createSelector(
+  selectCategoriesStore,
+  (categoriesStore: CategoryStore[]): CategoryStore[] => {
+    return categoriesStore.filter((category: CategoryStore): boolean =>
+      [StructuralNode.Promotions, StructuralNode.Recommended].includes(category.structuralNode)
+    );
+  }
+);
+
+export const selectIsOnMainPageRoute = createSelector(selectUrl, (url: string): boolean => true);

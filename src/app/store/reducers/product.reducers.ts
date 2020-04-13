@@ -1,6 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromOrderActions from '../actions/order.actions';
+import * as fromPageActions from '../actions/page.actions';
 import * as fromProductActions from '../actions/product.actions';
 import { ProductStore } from '../../models/product.model';
 import { ApiCall } from '../../models/page.model';
@@ -59,6 +60,7 @@ const productReducer = createReducer(
   ),
   on(
     fromOrderActions.potentialOrderProductsSuccess,
+    fromPageActions.productsAtMainPageSuccess,
     fromProductActions.productsAtCategorySuccess,
     fromProductActions.productsAtInitSuccess,
     (state: State, { productsStore }): State => {

@@ -58,7 +58,17 @@ const orderReducer = createReducer(
   on(fromOrderActions.createOrderSuccess, (state: State): State => ({ ...state, apiCallCreateOrder: ApiCall.Success })),
   on(fromOrderActions.createOrderFailure, (state: State): State => ({ ...state, apiCallCreateOrder: ApiCall.Failure })),
   on(fromOrderActions.orderRequest, (state: State): State => ({ ...state, apiCallOrder: ApiCall.Request })),
-  on(fromOrderActions.orderSuccess, (state: State): State => ({ ...state, apiCallOrder: ApiCall.Success })),
+  on(
+    fromOrderActions.orderSuccess,
+    (state: State, { orderStore }): State => ({
+      ...state,
+      apiCallOrder: ApiCall.Success,
+      entities: {
+        ...state.entities,
+        [orderStore.uuid]: orderStore
+      }
+    })
+  ),
   on(fromOrderActions.orderFailure, (state: State): State => ({ ...state, apiCallOrder: ApiCall.Failure })),
   on(
     fromOrderActions.potentialOrderProductsRequest,

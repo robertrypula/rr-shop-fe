@@ -34,7 +34,7 @@ export interface OrderStore {
   // ---
   promoCodeTextField?: string;
   promoCodeStore?: PromoCodeStore; // TODO move it to separate store feature
-  orderItemsStore?: { [key: string]: OrderItemStore }; // TODO move it to separate store feature
+  orderItemsStore?: { [uuid: string]: OrderItemStore }; // TODO move it to separate store feature
 }
 
 // -----------------------------------------------------------------------------

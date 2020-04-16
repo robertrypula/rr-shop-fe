@@ -6,6 +6,7 @@ import { getNormalizedPrice } from '../utils/math.utils';
 
 export interface OrderItemStore {
   id?: number;
+  uuid?: string;
   name?: string;
   priceUnitOriginal?: number;
   priceUnitSelling?: number;

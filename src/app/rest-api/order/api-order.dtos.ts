@@ -1,5 +1,5 @@
 import { Status } from '../../models/order.model';
-import { Type } from '../../models/product.model';
+import { DeliveryType, PaymentType, Type } from '../../models/product.model';
 
 export interface OrderCreateRequestDto {
   orderItems: Array<{
@@ -37,20 +37,35 @@ export interface OrderCreateResponseDto {
   uuid: string; // uuid to avoid sharing information about e-shop orders amount
 }
 
+export interface OrderResponseOrderItem {
+  uuid: string;
+  name: string;
+  priceUnitOriginal: number;
+  priceUnitSelling: number;
+  productId: number;
+  quantity: number;
+  type: Type;
+  deliveryType: DeliveryType;
+  paymentType: PaymentType;
+}
+
+export interface OrderResponsePayment {
+  uuid: string;
+  amount: number;
+  paymentType: PaymentType;
+  url: string;
+}
+
+export interface OrderResponsePromoCode {
+  name: string;
+  percentageDiscount: number;
+}
+
 export interface OrderResponseDto {
   uuid: string; // uuid to avoid sharing information about e-shop orders amount
   number: string;
   status: Status;
-  orderItems: Array<{
-    name: string;
-    priceUnitOriginal: number;
-    priceUnitSelling: number;
-    productId: number;
-    quantity: number;
-    type: Type;
-  }>;
-  promoCode: {
-    name: string;
-    percentageDiscount: number;
-  };
+  orderItems: OrderResponseOrderItem[];
+  payment: OrderResponsePayment[];
+  promoCode: OrderResponsePromoCode;
 }

@@ -2,12 +2,12 @@ import { Order, OrderStore } from '../../models/order.model';
 import { ProductStore } from '../../models/product.model';
 import { PromoCode } from '../../models/promo-code.model';
 import { OrderItem, OrderItemStore } from '../../models/order-item.model';
-import { getAsArray } from '../../utils/transfomation.utils';
+import { getAsArrayUuid } from '../../utils/transfomation.utils';
 
 export const toOrderWithAllRelations = (orderStore: OrderStore, productsStore: ProductStore[]): Order => {
   const order: Order = new Order().fromStore(orderStore);
 
-  order.orderItems = getAsArray(orderStore.orderItemsStore).map(
+  order.orderItems = getAsArrayUuid(orderStore.orderItemsStore).map(
     (orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsStore).setOrder(order)
   );
   order.promoCode = orderStore.promoCodeStore

@@ -7,7 +7,7 @@ import * as fromOrderActions from '../actions/order.actions';
 import * as fromOrderSelectors from '../selectors/order.selectors';
 import { Product } from '../../models/product.model';
 import { Order } from '../../models/order.model';
-import { selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.selectors';
+import { selectActiveOrder, selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.selectors';
 import { selectApiCallPromoCode } from '../selectors/order-core.selectors';
 import { ApiCall } from '../../models/page.model';
 
@@ -15,6 +15,7 @@ import { ApiCall } from '../../models/page.model';
   providedIn: 'root'
 })
 export class OrderFacadeService {
+  public activeOrder$: Observable<Order> = this.store.pipe(select(selectActiveOrder));
   public isOnOrderRoute$: Observable<boolean> = this.store.pipe(select(selectIsOnOrderRoute));
   public isOnPotentialOrderRoute$: Observable<boolean> = this.store.pipe(
     select(fromOrderSelectors.selectIsOnPotentialOrderRoute$)

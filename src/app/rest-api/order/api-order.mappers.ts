@@ -1,6 +1,11 @@
-import { OrderCreateRequestDto, OrderCreateResponseDto, OrderResponseDto } from './api-order.dtos';
+import {
+  OrderCreateRequestDto,
+  OrderCreateResponseDto,
+  OrderResponseDto,
+  OrderResponseOrderItem
+} from './api-order.dtos';
 import { Order, OrderStore } from '../../models/order.model';
-import { OrderItem } from '../../models/order-item.model';
+import { OrderItem, OrderItemStore } from '../../models/order-item.model';
 import { Type } from '../../models/product.model';
 
 export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
@@ -53,6 +58,26 @@ export const fromOrderResponseDto = (orderResponseDto: OrderResponseDto): OrderS
   return {
     uuid: orderResponseDto.uuid,
     number: orderResponseDto.number,
-    status: orderResponseDto.status
+    status: orderResponseDto.status,
+    orderItemsStore: (orderResponseDto.orderItems ? orderResponseDto.orderItems : [])
+      .map(
+        (orderResponseOrderItem: OrderResponseOrderItem): OrderItemStore => ({
+          id: null,
+          uuid: orderResponseOrderItem.uuid,
+          name: orderResponseOrderItem.name,
+          priceUnitOriginal: orderResponseOrderItem.priceUnitOriginal,
+          priceUnitSelling: orderResponseOrderItem.priceUnitSelling,
+          productId: orderResponseOrderItem.productId,
+          quantity: orderResponseOrderItem.quantity,
+          type: orderResponseOrderItem.type
+        })
+      )
+      .reduce((accumulator: { [uuid: string]: OrderItemStore }, orderItemStore: OrderItemStore): {
+        [uuid: string]: OrderItemStore;
+      } => {
+        accumulator[orderItemStore.uuid] = orderItemStore;
+
+        return accumulator;
+      }, {})
   };
 };

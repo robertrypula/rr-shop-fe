@@ -11,6 +11,26 @@ import { selectUrl } from './router.selectors';
 import { getOrderUuid, isOnOrderRoute, isOnPotentialOrderRoute } from '../../utils/routing.utils';
 import { OrderItem, OrderItemStore } from '../../models/order-item.model';
 
+export const selectUrlOrderUuid = createSelector(selectUrl, (url: string): string => {
+  return getOrderUuid(url);
+});
+
+export const selectActiveOrder = createSelector(
+  selectOrdersStore,
+  selectProductsStore,
+  selectUrlOrderUuid,
+  (ordersStore: OrderStore[], productsStore: ProductStore[], urlOrderUuid: string): Order => {
+    const foundOrderStore: OrderStore = ordersStore.find(
+      (orderStore: OrderStore): boolean => orderStore.uuid === urlOrderUuid
+    );
+
+    console.log(urlOrderUuid, ordersStore);
+    console.log(foundOrderStore);
+
+    return foundOrderStore ? toOrderWithAllRelations(foundOrderStore, productsStore) : null;
+  }
+);
+
 export const selectIsOnOrderRoute = createSelector(selectUrl, (url: string): boolean => {
   return isOnOrderRoute(url);
 });
@@ -72,7 +92,3 @@ export const selectPromoCodeTextFieldByUuid = (uuid: string) =>
 
     return foundOrderStore ? foundOrderStore.promoCodeTextField : '';
   });
-
-export const selectUrlOrderUuid = createSelector(selectUrl, (url: string): string => {
-  return getOrderUuid(url);
-});

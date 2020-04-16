@@ -23,9 +23,7 @@
         *ngIf="orderItem.isProductQuantityExceededTextVisible()"
         class="OrderItemOverview-alreadyInBasketNotification u-form-error-container"
       >
-        Niestety nie posiadamy tylu sztuk produktu na magazynie :(
-        <br />
-        Dostępnych na magazynie:&nbsp;<b>{{ orderItem.productStore?.quantity }}</b>
+        Niestety nie jest możliwe dodanie tylu sztuk tego produktu
         <ng-container *ngIf="orderItem.productStore?.quantity === 0">
           <br /><br />
           <b>Prosimy usunąć ten produkt z koszyka przed złożeniem zamówienia</b>
@@ -41,8 +39,6 @@
         class="OrderItemOverview-alreadyInBasketNotification u-form-warning-container"
       >
         Nie można dodać więcej sztuk
-        <br />
-        Dostępnych na magazynie:&nbsp;<b>{{ orderItem.productStore?.quantity }}</b>
       </div>
     </div>
   </div>

@@ -3,12 +3,16 @@ import { ProductStore } from '../../models/product.model';
 import { PromoCode } from '../../models/promo-code.model';
 import { OrderItem, OrderItemStore } from '../../models/order-item.model';
 import { getAsArrayUuid } from '../../utils/transfomation.utils';
+import { Payment, PaymentStore } from '../../models/payment.model';
 
-export const toOrderWithAllRelations = (orderStore: OrderStore, productsStore: ProductStore[]): Order => {
+export const toOrder = (orderStore: OrderStore, productsStore: ProductStore[]): Order => {
   const order: Order = new Order().fromStore(orderStore);
 
-  order.orderItems = getAsArrayUuid(orderStore.orderItemsStore).map(
+  order.orderItems = getAsArrayUuid(orderStore.orderItemsStore || {}).map(
     (orderItemStore: OrderItemStore): OrderItem => toOrderItem(orderItemStore, productsStore).setOrder(order)
+  );
+  order.payments = getAsArrayUuid(orderStore.paymentsStore || {}).map(
+    (paymentStore: PaymentStore): Payment => new Payment().fromStore(paymentStore).setOrder(order)
   );
   order.promoCode = orderStore.promoCodeStore
     ? new PromoCode().fromStore(orderStore.promoCodeStore).setOrder(order)

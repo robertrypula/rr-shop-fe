@@ -1,7 +1,7 @@
 import { PromoCode, PromoCodeStore } from './promo-code.model';
 import { OrderItem, OrderItemStore } from './order-item.model';
 import { getNormalizedPrice } from '../utils/math.utils';
-import { Type } from './product.model';
+import { PaymentType, Type } from './product.model';
 import { Payment, PaymentStore } from './payment.model';
 
 export enum Status {
@@ -38,6 +38,9 @@ export interface OrderStore {
   orderItemsStore?: { [uuid: string]: OrderItemStore }; // TODO move it to separate store feature
   paymentsStore?: { [uuid: string]: PaymentStore }; // TODO move it to separate store feature
   promoCodeStore?: PromoCodeStore; // TODO move it to separate store feature
+  // ---
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 // -----------------------------------------------------------------------------
@@ -65,6 +68,9 @@ export class Order implements OrderStore {
   public orderItemsStore?: { [uuid: string]: OrderItemStore }; // TODO move it to separate store feature
   public paymentsStore?: { [uuid: string]: PaymentStore }; // TODO move it to separate store feature
   public promoCodeStore?: PromoCodeStore; // TODO move it to separate store feature
+  // ---
+  public createdAt: Date;
+  public updatedAt: Date;
 
   // ---------------
 
@@ -99,6 +105,9 @@ export class Order implements OrderStore {
     this.orderItemsStore = orderStore.orderItemsStore; // TODO move it to separate store feature
     this.paymentsStore = orderStore.paymentsStore; // TODO move it to separate store feature
     this.promoCodeStore = orderStore.promoCodeStore; // TODO move it to separate store feature
+    // ---
+    this.createdAt = orderStore.createdAt;
+    this.updatedAt = orderStore.updatedAt;
 
     return this;
   }
@@ -118,6 +127,18 @@ export class Order implements OrderStore {
 
   public getOrderItemsByType(types: Type[]): OrderItem[] {
     return this.orderItems.filter((orderItem: OrderItem): boolean => types.includes(orderItem.type));
+  }
+
+  public getDeliveryOrderItem(): OrderItem {
+    const deliveries: OrderItem[] = this.getOrderItemsByType([Type.Delivery]);
+
+    return deliveries.length === 1 ? deliveries[0] : null;
+  }
+
+  public getPaymentOrderItem(): OrderItem {
+    const payments: OrderItem[] = this.getOrderItemsByType([Type.Payment]);
+
+    return payments.length === 1 ? payments[0] : null;
   }
 
   public getPriceTotalOriginal(types: Type[]): number {

@@ -68,4 +68,6 @@ export interface OrderResponseDto {
   orderItems: OrderResponseOrderItem[];
   payments: OrderResponsePayment[];
   promoCode: OrderResponsePromoCode;
+  createdAt: string;
+  updatedAt: string;
 }

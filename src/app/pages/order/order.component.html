@@ -8,6 +8,20 @@
     </div>
 
     <div class="Order-summarySection">
+      Data utworzenia:
+      <span>
+        {{ (activeOrder$ | async).createdAt | dateCustom }}
+      </span>
+    </div>
+
+    <div class="Order-summarySection">
+      Data modyfikacji:
+      <span>
+        {{ (activeOrder$ | async).updatedAt | dateCustom }}
+      </span>
+    </div>
+
+    <div class="Order-summarySection">
       Aktualny status:
       <span [ngSwitch]="(activeOrder$ | async).status">
         <ng-container *ngSwitchCase="Status.PaymentWait">Oczekiwanie na płatność</ng-container>
@@ -35,7 +49,9 @@
       </span>
     </div>
 
+    <div *ngIf="(activeOrder$ | async).getPaymentOrderItem() as paymentOrderItem"></div>
     <pre>{{ (activeOrder$ | async).paymentsStore | json }}</pre>
+    <a href="{{ (activeOrder$ | async).paymentsStore[0]?.url }}">Płacę z PayU</a>
   </ng-container>
 
   <ng-template #notFound>

@@ -4,7 +4,7 @@ import { Order, OrderStore } from '../../models/order.model';
 import { ProductStore, Product, Type } from '../../models/product.model';
 import { selectProductsStore } from './product-core.selectors';
 import { selectOrderItemsStore, selectOrdersStore } from './order-core.selectors';
-import { toOrderWithAllRelations, toOrderItem, extractClientDetailsForm } from './order.utils';
+import { toOrder, toOrderItem, extractClientDetailsForm } from './order.utils';
 import { selectProductsFromCategoryByStructuralNode } from './product.selectors';
 import { StructuralNode } from '../../models/category.model';
 import { selectUrl } from './router.selectors';
@@ -24,7 +24,7 @@ export const selectActiveOrder = createSelector(
       (orderStore: OrderStore): boolean => orderStore.uuid === urlOrderUuid
     );
 
-    return foundOrderStore ? toOrderWithAllRelations(foundOrderStore, productsStore) : null;
+    return foundOrderStore ? toOrder(foundOrderStore, productsStore) : null;
   }
 );
 
@@ -57,7 +57,7 @@ export const selectOrderByUuid = (uuid: string) =>
         (orderStore: OrderStore): boolean => orderStore.uuid === uuid
       );
 
-      return foundOrderStore ? toOrderWithAllRelations(foundOrderStore, productsStore) : null;
+      return foundOrderStore ? toOrder(foundOrderStore, productsStore) : null;
     }
   );
 

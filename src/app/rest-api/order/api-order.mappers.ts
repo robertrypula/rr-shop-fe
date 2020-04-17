@@ -102,6 +102,8 @@ export const fromOrderResponseDto = (orderResponseDto: OrderResponseDto): OrderS
           name: orderResponseDto.promoCode.name,
           percentageDiscount: orderResponseDto.promoCode.percentageDiscount
         }
-      : null
+      : null,
+    createdAt: new Date(orderResponseDto.createdAt),
+    updatedAt: new Date(orderResponseDto.updatedAt)
   };
 };

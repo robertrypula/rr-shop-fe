@@ -42,7 +42,6 @@ export const initialState: State = {
       comments: null,
       // ---
       parcelLocker: null,
-      paymentUrl: null,
       // ---
       promoCodeTextField: '',
       promoCodeStore: null,

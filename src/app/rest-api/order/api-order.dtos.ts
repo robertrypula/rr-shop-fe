@@ -66,6 +66,6 @@ export interface OrderResponseDto {
   number: string;
   status: Status;
   orderItems: OrderResponseOrderItem[];
-  payment: OrderResponsePayment[];
+  payments: OrderResponsePayment[];
   promoCode: OrderResponsePromoCode;
 }

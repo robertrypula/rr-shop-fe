@@ -24,9 +24,6 @@ export const selectActiveOrder = createSelector(
       (orderStore: OrderStore): boolean => orderStore.uuid === urlOrderUuid
     );
 
-    console.log(urlOrderUuid, ordersStore);
-    console.log(foundOrderStore);
-
     return foundOrderStore ? toOrderWithAllRelations(foundOrderStore, productsStore) : null;
   }
 );

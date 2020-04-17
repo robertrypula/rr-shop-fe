@@ -2,11 +2,13 @@ import {
   OrderCreateRequestDto,
   OrderCreateResponseDto,
   OrderResponseDto,
-  OrderResponseOrderItem
+  OrderResponseOrderItem,
+  OrderResponsePayment
 } from './api-order.dtos';
 import { Order, OrderStore } from '../../models/order.model';
 import { OrderItem, OrderItemStore } from '../../models/order-item.model';
 import { Type } from '../../models/product.model';
+import { PaymentStore } from '../../models/payment.model';
 
 export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
   return {
@@ -78,6 +80,28 @@ export const fromOrderResponseDto = (orderResponseDto: OrderResponseDto): OrderS
         accumulator[orderItemStore.uuid] = orderItemStore;
 
         return accumulator;
-      }, {})
+      }, {}),
+    paymentsStore: (orderResponseDto.payments ? orderResponseDto.payments : [])
+      .map(
+        (orderResponsePayment: OrderResponsePayment): PaymentStore => ({
+          uuid: orderResponsePayment.uuid,
+          amount: orderResponsePayment.amount,
+          paymentType: orderResponsePayment.paymentType,
+          url: orderResponsePayment.url
+        })
+      )
+      .reduce((accumulator: { [uuid: string]: PaymentStore }, paymentStore: PaymentStore): {
+        [uuid: string]: PaymentStore;
+      } => {
+        accumulator[paymentStore.uuid] = paymentStore;
+
+        return accumulator;
+      }, {}),
+    promoCodeStore: orderResponseDto.promoCode
+      ? {
+          name: orderResponseDto.promoCode.name,
+          percentageDiscount: orderResponseDto.promoCode.percentageDiscount
+        }
+      : null
   };
 };

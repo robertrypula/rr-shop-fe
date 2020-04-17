@@ -61,15 +61,20 @@ export class OrderEffects {
   );
 
   // https://stackoverflow.com/questions/50566128/angular-router-navigation-inside-ngrx-effect
-  public createOrderSuccess$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(fromOrderActions.createOrderSuccess),
-        tap(action => {
-          this.router.navigate(['/order', action.orderStore.uuid]).then();
+  public createOrderSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromOrderActions.createOrderSuccess),
+      tap(action => {
+        this.router.navigate(['/order', action.orderStore.uuid]).then();
+        // TODO implement proper scroll mechanism
+        window.scrollTo && window.scrollTo(0, 120);
+      }),
+      map(() =>
+        fromBarActions.showSuccess({
+          message: `Przyjęliśmy Twoje zamówienie - dziękujęmy za zakupy w naszym sklepie`
         })
-      ),
-    { dispatch: false }
+      )
+    )
   );
 
   public createOrderFailure$ = createEffect(() =>

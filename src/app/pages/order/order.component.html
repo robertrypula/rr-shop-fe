@@ -1,3 +1,48 @@
-<p>order works!</p>
+<div class="Order">
+  <ng-container *ngIf="(activeOrder$ | async)?.uuid; else notFound">
+    <h2>Zamówienie {{ (activeOrder$ | async).number }}</h2>
 
-<pre>{{ activeOrder$ | async | json }}</pre>
+    <div class="Order-summaryTop u-formatted-content">
+      Dziękujemy za złożenie zamówienia w naszym sklepie. O zmianach w jego statusie będziemy Cię informować na podany
+      adres email.
+    </div>
+
+    <div class="Order-summarySection">
+      Aktualny status:
+      <span [ngSwitch]="(activeOrder$ | async).status">
+        <ng-container *ngSwitchCase="Status.PaymentWait">Oczekiwanie na płatność</ng-container>
+        <ng-container *ngSwitchCase="Status.PaymentCompleted">Opłacone, przygotowujemy paczkę</ng-container>
+        <ng-container *ngSwitchCase="Status.Shipped">W drodze</ng-container>
+        <ng-container *ngSwitchCase="Status.ReadyForPickup">Gotowe do odbioru</ng-container>
+        <ng-container *ngSwitchCase="Status.Completed">Zakończone sukcesem</ng-container>
+        <ng-container *ngSwitchCase="Status.Canceled">Anulowane</ng-container>
+      </span>
+    </div>
+
+    <!--
+    <div class="Order-summarySection" *ngIf="(activeOrder$ | async).promoCode">
+      Rabat:
+      <span>
+        -{{ (activeOrder$ | async).promoCode.percentageDiscount }}%
+      </span>
+    </div>
+    -->
+
+    <div class="Order-summarySection">
+      Do zapłaty:
+      <span>
+        {{ (activeOrder$ | async).getPriceTotalSelling([Type.Delivery, Type.Payment, Type.Product]) | price }}
+      </span>
+    </div>
+
+    <pre>{{ (activeOrder$ | async).paymentsStore | json }}</pre>
+  </ng-container>
+
+  <ng-template #notFound>
+    <h2>Zamówienie</h2>
+
+    <div class="Order-notFound">
+      Niestety zamówienie o podanym numerze nie istnieje... :(
+    </div>
+  </ng-template>
+</div>

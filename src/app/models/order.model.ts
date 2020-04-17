@@ -2,6 +2,7 @@ import { PromoCode, PromoCodeStore } from './promo-code.model';
 import { OrderItem, OrderItemStore } from './order-item.model';
 import { getNormalizedPrice } from '../utils/math.utils';
 import { Type } from './product.model';
+import { Payment, PaymentStore } from './payment.model';
 
 export enum Status {
   PaymentWait = 'PaymentWait',
@@ -9,7 +10,7 @@ export enum Status {
   ReadyForPickup = 'ReadyForPickup',
   Shipped = 'Shipped',
   Completed = 'Completed',
-  Cancelled = 'Cancelled'
+  Canceled = 'Canceled'
 }
 
 // -----------------------------------------------------------------------------
@@ -29,12 +30,14 @@ export interface OrderStore {
   zipCode?: string;
   city?: string;
   comments?: string;
-  parcelLocker?: string;
-  paymentUrl?: string;
   // ---
+  parcelLocker?: string;
+  parcelNumber?: string;
   promoCodeTextField?: string;
-  promoCodeStore?: PromoCodeStore; // TODO move it to separate store feature
+  // ---
   orderItemsStore?: { [uuid: string]: OrderItemStore }; // TODO move it to separate store feature
+  paymentsStore?: { [uuid: string]: PaymentStore }; // TODO move it to separate store feature
+  promoCodeStore?: PromoCodeStore; // TODO move it to separate store feature
 }
 
 // -----------------------------------------------------------------------------
@@ -56,15 +59,17 @@ export class Order implements OrderStore {
   public comments?: string;
   // ---
   public parcelLocker?: string;
-  public paymentUrl?: string;
-  // ---
+  public parcelNumber?: string;
   public promoCodeTextField?: string;
+  // ---
+  public orderItemsStore?: { [uuid: string]: OrderItemStore }; // TODO move it to separate store feature
+  public paymentsStore?: { [uuid: string]: PaymentStore }; // TODO move it to separate store feature
   public promoCodeStore?: PromoCodeStore; // TODO move it to separate store feature
-  public orderItemsStore?: { [key: string]: OrderItemStore }; // TODO move it to separate store feature
 
   // ---------------
 
   public orderItems: OrderItem[];
+  public payments: Payment[];
   public promoCode: PromoCode;
 
   public fromStore(orderStore: OrderStore): Order {
@@ -86,12 +91,14 @@ export class Order implements OrderStore {
     this.zipCode = orderStore.zipCode;
     this.city = orderStore.city;
     this.comments = orderStore.comments;
-    this.parcelLocker = orderStore.parcelLocker;
-    this.paymentUrl = orderStore.paymentUrl;
     // ---
+    this.parcelLocker = orderStore.parcelLocker;
+    this.parcelNumber = orderStore.parcelNumber;
     this.promoCodeTextField = orderStore.promoCodeTextField;
-    this.promoCodeStore = orderStore.promoCodeStore; // TODO move it to separate store feature
+    // ---
     this.orderItemsStore = orderStore.orderItemsStore; // TODO move it to separate store feature
+    this.paymentsStore = orderStore.paymentsStore; // TODO move it to separate store feature
+    this.promoCodeStore = orderStore.promoCodeStore; // TODO move it to separate store feature
 
     return this;
   }

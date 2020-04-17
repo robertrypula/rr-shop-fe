@@ -1,0 +1,26 @@
+@import 'configs-and-mixins';
+
+.Order {
+}
+
+.Order-summaryTop {
+  margin-bottom: 48px;
+}
+
+.Order-summarySection {
+  font-size: 20px;
+  line-height: 1.5em;
+  padding-bottom: 16px;
+  span {
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 8px;
+    color: $product-box-price-color;
+  }
+}
+
+.Order-notFound {
+  text-align: center;
+  padding: 32px 0;
+  background-color: $secondary-background-color;
+}

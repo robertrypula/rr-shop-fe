@@ -63,7 +63,7 @@ export const selectProductsFromCategoryByStructuralNode = (structuralNode: Struc
       }
 
       return productsStoreForGivenCategories.map(
-        (productStore: ProductStore): Product => toProduct(productStore, orderItemsStore)
+        (productStore: ProductStore): Product => toProduct(productStore, orderItemsStore, productsStore)
       );
     }
   );

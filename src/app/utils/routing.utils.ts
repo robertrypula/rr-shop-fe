@@ -23,7 +23,7 @@ export const getProductId = (url: string): number => {
   return id !== null ? +id : null;
 };
 
-export const getOrderUuid = (url: string): string => parseUrlId(url, 'order');
+export const getOrderUuid = (url: string): string => parseUrlId(url.replace('?error=501', ''), 'order');
 
 export const isOnCategoryRoute = (url: string): boolean => url.indexOf('/c/') === 0;
 

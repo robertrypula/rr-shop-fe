@@ -71,7 +71,9 @@ export const fromOrderResponseDto = (orderResponseDto: OrderResponseDto): OrderS
           priceUnitSelling: orderResponseOrderItem.priceUnitSelling,
           productId: orderResponseOrderItem.productId,
           quantity: orderResponseOrderItem.quantity,
-          type: orderResponseOrderItem.type
+          type: orderResponseOrderItem.type,
+          paymentType: orderResponseOrderItem.paymentType,
+          deliveryType: orderResponseOrderItem.deliveryType
         })
       )
       .reduce((accumulator: { [uuid: string]: OrderItemStore }, orderItemStore: OrderItemStore): {

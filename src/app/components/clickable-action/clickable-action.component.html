@@ -10,7 +10,7 @@
   [ngSwitch]="clickableActionType"
   class="ClickableAction"
 >
-  <a *ngSwitchCase="ClickableActionType.Anchor" class="ClickableAction-anchor" [href]="link" target="_blank">
+  <a *ngSwitchCase="ClickableActionType.Anchor" class="ClickableAction-anchor" [href]="link">
     <ng-container [ngTemplateOutlet]="content"></ng-container>
   </a>
 

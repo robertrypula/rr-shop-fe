@@ -1,7 +1,11 @@
 @import 'configs-and-mixins';
 
-.Order-summaryTop {
+.Order-textAtTop {
   margin-bottom: 48px;
+}
+
+.Order-priceTotalSelling {
+  margin-bottom: 48px - 16px;
 }
 
 .Order-summarySection {

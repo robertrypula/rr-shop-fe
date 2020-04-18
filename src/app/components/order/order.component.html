@@ -1,9 +1,9 @@
 <div class="Order">
   <h2>Zamówienie {{ order.number }}</h2>
 
-  <div class="Order-summaryTop u-formatted-content">
-    Dziękujemy za złożenie zamówienia w naszym sklepie. O zmianach w jego statusie będziemy Cię informować na podany
-    adres email.
+  <div class="Order-textAtTop u-formatted-content">
+    Dziękujemy za złożenie zamówienia w naszym sklepie. O zmianach w jego statusie będziemy Cię informować poprzez
+    wiadomości na podany adres email.
   </div>
 
   <div class="Order-summarySection">
@@ -32,30 +32,49 @@
     </span>
   </div>
 
-  <!--
-  <div class="Order-summarySection" *ngIf="order.promoCode">
-    Rabat:
-    <span>
-      -{{ order.promoCode.percentageDiscount }}%
-    </span>
-  </div>
-  -->
+  <ng-container *ngIf="order.isExistingOrderPaymentVisible()">
+    <div class="Order-summarySection Order-priceTotalSelling">
+      <ng-container *ngIf="order.promoCode; else noPromoCode">
+        Do zapłaty (po {{ order.promoCode.percentageDiscount }}% rabacie):
+      </ng-container>
+      <ng-template #noPromoCode>
+        Do zapłaty:
+      </ng-template>
+      <span>
+        {{ order.getPriceTotalSelling([Type.Delivery, Type.Payment, Type.Product]) | price }}
+      </span>
+    </div>
 
-  <div class="Order-summarySection">
-    Do zapłaty:
-    <span>
-      {{ order.getPriceTotalSelling([Type.Delivery, Type.Payment, Type.Product]) | price }}
-    </span>
-  </div>
-
-  <!--  <div *ngIf="order.getPaymentOrderItem() as paymentOrderItem">-->
-  <!--    <div ngSwitch="paymentOrderItem.paymentType">-->
-  <!--      <ng-container *ngSwitchCase="PaymentType.BankTransfer">-->
-  <!--        Przelew bankowy-->
-  <!--      </ng-container>-->
-  <!--      <ng-container *ngSwitchCase="PaymentType.PayU">-->
-  <!--        <a href="{{ order.paymentsStore[0]?.url }}">Płacę z PayU</a>-->
-  <!--      </ng-container>-->
-  <!--    </div>-->
-  <!--  </div>-->
+    <div [ngSwitch]="order.getPaymentType()">
+      <ng-container *ngSwitchCase="PaymentType.BankTransfer">
+        <div class="u-formatted-content">
+          <p>
+            Jako formę płatności wybrano przelew bankowy - prosimy o wpłatę na poniższe dane:
+          </p>
+          <ul>
+            <li>
+              Numer konta:
+              <strong>29 1140 2004 0000 3102 7976 4379</strong>
+            </li>
+            <li>
+              Tytuł przelewu:
+              <strong>{{ order.number }}</strong>
+            </li>
+          </ul>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="PaymentType.PayU">
+        <div class="u-formatted-content">
+          <p>
+            Jako formę płatności wybrano PayU - aby kontynuuować prosimy o kliknięcie w poniższy przycisk:
+          </p>
+        </div>
+        <rr-shop-clickable-action
+          [clickableActionType]="ClickableActionType.Anchor"
+          [label]="'Płacę z PayU'"
+          [link]="order.getPayUUrl()"
+        ></rr-shop-clickable-action>
+      </ng-container>
+    </div>
+  </ng-container>
 </div>

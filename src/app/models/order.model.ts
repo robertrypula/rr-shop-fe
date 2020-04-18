@@ -129,15 +129,27 @@ export class Order implements OrderStore {
     );
   }
 
+  public isExistingOrderPaymentVisible(): boolean {
+    return this.status === Status.PaymentWait;
+  }
+
   public getOrderItemsByType(types: Type[]): OrderItem[] {
     return this.orderItems.filter((orderItem: OrderItem): boolean => types.includes(orderItem.type));
   }
 
-  // public getPaymentType(): PaymentType {
-  //   const payments: OrderItem[] = this.getOrderItemsByType([Type.Payment]);
-  //
-  //   return payments.length === 1 ? payments[0].pay : null;
-  // }
+  public getPaymentType(): PaymentType {
+    const paymentOrderItems: OrderItem[] = this.getOrderItemsByType([Type.Payment]);
+
+    return paymentOrderItems.length === 1 ? paymentOrderItems[0].paymentType : null;
+  }
+
+  public getPayUUrl(): string {
+    const payments: OrderItem[] = this.getOrderItemsByType([Type.Payment]);
+
+    return this.payments.length === 1 && this.payments[0].paymentType === PaymentType.PayU
+      ? this.payments[0].url
+      : null;
+  }
 
   public getPriceTotalOriginal(types: Type[]): number {
     return getNormalizedPrice(

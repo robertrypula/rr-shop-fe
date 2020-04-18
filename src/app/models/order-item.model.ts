@@ -1,4 +1,4 @@
-import { ProductStore, Type } from './product.model';
+import { DeliveryType, PaymentType, ProductStore, Type } from './product.model';
 import { Order } from './order.model';
 import { getNormalizedPrice } from '../utils/math.utils';
 
@@ -13,18 +13,23 @@ export interface OrderItemStore {
   productId: number;
   quantity: number;
   type: Type;
+  deliveryType: DeliveryType;
+  paymentType: PaymentType;
 }
 
 // -----------------------------------------------------------------------------
 
 export class OrderItem implements OrderItemStore {
   public id?: number;
+  public uuid?: string;
   public name?: string;
-  public priceUnitOriginal?: number;
-  public priceUnitSelling?: number;
+  public priceUnitOriginal?: number; // TODO make it protected, it depends if order is from BE or from FE
+  public priceUnitSelling?: number; // TODO make it protected, it depends if order is from BE or from FE
   public productId: number;
   public quantity: number;
-  public type: Type;
+  public type: Type; // TODO make it protected, it depends if order is from BE or from FE
+  public deliveryType: DeliveryType; // TODO make it protected, it depends if order is from BE or from FE
+  public paymentType: PaymentType; // TODO make it protected, it depends if order is from BE or from FE
 
   public productStore: ProductStore; // remove me as productId foreign key exists
 
@@ -38,12 +43,15 @@ export class OrderItem implements OrderItemStore {
     }
 
     this.id = orderItemStore.id;
+    this.uuid = orderItemStore.uuid;
     this.name = orderItemStore.name;
     this.priceUnitOriginal = orderItemStore.priceUnitOriginal;
     this.priceUnitSelling = orderItemStore.priceUnitSelling;
     this.productId = orderItemStore.productId;
     this.quantity = orderItemStore.quantity;
     this.type = orderItemStore.type;
+    this.deliveryType = orderItemStore.deliveryType;
+    this.paymentType = orderItemStore.paymentType;
 
     return this;
   }

@@ -1,0 +1,61 @@
+<div class="Order">
+  <h2>Zamówienie {{ order.number }}</h2>
+
+  <div class="Order-summaryTop u-formatted-content">
+    Dziękujemy za złożenie zamówienia w naszym sklepie. O zmianach w jego statusie będziemy Cię informować na podany
+    adres email.
+  </div>
+
+  <div class="Order-summarySection">
+    Data utworzenia:
+    <span>
+      {{ order.createdAt | dateCustom }}
+    </span>
+  </div>
+
+  <div class="Order-summarySection" *ngIf="order.isUpdatedAtDifferentThanCreatedAt()">
+    Data modyfikacji:
+    <span>
+      {{ order.updatedAt | dateCustom }}
+    </span>
+  </div>
+
+  <div class="Order-summarySection">
+    Aktualny status:
+    <span [ngSwitch]="order.status">
+      <ng-container *ngSwitchCase="Status.PaymentWait">Oczekiwanie na płatność</ng-container>
+      <ng-container *ngSwitchCase="Status.PaymentCompleted">Opłacone, przygotowujemy paczkę</ng-container>
+      <ng-container *ngSwitchCase="Status.Shipped">W drodze</ng-container>
+      <ng-container *ngSwitchCase="Status.ReadyForPickup">Gotowe do odbioru</ng-container>
+      <ng-container *ngSwitchCase="Status.Completed">Zakończone sukcesem</ng-container>
+      <ng-container *ngSwitchCase="Status.Canceled">Anulowane</ng-container>
+    </span>
+  </div>
+
+  <!--
+  <div class="Order-summarySection" *ngIf="order.promoCode">
+    Rabat:
+    <span>
+      -{{ order.promoCode.percentageDiscount }}%
+    </span>
+  </div>
+  -->
+
+  <div class="Order-summarySection">
+    Do zapłaty:
+    <span>
+      {{ order.getPriceTotalSelling([Type.Delivery, Type.Payment, Type.Product]) | price }}
+    </span>
+  </div>
+
+  <!--  <div *ngIf="order.getPaymentOrderItem() as paymentOrderItem">-->
+  <!--    <div ngSwitch="paymentOrderItem.paymentType">-->
+  <!--      <ng-container *ngSwitchCase="PaymentType.BankTransfer">-->
+  <!--        Przelew bankowy-->
+  <!--      </ng-container>-->
+  <!--      <ng-container *ngSwitchCase="PaymentType.PayU">-->
+  <!--        <a href="{{ order.paymentsStore[0]?.url }}">Płacę z PayU</a>-->
+  <!--      </ng-container>-->
+  <!--    </div>-->
+  <!--  </div>-->
+</div>

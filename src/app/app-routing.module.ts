@@ -13,8 +13,8 @@ import { ProductComponent } from './pages/product/product.component';
 import { ProductModule } from './pages/product/product.module';
 import { SearchComponent } from './pages/search/search.component';
 import { SearchModule } from './pages/search/search.module';
-import { OrderComponent } from './pages/order/order.component';
-import { OrderModule } from './pages/order/order.module';
+import { OrderPageComponent } from './pages/order-page/order-page.component';
+import { OrderPageModule } from './pages/order-page/order-page.module';
 
 import { AdminOrderComponent } from './admin/pages/admin-order/admin-order.component';
 import { AdminOrderListComponent } from './admin/pages/admin-order-list/admin-order-list.component';
@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full' },
   { path: 'c/:id/:slug', component: CategoryComponent },
   { path: 'p/:id/:slug', component: ProductComponent },
-  { path: 'order/:uuid', component: OrderComponent },
+  { path: 'order/:uuid', component: OrderPageComponent },
   { path: 'potential-order', component: PotentialOrderComponent },
   { path: 'search/:keywords', component: SearchComponent },
   {
@@ -58,7 +58,7 @@ const routes: Routes = [
     CategoryModule,
     MainModule,
     NotFoundModule,
-    OrderModule,
+    OrderPageModule,
     PotentialOrderModule,
     ProductModule,
     SearchModule

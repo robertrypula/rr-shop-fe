@@ -12,14 +12,12 @@ import { ClickableActionTheme } from '../clickable-action/clickable-action.model
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BarComponent implements OnInit {
-  public bars$: Observable<Bar[]>;
+  public bars$: Observable<Bar[]> = this.barService.bars$;
 
   public readonly BarType = BarType;
   public readonly ClickableActionTheme = ClickableActionTheme;
 
-  public constructor(protected barService: BarService) {
-    this.bars$ = barService.bars$;
-  }
+  public constructor(protected barService: BarService) {}
 
   public ngOnInit(): void {}
 

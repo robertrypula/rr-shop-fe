@@ -1,8 +1,5 @@
 @import 'configs-and-mixins';
 
-.Order {
-}
-
 .Order-summaryTop {
   margin-bottom: 48px;
 }
@@ -17,10 +14,4 @@
     margin-left: 8px;
     color: $product-box-price-color;
   }
-}
-
-.Order-notFound {
-  text-align: center;
-  padding: 32px 0;
-  background-color: $secondary-background-color;
 }

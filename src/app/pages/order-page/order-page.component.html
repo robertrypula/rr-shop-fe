@@ -1,0 +1,13 @@
+<div class="OrderPage">
+  <ng-container *ngIf="(activeOrder$ | async)?.uuid; else notFound">
+    <rr-shop-order [order]="activeOrder$ | async"></rr-shop-order>
+  </ng-container>
+
+  <ng-template #notFound>
+    <h2>Zamówienie</h2>
+
+    <div class="OrderPage-notFound">
+      Niestety zamówienie o podanym numerze nie istnieje... :(
+    </div>
+  </ng-template>
+</div>

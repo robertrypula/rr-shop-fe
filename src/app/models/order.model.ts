@@ -116,6 +116,10 @@ export class Order implements OrderStore {
     return this.getOrderItemsByType(types).length === 0;
   }
 
+  public isUpdatedAtDifferentThanCreatedAt(): boolean {
+    return this.updatedAt.getTime() !== this.createdAt.getTime();
+  }
+
   public isValid(): boolean {
     return (
       this.isClientDetailsFormValid &&
@@ -129,17 +133,11 @@ export class Order implements OrderStore {
     return this.orderItems.filter((orderItem: OrderItem): boolean => types.includes(orderItem.type));
   }
 
-  public getDeliveryOrderItem(): OrderItem {
-    const deliveries: OrderItem[] = this.getOrderItemsByType([Type.Delivery]);
-
-    return deliveries.length === 1 ? deliveries[0] : null;
-  }
-
-  public getPaymentOrderItem(): OrderItem {
-    const payments: OrderItem[] = this.getOrderItemsByType([Type.Payment]);
-
-    return payments.length === 1 ? payments[0] : null;
-  }
+  // public getPaymentType(): PaymentType {
+  //   const payments: OrderItem[] = this.getOrderItemsByType([Type.Payment]);
+  //
+  //   return payments.length === 1 ? payments[0].pay : null;
+  // }
 
   public getPriceTotalOriginal(types: Type[]): number {
     return getNormalizedPrice(

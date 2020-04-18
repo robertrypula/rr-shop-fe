@@ -5,3 +5,13 @@
     border-spacing: 0;
   }
 }
+
+.DeliveryOverview-chooseParcelLocker {
+  padding-top: 16px;
+  > div {
+    line-height: 1.6em;
+    a {
+      cursor: pointer;
+    }
+  }
+}

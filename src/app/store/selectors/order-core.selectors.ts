@@ -4,7 +4,7 @@ import { State } from '../reducers';
 import * as fromOrderReducers from '../reducers/order.reducers';
 import { OrderStore } from '../../models/order.model';
 import { ApiCall } from '../../models/page.model';
-import { POTENTIAL_ORDER_ID } from '../reducers/order.reducers';
+import { POTENTIAL_ORDER_UUID } from '../reducers/order.reducers';
 import { OrderItemStore } from '../../models/order-item.model';
 import { getAsArrayUuid } from '../../utils/transfomation.utils';
 
@@ -33,7 +33,7 @@ export const selectApiCallPromoCode = createSelector(
 export const selectOrderItemsStore = createSelector(
   selectOrderFeature,
   (orderFeature: fromOrderReducers.State): OrderItemStore[] =>
-    getAsArrayUuid(orderFeature.entities[POTENTIAL_ORDER_ID].orderItemsStore)
+    getAsArrayUuid(orderFeature.entities[POTENTIAL_ORDER_UUID].orderItemsStore)
 );
 
 export const selectOrdersStore = createSelector(

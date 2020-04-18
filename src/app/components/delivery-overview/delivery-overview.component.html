@@ -13,7 +13,21 @@
     </div>
   </div>
 
-  <button (click)="onParcelLockerClick()">Wybierz paczkomat</button>
+  <div class="DeliveryOverview-chooseParcelLocker" *ngIf="(order$ | async)?.isChooseParcelLockerVisible()">
+    <div *ngIf="(order$ | async)?.parcelLocker; else chooseParcelLocker">
+      Wybrany paczkomat:
+      <strong>{{ (order$ | async)?.parcelLocker }}</strong>
+      <br />
+      <a (click)="onChooseParcelLockerClick()">Kliknij tutaj by wybrać inny</a>
+    </div>
+
+    <ng-template #chooseParcelLocker>
+      <rr-shop-clickable-action
+        [label]="'Wybierz paczkomat'"
+        (actionClick)="onChooseParcelLockerClick()"
+      ></rr-shop-clickable-action>
+    </ng-template>
+  </div>
 
   <ng-template #noDeliveries>
     <div class="DeliveryOverview-empty">

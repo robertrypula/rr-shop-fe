@@ -53,6 +53,10 @@ export class OrderFacadeService {
     this.store.dispatch(fromOrderActions.chooseDelivery({ productId }));
   }
 
+  public chooseParcelLocker(parcelLocker: string): void {
+    this.store.dispatch(fromOrderActions.chooseParcelLocker({ parcelLocker }));
+  }
+
   public choosePayment(productId: number): void {
     this.store.dispatch(fromOrderActions.choosePayment({ productId }));
   }

@@ -23,6 +23,8 @@ export interface OrderCreateRequestDto {
     percentageDiscount: number;
   };
   // ---
+  parcelLocker: string;
+  // ---
   priceTotalOriginalAll: number;
   priceTotalOriginalDelivery: number;
   priceTotalOriginalPayment: number;

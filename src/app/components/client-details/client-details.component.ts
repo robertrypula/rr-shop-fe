@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
-import { POTENTIAL_ORDER_ID } from '../../store/reducers/order.reducers';
+import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
 
 @Component({
   selector: 'rr-shop-client-details',
@@ -14,7 +14,7 @@ import { POTENTIAL_ORDER_ID } from '../../store/reducers/order.reducers';
 })
 export class ClientDetailsComponent implements OnInit, OnDestroy {
   public clientDetailsForm$: Observable<ClientDetailsForm> = this.orderFacadeService.clientDetailsFormByUuid$(
-    `${POTENTIAL_ORDER_ID}`
+    `${POTENTIAL_ORDER_UUID}`
   );
   public clientDetailsFormGroup: FormGroup;
   public clientDetailsSubmitted = false;

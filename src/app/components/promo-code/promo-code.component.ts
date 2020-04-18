@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { POTENTIAL_ORDER_ID } from '../../store/reducers/order.reducers';
+import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
 import { ApiCall } from '../../models/page.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { Order } from '../../models/order.model';
@@ -16,9 +16,9 @@ import { Order } from '../../models/order.model';
 })
 export class PromoCodeComponent implements OnInit, OnDestroy {
   public apiCallPromoCode$: Observable<ApiCall> = this.orderFacadeService.apiCallPromoCode$();
-  public potentialOrder$: Observable<Order> = this.orderFacadeService.orderByUuid$(`${POTENTIAL_ORDER_ID}`);
+  public potentialOrder$: Observable<Order> = this.orderFacadeService.orderByUuid$(`${POTENTIAL_ORDER_UUID}`);
   public promoCodeTextField$: Observable<string> = this.orderFacadeService.promoCodeTextFieldByUuid$(
-    `${POTENTIAL_ORDER_ID}`
+    `${POTENTIAL_ORDER_UUID}`
   );
   public promoCodeFormGroup: FormGroup;
   public promoCodeSubmitted = false;

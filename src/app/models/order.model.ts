@@ -1,7 +1,7 @@
 import { PromoCode, PromoCodeStore } from './promo-code.model';
 import { OrderItem, OrderItemStore } from './order-item.model';
 import { getNormalizedPrice } from '../utils/math.utils';
-import { PaymentType, Type } from './product.model';
+import { DeliveryType, PaymentType, Type } from './product.model';
 import { Payment, PaymentStore } from './payment.model';
 
 export enum Status {
@@ -114,6 +114,16 @@ export class Order implements OrderStore {
 
   public isOrderItemsListEmpty(types: Type[]): boolean {
     return this.getOrderItemsByType(types).length === 0;
+  }
+
+  public isChooseParcelLockerVisible(): boolean {
+    const deliveryOrderItems: OrderItem[] = this.getOrderItemsByType([Type.Delivery]);
+
+    return (
+      deliveryOrderItems.length === 1 &&
+      deliveryOrderItems[0].productStore &&
+      deliveryOrderItems[0].productStore.deliveryType === DeliveryType.InPostParcelLocker
+    );
   }
 
   public isUpdatedAtDifferentThanCreatedAt(): boolean {

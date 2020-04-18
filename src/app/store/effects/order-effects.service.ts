@@ -12,7 +12,7 @@ import { ApiProductService } from '../../rest-api/product/api-product.service';
 import { OrderFacadeService } from '../facades/order-facade.service';
 import { OrderStore } from '../../models/order.model';
 import { ApiOrderService } from '../../rest-api/order/api-order.service';
-import { POTENTIAL_ORDER_ID } from '../reducers/order.reducers';
+import { POTENTIAL_ORDER_UUID } from '../reducers/order.reducers';
 import { PromoCodeStore } from '../../models/promo-code.model';
 import { ApiPromoCodeService } from '../../rest-api/promo-code/api-promo-code.service';
 import { ProductStore } from '../../models/product.model';
@@ -47,7 +47,7 @@ export class OrderEffects {
     this.actions$.pipe(
       ofType(fromOrderActions.createOrderRequest),
       concatMap(action =>
-        of(action).pipe(withLatestFrom(this.orderFacadeService.orderByUuid$(`${POTENTIAL_ORDER_ID}`)))
+        of(action).pipe(withLatestFrom(this.orderFacadeService.orderByUuid$(`${POTENTIAL_ORDER_UUID}`)))
       ),
       switchMap(([action, order]) =>
         this.apiOrderService.createOrder(order).pipe(
@@ -120,7 +120,7 @@ export class OrderEffects {
     this.actions$.pipe(
       ofType(fromOrderActions.potentialOrderLoad),
       concatMap(action =>
-        of(action).pipe(withLatestFrom(this.orderFacadeService.promoCodeTextFieldByUuid$(`${POTENTIAL_ORDER_ID}`)))
+        of(action).pipe(withLatestFrom(this.orderFacadeService.promoCodeTextFieldByUuid$(`${POTENTIAL_ORDER_UUID}`)))
       ),
       filter(([action, promoCodeTextField]) => !!promoCodeTextField),
       map(() => fromOrderActions.promoCodeRequest())
@@ -146,7 +146,7 @@ export class OrderEffects {
     this.actions$.pipe(
       ofType(fromOrderActions.promoCodeRequest),
       concatMap(action =>
-        of(action).pipe(withLatestFrom(this.orderFacadeService.promoCodeTextFieldByUuid$(`${POTENTIAL_ORDER_ID}`)))
+        of(action).pipe(withLatestFrom(this.orderFacadeService.promoCodeTextFieldByUuid$(`${POTENTIAL_ORDER_UUID}`)))
       ),
       switchMap(([action, promoCodeTextField]) =>
         this.apiPromoCodeService.getPromoCode(promoCodeTextField).pipe(

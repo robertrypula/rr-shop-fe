@@ -9,6 +9,8 @@ export const add = createAction('[Order] Add', props<{ productId: number }>());
 
 export const chooseDelivery = createAction('[Order] Choose delivery', props<{ productId: number }>());
 
+export const chooseParcelLocker = createAction('[Order] Choose parcel locker', props<{ parcelLocker: string }>());
+
 export const choosePayment = createAction('[Order] Choose payment', props<{ productId: number }>());
 
 export const clientDetailsEdit = createAction('[Order] Client details edit');

@@ -35,6 +35,8 @@ export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
         }
       : null,
     // ---
+    parcelLocker: order.parcelLocker,
+    // ---
     priceTotalOriginalAll: order.getPriceTotalOriginal([Type.Delivery, Type.Payment, Type.Product]),
     priceTotalOriginalDelivery: order.getPriceTotalOriginal([Type.Delivery]),
     priceTotalOriginalPayment: order.getPriceTotalOriginal([Type.Payment]),

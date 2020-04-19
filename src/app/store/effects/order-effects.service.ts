@@ -71,7 +71,7 @@ export class OrderEffects {
       }),
       map(() =>
         fromBarActions.showSuccess({
-          message: `Przyjęliśmy Twoje zamówienie - dziękujęmy za zakupy w naszym sklepie`
+          message: `Przyjęliśmy Twoje zamówienie - dziękujemy za zakupy w naszym sklepie`
         })
       )
     )
@@ -87,7 +87,7 @@ export class OrderEffects {
       switchMap(() => [
         fromOrderActions.potentialOrderLoad(),
         fromBarActions.showError({
-          message: `Wystąpił błąd podczas składania zamówienia - prosimy o sprawdzenie liczby sztuk w koszyku`
+          message: `Wystąpił błąd podczas składania zamówienia - prosimy o sprawdzenie podanych danych`
         })
       ])
     )

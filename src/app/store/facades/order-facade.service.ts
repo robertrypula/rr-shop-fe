@@ -73,6 +73,14 @@ export class OrderFacadeService {
     this.store.dispatch(fromOrderActions.createOrderRequest());
   }
 
+  public promoCodeRequest(): void {
+    this.store.dispatch(fromOrderActions.promoCodeRequest());
+  }
+
+  public promoCodeReset(): void {
+    this.store.dispatch(fromOrderActions.promoCodeReset());
+  }
+
   public quantityDecrement(orderItemId: number): void {
     this.store.dispatch(fromOrderActions.quantityDecrement({ id: orderItemId }));
   }
@@ -89,11 +97,7 @@ export class OrderFacadeService {
     this.store.dispatch(fromOrderActions.setPromoCodeTextField({ promoCodeTextField }));
   }
 
-  public promoCodeRequest(): void {
-    this.store.dispatch(fromOrderActions.promoCodeRequest());
-  }
-
-  public promoCodeReset(): void {
-    this.store.dispatch(fromOrderActions.promoCodeReset());
+  public toggleLegalConfirmation(): void {
+    this.store.dispatch(fromOrderActions.toggleLegalConfirmation());
   }
 }

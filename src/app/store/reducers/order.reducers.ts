@@ -42,8 +42,11 @@ export const initialState: State = {
       comments: null,
       // ---
       parcelLocker: null,
-      // ---
+      parcelNumber: null,
       promoCodeTextField: '',
+      // ---
+      isLegalConfirmationChecked: false,
+      // ---
       promoCodeStore: null,
       orderItemsStore: {}
     }
@@ -328,6 +331,21 @@ const orderReducer = createReducer(
           [POTENTIAL_ORDER_UUID]: {
             ...state.entities[POTENTIAL_ORDER_UUID],
             promoCodeTextField
+          }
+        }
+      };
+    }
+  ),
+  on(
+    fromOrderActions.toggleLegalConfirmation,
+    (state: State): State => {
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [POTENTIAL_ORDER_UUID]: {
+            ...state.entities[POTENTIAL_ORDER_UUID],
+            isLegalConfirmationChecked: !state.entities[POTENTIAL_ORDER_UUID].isLegalConfirmationChecked
           }
         }
       };

@@ -60,7 +60,7 @@
   >
     <h2>Podsumowanie</h2>
     <div class="row">
-      <div class="col-xxs-12 col-sm-5 col-md-6">
+      <div class="col-xxs-12 col-lg-6 PotentialOrder-summaryLeft">
         <div class="PotentialOrder-summaryPriceNormal">
           Produkty:
           <span *ngIf="(potentialOrder$ | async)?.promoCode" class="PotentialOrder-originalPrice">
@@ -88,17 +88,41 @@
             {{ (potentialOrder$ | async)?.getPriceTotalSelling([Type.Payment]) | price }}
           </span>
         </div>
-      </div>
-
-      <div class="col-xxs-12 col-sm-7 col-md-6">
         <div class="PotentialOrder-summaryPriceTotal">
           Do zapłaty:
-          <span *ngIf="(potentialOrder$ | async)?.promoCode" class="PotentialOrder-originalPrice">
-            {{ (potentialOrder$ | async)?.getPriceTotalOriginal([Type.Delivery, Type.Payment, Type.Product]) | price }}
-          </span>
           <span>
-            {{ (potentialOrder$ | async)?.getPriceTotalSelling([Type.Delivery, Type.Payment, Type.Product]) | price }}
+            <b *ngIf="(potentialOrder$ | async)?.promoCode" class="PotentialOrder-originalPrice">
+              {{
+                (potentialOrder$ | async)?.getPriceTotalOriginal([Type.Delivery, Type.Payment, Type.Product]) | price
+              }}
+            </b>
+            <b>
+              {{ (potentialOrder$ | async)?.getPriceTotalSelling([Type.Delivery, Type.Payment, Type.Product]) | price }}
+            </b>
           </span>
+        </div>
+      </div>
+
+      <div class="col-xxs-12 col-lg-6 PotentialOrder-summaryRight">
+        <div class="PotentialOrder-legalConfirmation">
+          <a (click)="toggleLegalConfirmation()">
+            <div>
+              <rr-shop-clickable-action
+                *ngIf="!(potentialOrder$ | async)?.isLegalConfirmationChecked"
+                [clickableActionTheme]="ClickableActionTheme.TransparentDark"
+                [icon]="['far', 'circle']"
+              ></rr-shop-clickable-action>
+
+              <rr-shop-clickable-action
+                *ngIf="(potentialOrder$ | async)?.isLegalConfirmationChecked"
+                [clickableActionTheme]="ClickableActionTheme.TransparentDark"
+                [icon]="['far', 'check-circle']"
+              ></rr-shop-clickable-action>
+            </div>
+
+            <div>Potwierdzam zapoznanie się z:</div>
+          </a>
+          <div><a>Regulaminem</a> oraz <a>Polityką prywatności</a></div>
         </div>
 
         <rr-shop-clickable-action

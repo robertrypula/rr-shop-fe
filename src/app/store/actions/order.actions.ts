@@ -70,3 +70,5 @@ export const setPromoCodeTextField = createAction(
   '[Order] Set promo code text field',
   props<{ promoCodeTextField: string }>()
 );
+
+export const toggleLegalConfirmation = createAction('[Order] Toggle legal confirmation');

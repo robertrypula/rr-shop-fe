@@ -35,6 +35,8 @@ export interface OrderStore {
   parcelNumber?: string;
   promoCodeTextField?: string;
   // ---
+  isLegalConfirmationChecked?: boolean;
+  // ---
   orderItemsStore?: { [uuid: string]: OrderItemStore }; // TODO move it to separate store feature
   paymentsStore?: { [uuid: string]: PaymentStore }; // TODO move it to separate store feature
   promoCodeStore?: PromoCodeStore; // TODO move it to separate store feature
@@ -64,6 +66,8 @@ export class Order implements OrderStore {
   public parcelLocker?: string;
   public parcelNumber?: string;
   public promoCodeTextField?: string;
+  // ---
+  public isLegalConfirmationChecked: boolean;
   // ---
   public orderItemsStore?: { [uuid: string]: OrderItemStore }; // TODO move it to separate store feature
   public paymentsStore?: { [uuid: string]: PaymentStore }; // TODO move it to separate store feature
@@ -101,6 +105,8 @@ export class Order implements OrderStore {
     this.parcelLocker = orderStore.parcelLocker;
     this.parcelNumber = orderStore.parcelNumber;
     this.promoCodeTextField = orderStore.promoCodeTextField;
+    // ---
+    this.isLegalConfirmationChecked = orderStore.isLegalConfirmationChecked;
     // ---
     this.orderItemsStore = orderStore.orderItemsStore; // TODO move it to separate store feature
     this.paymentsStore = orderStore.paymentsStore; // TODO move it to separate store feature
@@ -201,7 +207,8 @@ export class Order implements OrderStore {
       this.isDeliverySectionValid() &&
       this.isPaymentSectionValid() &&
       this.isClientDetailsSectionValid() &&
-      this.isPromoCodeSectionValid()
+      this.isPromoCodeSectionValid() &&
+      this.isLegalConfirmationChecked
     );
   }
 

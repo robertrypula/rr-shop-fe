@@ -112,9 +112,7 @@ export class Order implements OrderStore {
     return this;
   }
 
-  public isOrderItemsListEmpty(types: Type[]): boolean {
-    return this.getOrderItemsByType(types).length === 0;
-  }
+  // ---
 
   public isProductSectionValid(): boolean {
     return this.getOrderItemsByType([Type.Product]).length > 0 && this.isProductQuantityWithinTheLimitsInOrderItems();
@@ -138,6 +136,41 @@ export class Order implements OrderStore {
   public isPromoCodeSectionValid(): boolean {
     return true; // currently it's always valid
   }
+
+  // ---
+
+  public isDeliverySectionDisabled(): boolean {
+    return !this.isProductSectionValid();
+  }
+
+  public isPaymentSectionDisabled(): boolean {
+    return !this.isProductSectionValid() || !this.isDeliverySectionValid();
+  }
+
+  public isClientDetailsSectionDisabled(): boolean {
+    return !this.isProductSectionValid() || !this.isDeliverySectionValid() || !this.isPaymentSectionValid();
+  }
+
+  public isPromoCodeSectionDisabled(): boolean {
+    return (
+      !this.isProductSectionValid() ||
+      !this.isDeliverySectionValid() ||
+      !this.isPaymentSectionValid() ||
+      !this.isClientDetailsSectionValid()
+    );
+  }
+
+  public isSummarySectionDisabled(): boolean {
+    return (
+      !this.isProductSectionValid() ||
+      !this.isDeliverySectionValid() ||
+      !this.isPaymentSectionValid() ||
+      !this.isClientDetailsSectionValid() ||
+      !this.isPromoCodeSectionValid()
+    );
+  }
+
+  // ---
 
   public isProductQuantityWithinTheLimitsInOrderItems(): boolean {
     const numberOfExceedingProducts: number = this.getOrderItemsByType([Type.Product]).reduce(
@@ -164,10 +197,11 @@ export class Order implements OrderStore {
 
   public isValid(): boolean {
     return (
-      this.isClientDetailsFormValid &&
-      this.getOrderItemsByType([Type.Product]).length > 0 &&
-      this.getOrderItemsByType([Type.Delivery]).length === 1 &&
-      this.getOrderItemsByType([Type.Payment]).length === 1
+      this.isProductSectionValid() &&
+      this.isDeliverySectionValid() &&
+      this.isPaymentSectionValid() &&
+      this.isClientDetailsSectionValid() &&
+      this.isPromoCodeSectionValid()
     );
   }
 

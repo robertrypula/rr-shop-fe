@@ -12,7 +12,7 @@
     <div class="col-xxs-12 col-md-6">
       <div
         [ngClass]="{
-          'u-block-overlay': false
+          'u-block-overlay': (potentialOrder$ | async)?.isDeliverySectionDisabled()
         }"
         class="PotentialOrder-section"
       >
@@ -26,7 +26,7 @@
     <div class="col-xxs-12 col-md-6">
       <div
         [ngClass]="{
-          'u-block-overlay': false
+          'u-block-overlay': (potentialOrder$ | async)?.isPaymentSectionDisabled()
         }"
         class="PotentialOrder-section"
       >
@@ -40,7 +40,7 @@
 
   <div
     [ngClass]="{
-      'u-block-overlay': (potentialOrder$ | async)?.isOrderItemsListEmpty([Type.Payment])
+      'u-block-overlay': (potentialOrder$ | async)?.isClientDetailsSectionDisabled()
     }"
     class="PotentialOrder-section PotentialOrder--withBorder"
   >
@@ -51,7 +51,7 @@
 
   <div
     [ngClass]="{
-      'u-block-overlay': (potentialOrder$ | async)?.isClientDetailsFormActive
+      'u-block-overlay': (potentialOrder$ | async)?.isPromoCodeSectionDisabled()
     }"
     class="PotentialOrder-section PotentialOrder--withBorder"
   >
@@ -62,7 +62,7 @@
 
   <div
     [ngClass]="{
-      'u-block-overlay': (potentialOrder$ | async)?.isClientDetailsFormActive
+      'u-block-overlay': (potentialOrder$ | async)?.isSummarySectionDisabled()
     }"
     class="PotentialOrder-section PotentialOrder-summary"
   >

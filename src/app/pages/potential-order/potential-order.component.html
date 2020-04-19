@@ -122,7 +122,11 @@
 
             <div>Potwierdzam zapoznanie się z:</div>
           </a>
-          <div><a>Regulaminem</a> oraz <a>Polityką prywatności</a></div>
+          <div>
+            <a [routerLink]="regulations$ | async | categoryUrl">Regulaminem</a>
+            oraz
+            <a [routerLink]="privacyPolicy$ | async | categoryUrl">Polityką prywatności</a>
+          </div>
         </div>
 
         <rr-shop-clickable-action

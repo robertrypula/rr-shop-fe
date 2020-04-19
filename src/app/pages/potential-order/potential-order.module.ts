@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { PotentialOrderComponent } from './potential-order.component';
 import { OrderItemsOverviewModule } from '../../components/order-items-overview/order-items-overview.module';
@@ -20,7 +21,8 @@ import { ClientDetailsModule } from '../../components/client-details/client-deta
     ClickableActionModule,
     PipesModule,
     PromoCodeModule,
-    ClientDetailsModule
+    ClientDetailsModule,
+    RouterModule
   ]
 })
 export class PotentialOrderModule {}

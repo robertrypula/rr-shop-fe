@@ -6,7 +6,7 @@ import { CategoryStore } from '../../models/category.model';
   name: 'categoryUrl'
 })
 export class CategoryUrlPipe implements PipeTransform {
-  public transform(category: CategoryStore): string {
-    return '/c/' + category.id + '/' + category.slug;
+  public transform(categoryStore: CategoryStore): string {
+    return `/c/${categoryStore ? categoryStore.id : ''}/${categoryStore ? categoryStore.slug : ''}`;
   }
 }

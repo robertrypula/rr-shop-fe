@@ -6,6 +6,8 @@ import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
 import { Type } from '../../models/product.model';
 import { ClickableActionTheme } from '../../components/clickable-action/clickable-action.model';
+import { CategoryFacadeService } from '../../store/facades/category-facade.service';
+import { CategoryStore, StructuralNode } from '../../models/category.model';
 
 @Component({
   selector: 'rr-shop-potential-order',
@@ -15,11 +17,20 @@ import { ClickableActionTheme } from '../../components/clickable-action/clickabl
 })
 export class PotentialOrderComponent implements OnInit {
   public potentialOrder$: Observable<Order> = this.orderFacadeService.orderByUuid$(POTENTIAL_ORDER_UUID);
+  public regulations$: Observable<CategoryStore> = this.categoryFacadeService.categoryByStructuralNode$(
+    StructuralNode.Regulations
+  );
+  public privacyPolicy$: Observable<CategoryStore> = this.categoryFacadeService.categoryByStructuralNode$(
+    StructuralNode.PrivacyPolicy
+  );
 
   public readonly Type = Type;
   public readonly ClickableActionTheme = ClickableActionTheme;
 
-  public constructor(protected orderFacadeService: OrderFacadeService) {}
+  public constructor(
+    protected categoryFacadeService: CategoryFacadeService,
+    protected orderFacadeService: OrderFacadeService
+  ) {}
 
   public ngOnInit(): void {}
 

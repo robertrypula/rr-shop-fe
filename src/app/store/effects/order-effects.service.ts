@@ -69,11 +69,12 @@ export class OrderEffects {
         // TODO implement proper scroll mechanism
         window.scrollTo && window.scrollTo(0, 120);
       }),
-      map(() =>
+      switchMap(() => [
+        fromOrderActions.resetOrders(),
         fromBarActions.showSuccess({
           message: `Przyjęliśmy Twoje zamówienie - dziękujemy za zakupy w naszym sklepie`
         })
-      )
+      ])
     )
   );
 

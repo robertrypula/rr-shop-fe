@@ -93,6 +93,10 @@ export class OrderFacadeService {
     this.store.dispatch(fromOrderActions.remove({ id: orderItemId }));
   }
 
+  public resetOrders(): void {
+    this.store.dispatch(fromOrderActions.resetOrders());
+  }
+
   public setPromoCodeTextField(promoCodeTextField: string): void {
     this.store.dispatch(fromOrderActions.setPromoCodeTextField({ promoCodeTextField }));
   }

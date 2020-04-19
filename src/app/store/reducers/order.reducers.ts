@@ -12,12 +12,40 @@ export interface State {
   apiCallPotentialOrderProducts: ApiCall;
   apiCallPromoCode: ApiCall;
   entities: {
-    [id: number]: OrderStore;
+    [uuid: string]: OrderStore;
   };
   lastOrderItemId: number;
 }
 
 export const POTENTIAL_ORDER_UUID = '-1';
+
+const initialEmptyOrder: { [uuid: string]: OrderStore } = {
+  [POTENTIAL_ORDER_UUID]: {
+    uuid: `${POTENTIAL_ORDER_UUID}`,
+    number: null,
+    status: null,
+    // ---
+    isClientDetailsFormActive: true,
+    isClientDetailsFormValid: false,
+    email: null,
+    phone: null,
+    name: null,
+    surname: null,
+    address: null,
+    zipCode: null,
+    city: null,
+    comments: null,
+    // ---
+    parcelLocker: null,
+    parcelNumber: null,
+    promoCodeTextField: '',
+    // ---
+    isLegalConfirmationChecked: false,
+    // ---
+    promoCodeStore: null,
+    orderItemsStore: {}
+  }
+};
 
 export const initialState: State = {
   apiCallCreateOrder: ApiCall.Initial,
@@ -25,31 +53,7 @@ export const initialState: State = {
   apiCallPotentialOrderProducts: ApiCall.Initial,
   apiCallPromoCode: ApiCall.Initial,
   entities: {
-    [POTENTIAL_ORDER_UUID]: {
-      uuid: `${POTENTIAL_ORDER_UUID}`,
-      number: null,
-      status: null,
-      // ---
-      isClientDetailsFormActive: true,
-      isClientDetailsFormValid: false,
-      email: null,
-      phone: null,
-      name: null,
-      surname: null,
-      address: null,
-      zipCode: null,
-      city: null,
-      comments: null,
-      // ---
-      parcelLocker: null,
-      parcelNumber: null,
-      promoCodeTextField: '',
-      // ---
-      isLegalConfirmationChecked: false,
-      // ---
-      promoCodeStore: null,
-      orderItemsStore: {}
-    }
+    ...initialEmptyOrder
   },
   lastOrderItemId: 0
 };
@@ -319,6 +323,17 @@ const orderReducer = createReducer(
             }
           }
         : state;
+    }
+  ),
+  on(
+    fromOrderActions.resetOrders,
+    (state: State): State => {
+      return {
+        ...state,
+        entities: {
+          ...initialEmptyOrder
+        }
+      };
     }
   ),
   on(

@@ -66,6 +66,8 @@ export const quantityDecrement = createAction('[Order] Quantity decrement', prop
 
 export const remove = createAction('[Order] Remove', props<{ id: number }>());
 
+export const resetOrders = createAction('[Order] Reset orders');
+
 export const setPromoCodeTextField = createAction(
   '[Order] Set promo code text field',
   props<{ promoCodeTextField: string }>()

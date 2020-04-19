@@ -13,7 +13,7 @@ import { Type } from '../../models/product.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PotentialOrderComponent implements OnInit {
-  public potentialOrder$: Observable<Order> = this.orderFacadeService.orderByUuid$(`${POTENTIAL_ORDER_UUID}`);
+  public potentialOrder$: Observable<Order> = this.orderFacadeService.orderByUuid$(POTENTIAL_ORDER_UUID);
 
   public readonly Type = Type;
 

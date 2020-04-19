@@ -43,7 +43,7 @@
         </div>
 
         <div
-          *ngIf="activeProduct.orderItem.isProductQuantityExceededTextVisible()"
+          *ngIf="activeProduct.orderItem.isProductQuantityExceeded()"
           class="Product-alreadyInBasketNotification u-form-error-container"
         >
           Niestety nie jest możliwe dodanie tylu sztuk tego produktu

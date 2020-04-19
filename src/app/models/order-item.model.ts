@@ -64,7 +64,7 @@ export class OrderItem implements OrderItemStore {
     return this.getProductQuantity() > this.quantity;
   }
 
-  public isProductQuantityExceededTextVisible(): boolean {
+  public isProductQuantityExceeded(): boolean {
     return this.getProductQuantity() < this.quantity;
   }
 

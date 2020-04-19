@@ -1,0 +1,24 @@
+@import 'configs-and-mixins';
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  th {
+    padding: 8px 10px;
+    border: 1px solid $border-color;
+    vertical-align: top;
+    text-align: left;
+  }
+
+  tr.active {
+    background-color: #dff3df;
+  }
+
+  td {
+    padding: 8px 10px;
+    border: 1px solid $border-color;
+    vertical-align: top;
+    text-align: left;
+  }
+}

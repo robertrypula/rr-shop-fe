@@ -2,9 +2,44 @@
 
 <h2>Admin / zamówienie / {{ data?.number }}</h2>
 
-<span *ngIf="isLoading">Wczytywanie zamówienia...</span>
-<span *ngIf="isError">Błąd podczas ładowania zamówienia</span>
+<div style="margin-bottom: 16px">
+  <span *ngIf="isLoading">Wczytywanie zamówienia...</span>
+  <span *ngIf="isError">Błąd podczas ładowania zamówienia</span>
+</div>
+
+<div *ngIf="errorPatch" style="margin-bottom: 8px">
+  {{ errorPatch?.error?.errorMessage | json }}
+</div>
+
+<div style="margin-bottom: 16px">
+  <button (click)="setStatus(Status.PaymentWait)">Opłacono</button>
+
+  <button (click)="setStatus(Status.PaymentCompleted)">Płatność zakończona</button>
+
+  <button (click)="setStatus(Status.ReadyForPickup)">Gotowe do odbioru</button>
+
+  <button (click)="setStatus(Status.Shipped)">Wysłano</button>
+
+  <button (click)="setStatus(Status.Completed)">Zakończono</button>
+
+  <button (click)="setStatus(Status.Canceled)">Anulowano</button>
+</div>
+
+<div style="margin-bottom: 16px">
+  Aktualny status: <strong>{{ data.status }}</strong>
+</div>
+
+<div *ngIf="data?.orderItems" style="margin-bottom: 16px;">
+  <table>
+    <tr *ngFor="let item of data.orderItems">
+      <td>
+        {{ item.name }}
+      </td>
+      <td>{{ item.quantity }}</td>
+    </tr>
+  </table>
+</div>
 
 <div *ngIf="data">
-  <pre>{{ data | json }}</pre>
+  <pre style="font-size: 11px; line-height: 1.2em">{{ data | json }}</pre>
 </div>

@@ -4,30 +4,36 @@
     <rr-shop-order-items-overview
       [orderItems]="(potentialOrder$ | async)?.getOrderItemsByType([Type.Product])"
     ></rr-shop-order-items-overview>
+
+    <pre>{{ (potentialOrder$ | async)?.isProductSectionValid() }}</pre>
   </div>
 
   <div class="row">
     <div class="col-xxs-12 col-md-6">
       <div
         [ngClass]="{
-          'u-block-overlay': (potentialOrder$ | async)?.isOrderItemsListEmpty([Type.Product])
+          'u-block-overlay': false
         }"
         class="PotentialOrder-section"
       >
         <h2>Dostawa</h2>
         <rr-shop-delivery-overview></rr-shop-delivery-overview>
+
+        <pre>{{ (potentialOrder$ | async)?.isDeliverySectionValid() }}</pre>
       </div>
     </div>
 
     <div class="col-xxs-12 col-md-6">
       <div
         [ngClass]="{
-          'u-block-overlay': (potentialOrder$ | async)?.isOrderItemsListEmpty([Type.Delivery])
+          'u-block-overlay': false
         }"
         class="PotentialOrder-section"
       >
         <h2>Płatność</h2>
         <rr-shop-payment-overview></rr-shop-payment-overview>
+
+        <pre>{{ (potentialOrder$ | async)?.isPaymentSectionValid() }}</pre>
       </div>
     </div>
   </div>
@@ -40,6 +46,7 @@
   >
     <h2>Dane klienta</h2>
     <rr-shop-client-details></rr-shop-client-details>
+    <pre>{{ (potentialOrder$ | async)?.isClientDetailsSectionValid() }}</pre>
   </div>
 
   <div
@@ -50,6 +57,7 @@
   >
     <h2>Kod rabatowy</h2>
     <rr-shop-promo-code></rr-shop-promo-code>
+    <pre>{{ (potentialOrder$ | async)?.isPromoCodeSectionValid() }}</pre>
   </div>
 
   <div

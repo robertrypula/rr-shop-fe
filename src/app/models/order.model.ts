@@ -116,7 +116,39 @@ export class Order implements OrderStore {
     return this.getOrderItemsByType(types).length === 0;
   }
 
-  public isChooseParcelLockerVisible(): boolean {
+  public isProductSectionValid(): boolean {
+    return this.getOrderItemsByType([Type.Product]).length > 0 && this.isProductQuantityWithinTheLimitsInOrderItems();
+  }
+
+  public isDeliverySectionValid(): boolean {
+    return (
+      this.getOrderItemsByType([Type.Delivery]).length === 1 &&
+      (this.isParcelLockerActive() ? !!this.parcelLocker : true)
+    );
+  }
+
+  public isPaymentSectionValid(): boolean {
+    return this.getOrderItemsByType([Type.Payment]).length === 1;
+  }
+
+  public isClientDetailsSectionValid(): boolean {
+    return this.isClientDetailsFormValid;
+  }
+
+  public isPromoCodeSectionValid(): boolean {
+    return true; // currently it's always valid
+  }
+
+  public isProductQuantityWithinTheLimitsInOrderItems(): boolean {
+    const numberOfExceedingProducts: number = this.getOrderItemsByType([Type.Product]).reduce(
+      (accumulator: number, current: OrderItem): number => accumulator + (current.isProductQuantityExceeded() ? 1 : 0),
+      0
+    );
+
+    return numberOfExceedingProducts === 0;
+  }
+
+  public isParcelLockerActive(): boolean {
     const deliveryOrderItems: OrderItem[] = this.getOrderItemsByType([Type.Delivery]);
 
     return (
@@ -154,8 +186,6 @@ export class Order implements OrderStore {
   }
 
   public getPayUUrl(): string {
-    const payments: OrderItem[] = this.getOrderItemsByType([Type.Payment]);
-
     return this.payments.length === 1 && this.payments[0].paymentType === PaymentType.PayU
       ? this.payments[0].url
       : null;

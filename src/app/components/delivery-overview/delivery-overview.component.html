@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div class="DeliveryOverview-chooseParcelLocker" *ngIf="(order$ | async)?.isChooseParcelLockerVisible()">
+  <div class="DeliveryOverview-chooseParcelLocker" *ngIf="(order$ | async)?.isParcelLockerActive()">
     <div *ngIf="(order$ | async)?.parcelLocker; else chooseParcelLocker">
       Wybrany paczkomat:
       <strong>{{ (order$ | async)?.parcelLocker }}</strong>

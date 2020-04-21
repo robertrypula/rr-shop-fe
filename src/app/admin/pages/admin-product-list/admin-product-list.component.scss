@@ -5,12 +5,13 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   th {
-    padding: 2px;
+    padding: 2px 3px;
     border: 1px solid $border-color;
     vertical-align: top;
     text-align: left;
     font-size: 12px;
     font-family: Calibri, serif;
+    line-height: 1em;
   }
 
   tr.active {
@@ -22,14 +23,18 @@ table {
   }
 
   td {
-    padding: 2px;
+    padding: 2px 3px;
     border: 1px solid $border-color;
     vertical-align: top;
     text-align: left;
     font-size: 12px;
     font-family: Calibri, serif;
+    line-height: 1em;
     &.td-monospace {
       font-family: monospace;
+    }
+    &.td-right {
+      text-align: right;
     }
   }
 }

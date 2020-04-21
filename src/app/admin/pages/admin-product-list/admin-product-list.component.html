@@ -12,8 +12,10 @@
       <th>Nazwa</th>
       <th>Nazwa na kasie fiskalnej</th>
       <th>Producent</th>
+      <th>Dostawy</th>
+      <th>Zamówienia</th>
+      <th>Dostępnych</th>
       <th>Cena w sklepie</th>
-      <th>Stan</th>
       <th>Widoczność</th>
     </tr>
     <tr
@@ -33,11 +35,18 @@
       <td>
         {{ item?.manufacturer?.name }}
       </td>
-      <td class="td-right">
-        {{ item?.priceUnit | price }}
+
+      <td class="td-right" title="Sztuki z dostaw nie oznaczone jako niedostępne (od początku działalności)">
+        {{ item?.supplies?.length }}
+      </td>
+      <td class="td-right" title="Sztuki z zamówień różnych od Anulowane (od początku działalności)">
+        {{ getOrderItemsQuantityTotal(item?.orderItems) }}
+      </td>
+      <td class="td-right" title="Stan widoczny dla klienta na stronie">
+        <b>{{ item?.quantity }}</b>
       </td>
       <td class="td-right">
-        {{ item?.quantity }}
+        {{ item?.priceUnit | price }}
       </td>
       <td>
         {{ item?.isHidden ? 'ukryty' : 'widoczny' }}

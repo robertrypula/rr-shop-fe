@@ -16,4 +16,8 @@ export class AdminProductListComponent extends AdminBaseComponent implements OnI
   public ngOnInit(): void {
     this.load('product');
   }
+
+  public getOrderItemsQuantityTotal(orderItems: any[]): number {
+    return orderItems ? orderItems.reduce((a, c) => (a = a + c.quantity), 0) : 0;
+  }
 }

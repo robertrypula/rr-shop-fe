@@ -41,7 +41,7 @@
       *ngIf="product.orderItem.isProductQuantityExceeded()"
       class="ProductBoxCompact-alreadyInBasketNotification u-form-error-container"
     >
-      Niestety nie posiadamy tylu sztuk produktu na magazynie :(
+      Niestety nie jest możliwe dodanie tylu sztuk tego produktu
     </div>
 
     <div
@@ -54,7 +54,7 @@
 
   <div *ngIf="!product.orderItem" class="ProductBoxCompact-notInBasketYet">
     <rr-shop-clickable-action
-      *ngIf="product.quantity !== 0; else notAvailable"
+      *ngIf="product.quantity > 0; else notAvailable"
       (actionClick)="addToOrder(product)"
       [label]="'Do koszyka'"
       [icon]="['fas', 'shopping-basket']"

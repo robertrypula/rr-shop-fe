@@ -24,7 +24,7 @@
         class="OrderItemOverview-alreadyInBasketNotification u-form-error-container"
       >
         Niestety nie jest możliwe dodanie tylu sztuk tego produktu
-        <ng-container *ngIf="orderItem.productStore?.quantity === 0">
+        <ng-container *ngIf="orderItem.productStore?.quantity <= 0">
           <br /><br />
           <b>Prosimy usunąć ten produkt z koszyka przed złożeniem zamówienia</b>
         </ng-container>

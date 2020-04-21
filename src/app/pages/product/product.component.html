@@ -58,7 +58,7 @@
 
       <div *ngIf="!activeProduct.orderItem" class="Product-notInBasketYet">
         <rr-shop-clickable-action
-          *ngIf="activeProduct.quantity !== 0; else notAvailable"
+          *ngIf="activeProduct.quantity > 0; else notAvailable"
           (actionClick)="addToOrder(activeProduct)"
           [label]="'Do koszyka'"
           [icon]="['fas', 'shopping-basket']"

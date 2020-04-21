@@ -5,20 +5,31 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   th {
-    padding: 3px 3px;
+    padding: 2px;
     border: 1px solid $border-color;
     vertical-align: top;
     text-align: left;
+    font-size: 12px;
+    font-family: Calibri, serif;
   }
 
   tr.active {
     background-color: #dff3df;
   }
 
+  tr.is-hidden {
+    background-color: #e2e2e2;
+  }
+
   td {
-    padding: 3px 3px;
+    padding: 2px;
     border: 1px solid $border-color;
     vertical-align: top;
     text-align: left;
+    font-size: 12px;
+    font-family: Calibri, serif;
+    &.td-monospace {
+      font-family: monospace;
+    }
   }
 }

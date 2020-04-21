@@ -11,7 +11,7 @@
         <!-- --- -->
         <div class="row">
           <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label" for="client-details-form-email">Email</label>
+            <label class="u-form-label u-form-label-required" for="client-details-form-email">Email</label>
           </div>
           <div class="col-xxs-8 margin-bottom">
             <input
@@ -43,7 +43,7 @@
         <!-- --- -->
         <div class="row">
           <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label" for="client-details-form-name">Imię</label>
+            <label class="u-form-label u-form-label-required" for="client-details-form-name">Imię</label>
           </div>
           <div class="col-xxs-8 margin-bottom">
             <input
@@ -72,7 +72,7 @@
         <!-- --- -->
         <div class="row">
           <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label" for="client-details-form-surname">Nazwisko</label>
+            <label class="u-form-label u-form-label-required" for="client-details-form-surname">Nazwisko</label>
           </div>
           <div class="col-xxs-8 margin-bottom">
             <input
@@ -133,7 +133,7 @@
         <!-- --- -->
         <div class="row">
           <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label" for="client-details-form-phone">Telefon</label>
+            <label class="u-form-label u-form-label-required" for="client-details-form-phone">Telefon</label>
           </div>
           <div class="col-xxs-8 margin-bottom">
             <input
@@ -162,7 +162,7 @@
         <!-- --- -->
         <div class="row">
           <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label" for="client-details-form-address">Ulica i nr</label>
+            <label class="u-form-label u-form-label-required" for="client-details-form-address">Ulica i nr</label>
           </div>
           <div class="col-xxs-8 margin-bottom">
             <input
@@ -191,7 +191,7 @@
         <!-- --- -->
         <div class="row">
           <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label" for="client-details-form-zipCode">Kod</label>
+            <label class="u-form-label u-form-label-required" for="client-details-form-zipCode">Kod</label>
           </div>
           <div class="col-xxs-8 margin-bottom">
             <input
@@ -220,7 +220,7 @@
         <!-- --- -->
         <div class="row">
           <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label" for="client-details-form-city">Miasto</label>
+            <label class="u-form-label u-form-label-required" for="client-details-form-city">Miasto</label>
           </div>
           <div class="col-xxs-8 margin-bottom">
             <input
@@ -250,7 +250,7 @@
       </div>
     </div>
 
-    <rr-shop-clickable-action (actionClick)="clientDetailsOnSave()" [label]="'Zapisz'"></rr-shop-clickable-action>
+    <rr-shop-clickable-action (actionClick)="clientDetailsOnSave()" [label]="'Dalej'"></rr-shop-clickable-action>
   </form>
 
   <ng-template #readOnly>

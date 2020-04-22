@@ -22,14 +22,7 @@
 
   <div class="Order-summarySection">
     Aktualny status:
-    <span [ngSwitch]="order.status">
-      <ng-container *ngSwitchCase="Status.PaymentWait">Oczekiwanie na płatność</ng-container>
-      <ng-container *ngSwitchCase="Status.PaymentCompleted">Opłacone, przygotowujemy paczkę</ng-container>
-      <ng-container *ngSwitchCase="Status.Shipped">W drodze</ng-container>
-      <ng-container *ngSwitchCase="Status.ReadyForPickup">Gotowe do odbioru</ng-container>
-      <ng-container *ngSwitchCase="Status.Completed">Zakończone sukcesem</ng-container>
-      <ng-container *ngSwitchCase="Status.Canceled">Anulowane</ng-container>
-    </span>
+    <span>{{ order.status | orderStatus }}</span>
   </div>
 
   <ng-container *ngIf="order.isExistingOrderPaymentVisible()">

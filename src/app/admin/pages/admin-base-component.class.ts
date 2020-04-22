@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { AdminCallState, AdminCall } from '../models/admin-component.models';
@@ -29,91 +30,83 @@ export class AdminBaseComponent {
     };
   }
 
-  protected get<T>(adminCall: AdminCall<T>, path: string): void {
+  protected get<T>(adminCall: AdminCall<T>, path: string): Observable<T> {
     adminCall.adminCallState = AdminCallState.Request;
     adminCall.errorDetails = null;
-    this.http
-      .get<T>(`${environment.urlApi}admin/${path}`)
-      .pipe(
-        tap(
-          (data: T): void => {
-            adminCall.adminCallState = AdminCallState.Success;
-            adminCall.data = data;
-            this.changeDetectorRef.markForCheck();
-          },
-          (error: any): void => {
-            adminCall.adminCallState = AdminCallState.Failure;
-            adminCall.errorDetails = error && error.error ? error.error : null;
-            this.changeDetectorRef.markForCheck();
-          }
-        )
+
+    return this.http.get<T>(`${environment.urlApi}admin/${path}`).pipe(
+      tap(
+        (data: T): void => {
+          adminCall.adminCallState = AdminCallState.Success;
+          adminCall.data = data;
+          this.changeDetectorRef.markForCheck();
+        },
+        (error: any): void => {
+          adminCall.adminCallState = AdminCallState.Failure;
+          adminCall.errorDetails = error && error.error ? error.error : null;
+          this.changeDetectorRef.markForCheck();
+        }
       )
-      .subscribe();
+    );
   }
 
-  protected post<T, U>(adminCall: AdminCall<T>, path: string, body: U): void {
+  protected post<T, U>(adminCall: AdminCall<T>, path: string, body: U): Observable<T> {
     adminCall.adminCallState = AdminCallState.Request;
     adminCall.errorDetails = null;
-    this.http
-      .post<T>(`${environment.urlApi}admin/${path}`, body)
-      .pipe(
-        tap(
-          (data: T): void => {
-            adminCall.adminCallState = AdminCallState.Success;
-            adminCall.data = data;
-            this.changeDetectorRef.markForCheck();
-          },
-          (error: any): void => {
-            adminCall.adminCallState = AdminCallState.Failure;
-            adminCall.errorDetails = error && error.error ? error.error : null;
-            this.changeDetectorRef.markForCheck();
-          }
-        )
+
+    return this.http.post<T>(`${environment.urlApi}admin/${path}`, body).pipe(
+      tap(
+        (data: T): void => {
+          adminCall.adminCallState = AdminCallState.Success;
+          adminCall.data = data;
+          this.changeDetectorRef.markForCheck();
+        },
+        (error: any): void => {
+          adminCall.adminCallState = AdminCallState.Failure;
+          adminCall.errorDetails = error && error.error ? error.error : null;
+          this.changeDetectorRef.markForCheck();
+        }
       )
-      .subscribe();
+    );
   }
 
-  protected patch<T, U>(adminCall: AdminCall<T>, path: string, body: U): void {
+  protected patch<T, U>(adminCall: AdminCall<T>, path: string, body: U): Observable<T> {
     adminCall.adminCallState = AdminCallState.Request;
     adminCall.errorDetails = null;
-    this.http
-      .patch<T>(`${environment.urlApi}admin/${path}`, body)
-      .pipe(
-        tap(
-          (data: T): void => {
-            adminCall.adminCallState = AdminCallState.Success;
-            adminCall.data = data;
-            this.changeDetectorRef.markForCheck();
-          },
-          (error: any): void => {
-            adminCall.adminCallState = AdminCallState.Failure;
-            adminCall.errorDetails = error && error.error ? error.error : null;
-            this.changeDetectorRef.markForCheck();
-          }
-        )
+
+    return this.http.patch<T>(`${environment.urlApi}admin/${path}`, body).pipe(
+      tap(
+        (data: T): void => {
+          adminCall.adminCallState = AdminCallState.Success;
+          adminCall.data = data;
+          this.changeDetectorRef.markForCheck();
+        },
+        (error: any): void => {
+          adminCall.adminCallState = AdminCallState.Failure;
+          adminCall.errorDetails = error && error.error ? error.error : null;
+          this.changeDetectorRef.markForCheck();
+        }
       )
-      .subscribe();
+    );
   }
 
-  protected delete<T>(adminCall: AdminCall<T>, path: string): void {
+  protected delete<T>(adminCall: AdminCall<T>, path: string): Observable<T> {
     adminCall.adminCallState = AdminCallState.Request;
     adminCall.errorDetails = null;
-    this.http
-      .delete<T>(`${environment.urlApi}admin/${path}`)
-      .pipe(
-        tap(
-          (data: T): void => {
-            adminCall.adminCallState = AdminCallState.Success;
-            adminCall.data = data;
-            this.changeDetectorRef.markForCheck();
-          },
-          (error: any): void => {
-            adminCall.adminCallState = AdminCallState.Failure;
-            adminCall.errorDetails = error && error.error ? error.error : null;
-            this.changeDetectorRef.markForCheck();
-          }
-        )
+
+    return this.http.delete<T>(`${environment.urlApi}admin/${path}`).pipe(
+      tap(
+        (data: T): void => {
+          adminCall.adminCallState = AdminCallState.Success;
+          adminCall.data = data;
+          this.changeDetectorRef.markForCheck();
+        },
+        (error: any): void => {
+          adminCall.adminCallState = AdminCallState.Failure;
+          adminCall.errorDetails = error && error.error ? error.error : null;
+          this.changeDetectorRef.markForCheck();
+        }
       )
-      .subscribe();
+    );
   }
 }

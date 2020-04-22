@@ -25,6 +25,6 @@ export class AdminOrderListComponent extends AdminBaseComponent implements OnIni
   }
 
   public refresh(): void {
-    this.get(this.orders, 'order');
+    this.get(this.orders, 'order').subscribe();
   }
 }

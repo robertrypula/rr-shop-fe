@@ -28,10 +28,16 @@ export class AdminOrderComponent extends AdminBaseComponent implements OnInit {
   }
 
   public refresh(): void {
-    this.get(this.order, `order/${this.route.snapshot.paramMap.get('id')}`);
+    this.get(this.order, `order/${this.route.snapshot.paramMap.get('id')}`).subscribe();
   }
 
   public setStatus(status: Status): void {
-    this.patch(this.orderStatus, `order/${this.route.snapshot.paramMap.get('id')}`, { status });
+    this.patch(this.orderStatus, `order/${this.route.snapshot.paramMap.get('id')}`, { status })
+      .pipe(
+        tap(() => {
+          this.refresh();
+        })
+      )
+      .subscribe();
   }
 }

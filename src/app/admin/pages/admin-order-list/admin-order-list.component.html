@@ -39,7 +39,7 @@
       </td>
       <td>{{ item.createdAt | dateCustom }}</td>
       <td>{{ item.updatedAt | dateCustom }}</td>
-      <td>{{ item.status }}</td>
+      <td>{{ item.status | orderStatus }}</td>
       <td>{{ item.email }}</td>
     </tr>
   </table>

@@ -15,9 +15,9 @@
 </div>
 
 <div class="margin-bottom">
-  <button (click)="setStatus(Status.PaymentWait)">Opłacono</button>
-  <button (click)="setStatus(Status.PaymentCompleted)">Płatność zakończona</button>
-  <button (click)="setStatus(Status.ReadyForPickup)">Gotowe do odbioru</button>
+  <button (click)="setStatus(Status.PaymentWait)">{{ Status.PaymentWait | orderStatus }}</button>
+  <button (click)="setStatus(Status.PaymentCompleted)">{{ Status.PaymentWait | orderStatus }}</button>
+  <button (click)="setStatus(Status.ReadyForPickup)">{{ Status.PaymentWait | orderStatus }}</button>
   <button (click)="setStatus(Status.Shipped)">Wysłano</button>
   <button (click)="setStatus(Status.Completed)">Zakończono</button>
   <button (click)="setStatus(Status.Canceled)">Anulowano</button>
@@ -32,7 +32,8 @@
 </div>
 
 <div class="margin-bottom">
-  Aktualny status: <strong>{{ order?.data?.status }}</strong>
+  Aktualny status:
+  <strong>{{ order?.data?.status | orderStatus }}</strong>
 </div>
 
 <div *ngIf="order?.data?.orderItems as orderItems" class="margin-bottom">

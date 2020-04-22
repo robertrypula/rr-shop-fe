@@ -22,7 +22,7 @@ export class AdminProductListComponent extends AdminBaseComponent implements OnI
   }
 
   public refresh(): void {
-    this.get(this.products, 'product');
+    this.get(this.products, 'product').subscribe();
   }
 
   public getOrderItemsQuantityTotal(orderItems: any[]): number {

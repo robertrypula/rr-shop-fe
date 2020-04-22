@@ -22,6 +22,6 @@ export class AdminProductComponent extends AdminBaseComponent implements OnInit 
   }
 
   public refresh(): void {
-    this.get(this.product, `product/${this.route.snapshot.paramMap.get('id')}`);
+    this.get(this.product, `product/${this.route.snapshot.paramMap.get('id')}`).subscribe();
   }
 }

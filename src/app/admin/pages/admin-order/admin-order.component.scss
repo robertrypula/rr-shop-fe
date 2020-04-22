@@ -1,26 +1,10 @@
 @import 'configs-and-mixins';
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  th {
-    padding: 2px 3px;
-    border: 1px solid $border-color;
-    vertical-align: top;
-    text-align: left;
-    font-size: 12px;
-    font-family: Calibri, serif;
-    line-height: 1em;
-  }
-
-  td {
-    padding: 2px 3px;
-    border: 1px solid $border-color;
-    vertical-align: top;
-    text-align: left;
-    font-size: 12px;
-    font-family: Calibri, serif;
-    line-height: 1em;
+.admin-order-item-header {
+  font-size: 20px;
+  line-height: 1em;
+  strong {
+    float: right;
+    display: inline-block;
   }
 }

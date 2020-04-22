@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { AdminCallState, AdminCall } from '../models/admin-component.models';
+import { SizeImage, SizeImageContainer } from '../../models/image.model';
 
 /**
  * It's not following any of the best practices but I wrote this Admin in 1 hour :)
@@ -15,6 +16,8 @@ import { AdminCallState, AdminCall } from '../models/admin-component.models';
 @Injectable()
 export class AdminBaseComponent {
   public readonly AdminCallState = AdminCallState;
+  public readonly SizeImage = SizeImage;
+  public readonly SizeImageContainer = SizeImageContainer;
 
   public constructor(
     protected http: HttpClient,

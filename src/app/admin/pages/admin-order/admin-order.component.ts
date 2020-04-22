@@ -5,6 +5,7 @@ import { Status } from '../../../models/order.model';
 import { environment } from '../../../../environments/environment';
 import { tap } from 'rxjs/operators';
 import { AdminCall } from '../../models/admin-component.models';
+import { Type } from '../../../models/product.model';
 
 /**
  * It's not following any of the best practices but I wrote this Admin in 1 hour :)
@@ -22,6 +23,7 @@ export class AdminOrderComponent extends AdminBaseComponent implements OnInit {
   public orderStatus: AdminCall = this.getAdminCall();
 
   public readonly Status = Status;
+  public readonly Type = Type;
 
   public ngOnInit(): void {
     this.refresh();

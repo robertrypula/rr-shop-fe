@@ -88,7 +88,8 @@
 
           <ng-container *ngIf="orderItem.type === Type.Product">
             <br /><br />
-            Stan magazynu:
+            Stan magazynu - proszę oznaczyć produkty, które fizycznie trafiły do zamówienia:
+            <br/><br/>
 
             <table class="u-compact-table">
               <tr>
@@ -101,10 +102,14 @@
                 <th>Zmodyfikowany</th>
                 <th>W zamówieniu...</th>
                 <th>...o statusie</th>
+                <th>Akcje</th>
               </tr>
               <tr
                 *ngFor="let supply of orderItem.product.supplies; index as indexInner"
-                [ngClass]="{ 'u-greeb': false }"
+                [ngClass]="{
+                  'u-gray': supply?.orderItem?.id && supply?.orderItem?.id !== orderItem.id,
+                  'u-green': supply?.orderItem?.id === orderItem.id
+                }"
               >
                 <td>{{ indexInner + 1 }}</td>
                 <td>{{ supply.vat }}</td>
@@ -115,6 +120,20 @@
                 <td>{{ supply.updatedAt | dateCustom }}</td>
                 <td>{{ supply?.orderItem?.order?.number }}</td>
                 <td>{{ supply?.orderItem?.order?.status | orderStatus }}</td>
+                <td>
+                  <a
+                    (click)="supplyOrderItemAttach(supply.id, orderItem.id)"
+                    *ngIf="!supply?.orderItem?.id"
+                  >
+                    przypisz
+                  </a>
+                  <a
+                    (click)="supplyOrderItemDetach(supply.id)"
+                    *ngIf="supply?.orderItem?.id === orderItem.id"
+                  >
+                    usuń
+                  </a>
+                </td>
               </tr>
             </table>
 

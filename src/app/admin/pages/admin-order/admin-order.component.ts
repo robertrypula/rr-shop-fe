@@ -42,4 +42,24 @@ export class AdminOrderComponent extends AdminBaseComponent implements OnInit {
       )
       .subscribe();
   }
+
+  public supplyOrderItemAttach(supplyId: number, orderItemId: number): void {
+    this.patch(this.orderStatus, `supply/${supplyId}`, { orderItemId })
+      .pipe(
+        tap(() => {
+          this.refresh();
+        })
+      )
+      .subscribe();
+  }
+
+  public supplyOrderItemDetach(supplyId: number): void {
+    this.patch(this.orderStatus, `supply/${supplyId}`, { orderItemId: null })
+      .pipe(
+        tap(() => {
+          this.refresh();
+        })
+      )
+      .subscribe();
+  }
 }

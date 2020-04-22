@@ -8,3 +8,10 @@
     display: inline-block;
   }
 }
+
+td a {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}

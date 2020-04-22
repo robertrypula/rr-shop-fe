@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +13,8 @@ import { AuthInterceptor } from '../../rest-api/auth.interceptor';
 @Component({
   selector: 'rr-shop-admin-login',
   templateUrl: './admin-login.component.html',
-  styleUrls: ['./admin-login.component.scss']
+  styleUrls: ['./admin-login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminLoginComponent implements OnInit {
   public error: any;

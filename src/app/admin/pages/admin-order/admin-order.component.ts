@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { AdminBaseComponent } from '../admin-base-component.class';
 import { Status } from '../../../models/order.model';
 import { environment } from '../../../../environments/environment';
 import { tap } from 'rxjs/operators';
+import { AdminCall } from '../../models/admin-component.models';
 
 /**
  * It's not following any of the best practices but I wrote this Admin in 1 hour :)
@@ -13,37 +14,24 @@ import { tap } from 'rxjs/operators';
 @Component({
   selector: 'rr-shop-admin-order',
   templateUrl: './admin-order.component.html',
-  styleUrls: ['./admin-order.component.scss']
+  styleUrls: ['./admin-order.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminOrderComponent extends AdminBaseComponent implements OnInit {
+  public order: AdminCall = this.getAdminCall();
+  public orderStatus: AdminCall = this.getAdminCall();
+
   public readonly Status = Status;
-  public errorPatch: any;
 
   public ngOnInit(): void {
-    this.load(`order/${this.route.snapshot.paramMap.get('id')}`);
+    this.refresh();
+  }
+
+  public refresh(): void {
+    this.get(this.order, `order/${this.route.snapshot.paramMap.get('id')}`);
   }
 
   public setStatus(status: Status): void {
-    this.isLoading = true;
-    this.isError = false;
-    this.http
-      .patch<any>(`${environment.urlApi}admin/order/${this.route.snapshot.paramMap.get('id')}`, {
-        status
-      })
-      .pipe(
-        tap(
-          (data: any): void => {
-            this.isLoading = false;
-            this.data = data;
-            this.load(`order/${this.route.snapshot.paramMap.get('id')}`);
-          },
-          (error: any): void => {
-            this.isLoading = false;
-            this.isError = true;
-            this.errorPatch = error;
-          }
-        )
-      )
-      .subscribe();
+    this.patch(this.orderStatus, `order/${this.route.snapshot.paramMap.get('id')}`, { status });
   }
 }

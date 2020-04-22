@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { AdminBaseComponent } from '../admin-base-component.class';
+import { AdminCall } from '../../models/admin-component.models';
 
 /**
  * It's not following any of the best practices but I wrote this Admin in 1 hour :)
@@ -10,11 +11,18 @@ import { AdminBaseComponent } from '../admin-base-component.class';
 @Component({
   selector: 'rr-shop-admin-product-list',
   templateUrl: './admin-product-list.component.html',
-  styleUrls: ['./admin-product-list.component.scss']
+  styleUrls: ['./admin-product-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminProductListComponent extends AdminBaseComponent implements OnInit {
+  public products: AdminCall = this.getAdminCall<any[]>();
+
   public ngOnInit(): void {
-    this.load('product');
+    this.refresh();
+  }
+
+  public refresh(): void {
+    this.get(this.products, 'product');
   }
 
   public getOrderItemsQuantityTotal(orderItems: any[]): number {

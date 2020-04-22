@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { Order, Status } from '../../models/order.model';
 import { PaymentType, Type } from '../../models/product.model';
@@ -7,7 +7,8 @@ import { ClickableActionType } from '../clickable-action/clickable-action.model'
 @Component({
   selector: 'rr-shop-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss']
+  styleUrls: ['./order.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderComponent implements OnInit {
   @Input()

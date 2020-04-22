@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
+import { AdminCallState, AdminCall } from '../models/admin-component.models';
 
 /**
  * It's not following any of the best practices but I wrote this Admin in 1 hour :)
@@ -12,26 +13,104 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AdminBaseComponent {
-  public data: any;
-  public isLoading = false;
-  public isError = false;
+  public readonly AdminCallState = AdminCallState;
 
-  public constructor(protected http: HttpClient, protected route: ActivatedRoute) {}
+  public constructor(
+    protected http: HttpClient,
+    protected route: ActivatedRoute,
+    protected changeDetectorRef: ChangeDetectorRef
+  ) {}
 
-  protected load(path): void {
-    this.isLoading = true;
-    this.isError = false;
+  protected getAdminCall<T>(): AdminCall<T> {
+    return {
+      adminCallState: AdminCallState.Initial,
+      data: null,
+      errorDetails: null
+    };
+  }
+
+  protected get<T>(adminCall: AdminCall<T>, path: string): void {
+    adminCall.adminCallState = AdminCallState.Request;
+    adminCall.errorDetails = null;
     this.http
-      .get<any>(`${environment.urlApi}admin/${path}`)
+      .get<T>(`${environment.urlApi}admin/${path}`)
       .pipe(
         tap(
-          (data: any): void => {
-            this.isLoading = false;
-            this.data = data;
+          (data: T): void => {
+            adminCall.adminCallState = AdminCallState.Success;
+            adminCall.data = data;
+            this.changeDetectorRef.markForCheck();
           },
           (error: any): void => {
-            this.isLoading = false;
-            this.isError = true;
+            adminCall.adminCallState = AdminCallState.Failure;
+            adminCall.errorDetails = error && error.error ? error.error : null;
+            this.changeDetectorRef.markForCheck();
+          }
+        )
+      )
+      .subscribe();
+  }
+
+  protected post<T, U>(adminCall: AdminCall<T>, path: string, body: U): void {
+    adminCall.adminCallState = AdminCallState.Request;
+    adminCall.errorDetails = null;
+    this.http
+      .post<T>(`${environment.urlApi}admin/${path}`, body)
+      .pipe(
+        tap(
+          (data: T): void => {
+            adminCall.adminCallState = AdminCallState.Success;
+            adminCall.data = data;
+            this.changeDetectorRef.markForCheck();
+          },
+          (error: any): void => {
+            adminCall.adminCallState = AdminCallState.Failure;
+            adminCall.errorDetails = error && error.error ? error.error : null;
+            this.changeDetectorRef.markForCheck();
+          }
+        )
+      )
+      .subscribe();
+  }
+
+  protected patch<T, U>(adminCall: AdminCall<T>, path: string, body: U): void {
+    adminCall.adminCallState = AdminCallState.Request;
+    adminCall.errorDetails = null;
+    this.http
+      .patch<T>(`${environment.urlApi}admin/${path}`, body)
+      .pipe(
+        tap(
+          (data: T): void => {
+            adminCall.adminCallState = AdminCallState.Success;
+            adminCall.data = data;
+            this.changeDetectorRef.markForCheck();
+          },
+          (error: any): void => {
+            adminCall.adminCallState = AdminCallState.Failure;
+            adminCall.errorDetails = error && error.error ? error.error : null;
+            this.changeDetectorRef.markForCheck();
+          }
+        )
+      )
+      .subscribe();
+  }
+
+  protected delete<T>(adminCall: AdminCall<T>, path: string): void {
+    adminCall.adminCallState = AdminCallState.Request;
+    adminCall.errorDetails = null;
+    this.http
+      .delete<T>(`${environment.urlApi}admin/${path}`)
+      .pipe(
+        tap(
+          (data: T): void => {
+            adminCall.adminCallState = AdminCallState.Success;
+            adminCall.data = data;
+            this.changeDetectorRef.markForCheck();
+          },
+          (error: any): void => {
+            adminCall.adminCallState = AdminCallState.Failure;
+            adminCall.errorDetails = error && error.error ? error.error : null;
+            this.changeDetectorRef.markForCheck();
           }
         )
       )

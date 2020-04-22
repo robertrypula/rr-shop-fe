@@ -2,11 +2,20 @@
 
 <h2>Admin / lista zamówień</h2>
 
-<span *ngIf="isLoading">Wczytywanie listy...</span>
-<span *ngIf="isError">Błąd podczas ładowania listy</span>
+<div class="margin-bottom">
+  <rr-shop-clickable-action (actionClick)="refresh()" label="'Odśwież'"></rr-shop-clickable-action>
+</div>
 
-<div *ngIf="data">
-  <table>
+<div class="margin-bottom">
+  <div *ngIf="orders?.adminCallState === AdminCallState.Request">Wczytywanie zamówień...</div>
+  <div *ngIf="orders?.adminCallState === AdminCallState.Failure">
+    Błąd podczas ładowania listy zamówień
+    <pre>{{ orders?.errorDetails | json }}</pre>
+  </div>
+</div>
+
+<div *ngIf="orders?.data as d">
+  <table class="u-compact-table">
     <tr>
       <th>Numer</th>
       <th>Data utworzenia</th>
@@ -15,14 +24,14 @@
       <th>Email</th>
     </tr>
     <tr
-      *ngFor="let item of data"
+      *ngFor="let item of d"
       [ngClass]="{
-        'tr-orange':
+        'u-orange':
           item?.status === Status.Shipped ||
           item?.status === Status.ReadyForPickup ||
           item?.status === Status.PaymentCompleted,
-        'tr-green': item?.status === Status.Completed,
-        'tr-red': item?.status === Status.Canceled
+        'u-green': item?.status === Status.Completed,
+        'u-red': item?.status === Status.Canceled
       }"
     >
       <td>

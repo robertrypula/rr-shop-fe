@@ -1,0 +1,41 @@
+@import 'configs-and-mixins';
+
+table.u-compact-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  th,
+  td {
+    padding: 2px 3px;
+    border: 1px solid $border-color;
+    vertical-align: top;
+    text-align: left;
+    font-size: 12px;
+    font-family: Calibri, serif;
+    line-height: 1em;
+  }
+
+  th,
+  td,
+  tr {
+    &.u-green {
+      background-color: #8fff66;
+    }
+    &.u-orange {
+      background-color: #ff9c66;
+    }
+    &.u-red {
+      background-color: #ff6666;
+    }
+    &.u-gray {
+      background-color: #e2e2e2;
+    }
+    &.u-monospace {
+      font-family: monospace;
+    }
+    &.u-right {
+      text-align: right;
+    }
+  }
+}

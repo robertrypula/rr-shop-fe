@@ -1,37 +1,43 @@
 <rr-shop-admin-menu></rr-shop-admin-menu>
 
-<h2>Admin / zamówienie / {{ data?.number }}</h2>
+<h2>Admin / zamówienie / {{ order?.data?.number }}</h2>
 
-<div style="margin-bottom: 16px">
-  <span *ngIf="isLoading">Wczytywanie zamówienia...</span>
-  <span *ngIf="isError">Błąd podczas ładowania zamówienia</span>
+<div class="margin-bottom">
+  <rr-shop-clickable-action (actionClick)="refresh()" label="'Odśwież'"></rr-shop-clickable-action>
 </div>
 
-<div *ngIf="errorPatch" style="margin-bottom: 8px">
-  {{ errorPatch?.error?.errorMessage | json }}
+<div class="margin-bottom">
+  <div *ngIf="order?.adminCallState === AdminCallState.Request">Wczytywanie zamówienia...</div>
+  <div *ngIf="order?.adminCallState === AdminCallState.Failure">
+    Błąd podczas ładowania zamówienia
+    <pre>{{ order?.errorDetails | json }}</pre>
+  </div>
 </div>
 
-<div style="margin-bottom: 16px">
+<div class="margin-bottom">
   <button (click)="setStatus(Status.PaymentWait)">Opłacono</button>
-
   <button (click)="setStatus(Status.PaymentCompleted)">Płatność zakończona</button>
-
   <button (click)="setStatus(Status.ReadyForPickup)">Gotowe do odbioru</button>
-
   <button (click)="setStatus(Status.Shipped)">Wysłano</button>
-
   <button (click)="setStatus(Status.Completed)">Zakończono</button>
-
   <button (click)="setStatus(Status.Canceled)">Anulowano</button>
 </div>
 
-<div style="margin-bottom: 16px">
-  Aktualny status: <strong>{{ data.status }}</strong>
+<div class="margin-bottom">
+  <div *ngIf="orderStatus?.adminCallState === AdminCallState.Request">Zmiana statusu</div>
+  <div *ngIf="orderStatus?.adminCallState === AdminCallState.Failure">
+    Błąd podczas zmiany statusu
+    <pre>{{ orderStatus?.errorDetails | json }}</pre>
+  </div>
 </div>
 
-<div *ngIf="data?.orderItems" style="margin-bottom: 16px;">
+<div class="margin-bottom">
+  Aktualny status: <strong>{{ order?.data?.status }}</strong>
+</div>
+
+<div *ngIf="order?.data?.orderItems as orderItems" class="margin-bottom">
   <table>
-    <tr *ngFor="let item of data.orderItems">
+    <tr *ngFor="let item of orderItems">
       <td>
         {{ item.name }}
       </td>
@@ -40,6 +46,6 @@
   </table>
 </div>
 
-<div *ngIf="data">
-  <pre style="font-size: 11px; line-height: 1.2em">{{ data | json }}</pre>
+<div *ngIf="order?.data as d" class="margin-bottom">
+  <pre class="u-formatted-json">{{ d | json }}</pre>
 </div>

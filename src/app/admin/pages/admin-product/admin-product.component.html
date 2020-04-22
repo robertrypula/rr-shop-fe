@@ -1,10 +1,19 @@
 <rr-shop-admin-menu></rr-shop-admin-menu>
 
-<h2>Admin / produkt / {{ data?.name }}</h2>
+<h2>Admin / produkt / {{ product?.data?.name }}</h2>
 
-<span *ngIf="isLoading">Wczytywanie produktu...</span>
-<span *ngIf="isError">Błąd podczas ładowania produktu</span>
+<div class="margin-bottom">
+  <rr-shop-clickable-action (actionClick)="refresh()" label="'Odśwież'"></rr-shop-clickable-action>
+</div>
 
-<div *ngIf="data">
-  <pre style="font-size: 11px; line-height: 1.2em">{{ data | json }}</pre>
+<div class="margin-bottom">
+  <div *ngIf="product?.adminCallState === AdminCallState.Request">Wczytywanie produktu...</div>
+  <div *ngIf="product?.adminCallState === AdminCallState.Failure">
+    Błąd podczas ładowania produktu
+    <pre>{{ product?.errorDetails | json }}</pre>
+  </div>
+</div>
+
+<div *ngIf="product?.data as d">
+  <pre class="u-formatted-json">{{ d | json }}</pre>
 </div>

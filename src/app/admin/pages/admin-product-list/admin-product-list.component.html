@@ -2,11 +2,20 @@
 
 <h2>Admin / lista produktów</h2>
 
-<span *ngIf="isLoading">Wczytywanie listy...</span>
-<span *ngIf="isError">Błąd podczas ładowania listy</span>
+<div class="margin-bottom">
+  <rr-shop-clickable-action (actionClick)="refresh()" label="'Odśwież'"></rr-shop-clickable-action>
+</div>
 
-<div *ngIf="data">
-  <table>
+<div class="margin-bottom">
+  <div *ngIf="products?.adminCallState === AdminCallState.Request">Wczytywanie produktów...</div>
+  <div *ngIf="products?.adminCallState === AdminCallState.Failure">
+    Błąd podczas ładowania listy produktów
+    <pre>{{ products?.errorDetails | json }}</pre>
+  </div>
+</div>
+
+<div *ngIf="products?.data as d">
+  <table class="u-compact-table">
     <tr>
       <th>Lp.</th>
       <th>Nazwa</th>
@@ -19,33 +28,33 @@
       <th>Widoczność</th>
     </tr>
     <tr
-      *ngFor="let item of data"
+      *ngFor="let item of d"
       [ngClass]="{
-        active: item?.orderItems?.length > 0,
-        'is-hidden': item?.isHidden
+        'u-green': item?.orderItems?.length > 0,
+        'u-gray': item?.isHidden
       }"
     >
-      <td class="td-right">{{ item.externalId }}</td>
+      <td class="u-right">{{ item.externalId }}</td>
       <td>
         <a [routerLink]="[item.id]">{{ item.name }}</a>
       </td>
-      <td class="td-monospace">
+      <td class="u-monospace">
         {{ item?.nameCashRegister }}
       </td>
       <td>
         {{ item?.manufacturer?.name }}
       </td>
 
-      <td class="td-right" title="Sztuki z dostaw nie oznaczone jako niedostępne (od początku działalności)">
+      <td class="u-right" title="Sztuki z dostaw nie oznaczone jako niedostępne (od początku działalności)">
         {{ item?.supplies?.length }}
       </td>
-      <td class="td-right" title="Sztuki z zamówień różnych od Anulowane (od początku działalności)">
+      <td class="u-right" title="Sztuki z zamówień różnych od Anulowane (od początku działalności)">
         {{ getOrderItemsQuantityTotal(item?.orderItems) }}
       </td>
-      <td class="td-right" title="Stan widoczny dla klienta na stronie">
+      <td class="u-right" title="Stan widoczny dla klienta na stronie" [ngClass]="{ 'u-red': item?.quantity <= 0 }">
         <b>{{ item?.quantity }}</b>
       </td>
-      <td class="td-right">
+      <td class="u-right">
         {{ item?.priceUnit | price }}
       </td>
       <td>

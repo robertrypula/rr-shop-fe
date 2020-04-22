@@ -72,18 +72,12 @@
         </div>
         <div class="PotentialOrder-summaryPriceDelivery">
           Dostawa:
-          <span *ngIf="(potentialOrder$ | async)?.promoCode" class="PotentialOrder-originalPrice">
-            {{ (potentialOrder$ | async)?.getPriceTotalOriginal([Type.Delivery]) | price }}
-          </span>
           <span>
             {{ (potentialOrder$ | async)?.getPriceTotalSelling([Type.Delivery]) | price }}
           </span>
         </div>
         <div class="PotentialOrder-summaryPricePayment">
           Płatność:
-          <span *ngIf="(potentialOrder$ | async)?.promoCode" class="PotentialOrder-originalPrice">
-            {{ (potentialOrder$ | async)?.getPriceTotalOriginal([Type.Payment]) | price }}
-          </span>
           <span>
             {{ (potentialOrder$ | async)?.getPriceTotalSelling([Type.Payment]) | price }}
           </span>

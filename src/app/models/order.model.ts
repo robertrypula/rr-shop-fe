@@ -3,6 +3,7 @@ import { OrderItem, OrderItemStore } from './order-item.model';
 import { getNormalizedPrice } from '../utils/math.utils';
 import { DeliveryType, PaymentType, Type } from './product.model';
 import { Payment, PaymentStore } from './payment.model';
+import { POTENTIAL_ORDER_UUID } from '../store/reducers/order.reducers';
 
 export enum Status {
   PaymentWait = 'PaymentWait',
@@ -214,6 +215,10 @@ export class Order implements OrderStore {
 
   public isExistingOrderPaymentVisible(): boolean {
     return this.status === Status.PaymentWait;
+  }
+
+  public isStoredOnTheBackend(): boolean {
+    return this.uuid !== POTENTIAL_ORDER_UUID;
   }
 
   public getOrderItemsByType(types: Type[]): OrderItem[] {

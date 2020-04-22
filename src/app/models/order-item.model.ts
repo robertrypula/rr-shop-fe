@@ -81,7 +81,7 @@ export class OrderItem implements OrderItemStore {
   }
 
   public getPriceUnitOriginal(): number {
-    return this.isPriceUnitOriginalComingFromTheBackend()
+    return this.order && this.order.isStoredOnTheBackend()
       ? this.priceUnitOriginal
       : this.productStore
       ? this.productStore.priceUnit
@@ -89,13 +89,10 @@ export class OrderItem implements OrderItemStore {
   }
 
   public getPriceUnitSelling(): number {
-    return this.isPriceUnitSellingComingFromTheBackend()
+    return this.order && this.order.isStoredOnTheBackend()
       ? this.priceUnitSelling
       : this.productStore
-      ? getNormalizedPrice(
-          this.productStore.priceUnit *
-            (this.order && this.order.promoCode ? this.order.promoCode.getDiscountMultiplier() : 1)
-        )
+      ? getNormalizedPrice(this.productStore.priceUnit * this.getPromoCodeDiscountMultiplier())
       : 0;
   }
 
@@ -105,17 +102,15 @@ export class OrderItem implements OrderItemStore {
     return this;
   }
 
-  protected isPriceUnitOriginalComingFromTheBackend(): boolean {
-    // TODO look at uuid of the order - if it's not -1 when is order from backend
-    return !!this.priceUnitOriginal || this.priceUnitOriginal === 0;
-  }
-
-  protected isPriceUnitSellingComingFromTheBackend(): boolean {
-    // TODO look at uuid of the order - if it's not -1 when is order from backend
-    return !!this.priceUnitSelling || this.priceUnitSelling === 0;
-  }
-
   protected getProductQuantity(): number {
     return this.productStore ? this.productStore.quantity : 0;
+  }
+
+  protected getPromoCodeDiscountMultiplier(): number {
+    if (this.type === Type.Product && this.order && this.order.promoCode) {
+      return this.order.promoCode.getDiscountMultiplier();
+    }
+
+    return 1;
   }
 }

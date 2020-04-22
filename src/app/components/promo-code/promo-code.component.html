@@ -51,7 +51,7 @@
   <div *ngIf="(potentialOrder$ | async)?.promoCode" class="PromoCode-success">
     <div>
       Kod <b>'{{ (potentialOrder$ | async).promoCode.name }}'</b> daje
-      {{ (potentialOrder$ | async).promoCode.percentageDiscount }}% zniżki na każdą cenę jednostkową
+      {{ (potentialOrder$ | async).promoCode.percentageDiscount }}% zniżki na ceny jednostkowe produktów
     </div>
     <rr-shop-clickable-action
       (actionClick)="promoCodeReset()"

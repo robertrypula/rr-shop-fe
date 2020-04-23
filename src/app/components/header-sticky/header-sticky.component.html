@@ -23,7 +23,7 @@
               [clickableActionTheme]="ClickableActionTheme.Primary"
               [clickableActionType]="ClickableActionType.RouterLink"
               [link]="'/potential-order'"
-              [iconType]="IconType.FasShoppingBasket"
+              [iconType]="IconType.CustomBasket"
               [label]="'Twój koszyk'"
               [number]="(potentialOrder$ | async)?.getQuantityTotal([Type.Product])"
             ></rr-shop-clickable-action>
@@ -33,7 +33,7 @@
             <rr-shop-clickable-action
               [clickableActionTheme]="ClickableActionTheme.Primary"
               [clickableActionType]="ClickableActionType.RouterLink"
-              [iconType]="IconType.FasShoppingBasket"
+              [iconType]="IconType.CustomBasket"
               [link]="'/potential-order'"
               [number]="(potentialOrder$ | async)?.getQuantityTotal([Type.Product])"
             ></rr-shop-clickable-action>

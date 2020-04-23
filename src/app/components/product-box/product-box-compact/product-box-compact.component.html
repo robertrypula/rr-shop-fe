@@ -57,7 +57,7 @@
       *ngIf="product.quantity > 0; else notAvailable"
       (actionClick)="addToOrder(product)"
       [label]="'Do koszyka'"
-      [iconType]="IconType.FasShoppingBasket"
+      [iconType]="IconType.CustomBasket"
     ></rr-shop-clickable-action>
 
     <ng-template #notAvailable>

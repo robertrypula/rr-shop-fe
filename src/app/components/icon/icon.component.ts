@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import { IconName, IconPrefix } from '@fortawesome/fontawesome-common-types';
 
 import { IconType } from './icon.models';
 

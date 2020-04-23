@@ -10,7 +10,7 @@
   [ngSwitch]="clickableActionType"
   class="ClickableAction"
 >
-  <a *ngSwitchCase="ClickableActionType.Anchor" class="ClickableAction-anchor" [href]="link">
+  <a *ngSwitchCase="ClickableActionType.Anchor" class="ClickableAction-anchor" [href]="link" [target]="target">
     <ng-container [ngTemplateOutlet]="content"></ng-container>
   </a>
 
@@ -29,11 +29,9 @@
 </div>
 
 <ng-template #content>
-  <span *ngIf="label" class="ClickableAction-label">
-    {{ label }}
-  </span>
+  <span *ngIf="label" class="ClickableAction-label">{{ label }}</span>
   <span *ngIf="iconType" class="ClickableAction-icon">
-    <rr-shop-icon [iconType]="iconType"></rr-shop-icon>
+    <rr-shop-icon [iconType]="iconType" [width]="24" [height]="24"></rr-shop-icon>
     <span *ngIf="number !== null" class="ClickableAction-number"
       ><b>{{ number }}</b></span
     >

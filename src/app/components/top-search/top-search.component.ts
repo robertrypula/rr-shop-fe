@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClickableActionType } from '../clickable-action/clickable-action.model';
+import { IconType } from '../icon/icon.models';
 
 @Component({
   selector: 'rr-shop-top-search',
@@ -12,6 +13,7 @@ export class TopSearchComponent implements OnInit {
   public query = '';
 
   public readonly ClickableActionType = ClickableActionType;
+  public readonly IconType = IconType;
 
   public constructor(protected router: Router) {}
 

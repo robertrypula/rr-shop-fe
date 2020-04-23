@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 
 import { Image, SizeImage, SizeImageContainer, Transparency } from '../../models/image.model';
 import { ClickableActionTheme } from '../clickable-action/clickable-action.model';
+import { IconType } from '../icon/icon.models';
 
 @Component({
   selector: 'rr-shop-image',
@@ -25,6 +26,7 @@ export class ImageComponent implements OnInit {
   public position = 0;
 
   public readonly ClickableActionTheme = ClickableActionTheme;
+  public readonly IconType = IconType;
   public readonly SizeImage = SizeImage;
   public readonly SizeImageContainer = SizeImageContainer;
   public readonly Transparency = Transparency;

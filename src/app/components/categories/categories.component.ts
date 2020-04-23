@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ClickableActionTheme } from '../clickable-action/clickable-action.model';
 import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { CategoryFacadeService } from '../../store/facades/category-facade.service';
+import { IconType } from '../icon/icon.models';
 
 @Component({
   selector: 'rr-shop-categories',
@@ -20,6 +21,7 @@ export class CategoriesComponent implements OnInit {
   public isListCollapsed$: Observable<boolean> = this.categoryFacadeService.isListCollapsed$;
 
   public readonly ClickableActionTheme = ClickableActionTheme;
+  public readonly IconType = IconType;
 
   public constructor(protected categoryFacadeService: CategoryFacadeService) {}
 

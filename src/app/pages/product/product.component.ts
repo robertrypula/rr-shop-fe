@@ -6,6 +6,7 @@ import { OrderService } from '../../services/order.service';
 import { SizeImage, SizeImageContainer } from '../../models/image.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { ProductFacadeService } from '../../store/facades/product-facade.service';
+import { IconType } from '../../components/icon/icon.models';
 
 @Component({
   selector: 'rr-shop-product',
@@ -16,6 +17,7 @@ import { ProductFacadeService } from '../../store/facades/product-facade.service
 export class ProductComponent implements OnInit {
   public activeProduct$: Observable<Product> = this.productFacadeService.activeProduct$;
 
+  public readonly IconType = IconType;
   public readonly SizeImage = SizeImage;
   public readonly SizeImageContainer = SizeImageContainer;
 

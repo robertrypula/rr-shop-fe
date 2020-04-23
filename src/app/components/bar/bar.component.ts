@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Bar, BarType } from '../../models/bar.model';
 import { BarService } from '../../services/bar.service';
 import { ClickableActionTheme } from '../clickable-action/clickable-action.model';
+import { IconType } from '../icon/icon.models';
 
 @Component({
   selector: 'rr-shop-bar',
@@ -16,6 +17,7 @@ export class BarComponent implements OnInit {
 
   public readonly BarType = BarType;
   public readonly ClickableActionTheme = ClickableActionTheme;
+  public readonly IconType = IconType;
 
   public constructor(protected barService: BarService) {}
 

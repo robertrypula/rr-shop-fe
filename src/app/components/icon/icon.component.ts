@@ -12,9 +12,6 @@ import { IconType } from './icon.models';
 })
 export class IconComponent {
   @Input()
-  public icon: [IconPrefix, IconName];
-
-  @Input()
   public color = 'inherit';
 
   @Input()

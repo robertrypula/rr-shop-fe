@@ -8,6 +8,7 @@ import { Type } from '../../models/product.model';
 import { ClickableActionTheme } from '../../components/clickable-action/clickable-action.model';
 import { CategoryFacadeService } from '../../store/facades/category-facade.service';
 import { CategoryStore, StructuralNode } from '../../models/category.model';
+import { IconType } from '../../components/icon/icon.models';
 
 @Component({
   selector: 'rr-shop-potential-order',
@@ -24,8 +25,9 @@ export class PotentialOrderComponent implements OnInit {
     StructuralNode.PrivacyPolicy
   );
 
-  public readonly Type = Type;
   public readonly ClickableActionTheme = ClickableActionTheme;
+  public readonly IconType = IconType;
+  public readonly Type = Type;
 
   public constructor(
     protected categoryFacadeService: CategoryFacadeService,

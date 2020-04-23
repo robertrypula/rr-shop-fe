@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { Product } from '../../../models/product.model';
 import { ClickableActionTheme } from '../../clickable-action/clickable-action.model';
 import { OrderFacadeService } from '../../../store/facades/order-facade.service';
+import { IconType } from '../../icon/icon.models';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,7 +16,8 @@ export class DeliveryOverviewItemComponent implements OnInit {
   @Input()
   public product: Product;
 
-  public ClickableActionTheme = ClickableActionTheme;
+  public readonly ClickableActionTheme = ClickableActionTheme;
+  public readonly IconType = IconType;
 
   public constructor(protected orderFacadeService: OrderFacadeService) {}
 

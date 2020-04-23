@@ -7,6 +7,7 @@ import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
 import { ApiCall } from '../../models/page.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { Order } from '../../models/order.model';
+import { IconType } from '../icon/icon.models';
 
 @Component({
   selector: 'rr-shop-promo-code',
@@ -24,6 +25,8 @@ export class PromoCodeComponent implements OnInit, OnDestroy {
   public promoCodeSubmitted = false;
 
   public readonly ApiCall = ApiCall;
+  public readonly IconType = IconType;
+
   public readonly fieldMaxLength = 12;
 
   protected unsubscribe$ = new Subject<void>();

@@ -4,6 +4,7 @@ import { OrderService } from '../../../services/order.service';
 import { SizeImage, SizeImageContainer } from '../../../models/image.model';
 import { OrderFacadeService } from '../../../store/facades/order-facade.service';
 import { OrderItem } from '../../../models/order-item.model';
+import { IconType } from '../../icon/icon.models';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,6 +19,7 @@ export class OrderItemOverviewComponent implements OnInit {
 
   public readonly SizeImage = SizeImage;
   public readonly SizeImageContainer = SizeImageContainer;
+  public readonly IconType = IconType;
 
   public constructor(protected orderFacadeService: OrderFacadeService, protected orderService: OrderService) {}
 

@@ -1,5 +1,5 @@
-import { StructuralNode } from '../models/category.model';
-import { Device } from '../models/viewport.model';
+import { StructuralNode } from './models/category.model';
+import { Device } from './models/viewport.model';
 
 export const CURRENCY = 'zł'; // TODO make it dynamic in future
 export const CLOUD_HIDE_DELAY = 2000;

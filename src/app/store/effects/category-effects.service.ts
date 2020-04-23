@@ -12,7 +12,7 @@ import { CategoryFacadeService } from '../facades/category-facade.service';
 import { RouterFacadeService } from '../facades/router-facade.service';
 import { setDevice } from '../actions/viewport.actions';
 import { ViewportFacadeService } from '../facades/viewport-facade.service';
-import { SMALL_DEVICE_DEFINITION } from '../../config/config';
+import { SMALL_DEVICE_DEFINITION } from '../../config';
 
 /*
   https://www.freecodecamp.org/news/best-practices-for-a-clean-and-performant-angular-application-288e7b39eb6f/

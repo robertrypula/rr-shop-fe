@@ -1,5 +1,5 @@
 import { CategoryStore, StructuralNode } from '../../models/category.model';
-import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../../config/config';
+import { BREADCRUMBS_STRUCTURAL_NODES_LIMIT } from '../../config';
 
 export const findChildren = (categoriesStore: CategoryStore[], parentId: number, result: CategoryStore[]): void => {
   const children: CategoryStore[] = categoriesStore.filter(

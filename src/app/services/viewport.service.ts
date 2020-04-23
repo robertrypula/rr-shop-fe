@@ -15,7 +15,7 @@ import {
   HEADER_FIXED_MOBILE_THRESHOLD,
   HEADER_FIXED_MOBILE_VERTICAL_THRESHOLD,
   HEADER_FIXED_TABLET_THRESHOLD
-} from '../config/config';
+} from '../config';
 import { ViewportFacadeService } from '../store/facades/viewport-facade.service';
 
 @Injectable({

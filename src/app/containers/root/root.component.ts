@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
-import { ViewportService } from './services/viewport.service';
+import { ViewportService } from '../../services/viewport.service';
 import { Observable } from 'rxjs';
-import { PageFacadeService } from './store/facades/page-facade.service';
+import { PageFacadeService } from '../../store/facades/page-facade.service';
 
 @Component({
   selector: 'rr-shop-root',

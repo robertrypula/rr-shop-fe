@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-common-types';
-import { SizeProp } from '@fortawesome/fontawesome-svg-core';
+
 import { ClickableActionTheme, ClickableActionType } from './clickable-action.model';
 
 @Component({
@@ -14,7 +14,6 @@ export class ClickableActionComponent implements OnInit {
   @Input() public clickableActionType: ClickableActionType = ClickableActionType.Button;
   @Input() public disabled = false;
   @Input() public icon: [IconPrefix, IconName] = null;
-  @Input() public iconSize: SizeProp = 'lg';
   @Input() public label: string = null;
   @Input() public link: string = null;
   @Input() public number: number = null;

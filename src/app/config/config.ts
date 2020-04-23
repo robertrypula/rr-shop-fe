@@ -9,16 +9,18 @@ export const H1_TEXT = 'Waleriana.pl - Twoja zielarnia';
 
 export const MAIN_PAGE_PRODUCTS_IN_SECTION_LIMIT = 8;
 
-export const GRID_MOBILE = 390;
+export const GRID_MOBILE = 500;
 export const GRID_TABLET = 768;
 export const GRID_DESKTOP_MEDIUM = 992;
 export const GRID_DESKTOP_LARGE = 1200;
+export const GRID_DESKTOP_EXTRA_LARGE = 1700;
 
 export const HEADER_FIXED_MOBILE_VERTICAL_THRESHOLD = 184;
 export const HEADER_FIXED_MOBILE_THRESHOLD = 210;
 export const HEADER_FIXED_TABLET_THRESHOLD = 155;
 export const HEADER_FIXED_DESKTOP_MEDIUM_THRESHOLD = 170;
 export const HEADER_FIXED_DESKTOP_LARGE_THRESHOLD = 170;
+export const HEADER_FIXED_DESKTOP_EXTRA_LARGE_THRESHOLD = 170;
 
 export const BREADCRUMBS_STRUCTURAL_NODES_LIMIT = [
   StructuralNode.Footer,

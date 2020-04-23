@@ -3,7 +3,8 @@ export enum Device {
   Mobile = 'Mobile',
   Tablet = 'Tablet',
   DesktopMedium = 'DesktopMedium',
-  DesktopLarge = 'DesktopLarge'
+  DesktopLarge = 'DesktopLarge',
+  DesktopExtraLarge = 'DesktopExtraLarge'
 }
 
 export interface ViewportStatus {

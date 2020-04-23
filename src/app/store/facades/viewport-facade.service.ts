@@ -18,7 +18,6 @@ export class ViewportFacadeService {
   public isScrolledDownThatHeaderIsNotVisible$: Observable<boolean> = this.store.pipe(
     select(fromViewportSelectors.selectIsScrolledDownThatHeaderIsNotVisible)
   );
-  public isSmallDevice$: Observable<boolean> = this.store.pipe(select(fromViewportSelectors.selectIsSmallDevice));
 
   public constructor(protected store: Store<State>) {}
 

@@ -4,10 +4,12 @@ import { distinctUntilChanged, tap } from 'rxjs/operators';
 
 import { Device, ViewportStatus } from '../models/viewport.model';
 import {
+  GRID_DESKTOP_EXTRA_LARGE,
   GRID_DESKTOP_LARGE,
   GRID_DESKTOP_MEDIUM,
   GRID_MOBILE,
   GRID_TABLET,
+  HEADER_FIXED_DESKTOP_EXTRA_LARGE_THRESHOLD,
   HEADER_FIXED_DESKTOP_LARGE_THRESHOLD,
   HEADER_FIXED_DESKTOP_MEDIUM_THRESHOLD,
   HEADER_FIXED_MOBILE_THRESHOLD,
@@ -25,7 +27,6 @@ export class ViewportService {
     .getFurtherNavigationIdOnlyAtSmallerDevices$;
   public isScrolledDownThatHeaderIsNotVisible$: Observable<boolean> = this.viewportFacadeService
     .isScrolledDownThatHeaderIsNotVisible$;
-  public isSmallDevice$: Observable<boolean> = this.viewportFacadeService.isSmallDevice$;
   public viewportStatus$: Observable<ViewportStatus>;
 
   protected deviceSubject$: Subject<Device> = new Subject();
@@ -87,8 +88,10 @@ export class ViewportService {
       device = Device.Tablet;
     } else if (width < GRID_DESKTOP_LARGE) {
       device = Device.DesktopMedium;
-    } else {
+    } else if (width < GRID_DESKTOP_EXTRA_LARGE) {
       device = Device.DesktopLarge;
+    } else {
+      device = Device.DesktopExtraLarge;
     }
 
     return device;
@@ -112,6 +115,9 @@ export class ViewportService {
         break;
       case Device.DesktopLarge:
         result = scrollTop > HEADER_FIXED_DESKTOP_LARGE_THRESHOLD;
+        break;
+      case Device.DesktopExtraLarge:
+        result = scrollTop > HEADER_FIXED_DESKTOP_EXTRA_LARGE_THRESHOLD;
         break;
     }
 

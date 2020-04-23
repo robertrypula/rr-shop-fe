@@ -104,13 +104,13 @@
               <rr-shop-clickable-action
                 *ngIf="!(potentialOrder$ | async)?.isLegalConfirmationChecked"
                 [clickableActionTheme]="ClickableActionTheme.TransparentDark"
-                [icon]="['far', 'circle']"
+                [iconType]="IconType.FarCircle"
               ></rr-shop-clickable-action>
 
               <rr-shop-clickable-action
                 *ngIf="(potentialOrder$ | async)?.isLegalConfirmationChecked"
                 [clickableActionTheme]="ClickableActionTheme.TransparentDark"
-                [icon]="['far', 'check-circle']"
+                [iconType]="IconType.FarCheckCircle"
               ></rr-shop-clickable-action>
             </div>
 

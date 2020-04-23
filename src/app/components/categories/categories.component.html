@@ -17,14 +17,14 @@
       *ngIf="isListCollapsed$ | async"
       (actionClick)="onExpandClick()"
       [clickableActionTheme]="ClickableActionTheme.TransparentDark"
-      [icon]="['fas', 'angle-double-down']"
+      [iconType]="IconType.FasAngleDoubleDown"
       [label]="'rozwiń kategorie'"
     ></rr-shop-clickable-action>
     <rr-shop-clickable-action
       *ngIf="!(isListCollapsed$ | async)"
       (actionClick)="onCollapseClick()"
       [clickableActionTheme]="ClickableActionTheme.TransparentDark"
-      [icon]="['fas', 'angle-double-up']"
+      [iconType]="IconType.FasAngleDoubleUp"
       [label]="'zwiń kategorie'"
     ></rr-shop-clickable-action>
   </div>

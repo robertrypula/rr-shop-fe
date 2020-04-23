@@ -5,7 +5,7 @@
     'ClickableAction--secondary': clickableActionTheme === ClickableActionTheme.Secondary,
     'ClickableAction--transparentBright': clickableActionTheme === ClickableActionTheme.TransparentBright,
     'ClickableAction--transparentDark': clickableActionTheme === ClickableActionTheme.TransparentDark,
-    'ClickableAction--iconOnRight': icon && label
+    'ClickableAction--iconOnRight': iconType && label
   }"
   [ngSwitch]="clickableActionType"
   class="ClickableAction"
@@ -32,8 +32,8 @@
   <span *ngIf="label" class="ClickableAction-label">
     {{ label }}
   </span>
-  <span *ngIf="icon" class="ClickableAction-icon">
-    <rr-shop-icon [icon]="icon"></rr-shop-icon>
+  <span *ngIf="iconType" class="ClickableAction-icon">
+    <rr-shop-icon [iconType]="iconType"></rr-shop-icon>
     <span *ngIf="number !== null" class="ClickableAction-number"
       ><b>{{ number }}</b></span
     >

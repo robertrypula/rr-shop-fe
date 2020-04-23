@@ -17,7 +17,7 @@
       />
       <rr-shop-clickable-action
         (actionClick)="promoCodeOnSubmit()"
-        [icon]="['fas', 'percent']"
+        [iconType]="IconType.FasPercent"
         [label]="'Aktywuj'"
       ></rr-shop-clickable-action>
     </div>
@@ -55,7 +55,7 @@
     </div>
     <rr-shop-clickable-action
       (actionClick)="promoCodeReset()"
-      [icon]="['far', 'trash-alt']"
+      [iconType]="IconType.FarTrashAlt"
       [label]="'Zrezygnuj z kodu'"
     ></rr-shop-clickable-action>
   </div>

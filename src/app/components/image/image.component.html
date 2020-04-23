@@ -28,7 +28,7 @@
     *ngIf="slider && images?.length > 1"
     (actionClick)="onLeftClick()"
     [clickableActionTheme]="ClickableActionTheme.TransparentDark"
-    [icon]="['fas', 'arrow-circle-left']"
+    [iconType]="IconType.FasArrowCircleLeft"
     class="Image-left"
   ></rr-shop-clickable-action>
 
@@ -36,7 +36,7 @@
     *ngIf="slider && images?.length > 1"
     (actionClick)="onRightClick()"
     [clickableActionTheme]="ClickableActionTheme.TransparentDark"
-    [icon]="['fas', 'arrow-circle-right']"
+    [iconType]="IconType.FasArrowCircleRight"
     class="Image-right"
   ></rr-shop-clickable-action>
 </div>

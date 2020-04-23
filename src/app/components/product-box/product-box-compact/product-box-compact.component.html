@@ -22,17 +22,17 @@
         <rr-shop-clickable-action
           *ngIf="!product.orderItem.isQuantityDecrementActive()"
           (actionClick)="remove(product.orderItem.id)"
-          [icon]="['far', 'trash-alt']"
+          [iconType]="IconType.FarTrashAlt"
         ></rr-shop-clickable-action>
         <rr-shop-clickable-action
           *ngIf="product.orderItem.isQuantityDecrementActive()"
           (actionClick)="quantityDecrement(product.orderItem.id)"
-          [icon]="['fas', 'minus']"
+          [iconType]="IconType.FasMinus"
         ></rr-shop-clickable-action>
         <rr-shop-clickable-action
           (actionClick)="quantityIncrement(product.orderItem.id)"
           [disabled]="!product.orderItem.isQuantityIncrementActive()"
-          [icon]="['fas', 'plus']"
+          [iconType]="IconType.FasPlus"
         ></rr-shop-clickable-action>
       </div>
     </div>
@@ -57,7 +57,7 @@
       *ngIf="product.quantity > 0; else notAvailable"
       (actionClick)="addToOrder(product)"
       [label]="'Do koszyka'"
-      [icon]="['fas', 'shopping-basket']"
+      [iconType]="IconType.FasShoppingBasket"
     ></rr-shop-clickable-action>
 
     <ng-template #notAvailable>

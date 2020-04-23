@@ -34,13 +34,15 @@ export class AdminOrderComponent extends AdminBaseComponent implements OnInit {
   }
 
   public setStatus(status: Status): void {
-    this.patch(this.orderStatus, `order/${this.route.snapshot.paramMap.get('id')}`, { status })
-      .pipe(
-        tap(() => {
-          this.refresh();
-        })
-      )
-      .subscribe();
+    if (confirm('Czy na pewno?')) {
+      this.patch(this.orderStatus, `order/${this.route.snapshot.paramMap.get('id')}`, { status })
+        .pipe(
+          tap(() => {
+            this.refresh();
+          })
+        )
+        .subscribe();
+    }
   }
 
   public supplyOrderItemAttach(supplyId: number, orderItemId: number): void {

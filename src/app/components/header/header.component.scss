@@ -1,49 +1,4 @@
 @import 'configs-and-mixins';
 
 .Header {
-  background-color: $primary-background-color;
-
-  .Header-logo {
-    a {
-      $logo-width: 355px;
-      $logo-height: 140px;
-      $logo-smaller-width: $min-viewport-width - 2 * $gutter-width;
-      $logo-smaller-height: round($logo-smaller-width * ($logo-height / $logo-width));
-
-      margin: 15px auto 0 auto;
-      width: $logo-smaller-width;
-      height: $logo-smaller-height;
-
-      @include viewport-phone-and-up {
-        width: $logo-width;
-        height: $logo-height;
-      }
-      @include viewport-desktop-medium-and-up {
-        margin: 20px 0 0 0;
-      }
-    }
-    h1 {
-      background: url('../../../assets/logo-v2.png') no-repeat top left;
-      background-size: 100% 100%;
-      overflow: hidden;
-      text-indent: -99em;
-      width: 100%;
-      height: 100%;
-    }
-    a,
-    h1 {
-      display: block;
-    }
-  }
-
-  h1.v2 {
-    background-image: url('../../../assets/logo.png') !important;
-  }
-
-  .Header-headerImage {
-    // background: url('../../../assets/header-image.png') no-repeat top left;
-    float: right;
-    width: 480px;
-    height: 170px;
-  }
 }

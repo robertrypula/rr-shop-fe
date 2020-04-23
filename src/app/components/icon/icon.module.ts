@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faCheckCircle as farCheckCircle,
@@ -25,7 +26,7 @@ import { IconComponent } from './icon.component';
 @NgModule({
   declarations: [IconComponent],
   exports: [IconComponent],
-  imports: [FontAwesomeModule]
+  imports: [FontAwesomeModule, CommonModule]
 })
 export class IconModule {
   public constructor(library: FaIconLibrary) {

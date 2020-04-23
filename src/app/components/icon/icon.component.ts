@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-common-types';
+
+import { IconType } from './icon.models';
 
 @Component({
   selector: 'rr-shop-icon',
@@ -8,11 +10,21 @@ import { IconName, IconPrefix } from '@fortawesome/fontawesome-common-types';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class IconComponent implements OnInit {
+export class IconComponent {
   @Input()
   public icon: [IconPrefix, IconName];
 
-  public constructor() {}
+  @Input()
+  public color = 'inherit';
 
-  public ngOnInit(): void {}
+  @Input()
+  public width = 64;
+
+  @Input()
+  public height = 64;
+
+  @Input()
+  public iconType: IconType;
+
+  public readonly IconType = IconType;
 }

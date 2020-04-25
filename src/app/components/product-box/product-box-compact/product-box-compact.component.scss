@@ -1,9 +1,9 @@
 @import 'configs-and-mixins';
 
 .ProductBoxCompact {
-  padding-top: 16px;
-  padding-bottom: 16px;
-  margin-bottom: 36px;
+  padding-top: $gutter-width;
+  padding-bottom: $gutter-width;
+  margin-bottom: 2 * $gutter-width;
   text-align: center;
   border: 1px solid $light-gray-color;
   border-radius: 20px;
@@ -42,7 +42,7 @@
     font-size: 20px;
     color: $product-box-price-color;
     font-weight: bold;
-    padding: 16px 0;
+    padding: $gutter-width 0;
   }
 
   .ProductBoxCompact-alreadyInBasketQuantity {

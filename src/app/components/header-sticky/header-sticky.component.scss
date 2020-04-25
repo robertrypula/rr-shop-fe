@@ -7,19 +7,47 @@
 .HeaderSticky {
   background-color: $primary-background-color;
   outline: 1px solid yellow;
-
-  &.HeaderSticky--active {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.75);
-  }
+  //
+  //&.HeaderSticky--active {
+  //  position: fixed;
+  //  top: 0;
+  //  right: 0;
+  //  left: 0;
+  //  z-index: 1000;
+  //}
 }
 
 .HeaderSticky-content {
   padding-top: $gutter-width;
   padding-bottom: $gutter-width;
   height: 40px + $gutter-width * 2;
+}
+
+.HeaderSticky-phoneVertical {
+  .HeaderSticky-heightPlaceholder {
+    display: none;
+  }
+
+  .HeaderSticky-searchAndBasket {
+    padding: $gutter-width $gutter-width + 50px $gutter-width $gutter-width;
+    position: relative;
+    > * {
+      display: block;
+    }
+    > *:last-child {
+      position: absolute;
+      top: $gutter-width;
+      right: $gutter-width;
+    }
+  }
+
+  .HeaderSticky-menu {
+    border-bottom: 1px solid red;
+    > * {
+      display: block;
+      margin: 0 auto;
+      width: 90%;
+      padding-bottom: $gutter-width;
+    }
+  }
 }

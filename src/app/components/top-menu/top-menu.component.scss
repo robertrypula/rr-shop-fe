@@ -2,7 +2,6 @@
 
 .TopMenu {
   text-align: center;
-  padding-bottom: $gutter-width;
 
   ul,
   li {
@@ -21,13 +20,16 @@
         color: $top-menu-color-active;
       }
     }
-
     padding-top: 12px;
     padding-bottom: 12px;
-    margin: 0 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
 
-    @include viewport-phone-and-up {
-      margin: 0 20px;
+  /*
+  @include viewport-phone-and-up {
+    li {
+      // margin: 0 20px;
     }
   }
 
@@ -35,7 +37,8 @@
     text-align: left;
     padding-bottom: 0;
     li {
-      margin: 0 25px 0 0;
+      // margin: 0 25px 0 0;
     }
   }
+  */
 }

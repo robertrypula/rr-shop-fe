@@ -2,10 +2,11 @@
 
 .TopSearch {
   position: relative;
-  padding-right: 40px;
   min-height: 40px;
 
   .TopSearch-form {
+    border-radius: 20px;
+    padding: 6px 50px 6px 15px;
   }
 
   .TopSearch-button {

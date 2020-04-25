@@ -3,15 +3,11 @@
 .Content {
   .Content-background {
     background-color: $primary-background-color;
-    padding-top: 24px;
+    padding-top: 1 * $gutter-width;
   }
 
-  .Content-categories {
-    margin-bottom: 24px;
-  }
-
+  .Content-categories,
   .Content-main {
-    // min-height: 250px;
-    margin-bottom: 24px;
+    margin-bottom: 2 * $gutter-width;
   }
 }

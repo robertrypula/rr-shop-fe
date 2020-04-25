@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Order } from '../../models/order.model';
@@ -14,6 +14,9 @@ import { Type } from '../../models/product.model';
   styleUrls: ['./top-basket.component.scss']
 })
 export class TopBasketComponent implements OnInit {
+  @Input()
+  public showLabel: boolean;
+
   public potentialOrder$: Observable<Order> = this.orderFacadeService.orderByUuid$(`${POTENTIAL_ORDER_UUID}`);
 
   public readonly ClickableActionTheme = ClickableActionTheme;

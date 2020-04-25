@@ -1,17 +1,27 @@
-<div class="HeaderSticky-content"></div>
-
 <div
   class="HeaderSticky"
   [ngClass]="{
     'HeaderSticky--active': scrolledDownThatHeaderIsNotVisible$ | async
   }"
 >
+  <div class="HeaderSticky-phoneVertical">
+    <div class="HeaderSticky-heightPlaceholder"></div>
+
+    <div class="HeaderSticky-searchAndBasket">
+      <rr-shop-top-search></rr-shop-top-search>
+      <rr-shop-top-basket [showLabel]="false"></rr-shop-top-basket>
+    </div>
+
+    <div class="HeaderSticky-menu">
+      <rr-shop-top-menu></rr-shop-top-menu>
+    </div>
+  </div>
+
+  <!--  <div class="HeaderSticky-phone"></div>-->
+
+  <!--
   <div class="container">
     <div class="row HeaderSticky-content">
-      <div class="col-xxs-12 col-md-4">
-        <rr-shop-top-menu></rr-shop-top-menu>
-      </div>
-
       <div class="col-xxs-12 col-md-4">
         <rr-shop-top-search></rr-shop-top-search>
       </div>
@@ -19,6 +29,11 @@
       <div class="col-xxs-12 col-md-4">
         <rr-shop-top-basket></rr-shop-top-basket>
       </div>
+
+      <div class="col-xxs-12 col-md-4">
+        <rr-shop-top-menu></rr-shop-top-menu>
+      </div>
     </div>
   </div>
+  -->
 </div>

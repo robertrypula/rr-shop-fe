@@ -3,6 +3,12 @@
 .Header {
 }
 
+.Header-logo {
+  > * {
+    display: block;
+  }
+}
+
 .Header-content {
   padding-top: $gutter-width;
   padding-bottom: $gutter-width;

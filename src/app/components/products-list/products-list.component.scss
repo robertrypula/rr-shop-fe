@@ -40,7 +40,7 @@
 }
 
 .ProductsList-2ColumnsRowSeparator {
-  @include viewport-phone-only {
+  @include viewport-phone-horizontal-only {
     display: block;
   }
   @include viewport-tablet-only {

@@ -25,7 +25,9 @@
 
 // --------------------------------------------------
 
-.HeaderSticky-phoneVertical {
+.HeaderSticky-phoneVerticalAndPhoneHorizontal {
+  display: none;
+
   .HeaderSticky-searchAndBasket {
     padding-top: $gutter-width;
     padding-bottom: $gutter-width;
@@ -51,7 +53,7 @@
       padding-right: $gutter-width + 50px;
     }
 
-    @include viewport-phone-only {
+    @include viewport-phone-horizontal-only {
       padding-right: $gutter-width + 175px;
       > *:nth-child(2) {
         opacity: 0;
@@ -64,10 +66,17 @@
     margin: 0 auto;
     width: 90%;
   }
+
+  @include viewport-phone-vertical-only {
+    display: block;
+  }
+  @include viewport-phone-horizontal-only {
+    display: block;
+  }
 }
 
 .HeaderSticky--active {
-  .HeaderSticky-phoneVertical .HeaderSticky-searchAndBasket > *:nth-child(2) {
+  .HeaderSticky-phoneVerticalAndPhoneHorizontal .HeaderSticky-searchAndBasket > *:nth-child(2) {
     position: fixed;
     opacity: 1;
   }

@@ -60,11 +60,11 @@
 }
 // ----------------------------------------------------------------
 
-@include viewport-phone-and-up {
+@include viewport-phone-horizontal-and-up {
   @include generate-cols($container-xs, 'xs');
 }
 
-@include viewport-phone-only {
+@include viewport-phone-horizontal-only {
   @include display('xs');
 }
 

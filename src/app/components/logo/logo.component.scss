@@ -11,7 +11,7 @@
     width: $logo-smaller-width;
     height: $logo-smaller-height;
 
-    @include viewport-phone-and-up {
+    @include viewport-phone-horizontal-and-up {
       width: $logo-width;
       height: $logo-height;
     }

@@ -136,7 +136,7 @@ $screen-max: 100000px;
   }
 }
 
-@mixin viewport-phone-only {
+@mixin viewport-phone-horizontal-only {
   @include viewport-min-max($screen-xs-min, $screen-sm-min) {
     @content;
   }
@@ -172,7 +172,7 @@ $screen-max: 100000px;
   @content;
 }
 
-@mixin viewport-phone-and-up {
+@mixin viewport-phone-horizontal-and-up {
   @include viewport-min-max($screen-xs-min, $screen-max) {
     @content;
   }

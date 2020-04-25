@@ -1,44 +1,23 @@
-<div class="HeaderSticky-container">
-  <div
-    class="HeaderSticky"
-    [ngClass]="{
-      'HeaderSticky--active': scrolledDownThatHeaderIsNotVisible$ | async
-    }"
-  >
-    <div class="container">
-      <div class="row padding-top padding-bottom">
-        <div class="col-xxs-12 col-sm-5 col-md-6">
-          <rr-shop-top-menu></rr-shop-top-menu>
-        </div>
+<div class="HeaderSticky-content"></div>
 
-        <div class="HeaderSticky-topSearchAndOrderButtonsContainer col-xxs-12 col-sm-7 col-md-6">
-          <!-- TODO enable me when implemented -->
-          <div class="HeaderSticky-topSearch">
-            <rr-shop-top-search></rr-shop-top-search>
-          </div>
+<div
+  class="HeaderSticky"
+  [ngClass]="{
+    'HeaderSticky--active': scrolledDownThatHeaderIsNotVisible$ | async
+  }"
+>
+  <div class="container">
+    <div class="row HeaderSticky-content">
+      <div class="col-xxs-12 col-md-4">
+        <rr-shop-top-menu></rr-shop-top-menu>
+      </div>
 
-          <div class="HeaderSticky-orderButtonBig hidden-xxs">
-            <!-- TODO [disabled]="(potentialOrder$ | async)?.isOrderItemsListEmpty([Type.Product])" -->
-            <rr-shop-clickable-action
-              [clickableActionTheme]="ClickableActionTheme.Primary"
-              [clickableActionType]="ClickableActionType.RouterLink"
-              [link]="'/potential-order'"
-              [iconType]="IconType.CustomBasket"
-              [label]="'Twój koszyk'"
-              [number]="(potentialOrder$ | async)?.getQuantityTotal([Type.Product])"
-            ></rr-shop-clickable-action>
-          </div>
-          <div class="HeaderSticky-orderButtonSmall hidden-sm hidden-md hidden-lg hidden-xlg">
-            <!-- TODO [disabled]="(potentialOrder$ | async)?.isOrderItemsListEmpty([Type.Product])" -->
-            <rr-shop-clickable-action
-              [clickableActionTheme]="ClickableActionTheme.Primary"
-              [clickableActionType]="ClickableActionType.RouterLink"
-              [iconType]="IconType.CustomBasket"
-              [link]="'/potential-order'"
-              [number]="(potentialOrder$ | async)?.getQuantityTotal([Type.Product])"
-            ></rr-shop-clickable-action>
-          </div>
-        </div>
+      <div class="col-xxs-12 col-md-4">
+        <rr-shop-top-search></rr-shop-top-search>
+      </div>
+
+      <div class="col-xxs-12 col-md-4">
+        <rr-shop-top-basket></rr-shop-top-basket>
       </div>
     </div>
   </div>

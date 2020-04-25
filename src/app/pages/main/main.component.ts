@@ -6,6 +6,7 @@ import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { ProductFacadeService } from '../../store/facades/product-facade.service';
 import { MAIN_PAGE_PRODUCTS_IN_SECTION_LIMIT } from '../../config';
 import { CategoryFacadeService } from '../../store/facades/category-facade.service';
+import { IconType } from '../../components/icon/icon.models';
 
 @Component({
   selector: 'rr-shop-main',
@@ -29,6 +30,8 @@ export class MainComponent implements OnInit {
     StructuralNode.Promotions,
     MAIN_PAGE_PRODUCTS_IN_SECTION_LIMIT
   );
+
+  public readonly IconType = IconType;
 
   public constructor(
     protected categoryFacadeService: CategoryFacadeService,

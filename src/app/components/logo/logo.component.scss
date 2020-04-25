@@ -7,7 +7,7 @@
     $logo-smaller-width: $min-viewport-width - 2 * $gutter-width;
     $logo-smaller-height: round($logo-smaller-width * ($logo-height / $logo-width));
 
-    margin: 15px auto 0 auto;
+    margin: 0 auto;
     width: $logo-smaller-width;
     height: $logo-smaller-height;
 
@@ -15,8 +15,8 @@
       width: $logo-width;
       height: $logo-height;
     }
-    @include viewport-desktop-medium-and-up {
-      margin: 20px 0 0 0;
+    @include viewport-tablet-and-up {
+      margin: 0;
     }
   }
   h1 {

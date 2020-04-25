@@ -6,87 +6,20 @@
 
 .HeaderSticky {
   background-color: $primary-background-color;
+  outline: 1px solid yellow;
 
-  @include viewport-phone-vertical-only {
-    .HeaderSticky-topSearch {
-      padding-right: 50px;
-    }
-
-    .HeaderSticky-orderButtonSmall {
-      position: absolute;
-      top: 0;
-      right: 15px;
-      transition: box-shadow ease-in-out 500ms;
-    }
-
-    &.HeaderSticky--active {
-      .HeaderSticky-orderButtonSmall {
-        position: fixed;
-        top: 15px;
-        right: 15px;
-        z-index: 1000;
-        box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.75);
-      }
-    }
+  &.HeaderSticky--active {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.75);
   }
+}
 
-  @include viewport-phone-only {
-    .HeaderSticky-topSearch {
-      width: 50%;
-    }
-
-    .HeaderSticky-orderButtonBig,
-    .HeaderSticky-orderButtonSmall {
-      position: absolute;
-      top: 0;
-    }
-    .HeaderSticky-orderButtonBig {
-      right: 15px;
-    }
-    .HeaderSticky-orderButtonSmall {
-      right: 27px;
-      display: none;
-    }
-
-    &.HeaderSticky--active {
-      .HeaderSticky-orderButtonBig {
-        display: none;
-      }
-      .HeaderSticky-orderButtonSmall {
-        position: fixed;
-        top: 15px;
-        z-index: 1000;
-        display: block;
-        box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.75);
-      }
-    }
-  }
-
-  @include viewport-tablet-and-up {
-    .HeaderSticky-topSearchAndOrderButtonsContainer {
-      text-align: right;
-    }
-    .HeaderSticky-topSearch,
-    .HeaderSticky-orderButtonBig {
-      display: inline-block;
-    }
-    .HeaderSticky-topSearch {
-      margin-right: $gutter-width;
-      width: 190px;
-    }
-    &.HeaderSticky--active {
-      position: fixed;
-      top: 0;
-      right: 0;
-      left: 0;
-      z-index: 1000;
-      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
-    }
-  }
-
-  @include viewport-desktop-medium-and-up {
-    .HeaderSticky-topSearch {
-      width: 250px;
-    }
-  }
+.HeaderSticky-content {
+  padding-top: $gutter-width;
+  padding-bottom: $gutter-width;
+  height: 40px + $gutter-width * 2;
 }

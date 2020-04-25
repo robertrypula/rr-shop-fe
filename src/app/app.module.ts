@@ -22,17 +22,19 @@ import { ViewportEffects } from './store/effects/viewport-effects.service';
 
 @NgModule({
   imports: [
+    ...[
+      StoreModule.forRoot(reducers, {
+        metaReducers,
+        runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true }
+      }),
+      EffectsModule.forRoot([CategoryEffects, OrderEffects, ProductsEffects, RouterEffects, ViewportEffects]),
+      StoreRouterConnectingModule.forRoot(routerStateConfig),
+      StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    ],
     AppRoutingModule,
     BrowserModule,
-    EffectsModule.forRoot([CategoryEffects, OrderEffects, ProductsEffects, RouterEffects, ViewportEffects]),
     MarkdownModule.forRoot(),
-    RootModule,
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true }
-    }),
-    StoreRouterConnectingModule.forRoot(routerStateConfig)
+    RootModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [RootComponent]

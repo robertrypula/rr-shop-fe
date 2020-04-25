@@ -26,37 +26,50 @@
 // --------------------------------------------------
 
 .HeaderSticky-phoneVertical {
-  .HeaderSticky-heightPlaceholder {
-    display: none;
-  }
-
   .HeaderSticky-searchAndBasket {
-    padding: $gutter-width $gutter-width + 50px $gutter-width $gutter-width;
+    padding-top: $gutter-width;
+    padding-bottom: $gutter-width;
+    padding-left: $gutter-width;
     position: relative;
     > * {
       display: block;
     }
-    > *:last-child {
+    > *:not(:first-child) {
       position: absolute;
       top: $gutter-width;
       right: $gutter-width;
+      transition: opacity 0.25s;
+    }
+    > *:nth-child(2) {
+      z-index: 1000;
+    }
+    > *:nth-child(3) {
+      z-index: 1001;
+    }
+
+    @include viewport-phone-vertical-only {
+      padding-right: $gutter-width + 50px;
+    }
+
+    @include viewport-phone-only {
+      padding-right: $gutter-width + 175px;
+      > *:nth-child(2) {
+        opacity: 0;
+        right: $gutter-width + 12px;
+      }
     }
   }
-
-  .HeaderSticky-menu {
-    > * {
-      display: block;
-      margin: 0 auto;
-      width: 90%;
-    }
+  .HeaderSticky-menu > * {
+    display: block;
+    margin: 0 auto;
+    width: 90%;
   }
 }
 
 .HeaderSticky--active {
-  .HeaderSticky-phoneVertical .HeaderSticky-searchAndBasket > *:last-child {
+  .HeaderSticky-phoneVertical .HeaderSticky-searchAndBasket > *:nth-child(2) {
     position: fixed;
-    top: 0;
-    z-index: 1000;
+    opacity: 1;
   }
 }
 

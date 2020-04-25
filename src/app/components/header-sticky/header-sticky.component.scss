@@ -1,29 +1,5 @@
 @import 'configs-and-mixins';
 
-.HeaderSticky-container {
-  min-height: 70px;
-}
-
-.HeaderSticky {
-  background-color: $primary-background-color;
-  //
-  //&.HeaderSticky--active {
-  //  position: fixed;
-  //  top: 0;
-  //  right: 0;
-  //  left: 0;
-  //  z-index: 1000;
-  //}
-}
-
-.HeaderSticky-content {
-  padding-top: $gutter-width;
-  padding-bottom: $gutter-width;
-  height: 40px + $gutter-width * 2;
-}
-
-// --------------------------------------------------
-
 .HeaderSticky-phoneVerticalAndPhoneHorizontal {
   display: none;
 
@@ -89,5 +65,55 @@
 
   @include viewport-tablet-only {
     display: block;
+  }
+}
+
+// --------------------------------------------------
+
+.HeaderSticky-desktop {
+  display: none;
+}
+
+@include viewport-desktop-medium-and-up {
+  $bar-padding-one-size-vertical: $gutter-width;
+  $bar-height: 40px;
+
+  .HeaderSticky-desktop {
+    transition: height 0.25s;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: $primary-background-color;
+    overflow: hidden;
+    height: 0;
+
+    > div {
+      padding-top: $bar-padding-one-size-vertical;
+      padding-bottom: $bar-padding-one-size-vertical;
+
+      > div:first-child {
+        float: left;
+      }
+      > div:last-child {
+        float: right;
+        > * {
+          display: inline-block;
+        }
+        > *:first-child {
+          width: 230px;
+          margin-right: $gutter-width;
+        }
+      }
+    }
+  }
+
+  .HeaderSticky--active {
+    .HeaderSticky-desktop {
+      height: $bar-height + 2 * $bar-padding-one-size-vertical;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
+    }
   }
 }

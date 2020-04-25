@@ -3,7 +3,8 @@
   [ngClass]="{
     'TopMenu-center': align === Align.Center,
     'TopMenu-left': align === Align.Left,
-    'TopMenu-right': align === Align.Right
+    'TopMenu-right': align === Align.Right,
+    'TopMenu-wide': isWide
   }"
 >
   <ul *ngIf="(categories$ | async).length">

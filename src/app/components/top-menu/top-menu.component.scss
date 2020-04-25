@@ -25,6 +25,13 @@
   }
 }
 
+.TopMenu-wide {
+  li {
+    margin-left: 1.5 * $gutter-width;
+    margin-right: 1.5 * $gutter-width;
+  }
+}
+
 .TopMenu-center {
   text-align: center;
 }

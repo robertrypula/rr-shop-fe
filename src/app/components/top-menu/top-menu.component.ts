@@ -15,6 +15,9 @@ export class TopMenuComponent implements OnInit {
   @Input()
   public align: Align;
 
+  @Input()
+  public isWide = false;
+
   public readonly Align = Align;
 
   public categories$: Observable<CategoryStore[]> = this.categoryFacadeService.categoriesByStructuralNode$(

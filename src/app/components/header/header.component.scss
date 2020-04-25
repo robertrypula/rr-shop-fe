@@ -33,3 +33,34 @@
 }
 
 // ----------------------------------------------------
+
+.Header-desktop {
+  text-align: right;
+  display: none;
+  padding-top: $gutter-width;
+  padding-bottom: 2 * $gutter-width;
+  > div {
+    padding-top: $gutter-width;
+  }
+  > div:first-child {
+    > * {
+      display: block;
+    }
+  }
+  > div:last-child {
+    text-align: right;
+    > * {
+      display: inline-block;
+    }
+    > *:first-child {
+      width: 230px;
+      margin-right: $gutter-width;
+    }
+  }
+}
+
+@include viewport-desktop-medium-and-up {
+  .Header-desktop {
+    display: block;
+  }
+}

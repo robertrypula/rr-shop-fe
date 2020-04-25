@@ -102,22 +102,22 @@ export class ViewportService {
 
     switch (device) {
       case Device.MobileVertical:
-        result = scrollTop > HEADER_FIXED_MOBILE_VERTICAL_THRESHOLD;
+        result = scrollTop >= HEADER_FIXED_MOBILE_VERTICAL_THRESHOLD;
         break;
       case Device.Mobile:
-        result = scrollTop > HEADER_FIXED_MOBILE_THRESHOLD;
+        result = scrollTop >= HEADER_FIXED_MOBILE_THRESHOLD;
         break;
       case Device.Tablet:
-        result = scrollTop > HEADER_FIXED_TABLET_THRESHOLD;
+        result = scrollTop >= HEADER_FIXED_TABLET_THRESHOLD;
         break;
       case Device.DesktopMedium:
-        result = scrollTop > HEADER_FIXED_DESKTOP_MEDIUM_THRESHOLD;
+        result = scrollTop >= HEADER_FIXED_DESKTOP_MEDIUM_THRESHOLD;
         break;
       case Device.DesktopLarge:
-        result = scrollTop > HEADER_FIXED_DESKTOP_LARGE_THRESHOLD;
+        result = scrollTop >= HEADER_FIXED_DESKTOP_LARGE_THRESHOLD;
         break;
       case Device.DesktopExtraLarge:
-        result = scrollTop > HEADER_FIXED_DESKTOP_EXTRA_LARGE_THRESHOLD;
+        result = scrollTop >= HEADER_FIXED_DESKTOP_EXTRA_LARGE_THRESHOLD;
         break;
     }
 

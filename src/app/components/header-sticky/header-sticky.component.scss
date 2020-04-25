@@ -23,6 +23,8 @@
   height: 40px + $gutter-width * 2;
 }
 
+// --------------------------------------------------
+
 .HeaderSticky-phoneVertical {
   .HeaderSticky-heightPlaceholder {
     display: none;
@@ -42,12 +44,20 @@
   }
 
   .HeaderSticky-menu {
-    border-bottom: 1px solid red;
     > * {
       display: block;
       margin: 0 auto;
       width: 90%;
-      padding-bottom: $gutter-width;
     }
   }
 }
+
+.HeaderSticky--active {
+  .HeaderSticky-phoneVertical .HeaderSticky-searchAndBasket > *:last-child {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+  }
+}
+
+// --------------------------------------------------

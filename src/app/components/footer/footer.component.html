@@ -8,20 +8,10 @@
 <footer class="Footer">
   <div class="container">
     <div class="row Footer-content padding-top">
-      <div
-        *ngFor="let category of categories$ | async; trackBy: trackBy"
-        class="col-xxs-12 col-sm-6 col-md-3 margin-bottom"
-      >
+      <div *ngFor="let category of categories$ | async; trackBy: trackBy" class="col-xxs-12 col-md-3 margin-bottom">
         <div class="clearfix">
           <h3>{{ category.name }}</h3>
         </div>
-
-        <ng-container *ngIf="category.structuralNode === StructuralNode.FooterMap">
-          <div class="u-formatted-content" markdown [data]="category.content"></div>
-
-          <a href="https://www.google.pl/maps/@51.0807088,17.063309,17.21z" target="_blank" class="Footer-imageMap"></a>
-        </ng-container>
-
         <rr-shop-footer-group [parentId]="category.id"></rr-shop-footer-group>
       </div>
     </div>

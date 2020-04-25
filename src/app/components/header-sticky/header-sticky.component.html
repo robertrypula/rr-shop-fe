@@ -10,9 +10,14 @@
       <rr-shop-top-basket [showLabel]="false"></rr-shop-top-basket>
       <rr-shop-top-basket [showLabel]="true" class="hidden-xxs"></rr-shop-top-basket>
     </div>
-    <div class="HeaderSticky-menu"><rr-shop-top-menu></rr-shop-top-menu></div>
+    <div class="HeaderSticky-menu"><rr-shop-top-menu [align]="Align.Center"></rr-shop-top-menu></div>
   </div>
 
+  <div class="HeaderSticky-tablet">
+    <div class="container">
+      <rr-shop-top-menu [align]="Align.Left"></rr-shop-top-menu>
+    </div>
+  </div>
   <!--  <div class="HeaderSticky-phone"></div>-->
 
   <!--

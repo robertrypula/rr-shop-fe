@@ -1,8 +1,6 @@
 @import 'configs-and-mixins';
 
 .TopMenu {
-  text-align: center;
-
   ul,
   li {
     display: inline-block;
@@ -25,20 +23,24 @@
     margin-right: 10px;
     margin-left: 10px;
   }
+}
 
-  /*
-  @include viewport-phone-horizontal-and-up {
-    li {
-      // margin: 0 20px;
-    }
-  }
+.TopMenu-center {
+  text-align: center;
+}
+.TopMenu-left {
+  text-align: left;
+}
+.TopMenu-right {
+  text-align: right;
+}
 
-  @include viewport-tablet-and-up {
-    text-align: left;
-    padding-bottom: 0;
-    li {
-      // margin: 0 25px 0 0;
-    }
+.TopMenu-right,
+.TopMenu-left {
+  li:first-child {
+    margin-left: 0;
   }
-  */
+  li:last-child {
+    margin-right: 0;
+  }
 }

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { ViewportService } from '../../services/viewport.service';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
+import { Align } from '../top-menu/top-menu.models';
 
 @Component({
   selector: 'rr-shop-header-sticky',
@@ -13,6 +14,8 @@ import { OrderFacadeService } from '../../store/facades/order-facade.service';
 export class HeaderStickyComponent implements OnInit {
   public scrolledDownThatHeaderIsNotVisible$: Observable<boolean> = this.viewportService
     .isScrolledDownThatHeaderIsNotVisible$;
+
+  public readonly Align = Align;
 
   public constructor(protected orderFacadeService: OrderFacadeService, protected viewportService: ViewportService) {}
 

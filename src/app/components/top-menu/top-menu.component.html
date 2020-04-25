@@ -1,4 +1,11 @@
-<div class="TopMenu">
+<div
+  class="TopMenu"
+  [ngClass]="{
+    'TopMenu-center': align === Align.Center,
+    'TopMenu-left': align === Align.Left,
+    'TopMenu-right': align === Align.Right
+  }"
+>
   <ul *ngIf="(categories$ | async).length">
     <li *ngFor="let category of categories$ | async; trackBy: trackBy">
       <a [routerLink]="category | categoryUrl" [ngClass]="{ 'TopMenu-link--active': category.activeLevel === 1 }">

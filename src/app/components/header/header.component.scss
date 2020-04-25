@@ -9,7 +9,27 @@
   }
 }
 
-.Header-content {
-  padding-top: $gutter-width;
-  padding-bottom: $gutter-width;
+// ----------------------------------------------------
+
+.Header-tablet {
+  text-align: right;
+  display: none;
+  padding-top: 2 * $gutter-width;
+  > div > * {
+    display: block;
+  }
+  > *:last-child {
+    padding-top: $gutter-width;
+    > * {
+      float: right;
+    }
+  }
 }
+
+@include viewport-tablet-only {
+  .Header-tablet {
+    display: block;
+  }
+}
+
+// ----------------------------------------------------

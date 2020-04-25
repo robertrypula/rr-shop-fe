@@ -5,10 +5,15 @@
         <rr-shop-logo></rr-shop-logo>
       </div>
 
-      <div class="Header-content col-xxs-12 col-sm-5 col-md-7 col-lg-8 col-xlg-9 hidden-xxs hidden-xs">
-        <rr-shop-top-menu></rr-shop-top-menu>
-        <rr-shop-top-search></rr-shop-top-search>
-        <rr-shop-top-basket></rr-shop-top-basket>
+      <div class="col-xxs-12 col-sm-5 col-md-7 col-lg-8 col-xlg-9">
+        <div class="Header-tablet">
+          <div>
+            <rr-shop-top-search></rr-shop-top-search>
+          </div>
+          <div class="clearfix">
+            <rr-shop-top-basket [showLabel]="true"></rr-shop-top-basket>
+          </div>
+        </div>
       </div>
     </div>
   </div>

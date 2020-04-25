@@ -6,7 +6,6 @@
 
 .HeaderSticky {
   background-color: $primary-background-color;
-  outline: 1px solid yellow;
   //
   //&.HeaderSticky--active {
   //  position: fixed;
@@ -83,3 +82,12 @@
 }
 
 // --------------------------------------------------
+
+.HeaderSticky-tablet {
+  display: none;
+  padding: 0.5 * $gutter-width 0;
+
+  @include viewport-tablet-only {
+    display: block;
+  }
+}

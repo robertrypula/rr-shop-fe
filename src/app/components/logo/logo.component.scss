@@ -1,9 +1,10 @@
 @import 'configs-and-mixins';
 
 .Logo {
+  padding-top: $gutter-width;
   a {
     $logo-width: 355px;
-    $logo-height: 140px;
+    $logo-height: 115px;
     $logo-smaller-width: $min-viewport-width - 2 * $gutter-width;
     $logo-smaller-height: round($logo-smaller-width * ($logo-height / $logo-width));
 
@@ -20,7 +21,7 @@
     }
   }
   h1 {
-    background: url('../../../assets/logo-v2.png') no-repeat top left;
+    background: url('../../../assets/logo-v3.png') no-repeat top left;
     background-size: 100% 100%;
     overflow: hidden;
     text-indent: -99em;

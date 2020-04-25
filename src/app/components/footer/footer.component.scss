@@ -4,7 +4,7 @@
   // background: url('../../../assets/bg-mobile.jpg') no-repeat top center #121a02;
   // background-position-y: -220px;
 
-  // @include viewport-tablet-and-up {
+  // @include viewport-desktop-medium-and-up {
   //   background-image: url('../../../assets/bg.jpg');
   // }
 
@@ -36,7 +36,7 @@
         left: 25%;
         width: 50%;
       }
-      @include viewport-tablet-and-up {
+      @include viewport-desktop-medium-and-up {
         display: inline-block;
         &:after {
           left: 0;
@@ -46,30 +46,9 @@
       }
     }
 
-    @include viewport-tablet-and-up {
+    @include viewport-desktop-medium-and-up {
       margin-top: $gutter-width;
       text-align: left;
-    }
-
-    .Footer-imageMap {
-      $height-as-percent-of-width: 60%;
-
-      position: relative;
-      width: 100%;
-      max-width: 287px;
-      background: url('../../../assets/footer-map.png') no-repeat top left;
-      background-size: 100% (100% / $height-as-percent-of-width);
-      background-position-y: 100% - $height-as-percent-of-width;
-      display: block;
-      margin: 0 auto;
-      &:after {
-        content: '';
-        display: block;
-        padding-bottom: $height-as-percent-of-width;
-      }
-      @include viewport-tablet-and-up {
-        margin: 0;
-      }
     }
   }
 }

@@ -3,8 +3,8 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { State } from '../reducers';
-import * as fromSearchActions from '../actions/search.actions';
 import * as fromSearchCoreSelectors from '../selectors/search-core.selectors';
+import * as fromSearchActions from '../actions/search.actions';
 import * as fromSearchSelectors from '../selectors/search.selectors';
 
 @Injectable({

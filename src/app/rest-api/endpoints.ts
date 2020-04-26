@@ -14,7 +14,7 @@ export const API_URL_PRODUCTS = (
   fetchType: FetchType,
   categoryIds: number[],
   productIds: number[],
-  name: string
+  query: string
 ): string => {
   const params: string[] = [];
 
@@ -31,7 +31,9 @@ export const API_URL_PRODUCTS = (
   }
   categoryIds && params.push(`categoryIds=${categoryIds.join(',')}`);
   productIds && params.push(`productIds=${productIds.join(',')}`);
-  name && params.push(`name=${name}`);
+
+  // TODO it will be extended, that's why it's 'query' on FE but 'name' on the BE
+  query !== null && params.push(`name=${query}`);
 
   return `${environment.urlApi}product${params.length ? '?' : ''}${params.join('&')}`;
 };

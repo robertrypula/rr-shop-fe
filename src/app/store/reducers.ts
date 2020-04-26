@@ -9,6 +9,7 @@ import * as fromOrder from './reducers/order.reducers';
 import * as fromPage from './reducers/page.reducers';
 import * as fromProduct from './reducers/product.reducers';
 import * as fromRouter from './reducers/router.reducers';
+import * as fromSearch from './reducers/search.reducers';
 import * as fromViewport from './reducers/viewport.reducers';
 
 export interface State {
@@ -18,6 +19,7 @@ export interface State {
   page: fromPage.State;
   product: fromProduct.State;
   router: fromRouter.State;
+  search: fromSearch.State;
   viewport: fromViewport.State;
 }
 
@@ -28,6 +30,7 @@ export const reducers: ActionReducerMap<State> = {
   page: fromPage.reducer,
   product: fromProduct.reducer,
   router: fromRouter.reducer,
+  search: fromSearch.reducer,
   viewport: fromViewport.reducer
 };
 

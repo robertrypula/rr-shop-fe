@@ -11,7 +11,7 @@ export const initialState: State = {
   apiCallProductsAtMainPage: ApiCall.Initial
 };
 
-const categoryReducer = createReducer(
+const pageReducer = createReducer(
   initialState,
   on(
     fromPageActions.productsAtMainPageRequest,
@@ -28,5 +28,5 @@ const categoryReducer = createReducer(
 );
 
 export function reducer(state: State | undefined, action: Action) {
-  return categoryReducer(state, action);
+  return pageReducer(state, action);
 }

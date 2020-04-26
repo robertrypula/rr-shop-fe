@@ -50,4 +50,14 @@ export class ApiProductService {
         )
       );
   }
+
+  public getProductsByQuery(query: string): Observable<ProductStore[]> {
+    return this.http
+      .get<ProductFullDto[]>(API_URL_PRODUCTS(FetchType.Medium, null, null, query))
+      .pipe(
+        map((dtos: ProductFullDto[]): ProductStore[] =>
+          dtos.map((dto: ProductFullDto): ProductStore => fromMediumDto(dto))
+        )
+      );
+  }
 }

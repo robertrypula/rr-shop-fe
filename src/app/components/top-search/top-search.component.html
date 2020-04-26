@@ -2,6 +2,7 @@
   <input
     (keyup.enter)="search()"
     [(ngModel)]="query"
+    (ngModelChange)="change($event)"
     class="u-form-input TopSearch-form"
     placeholder="Szukaj produktu..."
   />

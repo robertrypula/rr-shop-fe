@@ -25,6 +25,8 @@ export const getProductId = (url: string): number => {
 
 export const getOrderUuid = (url: string): string => parseUrlId(url.replace('?error=501', ''), 'order');
 
+// -----------------------------------------------
+
 export const isOnCategoryRoute = (url: string): boolean => url.indexOf('/c/') === 0;
 
 export const isOnMainPageRoute = (url: string): boolean => url === '/';
@@ -34,3 +36,5 @@ export const isOnOrderRoute = (url: string): boolean => url.indexOf('/order/') =
 export const isOnPotentialOrderRoute = (url: string): boolean => url.indexOf('/potential-order') === 0;
 
 export const isOnProductRoute = (url: string): boolean => url.indexOf('/p/') === 0;
+
+export const isOnSearchRoute = (url: string): boolean => url.indexOf('/search/') === 0;

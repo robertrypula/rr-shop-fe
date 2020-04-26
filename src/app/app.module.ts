@@ -11,15 +11,11 @@ import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptor } from './admin/rest-api/auth.interceptor';
-import { CategoryEffects } from './store/effects/category-effects.service';
-import { OrderEffects } from './store/effects/order-effects.service';
-import { ProductsEffects } from './store/effects/products-effects.service';
+import { effects } from './store/effects';
 import { metaReducers, reducers } from './store/reducers';
 import { RootComponent } from './containers/root/root.component';
 import { RootModule } from './containers/root/root.module';
-import { RouterEffects } from './store/effects/router-effects.service';
 import { routerStateConfig } from './store/reducers/router.reducers';
-import { ViewportEffects } from './store/effects/viewport-effects.service';
 
 @NgModule({
   imports: [
@@ -28,7 +24,7 @@ import { ViewportEffects } from './store/effects/viewport-effects.service';
         metaReducers,
         runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true }
       }),
-      EffectsModule.forRoot([CategoryEffects, OrderEffects, ProductsEffects, RouterEffects, ViewportEffects]),
+      EffectsModule.forRoot(effects),
       StoreRouterConnectingModule.forRoot(routerStateConfig),
       StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
     ],

@@ -18,6 +18,7 @@ import {
   selectApiCallProductsAtInit
 } from './product-core.selectors';
 import { selectUrl } from './router.selectors';
+import { selectApiCallSearch } from './search-core.selectors';
 
 const selectIsLoadingOverlayVisibleFromOrderPerspective = createSelector(
   selectApiCallCreateOrder,
@@ -51,16 +52,19 @@ export const selectIsLoadingOverlayVisible = createSelector(
   selectIsLoadingOverlayVisibleFromOrderPerspective,
   selectIsLoadingOverlayVisibleFromProductPerspective,
   selectApiCallPromoCode,
+  selectApiCallSearch,
   (
     apiCallCategoriesAtInit: ApiCall,
     isLoadingOverlayVisibleFromOrderPerspective: boolean,
     isLoadingOverlayVisibleFromProductPerspective: boolean,
-    apiCallPromoCode: ApiCall
+    apiCallPromoCode: ApiCall,
+    apiCallSearch: ApiCall
   ): boolean =>
     [ApiCall.Initial, ApiCall.Request].includes(apiCallCategoriesAtInit) ||
     isLoadingOverlayVisibleFromOrderPerspective ||
     [ApiCall.Request].includes(apiCallPromoCode) ||
-    isLoadingOverlayVisibleFromProductPerspective
+    isLoadingOverlayVisibleFromProductPerspective ||
+    [ApiCall.Request].includes(apiCallSearch)
 );
 
 export const selectMainPageSectionsCategories = createSelector(

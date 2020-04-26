@@ -1,6 +1,6 @@
 export enum Device {
   MobileVertical = 'MobileVertical',
-  Mobile = 'Mobile',
+  MobileHorizontal = 'MobileHorizontal',
   Tablet = 'Tablet',
   DesktopMedium = 'DesktopMedium',
   DesktopLarge = 'DesktopLarge',

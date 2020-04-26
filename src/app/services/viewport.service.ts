@@ -7,14 +7,14 @@ import {
   GRID_DESKTOP_EXTRA_LARGE,
   GRID_DESKTOP_LARGE,
   GRID_DESKTOP_MEDIUM,
-  GRID_MOBILE,
+  GRID_MOBILE_HORIZONTAL,
   GRID_TABLET,
-  HEADER_FIXED_DESKTOP_EXTRA_LARGE_THRESHOLD,
-  HEADER_FIXED_DESKTOP_LARGE_THRESHOLD,
-  HEADER_FIXED_DESKTOP_MEDIUM_THRESHOLD,
-  HEADER_FIXED_MOBILE_THRESHOLD,
-  HEADER_FIXED_MOBILE_VERTICAL_THRESHOLD,
-  HEADER_FIXED_TABLET_THRESHOLD
+  HEADER_STICKY_DESKTOP_EXTRA_LARGE_THRESHOLD,
+  HEADER_STICKY_DESKTOP_LARGE_THRESHOLD,
+  HEADER_STICKY_DESKTOP_MEDIUM_THRESHOLD,
+  HEADER_STICKY_MOBILE_HORIZONTAL_THRESHOLD,
+  HEADER_STICKY_MOBILE_VERTICAL_THRESHOLD,
+  HEADER_STICKY_TABLET_THRESHOLD
 } from '../config';
 import { ViewportFacadeService } from '../store/facades/viewport-facade.service';
 
@@ -80,10 +80,10 @@ export class ViewportService {
   protected getDevice(width: number): Device {
     let device: Device;
 
-    if (width < GRID_MOBILE) {
+    if (width < GRID_MOBILE_HORIZONTAL) {
       device = Device.MobileVertical;
     } else if (width < GRID_TABLET) {
-      device = Device.Mobile;
+      device = Device.MobileHorizontal;
     } else if (width < GRID_DESKTOP_MEDIUM) {
       device = Device.Tablet;
     } else if (width < GRID_DESKTOP_LARGE) {
@@ -102,22 +102,22 @@ export class ViewportService {
 
     switch (device) {
       case Device.MobileVertical:
-        result = scrollTop >= HEADER_FIXED_MOBILE_VERTICAL_THRESHOLD;
+        result = scrollTop >= HEADER_STICKY_MOBILE_VERTICAL_THRESHOLD;
         break;
-      case Device.Mobile:
-        result = scrollTop >= HEADER_FIXED_MOBILE_THRESHOLD;
+      case Device.MobileHorizontal:
+        result = scrollTop >= HEADER_STICKY_MOBILE_HORIZONTAL_THRESHOLD;
         break;
       case Device.Tablet:
-        result = scrollTop >= HEADER_FIXED_TABLET_THRESHOLD;
+        result = scrollTop >= HEADER_STICKY_TABLET_THRESHOLD;
         break;
       case Device.DesktopMedium:
-        result = scrollTop >= HEADER_FIXED_DESKTOP_MEDIUM_THRESHOLD;
+        result = scrollTop >= HEADER_STICKY_DESKTOP_MEDIUM_THRESHOLD;
         break;
       case Device.DesktopLarge:
-        result = scrollTop >= HEADER_FIXED_DESKTOP_LARGE_THRESHOLD;
+        result = scrollTop >= HEADER_STICKY_DESKTOP_LARGE_THRESHOLD;
         break;
       case Device.DesktopExtraLarge:
-        result = scrollTop >= HEADER_FIXED_DESKTOP_EXTRA_LARGE_THRESHOLD;
+        result = scrollTop >= HEADER_STICKY_DESKTOP_EXTRA_LARGE_THRESHOLD;
         break;
     }
 

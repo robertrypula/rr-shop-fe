@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { catchError, concatMap, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { EMPTY, of } from 'rxjs';
+import { catchError, concatMap, filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { ApiProductService } from '../../rest-api/product/api-product.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
@@ -15,6 +15,15 @@ import * as fromRouterActions from '../actions/router.actions';
 
 @Injectable()
 export class ProductsEffects {
+  public triggerProductRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromRouterActions.customRouterNavigated),
+      concatMap(action => of(action).pipe(withLatestFrom(this.productFacadeService.isOnProductRoute$))),
+      filter(([action, isOnProductRoute]): boolean => isOnProductRoute),
+      map(() => fromProductActions.productRequest())
+    )
+  );
+
   public productRequest$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromProductActions.productRequest),
@@ -30,16 +39,26 @@ export class ProductsEffects {
     )
   );
 
-  public triggerProductRequest$ = createEffect(() =>
+  public productRequestSuccess$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromRouterActions.customRouterNavigated),
-      concatMap(action => of(action).pipe(withLatestFrom(this.productFacadeService.isOnProductRoute$))),
-      filter(([action, isOnProductRoute]): boolean => isOnProductRoute),
-      map(() => fromProductActions.productRequest())
+      ofType(fromProductActions.productSuccess),
+      tap(action => {
+        // window.scrollTo && window.scrollTo(0, 0);
+      }),
+      mergeMap(() => EMPTY)
     )
   );
 
   // ---------------------------------------------------------------------------
+
+  public triggerProductsAtCategoryRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromRouterActions.customRouterNavigated),
+      concatMap(action => of(action).pipe(withLatestFrom(this.categoryFacadeService.shouldCallForProducts$))),
+      filter(([action, shouldCallForProducts]): boolean => shouldCallForProducts),
+      map(() => fromProductActions.productsAtCategoryRequest())
+    )
+  );
 
   public productsAtCategoryRequest$ = createEffect(() =>
     this.actions$.pipe(
@@ -56,16 +75,14 @@ export class ProductsEffects {
     )
   );
 
-  public triggerProductsAtCategoryRequest$ = createEffect(() =>
+  // ---------------------------------------------------------------------------
+
+  public triggerProductsAtInitRequest$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromRouterActions.customRouterNavigated),
-      concatMap(action => of(action).pipe(withLatestFrom(this.categoryFacadeService.shouldCallForProducts$))),
-      filter(([action, shouldCallForProducts]): boolean => shouldCallForProducts),
-      map(() => fromProductActions.productsAtCategoryRequest())
+      ofType(fromRouterActions.firstRouteChange),
+      map(() => fromProductActions.productsAtInitRequest())
     )
   );
-
-  // ---------------------------------------------------------------------------
 
   public productsAtInitRequest$ = createEffect(() =>
     this.actions$.pipe(
@@ -81,14 +98,16 @@ export class ProductsEffects {
     )
   );
 
-  public triggerProductsAtInitRequest$ = createEffect(() =>
+  // ---------------------------------------------------------------------------
+
+  public triggerProductsAtMainPageRequest$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromRouterActions.firstRouteChange),
-      map(() => fromProductActions.productsAtInitRequest())
+      ofType(fromRouterActions.customRouterNavigated),
+      concatMap(action => of(action).pipe(withLatestFrom(this.pageFacadeService.isOnMainPageRoute$))),
+      filter(([action, isOnMainPageRoute]): boolean => isOnMainPageRoute),
+      map(() => fromPageActions.productsAtMainPageRequest())
     )
   );
-
-  // ---------------------------------------------------------------------------
 
   public productsAtMainPageRequest$ = createEffect(() =>
     this.actions$.pipe(
@@ -102,15 +121,6 @@ export class ProductsEffects {
           )
         )
       )
-    )
-  );
-
-  public triggerProductsAtMainPageRequest$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(fromRouterActions.customRouterNavigated),
-      concatMap(action => of(action).pipe(withLatestFrom(this.pageFacadeService.isOnMainPageRoute$))),
-      filter(([action, isOnMainPageRoute]): boolean => isOnMainPageRoute),
-      map(() => fromPageActions.productsAtMainPageRequest())
     )
   );
 

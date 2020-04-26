@@ -4,10 +4,17 @@
   .Content-background {
     background-color: $primary-background-color;
     padding-top: 1 * $gutter-width;
+
+    @include viewport-tablet-and-up {
+      padding-top: 2 * $gutter-width;
+    }
   }
 
   .Content-categories,
   .Content-main {
     margin-bottom: 2 * $gutter-width;
+    * {
+      display: block;
+    }
   }
 }

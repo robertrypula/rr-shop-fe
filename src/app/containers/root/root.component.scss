@@ -1,5 +1,6 @@
 .Root {
-  > * {
+  > *,
+  > div > * {
     display: block;
   }
 }

@@ -143,6 +143,9 @@
 
       > div:first-child {
         float: left;
+        > * {
+          display: block;
+        }
       }
       > div:last-child {
         float: right;

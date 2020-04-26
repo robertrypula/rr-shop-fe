@@ -1,5 +1,5 @@
 <div class="ProductBoxCompact" [ngClass]="{ 'ProductBoxCompact--inOrder': product.orderItem }">
-  <a [routerLink]="product | productUrl: activeCategory" class="ProductBoxCompact-link">
+  <a [routerLink]="product | productUrl: category" class="ProductBoxCompact-link">
     <rr-shop-image
       [images]="product.images"
       [sizeImage]="SizeImage.Px0400"

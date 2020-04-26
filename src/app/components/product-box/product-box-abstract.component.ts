@@ -12,7 +12,7 @@ export abstract class ProductBoxAbstractComponent {
   public product: Product;
 
   @Input()
-  public activeCategory: CategoryStore;
+  public category: CategoryStore;
 
   public readonly SizeImage = SizeImage;
   public readonly SizeImageContainer = SizeImageContainer;

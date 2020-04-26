@@ -1,4 +1,5 @@
 import { environment } from '../../environments/environment';
+import { getExpandedQuery } from '../utils/transfomation.utils';
 
 import { FetchType } from './product/api-product.dtos';
 
@@ -33,7 +34,7 @@ export const API_URL_PRODUCTS = (
   productIds && params.push(`productIds=${productIds.join(',')}`);
 
   // TODO it will be extended, that's why it's 'query' on FE but 'name' on the BE
-  query !== null && params.push(`name=${query}`);
+  query !== null && params.push(`name=${getExpandedQuery(query)}`);
 
   return `${environment.urlApi}product${params.length ? '?' : ''}${params.join('&')}`;
 };

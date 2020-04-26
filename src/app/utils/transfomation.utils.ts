@@ -6,6 +6,10 @@ export const getAsArrayUuid = <T>(asKeyValue: { [uuid: string]: T }): T[] => {
   return Object.keys(asKeyValue).map((key: string): T => asKeyValue[key]);
 };
 
+export const getExpandedQuery = (query: string) => {
+  return query.length >= 3 ? query.substring(0, query.length - 1) : query;
+};
+
 export const getFormattedDate = (
   date: Date,
   dateSeparator = '.',

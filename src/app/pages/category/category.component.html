@@ -12,6 +12,7 @@
   <ng-container *ngIf="!(activeCategory$ | async)?.isWithoutProducts">
     <rr-shop-products-list
       [category]="activeCategory$ | async"
+      [noProductsMessage]="'Brak produktów w tej kategorii'"
       [products]="productsFromActiveCategoryAndItsChildren$ | async"
     ></rr-shop-products-list>
   </ng-container>

@@ -5,6 +5,7 @@ import * as fromPageActions from '../actions/page.actions';
 import { ApiCall } from '../../models/page.model';
 import * as fromProductActions from '../actions/product.actions';
 import { ProductStore } from '../../models/product.model';
+import * as fromSearchActions from '../actions/search.actions';
 
 export interface State {
   apiCallProduct: ApiCall;
@@ -63,6 +64,7 @@ const productReducer = createReducer(
     fromPageActions.productsAtMainPageSuccess,
     fromProductActions.productsAtCategorySuccess,
     fromProductActions.productsAtInitSuccess,
+    fromSearchActions.searchSuccess,
     (state: State, { productsStore }): State => {
       const newState: State = { ...state, list: { ...state.list } };
 

@@ -15,10 +15,13 @@ export class ProductsListComponent implements OnInit {
   public products: Product[];
 
   @Input()
-  public category: CategoryStore;
+  public category: CategoryStore = null;
 
   @Input()
   public isCategoryButtonVisible = false;
+
+  @Input()
+  public noProductsMessage: string;
 
   public readonly ClickableActionType = ClickableActionType;
 

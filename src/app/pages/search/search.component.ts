@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { ViewportService } from '../../services/viewport.service';
+import { Product } from '../../models/product.model';
+import { SearchFacadeService } from '../../store/facades/search-facade.service';
 
 @Component({
   selector: 'rr-shop-search',
@@ -9,11 +11,9 @@ import { ViewportService } from '../../services/viewport.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent implements OnInit {
-  public constructor(public viewportService: ViewportService) {
-    viewportService.device$.subscribe(d => console.log(d));
-    viewportService.isScrolledDownThatHeaderIsNotVisible$.subscribe(d => console.log(d));
-    // viewportService.viewportStatus$.subscribe(d => console.log(d));
-  }
+  public productsByQuery$: Observable<Product[]> = this.searchFacadeService.productsByQuery$;
+
+  public constructor(protected searchFacadeService: SearchFacadeService) {}
 
   public ngOnInit(): void {}
 }

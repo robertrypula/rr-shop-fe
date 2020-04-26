@@ -2,7 +2,7 @@
   <ng-container *ngFor="let product of products; trackBy: trackBy; index as index">
     <rr-shop-product-box-compact
       [product]="product"
-      [activeCategory]="category"
+      [category]="category"
       class="col-xxs-12 col-xs-6 col-md-4 col-xlg-3"
     ></rr-shop-product-box-compact>
 
@@ -22,6 +22,6 @@
 
 <ng-template #noProducts>
   <div class="ProductsList-noProducts">
-    Brak produktów w tej kategorii
+    {{ noProductsMessage }}
   </div>
 </ng-template>

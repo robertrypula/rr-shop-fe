@@ -24,10 +24,8 @@
       float: right;
     }
   }
-}
 
-@include viewport-tablet-only {
-  .Header-tablet {
+  @include viewport-tablet-only {
     display: block;
   }
 }
@@ -68,10 +66,8 @@
       }
     }
   }
-}
 
-@include viewport-desktop-medium-and-up {
-  .Header-desktop {
+  @include viewport-desktop-medium-and-up {
     display: block;
   }
 }

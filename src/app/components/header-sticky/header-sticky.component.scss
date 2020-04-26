@@ -89,8 +89,29 @@
   display: none;
   padding: 0.5 * $gutter-width 0;
 
+  > div {
+    position: relative;
+    > * {
+      display: block;
+    }
+    > *:last-child {
+      position: fixed;
+      top: $gutter-width;
+      right: $gutter-width;
+      z-index: 1000;
+      transition: opacity 0.25s;
+      opacity: 0;
+    }
+  }
+
   @include viewport-tablet-only {
     display: block;
+  }
+}
+
+.HeaderSticky--active {
+  .HeaderSticky-tablet > div > *:last-child {
+    opacity: 1;
   }
 }
 

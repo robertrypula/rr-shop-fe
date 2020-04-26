@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
 import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
+import { AdminCall, AdminCallState } from '../models/admin-component.models';
 import { environment } from '../../../environments/environment';
-import { AdminCallState, AdminCall } from '../models/admin-component.models';
 import { SizeImage, SizeImageContainer } from '../../models/image.model';
 
 /**

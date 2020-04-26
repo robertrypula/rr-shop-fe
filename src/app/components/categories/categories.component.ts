@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ClickableActionTheme } from '../clickable-action/clickable-action.model';
-import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { CategoryFacadeService } from '../../store/facades/category-facade.service';
+import { CategoryStore, StructuralNode } from '../../models/category.model';
+import { ClickableActionTheme } from '../clickable-action/clickable-action.model';
 import { IconType } from '../icon/icon.models';
 
 @Component({

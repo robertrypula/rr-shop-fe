@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Order } from '../../models/order.model';
-import { OrderFacadeService } from '../../store/facades/order-facade.service';
-import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
-import { Type } from '../../models/product.model';
-import { ClickableActionTheme } from '../../components/clickable-action/clickable-action.model';
 import { CategoryFacadeService } from '../../store/facades/category-facade.service';
 import { CategoryStore, StructuralNode } from '../../models/category.model';
+import { ClickableActionTheme } from '../../components/clickable-action/clickable-action.model';
 import { IconType } from '../../components/icon/icon.models';
+import { OrderFacadeService } from '../../store/facades/order-facade.service';
+import { Order } from '../../models/order.model';
+import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
+import { Type } from '../../models/product.model';
 
 @Component({
   selector: 'rr-shop-potential-order',

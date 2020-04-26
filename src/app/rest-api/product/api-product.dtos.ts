@@ -1,6 +1,6 @@
 import { ImageDto } from '../image/image.dtos';
-import { DeliveryType, PaymentType, Type } from '../../models/product.model';
 import { ManufacturerDto } from '../manufacturer/manufacturer.dtos';
+import { DeliveryType, PaymentType, Type } from '../../models/product.model';
 
 export enum FetchType {
   Minimal = 'Minimal',

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
 import { AdminBaseComponent } from '../admin-base-component.class';
-import { Status } from '../../../models/order.model';
-import { environment } from '../../../../environments/environment';
-import { tap } from 'rxjs/operators';
 import { AdminCall } from '../../models/admin-component.models';
+import { environment } from '../../../../environments/environment';
+import { Status } from '../../../models/order.model';
 import { Type } from '../../../models/product.model';
 
 /**

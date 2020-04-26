@@ -1,10 +1,10 @@
 import { Injectable, Input } from '@angular/core';
 
-import { Product } from '../../models/product.model';
-import { OrderService } from '../../services/order.service';
 import { CategoryStore } from '../../models/category.model';
 import { SizeImage, SizeImageContainer } from '../../models/image.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
+import { OrderService } from '../../services/order.service';
+import { Product } from '../../models/product.model';
 
 @Injectable()
 export abstract class ProductBoxAbstractComponent {

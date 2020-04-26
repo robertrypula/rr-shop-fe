@@ -1,3 +1,8 @@
+import { OrderItem, OrderItemStore } from '../../models/order-item.model';
+import { Order, OrderStore } from '../../models/order.model';
+import { PaymentStore } from '../../models/payment.model';
+import { Type } from '../../models/product.model';
+
 import {
   OrderCreateRequestDto,
   OrderCreateResponseDto,
@@ -5,10 +10,6 @@ import {
   OrderResponseOrderItem,
   OrderResponsePayment
 } from './api-order.dtos';
-import { Order, OrderStore } from '../../models/order.model';
-import { OrderItem, OrderItemStore } from '../../models/order-item.model';
-import { Type } from '../../models/product.model';
-import { PaymentStore } from '../../models/payment.model';
 
 export const toOrderCreateRequest = (order: Order): OrderCreateRequestDto => {
   return {

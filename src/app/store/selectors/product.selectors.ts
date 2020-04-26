@@ -1,15 +1,16 @@
 import { createSelector } from '@ngrx/store';
 
-import { ProductStore, Product } from '../../models/product.model';
-import { selectActiveCategoryAndItsChildren, selectCategoryStoreAndItsChildren } from './category.selectors';
 import { CategoryStore, StructuralNode } from '../../models/category.model';
-import { selectUrl } from './router.selectors';
-import { getProductId, isOnProductRoute } from '../../utils/routing.utils';
-import { selectProductsStore } from './product-core.selectors';
-import { selectOrderItemsStore } from './order-core.selectors';
-import { getProductsStoreForGivenCategoriesStore, toProduct } from './product.utils';
-import { selectCategoriesStore } from './category-core.selectors';
 import { OrderItemStore } from '../../models/order-item.model';
+import { Product, ProductStore } from '../../models/product.model';
+import { getProductId, isOnProductRoute } from '../../utils/routing.utils';
+
+import { selectCategoriesStore } from './category-core.selectors';
+import { selectActiveCategoryAndItsChildren, selectCategoryStoreAndItsChildren } from './category.selectors';
+import { selectOrderItemsStore } from './order-core.selectors';
+import { selectProductsStore } from './product-core.selectors';
+import { getProductsStoreForGivenCategoriesStore, toProduct } from './product.utils';
+import { selectUrl } from './router.selectors';
 
 export const selectUrlProductId = createSelector(selectUrl, (url: string): number => {
   return getProductId(url);

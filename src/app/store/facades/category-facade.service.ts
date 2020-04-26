@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
-import * as fromCategoryActions from '../actions/category.actions';
-import * as fromCategorySelectors from '../selectors/category.selectors';
-import { ActiveLevelUpdateEntry, CategoryStore, StructuralNode } from '../../models/category.model';
-import { State } from '../reducers';
 import { selectCategoryStoreLength, selectIsListCollapsed } from '../selectors/category-core.selectors';
+import * as fromCategoryActions from '../actions/category.actions';
+import { ActiveLevelUpdateEntry, CategoryStore, StructuralNode } from '../../models/category.model';
+import * as fromCategorySelectors from '../selectors/category.selectors';
+import { State } from '../reducers';
 
 @Injectable({
   providedIn: 'root'

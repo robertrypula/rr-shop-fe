@@ -1,6 +1,6 @@
 import { Image } from './image.model';
-import { OrderItem } from './order-item.model';
 import { Manufacturer } from './manufacturer.model';
+import { OrderItem } from './order-item.model';
 
 export enum Type {
   Delivery = 'Delivery',

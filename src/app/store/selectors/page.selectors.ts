@@ -1,11 +1,9 @@
 import { createSelector } from '@ngrx/store';
 
+import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { ApiCall } from '../../models/page.model';
-import {
-  selectApiCallProduct,
-  selectApiCallProductsAtCategory,
-  selectApiCallProductsAtInit
-} from './product-core.selectors';
+import { isOnMainPageRoute } from '../../utils/routing.utils';
+
 import { selectApiCallCategoriesAtInit, selectCategoriesStore } from './category-core.selectors';
 import {
   selectApiCallCreateOrder,
@@ -13,10 +11,13 @@ import {
   selectApiCallPotentialOrderProducts,
   selectApiCallPromoCode
 } from './order-core.selectors';
-import { selectUrl } from './router.selectors';
 import { selectApiCallProductsAtMainPage } from './page-core.selectors';
-import { CategoryStore, StructuralNode } from '../../models/category.model';
-import { isOnMainPageRoute } from '../../utils/routing.utils';
+import {
+  selectApiCallProduct,
+  selectApiCallProductsAtCategory,
+  selectApiCallProductsAtInit
+} from './product-core.selectors';
+import { selectUrl } from './router.selectors';
 
 const selectIsLoadingOverlayVisibleFromOrderPerspective = createSelector(
   selectApiCallCreateOrder,

@@ -1,13 +1,15 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+import { ViewportStatus } from '../../models/viewport.model';
+import { ViewportService } from '../../services/viewport.service';
+
 import {
   DEFAULT_PARALAX_AMOUNT,
   DEFAULT_PARALAX_OFFSET,
   DEFAULT_PARALAX_VIEWPORT_WIDTH_THRESHOLD
 } from './paralax.config';
-import { ViewportService } from '../../services/viewport.service';
-import { tap } from 'rxjs/operators';
-import { ViewportStatus } from '../../models/viewport.model';
 
 @Directive({
   selector: '[rrShopParalax]'

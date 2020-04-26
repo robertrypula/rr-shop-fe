@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { State } from '../reducers';
+import { StructuralNode } from '../../models/category.model';
+import { selectProductsStoreLength } from '../selectors/product-core.selectors';
 import { Product } from '../../models/product.model';
 import * as fromProductSelectors from '../selectors/product.selectors';
-import { selectProductsStoreLength } from '../selectors/product-core.selectors';
-import { StructuralNode } from '../../models/category.model';
+import { State } from '../reducers';
 
 @Injectable({
   providedIn: 'root'

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { State } from '../reducers';
+import { Observable } from 'rxjs';
 
+import { State } from '../reducers';
 import * as fromViewportActions from '../actions/viewport.actions';
-import * as fromViewportSelectors from '../selectors/viewport.selectors';
 import { Device } from '../../models/viewport.model';
+import * as fromViewportSelectors from '../selectors/viewport.selectors';
 
 @Injectable({
   providedIn: 'root'

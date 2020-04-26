@@ -1,4 +1,5 @@
 import { CategoryStore } from '../../models/category.model';
+
 import { CategoryDto } from './api-category.dtos';
 
 export const fromDto = (dto: CategoryDto): CategoryStore => {

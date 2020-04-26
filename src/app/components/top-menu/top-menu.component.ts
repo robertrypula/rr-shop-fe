@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { CategoryFacadeService } from '../../store/facades/category-facade.service';
+import { CategoryStore, StructuralNode } from '../../models/category.model';
+
 import { Align } from './top-menu.models';
 
 @Component({

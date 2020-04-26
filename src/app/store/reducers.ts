@@ -1,6 +1,8 @@
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
+import { environment } from '../../environments/environment';
+
 import * as fromBar from './reducers/bar.reducers';
 import * as fromCategory from './reducers/category.reducers';
 import * as fromOrder from './reducers/order.reducers';
@@ -8,7 +10,6 @@ import * as fromPage from './reducers/page.reducers';
 import * as fromProduct from './reducers/product.reducers';
 import * as fromRouter from './reducers/router.reducers';
 import * as fromViewport from './reducers/viewport.reducers';
-import { environment } from '../../environments/environment';
 
 export interface State {
   bar: fromBar.State;

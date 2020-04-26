@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { State } from '../reducers';
-import { Bar } from '../../models/bar.model';
 import * as fromBarActions from '../actions/bar.actions';
-import * as fromBarSelectors from '../selectors/bar.selectors';
+import { Bar } from '../../models/bar.model';
 import { barId } from '../reducers/bar.reducers';
+import * as fromBarSelectors from '../selectors/bar.selectors';
+import { State } from '../reducers';
 
 @Injectable({
   providedIn: 'root'

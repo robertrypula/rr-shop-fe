@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+
 import { CLOUD_HIDE_DELAY, CLOUD_SHOW_DELAY } from '../../config';
 
 @Component({

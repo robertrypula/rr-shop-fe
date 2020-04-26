@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { Device } from '../../models/viewport.model';
 import * as fromViewportActions from '../actions/viewport.actions';
+import { Device } from '../../models/viewport.model';
 
 export interface State {
   device: Device;

@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 
-import { ProductStore } from '../../models/product.model';
 import { OrderStore } from '../../models/order.model';
+import { ProductStore } from '../../models/product.model';
 import { PromoCodeStore } from '../../models/promo-code.model';
 
 export const add = createAction('[Order] Add', props<{ productId: number }>());

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Order } from '../../models/order.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
+import { Order } from '../../models/order.model';
 
 @Component({
   selector: 'rr-shop-order-page',

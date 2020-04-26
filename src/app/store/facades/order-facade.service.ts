@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { State } from '../reducers';
-import * as fromOrderActions from '../actions/order.actions';
-import * as fromOrderSelectors from '../selectors/order.selectors';
-import { Product } from '../../models/product.model';
-import { Order } from '../../models/order.model';
-import { selectActiveOrder, selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.selectors';
 import { selectApiCallPromoCode } from '../selectors/order-core.selectors';
+import * as fromOrderActions from '../actions/order.actions';
+import { Order } from '../../models/order.model';
+import * as fromOrderSelectors from '../selectors/order.selectors';
+import { selectActiveOrder, selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.selectors';
 import { ApiCall } from '../../models/page.model';
+import { Product } from '../../models/product.model';
+import { State } from '../reducers';
 
 @Injectable({
   providedIn: 'root'

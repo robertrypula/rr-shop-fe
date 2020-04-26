@@ -1,15 +1,16 @@
 import { createSelector } from '@ngrx/store';
 
-import { Order, OrderStore } from '../../models/order.model';
-import { ProductStore, Product, Type } from '../../models/product.model';
-import { selectProductsStore } from './product-core.selectors';
-import { selectOrderItemsStore, selectOrdersStore } from './order-core.selectors';
-import { toOrder, toOrderItem, extractClientDetailsForm } from './order.utils';
-import { selectProductsFromCategoryByStructuralNode } from './product.selectors';
 import { StructuralNode } from '../../models/category.model';
-import { selectUrl } from './router.selectors';
-import { getOrderUuid, isOnOrderRoute, isOnPotentialOrderRoute } from '../../utils/routing.utils';
 import { OrderItem, OrderItemStore } from '../../models/order-item.model';
+import { Order, OrderStore } from '../../models/order.model';
+import { Product, ProductStore, Type } from '../../models/product.model';
+import { getOrderUuid, isOnOrderRoute, isOnPotentialOrderRoute } from '../../utils/routing.utils';
+
+import { selectOrderItemsStore, selectOrdersStore } from './order-core.selectors';
+import { extractClientDetailsForm, toOrder, toOrderItem } from './order.utils';
+import { selectProductsStore } from './product-core.selectors';
+import { selectProductsFromCategoryByStructuralNode } from './product.selectors';
+import { selectUrl } from './router.selectors';
 
 export const selectUrlOrderUuid = createSelector(selectUrl, (url: string): string => {
   return getOrderUuid(url);

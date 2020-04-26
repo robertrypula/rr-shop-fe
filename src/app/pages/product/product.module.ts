@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MarkdownModule } from 'ngx-markdown';
 
-import { ProductComponent } from './product.component';
 import { ClickableActionModule } from '../../components/clickable-action/clickable-action.module';
-import { PipesModule } from '../../pipes/pipes.module';
 import { ImageModule } from '../../components/image/image.module';
+import { PipesModule } from '../../pipes/pipes.module';
+
+import { ProductComponent } from './product.component';
 
 @NgModule({
   declarations: [ProductComponent],

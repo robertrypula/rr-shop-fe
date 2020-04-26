@@ -1,11 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { tap } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
-import { environment } from '../../../../environments/environment';
 import { AuthInterceptor } from '../../rest-api/auth.interceptor';
+import { environment } from '../../../../environments/environment';
 
 // Based on: https://jasonwatmore.com/post/2019/06/26/angular-8-basic-http-authentication-tutorial-example
 // Other nice example: https://loiane.com/2017/08/angular-reactive-forms-trigger-validation-on-submit/

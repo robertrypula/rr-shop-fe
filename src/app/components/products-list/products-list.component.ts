@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { Product } from '../../models/product.model';
 import { CategoryStore } from '../../models/category.model';
 import { ClickableActionType } from '../clickable-action/clickable-action.model';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'rr-shop-products-list',

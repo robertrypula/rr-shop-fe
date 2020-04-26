@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { ClickableActionTheme, ClickableActionType } from './clickable-action.model';
 import { IconType } from '../icon/icon.models';
+
+import { ClickableActionTheme, ClickableActionType } from './clickable-action.model';
 
 @Component({
   selector: 'rr-shop-clickable-action',

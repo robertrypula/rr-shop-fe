@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { HeaderComponent } from './header.component';
 import { LogoModule } from '../logo/logo.module';
+import { TopBasketModule } from '../top-basket/top-basket.module';
 import { TopMenuModule } from '../top-menu/top-menu.module';
 import { TopSearchModule } from '../top-search/top-search.module';
-import { TopBasketModule } from '../top-basket/top-basket.module';
+
+import { HeaderComponent } from './header.component';
 
 @NgModule({
   declarations: [HeaderComponent],

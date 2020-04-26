@@ -1,8 +1,9 @@
-import { ProductStore, Product } from '../../models/product.model';
 import { CategoryStore } from '../../models/category.model';
-import { toOrderItem } from './order.utils';
 import { Image } from '../../models/image.model';
 import { OrderItemStore } from '../../models/order-item.model';
+import { Product, ProductStore } from '../../models/product.model';
+
+import { toOrderItem } from './order.utils';
 
 export const getProductsStoreForGivenCategoriesStore = (
   productsStore: ProductStore[],

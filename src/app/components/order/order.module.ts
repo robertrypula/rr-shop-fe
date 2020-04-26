@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OrderComponent } from './order.component';
-import { PipesModule } from '../../pipes/pipes.module';
+import { NgModule } from '@angular/core';
+
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
+import { PipesModule } from '../../pipes/pipes.module';
+
+import { OrderComponent } from './order.component';
 
 @NgModule({
   declarations: [OrderComponent],

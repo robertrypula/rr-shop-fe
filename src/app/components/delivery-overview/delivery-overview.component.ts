@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Product } from '../../models/product.model';
 import { StructuralNode } from '../../models/category.model';
-import { ProductFacadeService } from '../../store/facades/product-facade.service';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
-import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
 import { Order } from '../../models/order.model';
+import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
+import { ProductFacadeService } from '../../store/facades/product-facade.service';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'rr-shop-delivery-overview',

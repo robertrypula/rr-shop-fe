@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { CategoryStore } from '../../models/category.model';
 import { API_URL_CATEGORIES } from '../endpoints';
-import { fromDto } from './api-category.mappers';
+
 import { CategoryDto } from './api-category.dtos';
+import { fromDto } from './api-category.mappers';
 
 @Injectable({
   providedIn: 'root'

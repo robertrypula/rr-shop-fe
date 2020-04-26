@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminMenuComponent } from './admin-menu.component';
-import { ClickableActionModule } from '../../../components/clickable-action/clickable-action.module';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
+import { ClickableActionModule } from '../../../components/clickable-action/clickable-action.module';
+
+import { AdminMenuComponent } from './admin-menu.component';
 
 @NgModule({
   declarations: [AdminMenuComponent],

@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ClickableActionComponent } from './clickable-action.component';
-import { IconModule } from '../icon/icon.module';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
+import { IconModule } from '../icon/icon.module';
+
+import { ClickableActionComponent } from './clickable-action.component';
 
 @NgModule({
   declarations: [ClickableActionComponent],

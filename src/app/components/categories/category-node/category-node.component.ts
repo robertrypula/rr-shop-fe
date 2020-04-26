@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { CategoryFacadeService } from '../../../store/facades/category-facade.service';
 import { CategoryStore } from '../../../models/category.model';
 import { ProductFacadeService } from '../../../store/facades/product-facade.service';
-import { CategoryFacadeService } from '../../../store/facades/category-facade.service';
 
 @Component({
   selector: 'rr-shop-category-node',

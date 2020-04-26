@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { ProductsListComponent } from './products-list.component';
-import { ProductBoxModule } from '../product-box/product-box.module';
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
 import { PipesModule } from '../../pipes/pipes.module';
+import { ProductBoxModule } from '../product-box/product-box.module';
+
+import { ProductsListComponent } from './products-list.component';
 
 @NgModule({
   declarations: [ProductsListComponent],

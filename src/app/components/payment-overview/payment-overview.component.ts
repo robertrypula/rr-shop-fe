@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { StructuralNode } from '../../models/category.model';
-import { Product } from '../../models/product.model';
 import { ProductFacadeService } from '../../store/facades/product-facade.service';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'rr-shop-payment-overview',

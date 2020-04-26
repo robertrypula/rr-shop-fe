@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Image, SizeImage, Transparency } from '../../models/image.model';
 import { environment } from '../../../environments/environment';
+import { Image, SizeImage, Transparency } from '../../models/image.model';
 
 @Pipe({
   name: 'image'

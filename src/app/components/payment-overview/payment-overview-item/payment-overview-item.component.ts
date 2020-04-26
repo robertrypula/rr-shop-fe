@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { ClickableActionTheme } from '../../clickable-action/clickable-action.model';
-import { Product } from '../../../models/product.model';
-import { OrderFacadeService } from '../../../store/facades/order-facade.service';
 import { IconType } from '../../icon/icon.models';
+import { OrderFacadeService } from '../../../store/facades/order-facade.service';
+import { Product } from '../../../models/product.model';
 
 @Component({
   // tslint:disable-next-line:component-selector

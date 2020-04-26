@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { OrderModule } from '../../components/order/order.module';
 
 import { OrderPageComponent } from './order-page.component';
-import { OrderModule } from '../../components/order/order.module';
 
 @NgModule({
   declarations: [OrderPageComponent],

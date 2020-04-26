@@ -1,11 +1,12 @@
 import { createSelector } from '@ngrx/store';
 
 import { ActiveLevelUpdateEntry, CategoryStore, StructuralNode } from '../../models/category.model';
-import { selectUrl } from './router.selectors';
 import { getCategoryId, isOnCategoryRoute } from '../../utils/routing.utils';
-import { selectIsSmallDevice } from './viewport.selectors';
+
 import { selectCategoriesStore } from './category-core.selectors';
 import { getCategoriesStoreFromLeafToRoot, getCategoryStoreAndItsChildren } from './category.utils';
+import { selectUrl } from './router.selectors';
+import { selectIsSmallDevice } from './viewport.selectors';
 
 export const selectActiveCategoryId = createSelector(selectUrl, (url: string): number => {
   return getCategoryId(url);

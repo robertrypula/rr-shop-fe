@@ -1,7 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TopBasketComponent } from './top-basket.component';
+import { NgModule } from '@angular/core';
+
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
+
+import { TopBasketComponent } from './top-basket.component';
 
 @NgModule({
   declarations: [TopBasketComponent],

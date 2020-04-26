@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, tap } from 'rxjs/operators';
 
-import { Device, ViewportStatus } from '../models/viewport.model';
 import {
   GRID_DESKTOP_EXTRA_LARGE,
   GRID_DESKTOP_LARGE,
@@ -17,6 +16,7 @@ import {
   HEADER_STICKY_TABLET_THRESHOLD
 } from '../config';
 import { ViewportFacadeService } from '../store/facades/viewport-facade.service';
+import { Device, ViewportStatus } from '../models/viewport.model';
 
 @Injectable({
   providedIn: 'root'

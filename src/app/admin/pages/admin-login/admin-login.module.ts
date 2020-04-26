@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AdminLoginComponent } from './admin-login.component';
 import { AdminMenuModule } from '../../components/admin-menu/admin-menu.module';
+
+import { AdminLoginComponent } from './admin-login.component';
 
 @NgModule({
   declarations: [AdminLoginComponent],

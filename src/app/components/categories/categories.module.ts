@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { CategoriesComponent } from './categories.component';
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
-import { CategoryNodeComponent } from './category-node/category-node.component';
 import { PipesModule } from '../../pipes/pipes.module';
+
+import { CategoriesComponent } from './categories.component';
+import { CategoryNodeComponent } from './category-node/category-node.component';
 
 @NgModule({
   declarations: [CategoriesComponent, CategoryNodeComponent],

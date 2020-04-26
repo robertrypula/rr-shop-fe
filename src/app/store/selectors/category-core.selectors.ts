@@ -1,9 +1,9 @@
 import { createSelector } from '@ngrx/store';
 
-import * as fromCategoryReducers from '../reducers/category.reducers';
 import { CategoryStore } from '../../models/category.model';
-import { State } from '../reducers';
+import * as fromCategoryReducers from '../reducers/category.reducers';
 import { ApiCall } from '../../models/page.model';
+import { State } from '../reducers';
 import { getAsArray } from '../../utils/transfomation.utils';
 
 export const selectCategoryFeature = (state: State): fromCategoryReducers.State => state.category;

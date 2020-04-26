@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { API_URL_PRODUCT, API_URL_PRODUCTS } from '../endpoints';
 import { ProductStore } from '../../models/product.model';
+
 import { FetchType, ProductFullDto, ProductMediumDto, ProductMinimalDto } from './api-product.dtos';
 import { fromFullDto, fromMediumDto, fromMinimalDto } from './api-product.mappers';
 

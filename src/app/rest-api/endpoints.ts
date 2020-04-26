@@ -1,4 +1,5 @@
 import { environment } from '../../environments/environment';
+
 import { FetchType } from './product/api-product.dtos';
 
 export const API_URL_CATEGORIES = `${environment.urlApi}category`;

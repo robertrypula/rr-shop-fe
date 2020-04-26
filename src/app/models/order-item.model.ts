@@ -1,6 +1,7 @@
-import { DeliveryType, PaymentType, ProductStore, Type } from './product.model';
-import { Order } from './order.model';
 import { getNormalizedPrice } from '../utils/math.utils';
+
+import { Order } from './order.model';
+import { DeliveryType, PaymentType, ProductStore, Type } from './product.model';
 
 // -----------------------------------------------------------------------------
 

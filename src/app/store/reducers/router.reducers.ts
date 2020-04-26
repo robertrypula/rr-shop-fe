@@ -1,7 +1,7 @@
 import { Params, RouterStateSnapshot } from '@angular/router';
-import { RouterReducerState, routerReducer, RouterStateSerializer } from '@ngrx/router-store';
-import { Action } from '@ngrx/store';
+import { routerReducer, RouterReducerState, RouterStateSerializer } from '@ngrx/router-store';
 import { StoreRouterConfig } from '@ngrx/router-store/src/router_store_module';
+import { Action } from '@ngrx/store';
 
 export interface InnerState {
   url: string;

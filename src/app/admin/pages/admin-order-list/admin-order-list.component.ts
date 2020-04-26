@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { AdminBaseComponent } from '../admin-base-component.class';
-import { Status } from '../../../models/order.model';
 import { AdminCall } from '../../models/admin-component.models';
+import { Status } from '../../../models/order.model';
 
 /**
  * It's not following any of the best practices but I wrote this Admin in 1 hour :)

@@ -1,17 +1,17 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { catchError, concatMap, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 
-import * as fromPageActions from '../actions/page.actions';
-import * as fromProductActions from '../actions/product.actions';
-import * as fromRouterActions from '../actions/router.actions';
 import { ApiProductService } from '../../rest-api/product/api-product.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
-import { ProductFacadeService } from '../facades/product-facade.service';
-import { ProductStore } from '../../models/product.model';
 import { PageFacadeService } from '../facades/page-facade.service';
+import * as fromPageActions from '../actions/page.actions';
+import { ProductFacadeService } from '../facades/product-facade.service';
+import * as fromProductActions from '../actions/product.actions';
+import { ProductStore } from '../../models/product.model';
+import * as fromRouterActions from '../actions/router.actions';
 
 @Injectable()
 export class ProductsEffects {

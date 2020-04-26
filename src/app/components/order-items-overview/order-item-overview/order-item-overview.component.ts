@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { OrderService } from '../../../services/order.service';
+import { IconType } from '../../icon/icon.models';
 import { SizeImage, SizeImageContainer } from '../../../models/image.model';
 import { OrderFacadeService } from '../../../store/facades/order-facade.service';
 import { OrderItem } from '../../../models/order-item.model';
-import { IconType } from '../../icon/icon.models';
+import { OrderService } from '../../../services/order.service';
 
 @Component({
   // tslint:disable-next-line:component-selector

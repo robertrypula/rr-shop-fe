@@ -1,9 +1,9 @@
 import { createSelector } from '@ngrx/store';
 
-import * as fromProductReducers from '../reducers/product.reducers';
-import { ProductStore } from '../../models/product.model';
-import { State } from '../reducers';
 import { ApiCall } from '../../models/page.model';
+import { ProductStore } from '../../models/product.model';
+import * as fromProductReducers from '../reducers/product.reducers';
+import { State } from '../reducers';
 import { getAsArray } from '../../utils/transfomation.utils';
 
 export const selectProductFeature = (state: State): fromProductReducers.State => state.product;

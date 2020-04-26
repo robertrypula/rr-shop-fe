@@ -1,7 +1,8 @@
-import { ProductFullDto, ProductMediumDto, ProductMinimalDto } from './api-product.dtos';
-import { ProductStore } from '../../models/product.model';
 import { ImageDto } from '../image/image.dtos';
 import { Image } from '../../models/image.model';
+import { ProductStore } from '../../models/product.model';
+
+import { ProductFullDto, ProductMediumDto, ProductMinimalDto } from './api-product.dtos';
 
 export const fromMinimalDto = (dto: ProductMinimalDto): ProductStore => {
   return {

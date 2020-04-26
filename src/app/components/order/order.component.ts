@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
+import { ClickableActionType } from '../clickable-action/clickable-action.model';
 import { Order, Status } from '../../models/order.model';
 import { PaymentType, Type } from '../../models/product.model';
-import { ClickableActionType } from '../clickable-action/clickable-action.model';
 
 @Component({
   selector: 'rr-shop-order',

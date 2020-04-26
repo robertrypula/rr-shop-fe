@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
-import { ApiCall } from '../../models/page.model';
+import { IconType } from '../icon/icon.models';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { Order } from '../../models/order.model';
-import { IconType } from '../icon/icon.models';
+import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
+import { ApiCall } from '../../models/page.model';
 
 @Component({
   selector: 'rr-shop-promo-code',

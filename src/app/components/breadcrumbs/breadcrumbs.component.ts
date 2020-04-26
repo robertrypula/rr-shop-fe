@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { CategoryStore } from '../../models/category.model';
 import { CategoryFacadeService } from '../../store/facades/category-facade.service';
+import { CategoryStore } from '../../models/category.model';
 
 @Component({
   selector: 'rr-shop-breadcrumbs',

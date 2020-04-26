@@ -1,18 +1,18 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
-import { of, EMPTY } from 'rxjs';
 import { routerNavigatedAction } from '@ngrx/router-store';
+import { EMPTY, of } from 'rxjs';
+import { catchError, concatMap, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 
-import * as fromCategoryActions from '../actions/category.actions';
-import * as fromRouterActions from '../actions/router.actions';
 import { ApiCategoryService } from '../../rest-api/category/api-category.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
-import { RouterFacadeService } from '../facades/router-facade.service';
-import { setDevice } from '../actions/viewport.actions';
-import { ViewportFacadeService } from '../facades/viewport-facade.service';
+import * as fromCategoryActions from '../actions/category.actions';
 import { SMALL_DEVICE_DEFINITION } from '../../config';
+import { RouterFacadeService } from '../facades/router-facade.service';
+import * as fromRouterActions from '../actions/router.actions';
+import { ViewportFacadeService } from '../facades/viewport-facade.service';
+import { setDevice } from '../actions/viewport.actions';
 
 /*
   https://www.freecodecamp.org/news/best-practices-for-a-clean-and-performant-angular-application-288e7b39eb6f/

@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AdminOrderListComponent } from './admin-order-list.component';
 import { AdminMenuModule } from '../../components/admin-menu/admin-menu.module';
-import { PipesModule } from '../../../pipes/pipes.module';
 import { ClickableActionModule } from '../../../components/clickable-action/clickable-action.module';
+import { PipesModule } from '../../../pipes/pipes.module';
+
+import { AdminOrderListComponent } from './admin-order-list.component';
 
 @NgModule({
   declarations: [AdminOrderListComponent],

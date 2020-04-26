@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BarFacadeService } from '../store/facades/bar-facade.service';
 import { Observable } from 'rxjs';
+
+import { BarFacadeService } from '../store/facades/bar-facade.service';
 import { Bar } from '../models/bar.model';
 import { ORDER_BAR_SUCCESS_MESSAGE_HIDE_DELAY } from '../config';
 

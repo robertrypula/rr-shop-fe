@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { ClickableActionType } from '../clickable-action/clickable-action.model';
 import { IconType } from '../icon/icon.models';
 

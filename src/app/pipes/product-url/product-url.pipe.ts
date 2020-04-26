@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Product } from '../../models/product.model';
 import { CategoryStore } from '../../models/category.model';
+import { Product } from '../../models/product.model';
 
 @Pipe({
   name: 'productUrl'

@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Product } from '../../models/product.model';
-import { OrderService } from '../../services/order.service';
+import { IconType } from '../../components/icon/icon.models';
 import { SizeImage, SizeImageContainer } from '../../models/image.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
+import { OrderService } from '../../services/order.service';
 import { ProductFacadeService } from '../../store/facades/product-facade.service';
-import { IconType } from '../../components/icon/icon.models';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'rr-shop-product',

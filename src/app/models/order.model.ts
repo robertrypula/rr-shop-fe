@@ -1,9 +1,10 @@
-import { PromoCode, PromoCodeStore } from './promo-code.model';
-import { OrderItem, OrderItemStore } from './order-item.model';
 import { getNormalizedPrice } from '../utils/math.utils';
-import { DeliveryType, PaymentType, Type } from './product.model';
-import { Payment, PaymentStore } from './payment.model';
 import { POTENTIAL_ORDER_UUID } from '../store/reducers/order.reducers';
+
+import { OrderItem, OrderItemStore } from './order-item.model';
+import { Payment, PaymentStore } from './payment.model';
+import { DeliveryType, PaymentType, Type } from './product.model';
+import { PromoCode, PromoCodeStore } from './promo-code.model';
 
 export enum Status {
   PaymentWait = 'PaymentWait',

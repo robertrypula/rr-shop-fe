@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ClientDetailsComponent } from './client-details.component';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
+
+import { ClientDetailsComponent } from './client-details.component';
 
 @NgModule({
   declarations: [ClientDetailsComponent],

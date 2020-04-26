@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { concatMap, filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { EMPTY, of } from 'rxjs';
 import { routerNavigatedAction } from '@ngrx/router-store';
+import { EMPTY, of } from 'rxjs';
+import { concatMap, filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
-import * as fromRouterActions from '../actions/router.actions';
-import { RouterFacadeService } from '../facades/router-facade.service';
-import * as fromCategoryActions from '../actions/category.actions';
-import * as fromProductActions from '../actions/product.actions';
 import { CategoryFacadeService } from '../facades/category-facade.service';
+import * as fromCategoryActions from '../actions/category.actions';
 import { ProductFacadeService } from '../facades/product-facade.service';
+import * as fromProductActions from '../actions/product.actions';
+import { RouterFacadeService } from '../facades/router-facade.service';
+import * as fromRouterActions from '../actions/router.actions';
 
 @Injectable()
 export class RouterEffects {

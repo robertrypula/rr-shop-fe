@@ -1,9 +1,9 @@
+import { OrderItem, OrderItemStore } from '../../models/order-item.model';
 import { Order, OrderStore } from '../../models/order.model';
+import { Payment, PaymentStore } from '../../models/payment.model';
 import { ProductStore } from '../../models/product.model';
 import { PromoCode } from '../../models/promo-code.model';
-import { OrderItem, OrderItemStore } from '../../models/order-item.model';
 import { getAsArrayUuid } from '../../utils/transfomation.utils';
-import { Payment, PaymentStore } from '../../models/payment.model';
 
 export const toOrder = (orderStore: OrderStore, productsStore: ProductStore[]): Order => {
   const order: Order = new Order().fromStore(orderStore);

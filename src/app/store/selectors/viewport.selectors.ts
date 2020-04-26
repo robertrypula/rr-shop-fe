@@ -1,9 +1,10 @@
 import { createSelector } from '@ngrx/store';
 
-import { State } from '../reducers';
-import * as fromViewportReducers from '../reducers/viewport.reducers';
-import { Device } from '../../models/viewport.model';
 import { SMALL_DEVICE_DEFINITION } from '../../config';
+import { State } from '../reducers';
+import { Device } from '../../models/viewport.model';
+import * as fromViewportReducers from '../reducers/viewport.reducers';
+
 import { selectNavigationId } from './router.selectors';
 
 export const selectViewportFeature = (state: State): fromViewportReducers.State => state.viewport;

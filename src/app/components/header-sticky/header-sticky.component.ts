@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ViewportService } from '../../services/viewport.service';
 import { Align } from '../top-menu/top-menu.models';
+import { ViewportService } from '../../services/viewport.service';
 
 @Component({
   selector: 'rr-shop-header-sticky',

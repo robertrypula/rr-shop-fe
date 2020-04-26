@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Order } from '../../models/order.model';
-import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
-import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { ClickableActionTheme, ClickableActionType } from '../clickable-action/clickable-action.model';
 import { IconType } from '../icon/icon.models';
+import { OrderFacadeService } from '../../store/facades/order-facade.service';
+import { Order } from '../../models/order.model';
+import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
 import { Type } from '../../models/product.model';
 
 @Component({

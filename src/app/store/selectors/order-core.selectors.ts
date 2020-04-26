@@ -1,11 +1,11 @@
 import { createSelector } from '@ngrx/store';
 
-import { State } from '../reducers';
-import * as fromOrderReducers from '../reducers/order.reducers';
-import { OrderStore } from '../../models/order.model';
-import { ApiCall } from '../../models/page.model';
-import { POTENTIAL_ORDER_UUID } from '../reducers/order.reducers';
 import { OrderItemStore } from '../../models/order-item.model';
+import { OrderStore } from '../../models/order.model';
+import * as fromOrderReducers from '../reducers/order.reducers';
+import { POTENTIAL_ORDER_UUID } from '../reducers/order.reducers';
+import { ApiCall } from '../../models/page.model';
+import { State } from '../reducers';
 import { getAsArrayUuid } from '../../utils/transfomation.utils';
 
 export const selectOrderFeature = (state: State): fromOrderReducers.State => state.order;

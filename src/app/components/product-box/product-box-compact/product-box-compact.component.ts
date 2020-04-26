@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
-import { ProductBoxAbstractComponent } from '../product-box-abstract.component';
 import { IconType } from '../../icon/icon.models';
+import { ProductBoxAbstractComponent } from '../product-box-abstract.component';
 
 @Component({
   selector: 'rr-shop-product-box-compact',

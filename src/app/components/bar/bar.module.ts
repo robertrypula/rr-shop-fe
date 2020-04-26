@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BarComponent } from './bar.component';
-import { IconModule } from '../icon/icon.module';
+import { NgModule } from '@angular/core';
+
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
+import { IconModule } from '../icon/icon.module';
+
+import { BarComponent } from './bar.component';
 
 @NgModule({
   declarations: [BarComponent],

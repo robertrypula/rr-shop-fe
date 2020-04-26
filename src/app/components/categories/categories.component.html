@@ -14,18 +14,19 @@
 
   <div class="Categories-expandCollapseContainer" *ngIf="isCollapseExpandButtonVisible$ | async">
     <rr-shop-clickable-action
-      *ngIf="isListCollapsed$ | async"
+      *ngIf="isListCollapsed$ | async; else listExpanded"
       (actionClick)="onExpandClick()"
       [clickableActionTheme]="ClickableActionTheme.TransparentDark"
       [iconType]="IconType.FasAngleDoubleDown"
       [label]="'rozwiń kategorie'"
     ></rr-shop-clickable-action>
-    <rr-shop-clickable-action
-      *ngIf="!(isListCollapsed$ | async)"
-      (actionClick)="onCollapseClick()"
-      [clickableActionTheme]="ClickableActionTheme.TransparentDark"
-      [iconType]="IconType.FasAngleDoubleUp"
-      [label]="'zwiń kategorie'"
-    ></rr-shop-clickable-action>
+    <ng-template #listExpanded>
+      <rr-shop-clickable-action
+        (actionClick)="onCollapseClick()"
+        [clickableActionTheme]="ClickableActionTheme.TransparentDark"
+        [iconType]="IconType.FasAngleDoubleUp"
+        [label]="'zwiń kategorie'"
+      ></rr-shop-clickable-action>
+    </ng-template>
   </div>
 </div>

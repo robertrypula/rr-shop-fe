@@ -1,39 +1,20 @@
 @import 'configs-and-mixins';
 
-.HeaderSticky-phoneVerticalAndPhoneHorizontal {
+.HeaderSticky-phoneVertical {
   display: none;
 
   .HeaderSticky-searchAndBasket {
-    padding-top: $gutter-width;
-    padding-bottom: $gutter-width;
-    padding-left: $gutter-width;
+    padding: $gutter-width $gutter-width + 50px $gutter-width $gutter-width;
     position: relative;
     > * {
       display: block;
     }
-    > *:not(:first-child) {
+    > *:last-child {
+      z-index: 1000;
       position: absolute;
       top: $gutter-width;
       right: $gutter-width;
       transition: opacity 0.25s;
-    }
-    > *:nth-child(2) {
-      z-index: 1000;
-    }
-    > *:nth-child(3) {
-      z-index: 1001;
-    }
-
-    @include viewport-phone-vertical-only {
-      padding-right: $gutter-width + 50px;
-    }
-
-    @include viewport-phone-horizontal-only {
-      padding-right: $gutter-width + 175px;
-      > *:nth-child(2) {
-        opacity: 0;
-        right: $gutter-width + 12px;
-      }
     }
   }
   .HeaderSticky-menu > * {
@@ -45,13 +26,58 @@
   @include viewport-phone-vertical-only {
     display: block;
   }
+}
+
+.HeaderSticky--active {
+  .HeaderSticky-phoneVertical .HeaderSticky-searchAndBasket > *:last-child {
+    position: fixed;
+    opacity: 1;
+  }
+}
+
+// --------------------------------------------------
+
+.HeaderSticky-phoneHorizontal {
+  display: none;
+
+  .HeaderSticky-searchAndBasket {
+    padding: $gutter-width;
+    position: relative;
+    > * {
+      display: block;
+    }
+    > *:nth-child(1) {
+      float: left;
+      width: 55%;
+    }
+    > *:nth-child(2) {
+      float: right;
+      position: relative;
+      z-index: 1001;
+    }
+    > *:nth-child(3) {
+      float: right;
+      z-index: 1000;
+      position: absolute;
+      top: $gutter-width;
+      right: $gutter-width + 12px;
+      transition: opacity 0.25s;
+      opacity: 0;
+    }
+  }
+  .HeaderSticky-menu > * {
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+  }
+
   @include viewport-phone-horizontal-only {
     display: block;
   }
 }
 
 .HeaderSticky--active {
-  .HeaderSticky-phoneVerticalAndPhoneHorizontal .HeaderSticky-searchAndBasket > *:nth-child(2) {
+  .HeaderSticky-phoneHorizontal .HeaderSticky-searchAndBasket > *:nth-child(3) {
     position: fixed;
     opacity: 1;
   }

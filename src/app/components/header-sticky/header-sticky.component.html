@@ -22,7 +22,8 @@
   <div class="HeaderSticky-desktop">
     <div class="container clearfix">
       <div>
-        <rr-shop-top-menu [align]="Align.Left"></rr-shop-top-menu>
+        <rr-shop-top-menu [align]="Align.Right" class="hidden-xlg"></rr-shop-top-menu>
+        <rr-shop-top-menu [align]="Align.Right" [isWide]="true" class="hidden-md hidden-lg"></rr-shop-top-menu>
       </div>
       <div>
         <rr-shop-top-search></rr-shop-top-search>
@@ -30,23 +31,4 @@
       </div>
     </div>
   </div>
-  <!--  <div class="HeaderSticky-phone"></div>-->
-
-  <!--
-  <div class="container">
-    <div class="row HeaderSticky-content">
-      <div class="col-xxs-12 col-md-4">
-        <rr-shop-top-search></rr-shop-top-search>
-      </div>
-
-      <div class="col-xxs-12 col-md-4">
-        <rr-shop-top-basket></rr-shop-top-basket>
-      </div>
-
-      <div class="col-xxs-12 col-md-4">
-        <rr-shop-top-menu></rr-shop-top-menu>
-      </div>
-    </div>
-  </div>
-  -->
 </div>

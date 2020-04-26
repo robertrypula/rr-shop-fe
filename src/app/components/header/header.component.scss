@@ -53,8 +53,19 @@
       display: inline-block;
     }
     > *:first-child {
-      width: 230px;
       margin-right: $gutter-width;
+
+      @include viewport-desktop-medium-only {
+        width: 230px;
+      }
+
+      @include viewport-desktop-large-only {
+        width: 380px;
+      }
+
+      @include viewport-desktop-extra-large-and-up {
+        width: 480px;
+      }
     }
   }
 }

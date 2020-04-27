@@ -11,7 +11,7 @@ export const selectBarsStore = createSelector(selectBarFeature, (barFeature: fro
   getAsArray(barFeature.entities)
 );
 
-export const selectIsCookieModalAccepted = createSelector(
+export const selectIsCookieModalVisible = createSelector(
   selectBarFeature,
-  (barFeature: fromBarReducers.State): boolean => barFeature.isCookieModalAccepted
+  (barFeature: fromBarReducers.State): boolean => barFeature.isCookieModalVisible
 );

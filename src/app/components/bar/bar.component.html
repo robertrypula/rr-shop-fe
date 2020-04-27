@@ -1,75 +1,42 @@
 <div class="Bar" *ngIf="bars$ | async as bars">
   <div class="container">
     <div
-      [ngClass]="{
-        'Bar-message--success': true,
-        'Bar-message--notification': true,
-        'Bar-message--error': false
-      }"
-      [ngStyle]="{ zIndex: 2000 + 10 }"
-      class="Bar-message"
-    >
-      <div class="BarMessage-cookie">
-        <div>
-          Nasz sklep do poprawnego działania korzysta z cookies oraz podobnych technologii takich jak local storage.
-          Jeśli nie wyrażasz na to zgody prosimy o opuszczenie strony. Szczegóły znajdziesz w
-          <a [routerLink]="privacyPolicy$ | async | categoryUrl">polityce prywatności</a>.
-        </div>
-
-        <div>
-          <rr-shop-clickable-action
-            (actionClick)="close(2)"
-            [clickableActionTheme]="ClickableActionTheme.Secondary"
-            [label]="'Rozumiem i zgadzam się'"
-          ></rr-shop-clickable-action>
-        </div>
-      </div>
-      <div>
-        <rr-shop-clickable-action
-          (actionClick)="close(3)"
-          [iconType]="IconType.FarTimesCircle"
-          [clickableActionTheme]="ClickableActionTheme.TransparentBright"
-        ></rr-shop-clickable-action>
-      </div>
-    </div>
-
-    <div
-      [ngClass]="{
-        'Bar-message--success': false,
-        'Bar-message--error': true
-      }"
-      [ngStyle]="{ zIndex: 2000 + 10 }"
-      class="Bar-message"
-    >
-      <div>Test error</div>
-      <div>
-        <rr-shop-clickable-action
-          (actionClick)="close(3)"
-          [iconType]="IconType.FarTimesCircle"
-          [clickableActionTheme]="ClickableActionTheme.TransparentBright"
-        ></rr-shop-clickable-action>
-      </div>
-    </div>
-
-    <div
       *ngFor="let bar of bars; trackBy: trackBy"
       [ngClass]="{
-        'Bar-message--error': BarType.Error === bar.barType,
-        'Bar-message--notification': BarType.Notification === bar.barType,
-        'Bar-message--success': BarType.Success === bar.barType
+        'Bar-item--error': BarType.Error === bar.barType,
+        'Bar-item--notification': BarType.Notification === bar.barType,
+        'Bar-item--success': BarType.Success === bar.barType
       }"
-      [ngStyle]="{ zIndex: 2000 + bar.id }"
-      class="Bar-message"
+      [ngStyle]="{ zIndex: 2001 + bar.id }"
+      class="Bar-item"
     >
-      <div>
+      <div class="Bar-itemMessage">
         {{ bar.message }}
       </div>
-      <div>
+      <div class="Bar-itemClose">
         <rr-shop-clickable-action
           (actionClick)="close(bar.id)"
           [iconType]="IconType.FarTimesCircle"
           [clickableActionTheme]="ClickableActionTheme.TransparentBright"
         ></rr-shop-clickable-action>
+      </div>
+    </div>
+
+    <div style="z-index: 2000" class="Bar-item Bar-item--success" *ngIf="isCookieModalVisible$ | async">
+      <div class="Bar-itemMessage Bar-cookie">
+        <div>
+          Nasz sklep do poprawnego działania wykorzystuje pliki cookies oraz podobne technologie takie jak local
+          storage. Jeśli nie wyrażasz na to zgody prosimy o opuszczenie strony. Szczegóły znajdziesz w
+          <a [routerLink]="privacyPolicy$ | async | categoryUrl">polityce prywatności</a>.
+        </div>
+
+        <div>
+          <rr-shop-clickable-action
+            (actionClick)="acceptCookies()"
+            [clickableActionTheme]="ClickableActionTheme.Secondary"
+            [label]="'Rozumiem i zgadzam się'"
+          ></rr-shop-clickable-action>
+        </div>
       </div>
     </div>
   </div>

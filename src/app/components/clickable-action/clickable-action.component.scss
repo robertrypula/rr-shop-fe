@@ -30,6 +30,9 @@
     }
     &.ClickableAction-icon {
       position: relative;
+      > * {
+        display: block;
+      }
     }
 
     .ClickableAction-number {

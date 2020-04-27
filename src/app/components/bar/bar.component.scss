@@ -6,56 +6,57 @@
   right: 0;
   bottom: 0;
   z-index: 1000;
+}
 
-  .Bar-message {
-    $message-padding: 8px;
+.Bar-item {
+  width: 80%;
+  min-width: $min-viewport-width - 2 * $gutter-width;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.33);
+  border-radius: 20px;
+  padding: 1.5 * $gutter-width;
+  position: relative;
+  font-size: 16px;
+  line-height: 1.5em;
+  margin: 0.5 * $gutter-width auto 0 auto;
+  color: $white-color;
 
-    width: 80%;
-    min-width: 300px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.33);
-    border-radius: 20px;
-    padding: $message-padding;
-    position: relative;
-    font-size: 16px;
-    line-height: 1.5em;
-    margin: 4px auto 0 auto;
+  a {
     color: $white-color;
-
-    a {
-      color: $white-color;
-      text-decoration: underline;
-    }
-
-    > div:first-child {
-      min-height: 40px;
-      padding: 8px 50px 8px 8px;
-    }
-    > div:last-child {
-      position: absolute;
-      top: $message-padding;
-      right: $message-padding;
-      > * {
-        display: block;
-      }
-    }
+    text-decoration: underline;
   }
 
-  .Bar-message--error {
-    background-color: $red-color;
+  .Bar-itemMessage {
+    padding: 0 50px 0 0;
   }
-
-  .Bar-message--notification {
-    background-color: $green-color;
-  }
-
-  .Bar-message--success {
-    background-color: $green-color;
+  .Bar-itemClose {
+    position: absolute;
+    top: $gutter-width;
+    right: $gutter-width;
+    > * {
+      display: block;
+    }
   }
 }
 
-.BarMessage-cookie {
+.Bar-item--error {
+  background-color: $red-color;
+}
+
+.Bar-item--notification {
+  background-color: $green-color;
+}
+
+.Bar-item--success {
+  background-color: $green-color;
+}
+
+// -------------------------------------------
+
+.Bar-cookie {
+  padding: 0 !important;
+
   > div:first-child {
-    padding-bottom: 8px;
+    padding-bottom: $gutter-width;
     text-align: justify;
   }
   > div:last-child {

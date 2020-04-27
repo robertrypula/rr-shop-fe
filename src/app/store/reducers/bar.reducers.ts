@@ -7,18 +7,19 @@ export interface State {
   entities: {
     [id: number]: BarStore;
   };
-  isCookieModalAccepted: boolean;
+  isCookieModalVisible: boolean;
 }
 
 export const initialState: State = {
   entities: {},
-  isCookieModalAccepted: false
+  isCookieModalVisible: true
 };
 
 export let barId = 0;
 
 const barReducer = createReducer(
   initialState,
+  on(fromBarActions.acceptCookies, (state): State => ({ ...state, isCookieModalVisible: false })),
   on(
     fromBarActions.show,
     (state, { message, barType }): State => {

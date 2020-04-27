@@ -1,36 +1,46 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromBarActions from '../actions/bar.actions';
-import { Bar, BarType } from '../../models/bar.model';
+import { BarStore } from '../../models/bar.model';
 
 export interface State {
-  [id: number]: Bar;
+  entities: {
+    [id: number]: BarStore;
+  };
+  isCookieModalAccepted: boolean;
 }
 
-export const initialState: State = {};
+export const initialState: State = {
+  entities: {},
+  isCookieModalAccepted: false
+};
 
 export let barId = 0;
 
 const barReducer = createReducer(
   initialState,
   on(
-    fromBarActions.showError,
-    (state, { message }): State => {
+    fromBarActions.show,
+    (state, { message, barType }): State => {
       barId++;
-      return { ...state, [barId]: { id: barId, message, type: BarType.Error } };
-    }
-  ),
-  on(
-    fromBarActions.showSuccess,
-    (state, { message }): State => {
-      barId++;
-      return { ...state, [barId]: { id: barId, message, type: BarType.Success } };
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [barId]: { id: barId, message, barType }
+        }
+      };
     }
   ),
   on(fromBarActions.close, (state, { id }) => {
-    const { [id]: toDelete, ...rest } = state;
+    const { [id]: toDelete, ...rest } = state.entities;
 
-    return rest;
+    return {
+      ...state,
+      entities: {
+        ...rest
+      }
+    };
   })
 );
 

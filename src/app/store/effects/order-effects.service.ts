@@ -9,6 +9,7 @@ import { ApiOrderService } from '../../rest-api/order/api-order.service';
 import { ApiProductService } from '../../rest-api/product/api-product.service';
 import { ApiPromoCodeService } from '../../rest-api/promo-code/api-promo-code.service';
 import * as fromBarActions from '../actions/bar.actions';
+import { BarType } from '../../models/bar.model';
 import { OrderFacadeService } from '../facades/order-facade.service';
 import * as fromOrderActions from '../actions/order.actions';
 import { OrderStore } from '../../models/order.model';
@@ -71,8 +72,9 @@ export class OrderEffects {
       }),
       switchMap(() => [
         fromOrderActions.resetOrders(),
-        fromBarActions.showSuccess({
-          message: `Przyjęliśmy Twoje zamówienie - dziękujemy za zakupy w naszym sklepie`
+        fromBarActions.show({
+          message: `Przyjęliśmy Twoje zamówienie - dziękujemy za zakupy w naszym sklepie`,
+          barType: BarType.Success
         })
       ])
     )
@@ -87,8 +89,9 @@ export class OrderEffects {
       }),
       switchMap(() => [
         fromOrderActions.potentialOrderLoad(),
-        fromBarActions.showError({
-          message: `Wystąpił błąd podczas składania zamówienia - prosimy o sprawdzenie podanych danych`
+        fromBarActions.show({
+          message: `Wystąpił błąd podczas składania zamówienia - prosimy o sprawdzenie podanych danych`,
+          barType: BarType.Error
         })
       ])
     )

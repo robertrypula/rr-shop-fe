@@ -1,0 +1,8 @@
+@import 'configs-and-mixins';
+
+.NoContent {
+  text-align: center;
+  line-height: 1.5em;
+  padding: $gutter-width * 2 $gutter-width;
+  background-color: $secondary-background-color;
+}

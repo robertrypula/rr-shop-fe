@@ -8,18 +8,20 @@
 
   <h2>Admin / zamówienie / {{ order?.data?.number }}</h2>
 
-  <div class="margin-bottom">
+  <div class="AdminOrder-section AdminOrder-buttons">
     <rr-shop-clickable-action (actionClick)="refresh()" label="'Odśwież'"></rr-shop-clickable-action>
   </div>
 
-  <div class="margin-bottom">
-    <div *ngIf="order?.adminCallState === AdminCallState.Failure">
+  <div *ngIf="order?.adminCallState === AdminCallState.Failure" class="AdminOrder-section">
+    <h3>Błedy listy</h3>
+    <div>
       Błąd podczas ładowania zamówienia
       <pre>{{ order?.errorDetails | json }}</pre>
     </div>
   </div>
 
-  <div class="margin-bottom">
+  <h3>Zmiana statusu</h3>
+  <div class="AdminOrder-section AdminOrder-buttons">
     <rr-shop-clickable-action
       (actionClick)="setStatus(Status.PaymentCompleted)"
       [label]="Status.PaymentCompleted | orderStatus"
@@ -42,8 +44,9 @@
     ></rr-shop-clickable-action>
   </div>
 
-  <div class="margin-bottom">
-    <div *ngIf="orderStatus?.adminCallState === AdminCallState.Failure">
+  <div *ngIf="orderStatus?.adminCallState === AdminCallState.Failure" class="AdminOrder-section">
+    <h3>Błędy statusu</h3>
+    <div>
       Błąd podczas zmiany statusu
       <pre>{{ orderStatus?.errorDetails | json }}</pre>
     </div>
@@ -51,12 +54,12 @@
 
   <div *ngIf="order?.data as d">
     <h3>Aktualny status</h3>
-    <div class="margin-bottom">
+    <div class="AdminOrder-section">
       <strong>{{ order?.data?.status | orderStatus }}</strong>
     </div>
 
     <h3>Produkty</h3>
-    <div *ngIf="d.orderItems as orderItems" class="margin-bottom">
+    <div *ngIf="d.orderItems as orderItems" class="AdminOrder-section">
       <table class="u-compact-table">
         <tr>
           <th>Lp.</th>
@@ -140,8 +143,26 @@
       </table>
     </div>
 
+    <h3>Podsumowanie</h3>
+    <div class="AdminOrder-section">
+      <table class="u-compact-table" style="width: 280px">
+        <tr>
+          <td>Wartość przed rabatem</td>
+          <td>{{ getPriceTotalOriginal(d.orderItems) | price }}</td>
+        </tr>
+        <tr>
+          <td>Wartość po rabacie</td>
+          <td>{{ getPriceTotalSelling(d.orderItems) | price }}</td>
+        </tr>
+        <tr>
+          <td>Różnica</td>
+          <td>{{ getPriceTotalOriginalSellingDifference(d.orderItems) | price }}</td>
+        </tr>
+      </table>
+    </div>
+
     <h3>Maile</h3>
-    <div *ngIf="d.emails as emails" class="margin-bottom">
+    <div *ngIf="d.emails as emails" class="AdminOrder-section">
       <table class="u-compact-table">
         <tr>
           <th>Lp.</th>
@@ -159,6 +180,10 @@
         </tr>
       </table>
     </div>
-    <pre class="u-formatted-json">{{ d | json }}</pre>
+
+    <h3>Surowe dane :)</h3>
+    <div class="AdminOrder-section">
+      <pre class="u-formatted-json">{{ d | json }}</pre>
+    </div>
   </div>
 </div>

@@ -1,34 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { BarFacadeService } from '../store/facades/bar-facade.service';
-import { Bar } from '../models/bar.model';
-import { ORDER_BAR_SUCCESS_MESSAGE_HIDE_DELAY } from '../config';
+import { BarType } from '../models/bar.model';
+import { BASKET_BAR_SUCCESS_MESSAGE_HIDE_DELAY } from '../config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BarService {
-  public bars$: Observable<Bar[]>;
-
   // TODO migrate everything to facade and remove service
-  public constructor(protected barFacade: BarFacadeService) {
-    this.bars$ = barFacade.bars$;
-  }
-
-  public close(id: number): void {
-    this.barFacade.close(id);
-  }
-
-  public showError(message: string): void {
-    this.barFacade.showError(message);
-  }
+  public constructor(protected barFacade: BarFacadeService) {}
 
   public showSuccess(message: string): void {
     let lastId: number;
 
-    this.barFacade.showSuccess(message);
+    this.barFacade.show(message, BarType.Success);
     lastId = this.barFacade.getLastId();
-    setTimeout((): void => this.barFacade.close(lastId), ORDER_BAR_SUCCESS_MESSAGE_HIDE_DELAY);
+    setTimeout((): void => this.barFacade.close(lastId), BASKET_BAR_SUCCESS_MESSAGE_HIDE_DELAY);
   }
 }

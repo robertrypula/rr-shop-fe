@@ -30,6 +30,9 @@
     }
     &.ClickableAction-icon {
       position: relative;
+      > * {
+        display: block;
+      }
     }
 
     .ClickableAction-number {
@@ -108,7 +111,11 @@
 }
 
 .ClickableAction--secondary {
-  // TODO implement ClickableAction--secondary
+  > * {
+    background-color: transparent;
+    color: $white-color;
+    border-color: $white-color;
+  }
 }
 
 .ClickableAction--transparentBright {

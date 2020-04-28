@@ -1,12 +1,10 @@
 import { createSelector } from '@ngrx/store';
 
-import { Bar } from '../../models/bar.model';
-import * as fromBarReducers from '../reducers/bar.reducers';
-import { State } from '../reducers';
-import { getAsArray } from '../../utils/transfomation.utils';
+import { Bar, BarStore } from '../../models/bar.model';
 
-export const selectBarFeature = (state: State): fromBarReducers.State => state.bar;
+import { selectBarsStore } from './bar-core.selectors';
+import { toBar } from './bar.utiils';
 
-export const selectBars = createSelector(selectBarFeature, (barFeature: fromBarReducers.State): Bar[] =>
-  getAsArray(barFeature)
-);
+export const selectBars = createSelector(selectBarsStore, (barsStore: BarStore[]): Bar[] => {
+  return barsStore.map((barStore: BarStore): Bar => toBar(barStore));
+});

@@ -6,34 +6,69 @@
   right: 0;
   bottom: 0;
   z-index: 1000;
+}
 
-  .Bar-message {
-    $message-padding: 8px;
+.Bar-item {
+  width: 80%;
+  min-width: $min-viewport-width - 2 * $gutter-width;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.33);
+  border-radius: 20px;
+  padding: 1.5 * $gutter-width;
+  position: relative;
+  font-size: 16px;
+  line-height: 1.5em;
+  margin: 0.5 * $gutter-width auto 0 auto;
+  color: $white-color;
 
-    width: 80%;
-    min-width: 300px;
-    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.33);
-    padding: $message-padding;
-    position: relative;
-    margin: 4px auto 0 auto;
+  a {
     color: $white-color;
-
-    div:first-child {
-      min-height: 40px;
-      padding: 12px 50px 12px 4px;
-    }
-    div:last-child {
-      position: absolute;
-      top: $message-padding;
-      right: $message-padding;
-    }
+    text-decoration: underline;
   }
 
-  .Bar-message--error {
-    background-color: $red-color;
+  .Bar-itemMessage {
+    padding: 0 50px 0 0;
   }
+  .Bar-itemClose {
+    position: absolute;
+    top: $gutter-width;
+    right: $gutter-width;
+    > * {
+      display: block;
+    }
+  }
+}
 
-  .Bar-message--success {
-    background-color: $a-color;
+.Bar-item--error {
+  background-color: $red-color;
+}
+
+.Bar-item--notification {
+  background-color: $green-color;
+}
+
+.Bar-item--success {
+  background-color: $green-color;
+}
+
+// -------------------------------------------
+
+.Bar-cookie {
+  padding: 0 !important;
+
+  > div {
+    > div:first-child {
+      text-align: justify;
+      padding-bottom: 1.5 * $gutter-width;
+
+      @include viewport-desktop-large-and-up {
+        padding-bottom: 0;
+      }
+    }
+    > div:last-child {
+      text-align: right;
+      > * {
+        display: inline-block;
+      }
+    }
   }
 }

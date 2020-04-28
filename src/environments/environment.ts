@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   urlApi: `http://${window.location.hostname}:3000/`,
-  urlStatic: 'http://127.0.0.1:8080/'
+  urlStatic: `http://${window.location.hostname}:8080/`
 };
 
 /*

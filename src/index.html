@@ -35,24 +35,6 @@
     <link rel="stylesheet" href="https://geowidget.easypack24.net/css/easypack.css" />
   </head>
   <body>
-    <div id="weak-password-container">
-      <input id="weak-password" placeholder="password" />
-      <button type="button" onClick="enter()">Enter</button>
-    </div>
-    <script>
-      if (window.localStorage.getItem('bootstrapApp') === 'yes') {
-        document.getElementById('weak-password-container').style.display = 'none';
-      }
-
-      function enter() {
-        // Yep... this is super easy to break but sufficient in my case ;)
-        if (document.getElementById('weak-password').value === 'ziolo') {
-          window.localStorage.setItem('bootstrapApp', 'yes');
-          document.getElementById('weak-password-container').style.display = 'none';
-        }
-      }
-    </script>
-
     <rr-shop-root></rr-shop-root>
   </body>
 </html>

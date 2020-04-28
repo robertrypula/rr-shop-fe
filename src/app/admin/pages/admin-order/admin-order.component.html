@@ -9,7 +9,7 @@
   <h2>Admin / zamówienie / {{ order?.data?.number }}</h2>
 
   <div class="AdminOrder-section AdminOrder-buttons">
-    <rr-shop-clickable-action (actionClick)="refresh()" label="'Odśwież'"></rr-shop-clickable-action>
+    <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
   </div>
 
   <div *ngIf="order?.adminCallState === AdminCallState.Failure" class="AdminOrder-section">

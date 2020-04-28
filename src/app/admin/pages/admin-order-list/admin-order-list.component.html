@@ -11,17 +11,9 @@
     <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
   </div>
 
-  <div *ngIf="orders?.adminCallState === AdminCallState.Failure" class="u-admin-section">
-    <h3>Błędy</h3>
-    <div>
-      Błąd podczas ładowania listy zamówień
-      <pre class="u-formatted-json">{{ orders?.errorDetails | json }}</pre>
-    </div>
-  </div>
-
   <div *ngIf="orders?.data as d">
     <div class="u-admin-section">
-      <h3>Zamówienia</h3>
+      <h4>Zamówienia</h4>
       <div>
         <table class="u-compact-table">
           <tr>
@@ -55,7 +47,7 @@
     </div>
 
     <div class="u-admin-section">
-      <h3>Surowe dane :)</h3>
+      <h4>Surowe dane :)</h4>
       <div>
         <pre class="u-formatted-json">{{ d | json }}</pre>
       </div>

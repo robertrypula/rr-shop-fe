@@ -24,18 +24,20 @@
 
     <div style="z-index: 2000" class="Bar-item Bar-item--success" *ngIf="isCookieModalVisible$ | async">
       <div class="Bar-itemMessage Bar-cookie">
-        <div>
-          Nasz sklep do poprawnego działania wykorzystuje pliki cookies oraz podobne technologie takie jak local
-          storage. Jeśli nie wyrażasz na to zgody prosimy o opuszczenie strony. Szczegóły znajdziesz w
-          <a [routerLink]="privacyPolicy$ | async | categoryUrl">polityce prywatności</a>.
-        </div>
+        <div class="row">
+          <div class="col-xxs-12 col-lg-8 col-xlg-9">
+            Nasz sklep do poprawnego działania wykorzystuje pliki cookies oraz podobne technologie takie jak local
+            storage. Jeśli nie wyrażasz na to zgody prosimy o opuszczenie strony. Szczegóły znajdziesz w
+            <a [routerLink]="privacyPolicy$ | async | categoryUrl">polityce prywatności</a>.
+          </div>
 
-        <div>
-          <rr-shop-clickable-action
-            (actionClick)="acceptCookies()"
-            [clickableActionTheme]="ClickableActionTheme.Secondary"
-            [label]="'Rozumiem i zgadzam się'"
-          ></rr-shop-clickable-action>
+          <div class="col-xxs-12 col-lg-4 col-xlg-3">
+            <rr-shop-clickable-action
+              (actionClick)="acceptCookies()"
+              [clickableActionTheme]="ClickableActionTheme.Secondary"
+              [label]="'Rozumiem i zgadzam się'"
+            ></rr-shop-clickable-action>
+          </div>
         </div>
       </div>
     </div>

@@ -55,14 +55,20 @@
 .Bar-cookie {
   padding: 0 !important;
 
-  > div:first-child {
-    padding-bottom: $gutter-width;
-    text-align: justify;
-  }
-  > div:last-child {
-    text-align: right;
-    > * {
-      display: inline-block;
+  > div {
+    > div:first-child {
+      text-align: justify;
+      padding-bottom: 1.5 * $gutter-width;
+
+      @include viewport-desktop-large-and-up {
+        padding-bottom: 0;
+      }
+    }
+    > div:last-child {
+      text-align: right;
+      > * {
+        display: inline-block;
+      }
     }
   }
 }

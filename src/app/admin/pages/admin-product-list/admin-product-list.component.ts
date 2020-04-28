@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { AdminBaseComponent } from '../admin-base-component.class';
 import { AdminCall } from '../../models/admin-component.models';
+import { ClickableActionType } from '../../../components/clickable-action/clickable-action.model';
+import { environment } from '../../../../environments/environment';
 
 /**
  * It's not following any of the best practices but I wrote this Admin in 1 hour :)
@@ -16,6 +18,9 @@ import { AdminCall } from '../../models/admin-component.models';
 })
 export class AdminProductListComponent extends AdminBaseComponent implements OnInit {
   public products: AdminCall = this.getAdminCall<any[]>();
+
+  public readonly cashRegisterCsvLink = `${environment.urlApi}product/cash-register-csv`;
+  public readonly ClickableActionType = ClickableActionType;
 
   public ngOnInit(): void {
     this.refresh();

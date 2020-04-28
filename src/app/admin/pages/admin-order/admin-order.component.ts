@@ -29,6 +29,24 @@ export class AdminOrderComponent extends AdminBaseComponent implements OnInit {
     this.refresh();
   }
 
+  public getPriceTotalOriginal(orderItems: any[]): number {
+    return orderItems.reduce(
+      (accumulator: number, orderItem: any): number => accumulator + orderItem.priceUnitOriginal * orderItem.quantity,
+      0
+    );
+  }
+
+  public getPriceTotalSelling(orderItems: any[]): number {
+    return orderItems.reduce(
+      (accumulator: number, orderItem: any): number => accumulator + orderItem.priceUnitSelling * orderItem.quantity,
+      0
+    );
+  }
+
+  public getPriceTotalOriginalSellingDifference(orderItems: any[]): number {
+    return this.getPriceTotalOriginal(orderItems) - this.getPriceTotalSelling(orderItems);
+  }
+
   public refresh(): void {
     this.get(this.order, `order/${this.route.snapshot.paramMap.get('id')}`).subscribe();
   }

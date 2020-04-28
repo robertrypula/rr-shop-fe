@@ -15,3 +15,16 @@ td a {
     text-decoration: underline;
   }
 }
+
+.AdminOrder-buttons {
+  > * {
+    display: inline-block;
+    margin-right: 0.5 * $gutter-width;
+  }
+}
+
+.AdminOrder-section {
+  padding-bottom: 2 * $gutter-width;
+  border-bottom: 1px solid $border-color;
+  margin-bottom: 2 * $gutter-width;
+}

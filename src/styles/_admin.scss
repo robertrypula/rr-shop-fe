@@ -47,6 +47,12 @@ table.u-compact-table {
   }
 }
 
+.u-admin-form {
+  > div > div:first-child {
+    text-align: right;
+  }
+}
+
 .u-admin-section {
   padding-bottom: 2 * $gutter-width;
   border-bottom: 1px solid $border-color;

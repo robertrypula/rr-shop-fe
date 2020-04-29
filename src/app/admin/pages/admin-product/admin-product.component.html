@@ -1,19 +1,154 @@
-<rr-shop-admin-menu></rr-shop-admin-menu>
+<div
+  [ngClass]="{
+    'u-block-overlay':
+      product?.adminCallState === AdminCallState.Request || productSave?.adminCallState === AdminCallState.Request
+  }"
+>
+  <rr-shop-admin-menu></rr-shop-admin-menu>
 
-<h2>Admin / produkt / {{ product?.data?.name }}</h2>
+  <h2>Admin / produkt / {{ product?.data?.name }}</h2>
 
-<div class="margin-bottom">
-  <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
-</div>
-
-<div class="margin-bottom">
-  <div *ngIf="product?.adminCallState === AdminCallState.Request">Wczytywanie produktu...</div>
-  <div *ngIf="product?.adminCallState === AdminCallState.Failure">
-    Błąd podczas ładowania produktu
-    <pre>{{ product?.errorDetails | json }}</pre>
+  <div class="u-admin-section u-admin-buttons">
+    <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
   </div>
-</div>
 
-<div *ngIf="product?.data as d">
-  <pre class="u-formatted-json">{{ d | json }}</pre>
+  <div *ngIf="product?.data as d">
+    <div class="u-admin-section u-admin-form">
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-product-form-external-id">Numer na kasie</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <input id="admin-product-form-external-id" class="u-form-input" type="text" [value]="d.externalId" disabled />
+        </div>
+      </div>
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-product-form-name">Nazwa</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <input id="admin-product-form-name" class="u-form-input" type="text" [(ngModel)]="d.name" />
+        </div>
+      </div>
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-product-form-slug">Slug</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <input id="admin-product-form-slug" class="u-form-input" type="text" [value]="d.slug" disabled />
+        </div>
+      </div>
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-product-form-name-cash-register">Nazwa na kasie</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <input
+            id="admin-product-form-name-cash-register"
+            class="u-form-input"
+            type="text"
+            [value]="d.nameCashRegister"
+            disabled
+          />
+        </div>
+      </div>
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-product-form-price-unit">Cena dla klienta</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <input id="admin-product-form-price-unit" class="u-form-input" type="text" [(ngModel)]="d.priceUnit" />
+        </div>
+      </div>
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-product-form-description">Opis</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <textarea
+            id="admin-product-form-description"
+            class="u-form-input"
+            type="text"
+            style="height: 400px;"
+            [(ngModel)]="d.description"
+          ></textarea>
+        </div>
+      </div>
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-product-form-notes">Notatki (widoczne tylko w adminie)</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <textarea
+            id="admin-product-form-notes"
+            class="u-form-input"
+            type="text"
+            style="height: 150px;"
+            [(ngModel)]="d.notes"
+          ></textarea>
+        </div>
+      </div>
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-product-form-is-hidden">Czy ukryty</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <input id="admin-product-form-is-hidden" class="u-form-input" type="checkbox" [(ngModel)]="d.isHidden" />
+        </div>
+      </div>
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-product-form-created-at">Utworzono</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <input
+            id="admin-product-form-created-at"
+            class="u-form-input"
+            type="text"
+            [value]="d.createdAt | dateCustom"
+            disabled
+          />
+        </div>
+      </div>
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-product-form-modified-at">Zmodyfikowano</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <input
+            id="admin-product-form-modified-at"
+            class="u-form-input"
+            type="text"
+            [value]="d.updatedAt | dateCustom"
+            disabled
+          />
+        </div>
+      </div>
+      <!--- --- -->
+
+      <div class="row">
+        <div></div>
+        <div class="col-xxs-9 col-xxs-offset-3 margin-bottom">
+          <rr-shop-clickable-action (actionClick)="save()" [label]="'Zapisz'"></rr-shop-clickable-action>
+        </div>
+      </div>
+    </div>
+
+    <div class="u-admin-section">
+      <h4>Surowe dane :)</h4>
+      <div>
+        <pre class="u-formatted-json">{{ d | json }}</pre>
+      </div>
+    </div>
+  </div>
 </div>

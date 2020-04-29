@@ -1,46 +1,56 @@
-<rr-shop-admin-menu></rr-shop-admin-menu>
+<div
+  [ngClass]="{
+    'u-block-overlay': orders?.adminCallState === AdminCallState.Request
+  }"
+>
+  <rr-shop-admin-menu></rr-shop-admin-menu>
 
-<h2>Admin / lista zamówień</h2>
+  <h2>Admin / lista zamówień</h2>
 
-<div class="margin-bottom">
-  <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
-</div>
-
-<div class="margin-bottom">
-  <div *ngIf="orders?.adminCallState === AdminCallState.Request">Wczytywanie zamówień...</div>
-  <div *ngIf="orders?.adminCallState === AdminCallState.Failure">
-    Błąd podczas ładowania listy zamówień
-    <pre>{{ orders?.errorDetails | json }}</pre>
+  <div class="u-admin-section u-admin-buttons">
+    <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
   </div>
-</div>
 
-<div *ngIf="orders?.data as d">
-  <table class="u-compact-table">
-    <tr>
-      <th>Numer</th>
-      <th>Data utworzenia</th>
-      <th>Data modyfikacji</th>
-      <th>Status</th>
-      <th>Email</th>
-    </tr>
-    <tr
-      *ngFor="let item of d"
-      [ngClass]="{
-        'u-orange':
-          item?.status === Status.Shipped ||
-          item?.status === Status.ReadyForPickup ||
-          item?.status === Status.PaymentCompleted,
-        'u-green': item?.status === Status.Completed,
-        'u-red': item?.status === Status.Canceled
-      }"
-    >
-      <td>
-        <a [routerLink]="[item.id]">{{ item.number }}</a>
-      </td>
-      <td>{{ item.createdAt | dateCustom }}</td>
-      <td>{{ item.updatedAt | dateCustom }}</td>
-      <td>{{ item.status | orderStatus }}</td>
-      <td>{{ item.email }}</td>
-    </tr>
-  </table>
+  <div *ngIf="orders?.data as d">
+    <div class="u-admin-section">
+      <h4>Zamówienia</h4>
+      <div>
+        <table class="u-compact-table">
+          <tr>
+            <th>Numer</th>
+            <th>Data utworzenia</th>
+            <th>Data modyfikacji</th>
+            <th>Status</th>
+            <th>Email</th>
+          </tr>
+          <tr
+            *ngFor="let item of d"
+            [ngClass]="{
+              'u-orange':
+                item?.status === Status.Shipped ||
+                item?.status === Status.ReadyForPickup ||
+                item?.status === Status.PaymentCompleted,
+              'u-green': item?.status === Status.Completed,
+              'u-red': item?.status === Status.Canceled
+            }"
+          >
+            <td class="u-monospace">
+              <a [routerLink]="[item.id]">{{ item.number }}</a>
+            </td>
+            <td>{{ item.createdAt | dateCustom }}</td>
+            <td>{{ item.updatedAt | dateCustom }}</td>
+            <td>{{ item.status | orderStatus }}</td>
+            <td>{{ item.email }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="u-admin-section">
+      <h4>Surowe dane :)</h4>
+      <div>
+        <pre class="u-formatted-json">{{ d | json }}</pre>
+      </div>
+    </div>
+  </div>
 </div>

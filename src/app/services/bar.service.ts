@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { BarFacadeService } from '../store/facades/bar-facade.service';
 import { BarType } from '../models/bar.model';
-import { BASKET_BAR_SUCCESS_MESSAGE_HIDE_DELAY } from '../config';
+import { BAR_SUCCESS_MESSAGE_HIDE_DELAY } from '../config';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,6 @@ export class BarService {
 
     this.barFacade.show(message, BarType.Success);
     lastId = this.barFacade.getLastId();
-    setTimeout((): void => this.barFacade.close(lastId), BASKET_BAR_SUCCESS_MESSAGE_HIDE_DELAY);
+    setTimeout((): void => this.barFacade.close(lastId), BAR_SUCCESS_MESSAGE_HIDE_DELAY);
   }
 }

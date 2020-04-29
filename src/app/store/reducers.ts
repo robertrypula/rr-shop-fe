@@ -36,7 +36,7 @@ export const reducers: ActionReducerMap<State> = {
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: [{ bar: ['isCookieModalVisible'], order: ['entities', 'lastOrderItemId'] }],
+    keys: [{ bar: ['isCookieModalVisible'] }, { order: ['entities', 'lastOrderItemId'] }],
     rehydrate: true
   })(reducer);
 }

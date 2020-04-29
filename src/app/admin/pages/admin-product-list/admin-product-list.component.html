@@ -1,65 +1,78 @@
-<rr-shop-admin-menu></rr-shop-admin-menu>
+<div
+  [ngClass]="{
+    'u-block-overlay': products?.adminCallState === AdminCallState.Request
+  }"
+>
+  <rr-shop-admin-menu></rr-shop-admin-menu>
 
-<h2>Admin / lista produktów</h2>
+  <h2>Admin / lista produktów</h2>
 
-<div class="margin-bottom">
-  <rr-shop-clickable-action (actionClick)="refresh()" label="'Odśwież'"></rr-shop-clickable-action>
-</div>
-
-<div class="margin-bottom">
-  <div *ngIf="products?.adminCallState === AdminCallState.Request">Wczytywanie produktów...</div>
-  <div *ngIf="products?.adminCallState === AdminCallState.Failure">
-    Błąd podczas ładowania listy produktów
-    <pre>{{ products?.errorDetails | json }}</pre>
+  <div class="u-admin-section u-admin-buttons">
+    <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
+    <rr-shop-clickable-action
+      [clickableActionType]="ClickableActionType.Anchor"
+      [target]="'_blank'"
+      [link]="cashRegisterCsvLink"
+      label="Wygeneruj CSV na kasę fiskalną"
+    ></rr-shop-clickable-action>
   </div>
-</div>
 
-<div *ngIf="products?.data as d">
-  <table class="u-compact-table">
-    <tr>
-      <th>Lp.</th>
-      <th>Nazwa</th>
-      <th>Nazwa na kasie fiskalnej</th>
-      <th>Producent</th>
-      <th>Dostawy</th>
-      <th>Zamówienia</th>
-      <th>Dostępnych</th>
-      <th>Cena w sklepie</th>
-      <th>Widoczność</th>
-    </tr>
-    <tr
-      *ngFor="let item of d"
-      [ngClass]="{
-        'u-green': item?.orderItems?.length > 0,
-        'u-gray': item?.isHidden
-      }"
-    >
-      <td class="u-right">{{ item.externalId }}</td>
-      <td>
-        <a [routerLink]="[item.id]">{{ item.name }}</a>
-      </td>
-      <td class="u-monospace">
-        {{ item?.nameCashRegister }}
-      </td>
-      <td>
-        {{ item?.manufacturer?.name }}
-      </td>
+  <div *ngIf="products?.data as d">
+    <div class="u-admin-section">
+      <h4>Produkty</h4>
+      <div>
+        <table class="u-compact-table">
+          <tr>
+            <th>Lp.</th>
+            <th>Nazwa</th>
+            <th>Nazwa na kasie fiskalnej</th>
+            <th>Producent</th>
+            <th>Dostawy</th>
+            <th>Zamówienia</th>
+            <th>Dostępnych</th>
+            <th>Cena w sklepie</th>
+            <th>Widoczność</th>
+          </tr>
+          <tr
+            *ngFor="let item of d"
+            [ngClass]="{
+              'u-green': item?.orderItems?.length > 0,
+              'u-gray': item?.isHidden
+            }"
+          >
+            <td class="u-right">{{ item.externalId }}</td>
+            <td>
+              <a [routerLink]="[item.id]">{{ item.name }}</a>
+            </td>
+            <td class="u-monospace">
+              {{ item?.nameCashRegister }}
+            </td>
+            <td>
+              {{ item?.manufacturer?.name }}
+            </td>
 
-      <td class="u-right" title="Sztuki z dostaw nie oznaczone jako niedostępne (od początku działalności)">
-        {{ item?.supplies?.length }}
-      </td>
-      <td class="u-right" title="Sztuki z zamówień różnych od Anulowane (od początku działalności)">
-        {{ getOrderItemsQuantityTotal(item?.orderItems) }}
-      </td>
-      <td class="u-right" title="Stan widoczny dla klienta na stronie" [ngClass]="{ 'u-red': item?.quantity <= 0 }">
-        <b>{{ item?.quantity }}</b>
-      </td>
-      <td class="u-right">
-        {{ item?.priceUnit | price }}
-      </td>
-      <td>
-        {{ item?.isHidden ? 'ukryty' : 'widoczny' }}
-      </td>
-    </tr>
-  </table>
+            <td class="u-right" title="Sztuki z dostaw nie oznaczone jako niedostępne (od początku działalności)">
+              {{ item?.supplies?.length }}
+            </td>
+            <td class="u-right" title="Sztuki z zamówień różnych od Anulowane (od początku działalności)">
+              {{ getOrderItemsQuantityTotal(item?.orderItems) }}
+            </td>
+            <td
+              class="u-right"
+              title="Stan widoczny dla klienta na stronie"
+              [ngClass]="{ 'u-red': item?.quantity <= 0 }"
+            >
+              <b>{{ item?.quantity }}</b>
+            </td>
+            <td class="u-right">
+              {{ item?.priceUnit | price }}
+            </td>
+            <td>
+              {{ item?.isHidden ? 'ukryty' : 'widoczny' }}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

@@ -8,182 +8,182 @@
 
   <h2>Admin / zamówienie / {{ order?.data?.number }}</h2>
 
-  <div class="AdminOrder-section AdminOrder-buttons">
-    <rr-shop-clickable-action (actionClick)="refresh()" label="'Odśwież'"></rr-shop-clickable-action>
-  </div>
-
-  <div *ngIf="order?.adminCallState === AdminCallState.Failure" class="AdminOrder-section">
-    <h3>Błedy listy</h3>
-    <div>
-      Błąd podczas ładowania zamówienia
-      <pre>{{ order?.errorDetails | json }}</pre>
-    </div>
-  </div>
-
-  <h3>Zmiana statusu</h3>
-  <div class="AdminOrder-section AdminOrder-buttons">
-    <rr-shop-clickable-action
-      (actionClick)="setStatus(Status.PaymentCompleted)"
-      [label]="Status.PaymentCompleted | orderStatus"
-    ></rr-shop-clickable-action>
-    <rr-shop-clickable-action
-      (actionClick)="setStatus(Status.ReadyForPickup)"
-      [label]="Status.ReadyForPickup | orderStatus"
-    ></rr-shop-clickable-action>
-    <rr-shop-clickable-action
-      (actionClick)="setStatus(Status.Shipped)"
-      [label]="Status.Shipped | orderStatus"
-    ></rr-shop-clickable-action>
-    <rr-shop-clickable-action
-      (actionClick)="setStatus(Status.Completed)"
-      [label]="Status.Completed | orderStatus"
-    ></rr-shop-clickable-action>
-    <rr-shop-clickable-action
-      (actionClick)="setStatus(Status.Canceled)"
-      [label]="Status.Canceled | orderStatus"
-    ></rr-shop-clickable-action>
-  </div>
-
-  <div *ngIf="orderStatus?.adminCallState === AdminCallState.Failure" class="AdminOrder-section">
-    <h3>Błędy statusu</h3>
-    <div>
-      Błąd podczas zmiany statusu
-      <pre>{{ orderStatus?.errorDetails | json }}</pre>
-    </div>
+  <div class="u-admin-section u-admin-buttons">
+    <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
   </div>
 
   <div *ngIf="order?.data as d">
-    <h3>Aktualny status</h3>
-    <div class="AdminOrder-section">
-      <strong>{{ order?.data?.status | orderStatus }}</strong>
+    <div class="u-admin-section">
+      <h4>Status zamówienia</h4>
+      <div class="u-admin-buttons">
+        <rr-shop-clickable-action
+          (actionClick)="setStatus(Status.PaymentCompleted)"
+          [iconType]="d?.status === Status.PaymentCompleted ? IconType.FarCheckCircle : null"
+          [label]="Status.PaymentCompleted | orderStatus"
+        ></rr-shop-clickable-action>
+        <rr-shop-clickable-action
+          (actionClick)="setStatus(Status.ReadyForPickup)"
+          [iconType]="d?.status === Status.ReadyForPickup ? IconType.FarCheckCircle : null"
+          [label]="Status.ReadyForPickup | orderStatus"
+        ></rr-shop-clickable-action>
+        <rr-shop-clickable-action
+          (actionClick)="setStatus(Status.Shipped)"
+          [iconType]="d?.status === Status.Shipped ? IconType.FarCheckCircle : null"
+          [label]="Status.Shipped | orderStatus"
+        ></rr-shop-clickable-action>
+        <rr-shop-clickable-action
+          (actionClick)="setStatus(Status.Completed)"
+          [iconType]="d?.status === Status.Completed ? IconType.FarCheckCircle : null"
+          [label]="Status.Completed | orderStatus"
+        ></rr-shop-clickable-action>
+        <rr-shop-clickable-action
+          (actionClick)="setStatus(Status.Canceled)"
+          [iconType]="d?.status === Status.Canceled ? IconType.FarCheckCircle : null"
+          [label]="Status.Canceled | orderStatus"
+        ></rr-shop-clickable-action>
+      </div>
     </div>
 
-    <h3>Produkty</h3>
-    <div *ngIf="d.orderItems as orderItems" class="AdminOrder-section">
-      <table class="u-compact-table">
-        <tr>
-          <th>Lp.</th>
-          <th>Obrazek</th>
-          <th>Nazwa</th>
-          <th>Cena oryg.</th>
-          <th>Liczba</th>
-          <th>Cena</th>
-          <th>Wartość</th>
-        </tr>
-        <tr
-          *ngFor="let orderItem of orderItems; index as index"
-          [ngClass]="{ 'u-gray': orderItem.type !== Type.Product }"
-        >
-          <td>{{ index + 1 }}</td>
-          <td>
-            <rr-shop-image
-              *ngIf="orderItem.type === Type.Product"
-              [images]="orderItem.product.images"
-              [sizeImage]="SizeImage.Px0128"
-              [sizeImageContainer]="SizeImageContainer.Px0064"
-            ></rr-shop-image>
-          </td>
-          <td>
-            <div class="clearfix admin-order-item-header">
-              {{ orderItem.name }}
-              <strong>{{ orderItem.product.externalId }}</strong>
-            </div>
+    <div class="u-admin-section">
+      <h4>Produkty</h4>
+      <div *ngIf="d.orderItems as orderItems">
+        <table class="u-compact-table">
+          <tr>
+            <th>Lp.</th>
+            <th>Obrazek</th>
+            <th>Nazwa</th>
+            <th>Cena oryg.</th>
+            <th>Liczba</th>
+            <th>Cena</th>
+            <th>Wartość</th>
+          </tr>
+          <tr
+            *ngFor="let orderItem of orderItems; index as index"
+            [ngClass]="{ 'u-gray': orderItem.type !== Type.Product }"
+          >
+            <td>{{ index + 1 }}</td>
+            <td>
+              <rr-shop-image
+                *ngIf="orderItem.type === Type.Product"
+                [images]="orderItem.product.images"
+                [sizeImage]="SizeImage.Px0128"
+                [sizeImageContainer]="SizeImageContainer.Px0064"
+              ></rr-shop-image>
+            </td>
+            <td>
+              <div class="clearfix admin-order-item-header">
+                {{ orderItem.name }}
+                <strong>{{ orderItem.product.externalId }}</strong>
+              </div>
 
-            <ng-container *ngIf="orderItem.type === Type.Product">
-              <br /><br />
-              Stan magazynu - tutaj możesz oznaczyć produkty, które fizycznie trafiły do zamówienia:
-              <br /><br />
+              <ng-container *ngIf="orderItem.type === Type.Product">
+                <br /><br />
+                Stan magazynu - tutaj możesz oznaczyć produkty, które fizycznie trafiły do zamówienia:
+                <br /><br />
 
-              <table class="u-compact-table">
-                <tr>
-                  <th>Lp.</th>
-                  <th>Vat</th>
-                  <th>Cena brutto</th>
-                  <th>Data ważności</th>
-                  <th>Dostępność</th>
-                  <th>Utworzony</th>
-                  <th>Zmodyfikowany</th>
-                  <th>W zamówieniu...</th>
-                  <th>...o statusie</th>
-                  <th>Akcje</th>
-                </tr>
-                <tr
-                  *ngFor="let supply of orderItem.product.supplies; index as indexInner"
-                  [ngClass]="{
-                    'u-gray': supply?.orderItem?.id && supply?.orderItem?.id !== orderItem.id,
-                    'u-green': supply?.orderItem?.id === orderItem.id
-                  }"
-                >
-                  <td>{{ indexInner + 1 }}</td>
-                  <td>{{ supply.vat }}</td>
-                  <td>{{ supply.priceUnitGross | price }}</td>
-                  <td>{{ supply.bestBefore | dateCustom }}</td>
-                  <td>{{ supply.isUnavailable ? 'nie dostępny' : 'dostępny' }}</td>
-                  <td>{{ supply.createdAt | dateCustom }}</td>
-                  <td>{{ supply.updatedAt | dateCustom }}</td>
-                  <td>{{ supply?.orderItem?.order?.number }}</td>
-                  <td>{{ supply?.orderItem?.order?.status | orderStatus }}</td>
-                  <td>
-                    <a (click)="supplyOrderItemAttach(supply.id, orderItem.id)" *ngIf="!supply?.orderItem?.id">
-                      przypisz
-                    </a>
-                    <a (click)="supplyOrderItemDetach(supply.id)" *ngIf="supply?.orderItem?.id === orderItem.id">
-                      usuń
-                    </a>
-                  </td>
-                </tr>
-              </table>
-            </ng-container>
-          </td>
-          <td>{{ orderItem.priceUnitOriginal | price }}</td>
-          <td>{{ orderItem.quantity }}</td>
-          <td>{{ orderItem.priceUnitSelling | price }}</td>
-          <td>{{ orderItem.priceUnitSelling * orderItem.quantity | price }}</td>
-        </tr>
-      </table>
+                <table class="u-compact-table">
+                  <tr>
+                    <th>Lp.</th>
+                    <th>Vat</th>
+                    <th>C. zakupu brutto</th>
+                    <th>Data ważności</th>
+                    <th>Dostępność</th>
+                    <th>Utworzony</th>
+                    <th>Zmodyfikowany</th>
+                    <th>W zamówieniu...</th>
+                    <th>...o statusie</th>
+                    <th>Akcje</th>
+                  </tr>
+                  <tr
+                    *ngFor="let supply of orderItem.product.supplies; index as indexInner"
+                    [ngClass]="{
+                      'u-gray': supply?.orderItem?.id && supply?.orderItem?.id !== orderItem.id,
+                      'u-green': supply?.orderItem?.id === orderItem.id
+                    }"
+                  >
+                    <td>{{ indexInner + 1 }}</td>
+                    <td>{{ supply.vat }}</td>
+                    <td>{{ supply.priceUnitGross | price }}</td>
+                    <td>{{ supply.bestBefore | dateCustom }}</td>
+                    <td>{{ supply.isUnavailable ? 'nie dostępny' : 'dostępny' }}</td>
+                    <td>{{ supply.createdAt | dateCustom }}</td>
+                    <td>{{ supply.updatedAt | dateCustom }}</td>
+                    <td>
+                      {{ supply?.orderItem?.id === orderItem.id ? '' : supply?.orderItem?.order?.number }}
+                    </td>
+                    <td>
+                      {{
+                        supply?.orderItem?.id === orderItem.id ? '' : (supply?.orderItem?.order?.status | orderStatus)
+                      }}
+                    </td>
+                    <td>
+                      <a (click)="supplyOrderItemAttach(supply.id, orderItem.id)" *ngIf="!supply?.orderItem?.id">
+                        przypisz
+                      </a>
+                      <a (click)="supplyOrderItemDetach(supply.id)" *ngIf="supply?.orderItem?.id === orderItem.id">
+                        usuń
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </ng-container>
+            </td>
+            <td>{{ orderItem.priceUnitOriginal | price }}</td>
+            <td>{{ orderItem.quantity }}</td>
+            <td>{{ orderItem.priceUnitSelling | price }}</td>
+            <td>{{ orderItem.priceUnitSelling * orderItem.quantity | price }}</td>
+          </tr>
+        </table>
+      </div>
     </div>
 
-    <h3>Podsumowanie</h3>
-    <div class="AdminOrder-section">
-      <table class="u-compact-table" style="width: 280px">
-        <tr>
-          <td>Wartość przed rabatem</td>
-          <td>{{ getPriceTotalOriginal(d.orderItems) | price }}</td>
-        </tr>
-        <tr>
-          <td>Wartość po rabacie</td>
-          <td>{{ getPriceTotalSelling(d.orderItems) | price }}</td>
-        </tr>
-        <tr>
-          <td>Różnica</td>
-          <td>{{ getPriceTotalOriginalSellingDifference(d.orderItems) | price }}</td>
-        </tr>
-      </table>
+    <div class="u-admin-section">
+      <h4>Podsumowanie</h4>
+      <div>
+        <table class="u-compact-table" style="width: 280px">
+          <tr>
+            <td>Wartość przed rabatem</td>
+            <td>{{ getPriceTotalOriginal(d.orderItems) | price }}</td>
+          </tr>
+          <tr>
+            <td>Wartość po rabacie</td>
+            <td>{{ getPriceTotalSelling(d.orderItems) | price }}</td>
+          </tr>
+          <tr>
+            <td>Rabat kwotowy</td>
+            <td>{{ getPriceTotalOriginalSellingDifference(d.orderItems) | price }}</td>
+          </tr>
+        </table>
+      </div>
     </div>
 
-    <h3>Maile</h3>
-    <div *ngIf="d.emails as emails" class="AdminOrder-section">
-      <table class="u-compact-table">
-        <tr>
-          <th>Lp.</th>
-          <th>Tytuł</th>
-          <th>Nadawca</th>
-          <th>Utworzono</th>
-          <th>Wysłano</th>
-        </tr>
-        <tr *ngFor="let item of emails; index as index">
-          <td>{{ index + 1 }}</td>
-          <td>{{ item.subject }}</td>
-          <td>{{ item.to }}</td>
-          <td>{{ item.createdAt | dateCustom }}</td>
-          <td>{{ item.updatedAt | dateCustom }}</td>
-        </tr>
-      </table>
+    <div *ngIf="d.emails as emails" class="u-admin-section">
+      <h4>Maile</h4>
+      <div>
+        <table class="u-compact-table">
+          <tr>
+            <th>Lp.</th>
+            <th>Tytuł</th>
+            <th>Nadawca</th>
+            <th>Utworzono</th>
+            <th>Wysłano</th>
+          </tr>
+          <tr *ngFor="let item of emails; index as index">
+            <td>{{ index + 1 }}</td>
+            <td>{{ item.subject }}</td>
+            <td>{{ item.to }}</td>
+            <td>{{ item.createdAt | dateCustom }}</td>
+            <td>{{ item.updatedAt | dateCustom }}</td>
+          </tr>
+        </table>
+      </div>
     </div>
 
-    <h3>Surowe dane :)</h3>
-    <div class="AdminOrder-section">
-      <pre class="u-formatted-json">{{ d | json }}</pre>
+    <div class="u-admin-section">
+      <h4>Surowe dane :)</h4>
+      <div>
+        <pre class="u-formatted-json">{{ d | json }}</pre>
+      </div>
     </div>
   </div>
 </div>

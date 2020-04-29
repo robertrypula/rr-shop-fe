@@ -58,6 +58,7 @@
 @include viewport-phone-vertical-only {
   @include display('xxs');
 }
+
 // ----------------------------------------------------------------
 
 @include viewport-phone-horizontal-and-up {

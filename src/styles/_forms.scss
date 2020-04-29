@@ -21,6 +21,10 @@ textarea.u-form-input {
   &.u-form-input--invalid {
     background-color: $red-light-color;
   }
+  &:disabled {
+    cursor: not-allowed !important;
+    background-color: $border-color;
+  }
 }
 
 textarea.u-form-input {

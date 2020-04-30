@@ -32,7 +32,10 @@
   <span *ngIf="label" class="ClickableAction-label">{{ label }}</span>
   <span *ngIf="iconType" class="ClickableAction-icon">
     <rr-shop-icon [iconType]="iconType" [width]="24" [height]="24"></rr-shop-icon>
-    <span *ngIf="number !== null" class="ClickableAction-number"
+    <span
+      *ngIf="number !== null"
+      class="ClickableAction-number"
+      [ngClass]="{ 'ClickableAction-numberZero': number === 0 }"
       ><b>{{ number }}</b></span
     >
   </span>

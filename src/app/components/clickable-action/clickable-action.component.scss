@@ -41,7 +41,7 @@
       right: -12px;
       min-width: 16px;
       height: 16px;
-      background-color: $red-color;
+      background-color: $green-color;
       border-radius: 8px;
       font-size: 10px;
       line-height: 1em;
@@ -54,6 +54,10 @@
         color: $white-color;
         text-align: center;
         @include font-secondary;
+      }
+
+      &.ClickableAction-numberZero {
+        background-color: $basket-number-not-active-color;
       }
     }
   }

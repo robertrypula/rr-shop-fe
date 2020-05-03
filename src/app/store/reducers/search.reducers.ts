@@ -6,13 +6,13 @@ import * as fromSearchActions from '../actions/search.actions';
 
 export interface State {
   apiCallSearch: ApiCall;
-  productIds: number[];
+  foundProductIds: number[];
   query: string;
 }
 
 export const initialState: State = {
   apiCallSearch: ApiCall.Initial,
-  productIds: [],
+  foundProductIds: [],
   query: ''
 };
 
@@ -24,8 +24,8 @@ const categoryReducer = createReducer(
     fromSearchActions.searchSuccess,
     (state: State, { productsStore }): State => ({
       ...state,
-      apiCallSearch: ApiCall.Failure,
-      productIds: productsStore.map((productStore: ProductStore): number => productStore.id)
+      apiCallSearch: ApiCall.Success,
+      foundProductIds: productsStore.map((productStore: ProductStore): number => productStore.id)
     })
   ),
   on(fromSearchActions.setQuery, (state: State, { query }): State => ({ ...state, query }))

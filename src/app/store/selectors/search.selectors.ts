@@ -8,7 +8,7 @@ import { selectOrderItemsStore } from './order-core.selectors';
 import { selectProductsStore } from './product-core.selectors';
 import { toProduct } from './product.utils';
 import { selectUrl } from './router.selectors';
-import { selectProductIds } from './search-core.selectors';
+import { selectFoundProductIds } from './search-core.selectors';
 
 export const selectIsOnSearchRoute = createSelector(selectUrl, (url: string): boolean => {
   return isOnSearchRoute(url);
@@ -17,13 +17,17 @@ export const selectIsOnSearchRoute = createSelector(selectUrl, (url: string): bo
 export const selectProductsByQuery = createSelector(
   selectProductsStore,
   selectOrderItemsStore,
-  selectProductIds,
-  (productsStore: ProductStore[], orderItemsStore: OrderItemStore[], productIds: number[]): Product[] => {
+  selectFoundProductIds,
+  (productsStore: ProductStore[], orderItemsStore: OrderItemStore[], foundProductIds: number[]): Product[] => {
     const foundProductsStore: ProductStore[] = [];
 
-    for (let i = 0; i < productsStore.length; i++) {
-      if (productIds.includes(productsStore[i].id)) {
-        foundProductsStore.push(productsStore[i]);
+    for (let i = 0; i < foundProductIds.length; i++) {
+      const foundProductStore: ProductStore = productsStore.find(
+        (productStore: ProductStore): boolean => productStore.id === foundProductIds[i]
+      );
+
+      if (foundProductStore) {
+        foundProductsStore.push(foundProductStore);
       }
     }
 

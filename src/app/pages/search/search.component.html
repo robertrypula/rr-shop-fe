@@ -2,7 +2,7 @@
   <h2>Znalezionych produktów: {{ (productsByQuery$ | async)?.length }}</h2>
 
   <rr-shop-products-list
-    [noProductsMessage]="'Niestety nie posiadamy tego produktu :( Spróbuj skrócić wyszukiwaną frazę'"
+    [noProductsMessage]="'Niestety nie posiadamy tego produktu :( Spróbuj zmienić wyszukiwaną frazę'"
     [products]="productsByQuery$ | async"
   ></rr-shop-products-list>
 </div>

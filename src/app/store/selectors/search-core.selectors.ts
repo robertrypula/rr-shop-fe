@@ -11,9 +11,9 @@ export const selectApiCallSearch = createSelector(
   (searchFeature: fromSearchReducers.State): ApiCall => searchFeature.apiCallSearch
 );
 
-export const selectProductIds = createSelector(
+export const selectFoundProductIds = createSelector(
   selectSearchFeature,
-  (searchFeature: fromSearchReducers.State): number[] => searchFeature.productIds
+  (searchFeature: fromSearchReducers.State): number[] => searchFeature.foundProductIds
 );
 
 export const selectQuery = createSelector(

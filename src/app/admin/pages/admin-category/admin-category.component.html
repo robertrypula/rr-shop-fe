@@ -1,117 +1,106 @@
 <div
   [ngClass]="{
     'u-block-overlay':
-      product?.adminCallState === AdminCallState.Request || productSave?.adminCallState === AdminCallState.Request
+      category?.adminCallState === AdminCallState.Request || categorySave?.adminCallState === AdminCallState.Request
   }"
 >
   <rr-shop-admin-menu></rr-shop-admin-menu>
 
-  <h2>Admin / produkt / {{ product?.data?.name }}</h2>
+  <h2>Admin / kategoria / {{ category?.data?.name }}</h2>
 
   <div class="u-admin-section u-admin-buttons">
     <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
   </div>
 
-  <div *ngIf="product?.data as d">
+  <div *ngIf="category?.data as d">
     <div class="u-admin-section u-admin-form">
       <!--- --- -->
       <div class="row">
         <div class="col-xxs-3 margin-bottom">
-          <label class="u-form-label" for="admin-product-form-external-id">Numer na kasie</label>
+          <label class="u-form-label" for="admin-category-form-external-id">Id</label>
         </div>
         <div class="col-xxs-9 margin-bottom">
-          <input id="admin-product-form-external-id" class="u-form-input" type="text" [value]="d.externalId" disabled />
+          <input id="admin-category-form-external-id" class="u-form-input" type="text" [value]="d.id" disabled />
         </div>
       </div>
       <!--- --- -->
       <div class="row">
         <div class="col-xxs-3 margin-bottom">
-          <label class="u-form-label" for="admin-product-form-name">Nazwa</label>
+          <label class="u-form-label" for="admin-category-form-name">Nazwa</label>
         </div>
         <div class="col-xxs-9 margin-bottom">
-          <input id="admin-product-form-name" class="u-form-input" type="text" [(ngModel)]="d.name" />
+          <input id="admin-category-form-name" class="u-form-input" type="text" [(ngModel)]="d.name" />
         </div>
       </div>
       <!--- --- -->
       <div class="row">
         <div class="col-xxs-3 margin-bottom">
-          <label class="u-form-label" for="admin-product-form-slug">Slug</label>
+          <label class="u-form-label" for="admin-category-form-slug">Slug</label>
         </div>
         <div class="col-xxs-9 margin-bottom">
-          <input id="admin-product-form-slug" class="u-form-input" type="text" [value]="d.slug" disabled />
+          <input id="admin-category-form-slug" class="u-form-input" type="text" [value]="d.slug" disabled />
         </div>
       </div>
       <!--- --- -->
       <div class="row">
         <div class="col-xxs-3 margin-bottom">
-          <label class="u-form-label" for="admin-product-form-name-cash-register">Nazwa na kasie</label>
+          <label class="u-form-label" for="admin-category-form-description">Opis</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <textarea
+            id="admin-category-form-description"
+            class="u-form-input u-monospace"
+            type="text"
+            style="height: 400px;"
+            [(ngModel)]="d.content"
+          ></textarea>
+        </div>
+      </div>
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-category-form-is-not-clickable">Czy nie klikalny</label>
         </div>
         <div class="col-xxs-9 margin-bottom">
           <input
-            id="admin-product-form-name-cash-register"
+            id="admin-category-form-is-not-clickable"
             class="u-form-input"
-            type="text"
-            [value]="d.nameCashRegister"
-            disabled
+            type="checkbox"
+            [(ngModel)]="d.isNotClickable"
           />
         </div>
       </div>
       <!--- --- -->
       <div class="row">
         <div class="col-xxs-3 margin-bottom">
-          <label class="u-form-label" for="admin-product-form-price-unit">Cena dla klienta</label>
-        </div>
-        <div class="col-xxs-9 margin-bottom">
-          <input id="admin-product-form-price-unit" class="u-form-input" type="text" [(ngModel)]="d.priceUnit" />
-        </div>
-      </div>
-      <!--- --- -->
-      <div class="row">
-        <div class="col-xxs-3 margin-bottom">
-          <label class="u-form-label" for="admin-product-form-description">Opis</label>
-        </div>
-        <div class="col-xxs-9 margin-bottom">
-          <textarea
-            id="admin-product-form-description"
-            class="u-form-input u-monospace"
-            type="text"
-            style="height: 400px;"
-            [(ngModel)]="d.description"
-          ></textarea>
-        </div>
-      </div>
-      <!--- --- -->
-      <div class="row">
-        <div class="col-xxs-3 margin-bottom">
-          <label class="u-form-label" for="admin-product-form-notes">Notatki (widoczne tylko w adminie)</label>
-        </div>
-        <div class="col-xxs-9 margin-bottom">
-          <textarea
-            id="admin-product-form-notes"
-            class="u-form-input u-monospace"
-            type="text"
-            style="height: 150px;"
-            [(ngModel)]="d.notes"
-          ></textarea>
-        </div>
-      </div>
-      <!--- --- -->
-      <div class="row">
-        <div class="col-xxs-3 margin-bottom">
-          <label class="u-form-label" for="admin-product-form-is-hidden">Czy ukryty</label>
-        </div>
-        <div class="col-xxs-9 margin-bottom">
-          <input id="admin-product-form-is-hidden" class="u-form-input" type="checkbox" [(ngModel)]="d.isHidden" />
-        </div>
-      </div>
-      <!--- --- -->
-      <div class="row">
-        <div class="col-xxs-3 margin-bottom">
-          <label class="u-form-label" for="admin-product-form-created-at">Utworzono</label>
+          <label class="u-form-label" for="admin-category-form-is-without-products">Czy bez produktów</label>
         </div>
         <div class="col-xxs-9 margin-bottom">
           <input
-            id="admin-product-form-created-at"
+            id="admin-category-form-is-without-products"
+            class="u-form-input"
+            type="checkbox"
+            [(ngModel)]="d.isWithoutProducts"
+          />
+        </div>
+      </div>
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-category-form-is-hidden">Czy ukryty</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <input id="admin-category-form-is-hidden" class="u-form-input" type="checkbox" [(ngModel)]="d.isHidden" />
+        </div>
+      </div>
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-category-form-created-at">Utworzono</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <input
+            id="admin-category-form-created-at"
             class="u-form-input"
             type="text"
             [value]="d.createdAt | dateCustom"
@@ -122,11 +111,11 @@
       <!--- --- -->
       <div class="row">
         <div class="col-xxs-3 margin-bottom">
-          <label class="u-form-label" for="admin-product-form-modified-at">Zmodyfikowano</label>
+          <label class="u-form-label" for="admin-category-form-modified-at">Zmodyfikowano</label>
         </div>
         <div class="col-xxs-9 margin-bottom">
           <input
-            id="admin-product-form-modified-at"
+            id="admin-category-form-modified-at"
             class="u-form-input"
             type="text"
             [value]="d.updatedAt | dateCustom"

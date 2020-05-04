@@ -1,0 +1,50 @@
+<div
+  [ngClass]="{
+    'u-block-overlay': categories?.adminCallState === AdminCallState.Request
+  }"
+>
+  <rr-shop-admin-menu></rr-shop-admin-menu>
+
+  <h2>Admin / lista kategorii</h2>
+
+  <div class="u-admin-section u-admin-buttons">
+    <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
+  </div>
+
+  <div *ngIf="categories?.data as d">
+    <div class="u-admin-section">
+      <h4>Produkty</h4>
+      <div>
+        <table class="u-compact-table">
+          <tr>
+            <th>Lp.</th>
+            <th>Rodzic</th>
+            <th>Nazwa</th>
+            <th>Czy nie klikalny</th>
+            <th>Czy bez produktów</th>
+            <th>Czy ukryty</th>
+          </tr>
+          <tr *ngFor="let item of d">
+            <td class="u-right">{{ item.id }}</td>
+            <td>
+              <ng-container *ngIf="item?.parent?.name; else noParent">{{ item?.parent?.name }}</ng-container>
+              <ng-template #noParent>---</ng-template>
+            </td>
+            <td>
+              <a [routerLink]="[item.id]">{{ item.name }}</a>
+            </td>
+            <td [ngClass]="{ 'u-gray': item.isNotClickable }">
+              {{ item.isNotClickable ? 'tak' : 'nie' }}
+            </td>
+            <td [ngClass]="{ 'u-gray': item.isWithoutProducts }">
+              {{ item.isWithoutProducts ? 'tak' : 'nie' }}
+            </td>
+            <td [ngClass]="{ 'u-gray': item.isHidden }">
+              {{ item.isHidden ? 'tak' : 'nie' }}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

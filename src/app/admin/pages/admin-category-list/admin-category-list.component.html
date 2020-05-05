@@ -26,6 +26,7 @@
             <th>Lp.</th>
             <th>Rodzic</th>
             <th>Nazwa</th>
+            <th>Węzeł</th>
             <th>Czy nie klikalny</th>
             <th>Czy bez produktów</th>
             <th>Czy ukryty</th>
@@ -38,6 +39,9 @@
             </td>
             <td>
               <a [routerLink]="[item.id]">{{ item.name }}</a>
+            </td>
+            <td>
+              {{ item.structuralNode }}
             </td>
             <td [ngClass]="{ 'u-gray': item.isNotClickable }">
               {{ item.isNotClickable ? 'tak' : 'nie' }}

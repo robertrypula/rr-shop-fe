@@ -10,10 +10,11 @@ import { ClickableActionTheme, ClickableActionType } from '../../../components/c
   templateUrl: './admin-category.component.html',
   styleUrls: ['./admin-category.component.scss']
 })
-export class AdminCategoryComponent extends AdminBaseComponent implements OnInit {
-  public category: AdminCall = this.getAdminCall();
+export class AdminCategoryEditComponent extends AdminBaseComponent implements OnInit {
   public categories: AdminCall = this.getAdminCall();
-  public categorySave: AdminCall = this.getAdminCall();
+  public category: AdminCall = this.getAdminCall();
+  public categoryWriteRequest: AdminCall = this.getAdminCall();
+  public isEdit = true;
 
   public readonly ClickableActionTheme = ClickableActionTheme;
   public readonly ClickableActionType = ClickableActionType;
@@ -29,7 +30,11 @@ export class AdminCategoryComponent extends AdminBaseComponent implements OnInit
 
   public save(): void {
     if (confirm('Czy na pewno?')) {
-      this.patch(this.categorySave, `category/${this.route.snapshot.paramMap.get('id')}`, this.getCategoryPatchBody())
+      this.patch(
+        this.categoryWriteRequest,
+        `category/${this.route.snapshot.paramMap.get('id')}`,
+        this.getCategoryPatchBody()
+      )
         .pipe(
           tap(() => {
             this.refresh();

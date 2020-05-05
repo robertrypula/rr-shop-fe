@@ -32,10 +32,10 @@ export class AdminBaseComponent {
     protected barFacadeService: BarFacadeService
   ) {}
 
-  protected getAdminCall<T>(): AdminCall<T> {
+  protected getAdminCall<T>(data = null): AdminCall<T> {
     return {
       adminCallState: AdminCallState.Initial,
-      data: null,
+      data: data ? (data as T) : null,
       errorDetails: null
     };
   }

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AdminCategoryCreateComponent } from './admin/pages/admin-category/admin-category-create.component';
+import { AdminCategoryEditComponent } from './admin/pages/admin-category/admin-category-edit.component';
 import { AdminCategoryListComponent } from './admin/pages/admin-category-list/admin-category-list.component';
 import { AdminCategoryListModule } from './admin/pages/admin-category-list/admin-category-list.module';
-import { AdminCategoryComponent } from './admin/pages/admin-category/admin-category.component';
 import { AdminCategoryModule } from './admin/pages/admin-category/admin-category.module';
 import { AdminLoginComponent } from './admin/pages/admin-login/admin-login.component';
 import { AdminLoginModule } from './admin/pages/admin-login/admin-login.module';
@@ -44,8 +45,8 @@ const routes: Routes = [
       { path: 'category', component: AdminCategoryListComponent, pathMatch: 'full' },
       { path: 'order', component: AdminOrderListComponent, pathMatch: 'full' },
       { path: 'product', component: AdminProductListComponent, pathMatch: 'full' },
-      { path: 'category/new', component: AdminCategoryComponent, pathMatch: 'full' },
-      { path: 'category/:id', component: AdminCategoryComponent },
+      { path: 'category/new', component: AdminCategoryCreateComponent, pathMatch: 'full' },
+      { path: 'category/:id', component: AdminCategoryEditComponent },
       { path: 'order/:id', component: AdminOrderComponent },
       { path: 'product/:id', component: AdminProductComponent }
     ]

@@ -44,6 +44,7 @@ const routes: Routes = [
       { path: 'category', component: AdminCategoryListComponent, pathMatch: 'full' },
       { path: 'order', component: AdminOrderListComponent, pathMatch: 'full' },
       { path: 'product', component: AdminProductListComponent, pathMatch: 'full' },
+      { path: 'category/new', component: AdminCategoryComponent, pathMatch: 'full' },
       { path: 'category/:id', component: AdminCategoryComponent },
       { path: 'order/:id', component: AdminOrderComponent },
       { path: 'product/:id', component: AdminProductComponent }

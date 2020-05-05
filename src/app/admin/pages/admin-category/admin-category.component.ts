@@ -3,6 +3,7 @@ import { tap } from 'rxjs/operators';
 
 import { AdminBaseComponent } from '../admin-base-component.class';
 import { AdminCall } from '../../models/admin-component.models';
+import { ClickableActionTheme, ClickableActionType } from '../../../components/clickable-action/clickable-action.model';
 
 @Component({
   selector: 'rr-shop-admin-category',
@@ -11,7 +12,11 @@ import { AdminCall } from '../../models/admin-component.models';
 })
 export class AdminCategoryComponent extends AdminBaseComponent implements OnInit {
   public category: AdminCall = this.getAdminCall();
+  public categories: AdminCall = this.getAdminCall();
   public categorySave: AdminCall = this.getAdminCall();
+
+  public readonly ClickableActionTheme = ClickableActionTheme;
+  public readonly ClickableActionType = ClickableActionType;
 
   public ngOnInit(): void {
     this.refresh();
@@ -19,6 +24,7 @@ export class AdminCategoryComponent extends AdminBaseComponent implements OnInit
 
   public refresh(): void {
     this.get(this.category, `category/${this.route.snapshot.paramMap.get('id')}`).subscribe();
+    this.get(this.categories, 'category').subscribe();
   }
 
   public save(): void {
@@ -37,9 +43,12 @@ export class AdminCategoryComponent extends AdminBaseComponent implements OnInit
     const category: any = this.category.data;
 
     return {
-      name: category.name,
       content: category.content,
-      isHidden: category.isHidden
+      isHidden: category.isHidden,
+      isNotClickable: category.isNotClickable,
+      isWithoutProducts: category.isWithoutProducts,
+      name: category.name,
+      parentId: !category.parentId || category.parentId === 'null' ? null : +category.parentId
     };
   }
 }

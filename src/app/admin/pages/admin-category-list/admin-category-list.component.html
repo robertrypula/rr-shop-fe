@@ -9,11 +9,17 @@
 
   <div class="u-admin-section u-admin-buttons">
     <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
+    <rr-shop-clickable-action
+      [clickableActionTheme]="ClickableActionTheme.Primary"
+      [clickableActionType]="ClickableActionType.RouterLink"
+      [label]="'Nowa kategoria'"
+      [link]="'/admin/category/new'"
+    ></rr-shop-clickable-action>
   </div>
 
   <div *ngIf="categories?.data as d">
     <div class="u-admin-section">
-      <h4>Produkty</h4>
+      <h4>Kategorie</h4>
       <div>
         <table class="u-compact-table">
           <tr>

@@ -1,7 +1,8 @@
 @import 'configs-and-mixins';
 
 input.u-form-input,
-textarea.u-form-input {
+textarea.u-form-input,
+select.u-form-input {
   background-color: $input-background-color;
   border: none; // 1px solid $input-border-color;
   display: block;

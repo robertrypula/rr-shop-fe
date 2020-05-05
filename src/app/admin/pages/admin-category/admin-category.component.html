@@ -10,6 +10,12 @@
 
   <div class="u-admin-section u-admin-buttons">
     <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
+    <rr-shop-clickable-action
+      [clickableActionTheme]="ClickableActionTheme.Primary"
+      [clickableActionType]="ClickableActionType.RouterLink"
+      [label]="'Nowa kategoria'"
+      [link]="'/admin/category/new'"
+    ></rr-shop-clickable-action>
   </div>
 
   <div *ngIf="category?.data as d">
@@ -51,7 +57,7 @@
             id="admin-category-form-description"
             class="u-form-input u-monospace"
             type="text"
-            style="height: 400px;"
+            style="height: 400px; font-size: 11px;"
             [(ngModel)]="d.content"
           ></textarea>
         </div>
@@ -121,6 +127,18 @@
             [value]="d.updatedAt | dateCustom"
             disabled
           />
+        </div>
+      </div>
+      <!--- --- -->
+      <div class="row">
+        <div class="col-xxs-3 margin-bottom">
+          <label class="u-form-label" for="admin-category-form-is-not-clickable">Rodzic</label>
+        </div>
+        <div class="col-xxs-9 margin-bottom">
+          <select class="u-form-input" id="admin-category-form-parent-id" [(ngModel)]="d.parentId">
+            <option [value]="null">-- brak --</option>
+            <option *ngFor="let item of categories?.data" [value]="item.id">{{ item.name }}</option>
+          </select>
         </div>
       </div>
       <!--- --- -->

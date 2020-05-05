@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -25,11 +25,12 @@ export class AdminBaseComponent {
   public readonly SizeImageContainer = SizeImageContainer;
 
   public constructor(
+    protected barFacadeService: BarFacadeService,
+    protected barService: BarService,
+    protected changeDetectorRef: ChangeDetectorRef,
     protected http: HttpClient,
     protected route: ActivatedRoute,
-    protected changeDetectorRef: ChangeDetectorRef,
-    protected barService: BarService,
-    protected barFacadeService: BarFacadeService
+    protected router: Router
   ) {}
 
   protected getAdminCall<T>(data = null): AdminCall<T> {

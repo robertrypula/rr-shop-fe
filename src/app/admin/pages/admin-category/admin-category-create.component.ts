@@ -42,8 +42,7 @@ export class AdminCategoryCreateComponent extends AdminBaseComponent implements 
       this.post(this.categoryWriteRequest, `category`, this.getCategoryPostBody())
         .pipe(
           tap(() => {
-            console.log(this.categoryWriteRequest);
-            this.refresh();
+            this.router.navigate(['/admin/category', this.categoryWriteRequest.data.id]).then();
           })
         )
         .subscribe();

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AdminCategoryCreateComponent } from './admin/pages/admin-category/admin-category-create.component';
-import { AdminCategoryEditComponent } from './admin/pages/admin-category/admin-category-edit.component';
+import { AdminCategoryCreateComponent } from './admin/pages/admin-category/admin-category-create/admin-category-create.component';
+import { AdminCategoryEditComponent } from './admin/pages/admin-category/admin-category-edit/admin-category-edit.component';
 import { AdminCategoryListComponent } from './admin/pages/admin-category-list/admin-category-list.component';
 import { AdminCategoryListModule } from './admin/pages/admin-category-list/admin-category-list.module';
 import { AdminCategoryModule } from './admin/pages/admin-category/admin-category.module';

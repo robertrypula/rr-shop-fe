@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
-import { AdminBaseComponent } from '../admin-base-component.class';
-import { AdminCall } from '../../models/admin-component.models';
-import { ClickableActionTheme, ClickableActionType } from '../../../components/clickable-action/clickable-action.model';
+import { AdminBaseComponent } from '../../admin-base-component.class';
+import { AdminCall } from '../../../models/admin-component.models';
+import {
+  ClickableActionTheme,
+  ClickableActionType
+} from '../../../../components/clickable-action/clickable-action.model';
 
 @Component({
-  selector: 'rr-shop-admin-category',
-  templateUrl: './admin-category.component.html',
-  styleUrls: ['./admin-category.component.scss']
+  selector: 'rr-shop-admin-category-edit',
+  templateUrl: './admin-category-edit.component.html',
+  styleUrls: ['./admin-category-edit.component.scss']
 })
 export class AdminCategoryEditComponent extends AdminBaseComponent implements OnInit {
   public categories: AdminCall = this.getAdminCall();
   public category: AdminCall = this.getAdminCall();
   public categoryWriteRequest: AdminCall = this.getAdminCall();
-  public isEdit = true;
 
   public readonly ClickableActionTheme = ClickableActionTheme;
   public readonly ClickableActionType = ClickableActionType;

@@ -33,6 +33,10 @@ textarea.u-form-input {
   padding: 9px 10px;
 }
 
+input[type='checkbox'].u-form-input {
+  width: 40px;
+}
+
 label.u-form-label {
   padding: 12px 0 0 0;
   display: block;

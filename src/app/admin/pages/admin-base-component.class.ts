@@ -33,10 +33,10 @@ export class AdminBaseComponent {
     protected router: Router
   ) {}
 
-  protected getAdminCall<T>(data = null): AdminCall<T> {
+  protected getAdminCall<T>(data: T = null): AdminCall<T> {
     return {
       adminCallState: AdminCallState.Initial,
-      data: data ? (data as T) : null,
+      data: data ? data : null,
       errorDetails: null
     };
   }

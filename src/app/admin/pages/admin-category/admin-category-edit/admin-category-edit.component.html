@@ -1,13 +1,13 @@
 <div
   [ngClass]="{
     'u-block-overlay':
-      category?.adminCallState === AdminCallState.Request ||
-      categoryWriteRequest?.adminCallState === AdminCallState.Request
+      categoryAdminCall?.adminCallState === AdminCallState.Request ||
+      categoryWriteRequestAdminCall?.adminCallState === AdminCallState.Request
   }"
 >
   <rr-shop-admin-menu></rr-shop-admin-menu>
 
-  <h2>Admin / kategoria / {{ category?.data?.name }}</h2>
+  <h2>Admin / kategoria / {{ categoryAdminCall?.data?.name }}</h2>
 
   <div class="u-admin-section u-admin-buttons">
     <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
@@ -19,23 +19,25 @@
     ></rr-shop-clickable-action>
   </div>
 
-  <div *ngIf="category?.data as d">
-    <div class="u-admin-section u-admin-form">
-      <rr-shop-admin-category-form [category]="d" [categories]="categories?.data"></rr-shop-admin-category-form>
+  <ng-container *ngIf="categoryAdminCall?.data as category">
+    <ng-container *ngIf="categoriesAdminCall?.data as categories">
+      <div class="u-admin-section u-admin-form">
+        <rr-shop-admin-category-form [category]="category" [categories]="categories"></rr-shop-admin-category-form>
 
-      <div class="row">
-        <div></div>
-        <div class="col-xxs-9 col-xxs-offset-3 margin-bottom">
-          <rr-shop-clickable-action (actionClick)="save()" [label]="'Zapisz'"></rr-shop-clickable-action>
+        <div class="row">
+          <div></div>
+          <div class="col-xxs-9 col-xxs-offset-3 margin-bottom">
+            <rr-shop-clickable-action (actionClick)="save()" [label]="'Zapisz'"></rr-shop-clickable-action>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="u-admin-section">
-      <h4>Surowe dane :)</h4>
-      <div>
-        <pre class="u-formatted-json">{{ d | json }}</pre>
+      <div class="u-admin-section">
+        <h4>Surowe dane :)</h4>
+        <div>
+          <pre class="u-formatted-json">{{ category | json }}</pre>
+        </div>
       </div>
-    </div>
-  </div>
+    </ng-container>
+  </ng-container>
 </div>

@@ -1,41 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
-import { AdminBaseComponent } from '../../admin-base-component.class';
+import { AdminBaseCategoryComponent } from '../admin-base-category-component.class';
 import { AdminCall } from '../../../models/admin-component.models';
-import {
-  ClickableActionTheme,
-  ClickableActionType
-} from '../../../../components/clickable-action/clickable-action.model';
 
 @Component({
   selector: 'rr-shop-admin-category-edit',
   templateUrl: './admin-category-edit.component.html',
   styleUrls: ['./admin-category-edit.component.scss']
 })
-export class AdminCategoryEditComponent extends AdminBaseComponent implements OnInit {
-  public categories: AdminCall = this.getAdminCall();
-  public category: AdminCall = this.getAdminCall();
-  public categoryWriteRequest: AdminCall = this.getAdminCall();
-
-  public readonly ClickableActionTheme = ClickableActionTheme;
-  public readonly ClickableActionType = ClickableActionType;
+export class AdminCategoryEditComponent extends AdminBaseCategoryComponent implements OnInit {
+  public categoryAdminCall: AdminCall = this.getAdminCall();
 
   public ngOnInit(): void {
     this.refresh();
   }
 
   public refresh(): void {
-    this.get(this.category, `category/${this.route.snapshot.paramMap.get('id')}`).subscribe();
-    this.get(this.categories, 'category').subscribe();
+    this.get(this.categoryAdminCall, `category/${this.route.snapshot.paramMap.get('id')}`).subscribe();
+    this.get(this.categoriesAdminCall, 'category').subscribe();
   }
 
   public save(): void {
     if (confirm('Czy na pewno?')) {
       this.patch(
-        this.categoryWriteRequest,
+        this.categoryWriteRequestAdminCall,
         `category/${this.route.snapshot.paramMap.get('id')}`,
-        this.getCategoryPatchBody()
+        this.getCategoryWriteRequestBody(this.categoryAdminCall.data)
       )
         .pipe(
           tap(() => {
@@ -44,18 +35,5 @@ export class AdminCategoryEditComponent extends AdminBaseComponent implements On
         )
         .subscribe();
     }
-  }
-
-  protected getCategoryPatchBody(): any {
-    const category: any = this.category.data;
-
-    return {
-      content: category.content,
-      isHidden: category.isHidden,
-      isNotClickable: category.isNotClickable,
-      isWithoutProducts: category.isWithoutProducts,
-      name: category.name,
-      parentId: !category.parentId || category.parentId === 'null' ? null : +category.parentId
-    };
   }
 }

@@ -6,7 +6,7 @@
     <input id="admin-category-form-external-id" class="u-form-input" type="text" [value]="category.id" disabled />
   </div>
 </div>
-<!--- --- -->
+
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
     <label class="u-form-label" for="admin-category-form-name">Nazwa</label>
@@ -15,7 +15,7 @@
     <input id="admin-category-form-name" class="u-form-input" type="text" [(ngModel)]="category.name" />
   </div>
 </div>
-<!--- --- -->
+
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
     <label class="u-form-label" for="admin-category-form-structural-node">StructuralNode</label>
@@ -30,7 +30,7 @@
     />
   </div>
 </div>
-<!--- --- -->
+
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
     <label class="u-form-label" for="admin-category-form-slug">Slug</label>
@@ -39,14 +39,14 @@
     <input id="admin-category-form-slug" class="u-form-input" type="text" [value]="category.slug" disabled />
   </div>
 </div>
-<!--- --- -->
+
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
-    <label class="u-form-label" for="admin-category-form-description">Opis</label>
+    <label class="u-form-label" for="admin-category-form-content">Opis</label>
   </div>
   <div class="col-xxs-9 margin-bottom">
     <textarea
-      id="admin-category-form-description"
+      id="admin-category-form-content"
       class="u-form-input u-monospace"
       type="text"
       style="height: 400px; font-size: 11px;"
@@ -54,7 +54,7 @@
     ></textarea>
   </div>
 </div>
-<!--- --- -->
+
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
     <label class="u-form-label" for="admin-category-form-is-not-clickable">Czy nie klikalny</label>
@@ -68,7 +68,7 @@
     />
   </div>
 </div>
-<!--- --- -->
+
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
     <label class="u-form-label" for="admin-category-form-is-without-products">Czy bez produktów</label>
@@ -82,7 +82,7 @@
     />
   </div>
 </div>
-<!--- --- -->
+
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
     <label class="u-form-label" for="admin-category-form-is-hidden">Czy ukryty</label>
@@ -91,7 +91,7 @@
     <input id="admin-category-form-is-hidden" class="u-form-input" type="checkbox" [(ngModel)]="category.isHidden" />
   </div>
 </div>
-<!--- --- -->
+
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
     <label class="u-form-label" for="admin-category-form-created-at">Utworzono</label>
@@ -106,14 +106,14 @@
     />
   </div>
 </div>
-<!--- --- -->
+
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
-    <label class="u-form-label" for="admin-category-form-modified-at">Zmodyfikowano</label>
+    <label class="u-form-label" for="admin-category-form-updated-at">Zmodyfikowano</label>
   </div>
   <div class="col-xxs-9 margin-bottom">
     <input
-      id="admin-category-form-modified-at"
+      id="admin-category-form-updated-at"
       class="u-form-input"
       type="text"
       [value]="category.updatedAt | dateCustom"
@@ -121,10 +121,10 @@
     />
   </div>
 </div>
-<!--- --- -->
+
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
-    <label class="u-form-label" for="admin-category-form-is-not-clickable">Rodzic</label>
+    <label class="u-form-label" for="admin-category-form-parent-id">Rodzic</label>
   </div>
   <div class="col-xxs-9 margin-bottom">
     <select class="u-form-input" id="admin-category-form-parent-id" [(ngModel)]="category.parentId">

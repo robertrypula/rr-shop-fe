@@ -1,21 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
-import { AdminBaseComponent } from '../../admin-base-component.class';
+import { AdminBaseCategoryComponent } from '../admin-base-category-component.class';
 import { AdminCall } from '../../../models/admin-component.models';
-import {
-  ClickableActionTheme,
-  ClickableActionType
-} from '../../../../components/clickable-action/clickable-action.model';
 
 @Component({
   selector: 'rr-shop-admin-category-create',
   templateUrl: './admin-category-create.component.html',
   styleUrls: ['./admin-category-create.component.scss']
 })
-export class AdminCategoryCreateComponent extends AdminBaseComponent implements OnInit {
-  public categories: AdminCall = this.getAdminCall();
-  public category: AdminCall = this.getAdminCall({
+export class AdminCategoryCreateComponent extends AdminBaseCategoryComponent implements OnInit {
+  public categoryAdminCall: AdminCall = this.getAdminCall({
     content: '',
     id: null,
     isHidden: true,
@@ -26,41 +21,28 @@ export class AdminCategoryCreateComponent extends AdminBaseComponent implements 
     slug: '',
     structuralNode: null
   });
-  public categoryWriteRequest: AdminCall = this.getAdminCall();
-
-  public readonly ClickableActionTheme = ClickableActionTheme;
-  public readonly ClickableActionType = ClickableActionType;
 
   public ngOnInit(): void {
     this.refresh();
   }
 
   public refresh(): void {
-    this.get(this.categories, 'category').subscribe();
+    this.get(this.categoriesAdminCall, 'category').subscribe();
   }
 
   public create(): void {
     if (confirm('Czy na pewno?')) {
-      this.post(this.categoryWriteRequest, `category`, this.getCategoryPostBody())
+      this.post(
+        this.categoryWriteRequestAdminCall,
+        `category`,
+        this.getCategoryWriteRequestBody(this.categoryAdminCall.data)
+      )
         .pipe(
           tap(() => {
-            this.router.navigate(['/admin/category', this.categoryWriteRequest.data.id]).then();
+            this.router.navigate(['/admin/category', this.categoryWriteRequestAdminCall.data.id]).then();
           })
         )
         .subscribe();
     }
-  }
-
-  protected getCategoryPostBody(): any {
-    const category: any = this.category.data;
-
-    return {
-      content: category.content,
-      isHidden: category.isHidden,
-      isNotClickable: category.isNotClickable,
-      isWithoutProducts: category.isWithoutProducts,
-      name: category.name,
-      parentId: !category.parentId || category.parentId === 'null' ? null : +category.parentId
-    };
   }
 }

@@ -8,6 +8,7 @@ import { AdminCall, AdminCallState } from '../models/admin-component.models';
 import { BarFacadeService } from '../../store/facades/bar-facade.service';
 import { BarType } from '../../models/bar.model';
 import { BarService } from '../../services/bar.service';
+import { ClickableActionTheme, ClickableActionType } from '../../components/clickable-action/clickable-action.model';
 import { environment } from '../../../environments/environment';
 import { IconType } from '../../components/icon/icon.models';
 import { SizeImage, SizeImageContainer } from '../../models/image.model';
@@ -20,6 +21,8 @@ import { SizeImage, SizeImageContainer } from '../../models/image.model';
 @Injectable()
 export class AdminBaseComponent {
   public readonly AdminCallState = AdminCallState;
+  public readonly ClickableActionTheme = ClickableActionTheme;
+  public readonly ClickableActionType = ClickableActionType;
   public readonly IconType = IconType;
   public readonly SizeImage = SizeImage;
   public readonly SizeImageContainer = SizeImageContainer;

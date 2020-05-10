@@ -9,6 +9,9 @@ export class AdminSupplyFormComponent implements OnInit {
   @Input()
   public supply: any;
 
+  @Input()
+  public products: any[];
+
   public constructor() {}
 
   public ngOnInit(): void {}

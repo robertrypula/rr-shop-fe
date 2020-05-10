@@ -5,6 +5,7 @@ import { AdminCall } from '../../models/admin-component.models';
 
 @Injectable()
 export class AdminBaseSupplyComponent extends AdminBaseComponent {
+  public productsAdminCall: AdminCall = this.getAdminCall();
   public supplyAdminCall: AdminCall;
   public supplyWriteRequestAdminCall: AdminCall = this.getAdminCall();
 
@@ -15,6 +16,6 @@ export class AdminBaseSupplyComponent extends AdminBaseComponent {
   }
 
   protected refreshRelations(): void {
-    // no relations
+    this.get(this.productsAdminCall, 'product').subscribe();
   }
 }

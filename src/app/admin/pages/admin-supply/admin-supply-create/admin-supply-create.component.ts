@@ -25,11 +25,7 @@ export class AdminSupplyCreateComponent extends AdminBaseSupplyComponent impleme
 
   public create(): void {
     if (confirm('Czy na pewno?')) {
-      this.post(
-        this.supplyWriteRequestAdminCall,
-        `supply`,
-        this.getSupplyWriteRequestBody(this.supplyAdminCall.data)
-      )
+      this.post(this.supplyWriteRequestAdminCall, `supply`, this.getSupplyWriteRequestBody(this.supplyAdminCall.data))
         .pipe(
           tap(() => {
             this.router.navigate(['/admin/supply', this.supplyWriteRequestAdminCall.data.id]).then();

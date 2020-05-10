@@ -45,7 +45,7 @@ export class AdminProductComponent extends AdminBaseComponent implements OnInit 
     return {
       name: product.name,
       description: product.description,
-      priceUnit: +product.priceUnit,
+      priceUnit: product.priceUnit,
       notes: product.notes,
       isHidden: product.isHidden
     };

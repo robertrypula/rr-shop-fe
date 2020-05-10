@@ -1,6 +1,7 @@
 <div
   [ngClass]="{
     'u-block-overlay':
+      productsAdminCall?.adminCallState === AdminCallState.Request ||
       supplyAdminCall?.adminCallState === AdminCallState.Request ||
       supplyWriteRequestAdminCall?.adminCallState === AdminCallState.Request
   }"
@@ -8,12 +9,15 @@
   <rr-shop-admin-menu></rr-shop-admin-menu>
 
   <h2>
-    Admin / dostawa / nowa
+    Admin / towar z dostawy / nowy
   </h2>
 
-  <ng-container *ngIf="supplyAdminCall?.data">
+  <ng-container *ngIf="productsAdminCall?.data && supplyAdminCall?.data">
     <div class="u-admin-section u-admin-form">
-      <rr-shop-admin-supply-form [supply]="supplyAdminCall?.data"></rr-shop-admin-supply-form>
+      <rr-shop-admin-supply-form
+        [products]="productsAdminCall?.data"
+        [supply]="supplyAdminCall?.data"
+      ></rr-shop-admin-supply-form>
 
       <div class="row">
         <div></div>

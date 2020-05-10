@@ -62,7 +62,13 @@
           <label class="u-form-label" for="admin-product-form-price-unit">Cena dla klienta</label>
         </div>
         <div class="col-xxs-9 margin-bottom">
-          <input id="admin-product-form-price-unit" class="u-form-input" type="text" [(ngModel)]="d.priceUnit" />
+          <input
+            id="admin-product-form-price-unit"
+            class="u-form-input"
+            type="number"
+            step="0.01"
+            [(ngModel)]="d.priceUnit"
+          />
         </div>
       </div>
       <!--- --- -->

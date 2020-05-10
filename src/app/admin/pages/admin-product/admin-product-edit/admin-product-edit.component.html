@@ -1,0 +1,41 @@
+<div
+  [ngClass]="{
+    'u-block-overlay':
+      productAdminCall?.adminCallState === AdminCallState.Request ||
+      productWriteRequestAdminCall?.adminCallState === AdminCallState.Request
+  }"
+>
+  <rr-shop-admin-menu></rr-shop-admin-menu>
+
+  <h2>Admin / produkt / {{ productAdminCall?.data?.name }}</h2>
+
+  <div class="u-admin-section u-admin-buttons">
+    <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
+    <rr-shop-clickable-action
+      [clickableActionTheme]="ClickableActionTheme.Primary"
+      [clickableActionType]="ClickableActionType.RouterLink"
+      [label]="'Nowy produkt'"
+      [link]="'/admin/product/new'"
+    ></rr-shop-clickable-action>
+  </div>
+
+  <ng-container *ngIf="productAdminCall?.data">
+    <div class="u-admin-section u-admin-form">
+      <rr-shop-admin-product-form [product]="productAdminCall?.data"></rr-shop-admin-product-form>
+
+      <div class="row">
+        <div></div>
+        <div class="col-xxs-9 col-xxs-offset-3 margin-bottom">
+          <rr-shop-clickable-action (actionClick)="save()" [label]="'Zapisz'"></rr-shop-clickable-action>
+        </div>
+      </div>
+    </div>
+
+    <div class="u-admin-section">
+      <h4>Surowe dane :)</h4>
+      <div>
+        <pre class="u-formatted-json">{{ productAdminCall?.data | json }}</pre>
+      </div>
+    </div>
+  </ng-container>
+</div>

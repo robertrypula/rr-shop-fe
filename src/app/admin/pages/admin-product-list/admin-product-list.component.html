@@ -15,6 +15,12 @@
       [link]="cashRegisterCsvLink"
       label="Wygeneruj CSV na kasę fiskalną"
     ></rr-shop-clickable-action>
+    <rr-shop-clickable-action
+      [clickableActionTheme]="ClickableActionTheme.Primary"
+      [clickableActionType]="ClickableActionType.RouterLink"
+      [label]="'Nowy produkt'"
+      [link]="'/admin/product/new'"
+    ></rr-shop-clickable-action>
   </div>
 
   <div *ngIf="products?.data as d">

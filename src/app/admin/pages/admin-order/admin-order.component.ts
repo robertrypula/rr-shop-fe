@@ -64,7 +64,7 @@ export class AdminOrderComponent extends AdminBaseComponent implements OnInit {
   }
 
   public supplyOrderItemAttach(supplyId: number, orderItemId: number): void {
-    this.patch(this.orderStatus, `supply/${supplyId}`, { orderItemId })
+    this.patch(this.orderStatus, `supply/${supplyId}/orderItemId`, { orderItemId })
       .pipe(
         tap(() => {
           this.refresh();
@@ -74,7 +74,7 @@ export class AdminOrderComponent extends AdminBaseComponent implements OnInit {
   }
 
   public supplyOrderItemDetach(supplyId: number): void {
-    this.patch(this.orderStatus, `supply/${supplyId}`, { orderItemId: null })
+    this.patch(this.orderStatus, `supply/${supplyId}/orderItemId`, { orderItemId: null })
       .pipe(
         tap(() => {
           this.refresh();

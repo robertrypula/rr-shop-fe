@@ -10,7 +10,7 @@ export class AdminCategoryFormComponent implements OnInit {
   public category: any;
 
   @Input()
-  public categories: any;
+  public categories: any[];
 
   public constructor() {}
 

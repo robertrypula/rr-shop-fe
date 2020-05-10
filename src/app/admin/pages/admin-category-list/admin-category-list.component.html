@@ -1,6 +1,6 @@
 <div
   [ngClass]="{
-    'u-block-overlay': categories?.adminCallState === AdminCallState.Request
+    'u-block-overlay': categoriesAdminCall?.adminCallState === AdminCallState.Request
   }"
 >
   <rr-shop-admin-menu></rr-shop-admin-menu>
@@ -17,7 +17,7 @@
     ></rr-shop-clickable-action>
   </div>
 
-  <div *ngIf="categories?.data as d">
+  <div *ngIf="categoriesAdminCall?.data as d">
     <div class="u-admin-section">
       <h4>Kategorie</h4>
       <div>

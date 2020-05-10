@@ -19,4 +19,8 @@ export class AdminBaseCategoryComponent extends AdminBaseComponent {
       parentId: !category.parentId || category.parentId === 'null' ? null : +category.parentId
     };
   }
+
+  protected refreshRelations(): void {
+    this.get(this.categoriesAdminCall, 'category').subscribe();
+  }
 }

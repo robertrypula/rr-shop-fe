@@ -1,6 +1,7 @@
 <div
   [ngClass]="{
     'u-block-overlay':
+      categoriesAdminCall?.adminCallState === AdminCallState.Request ||
       categoryAdminCall?.adminCallState === AdminCallState.Request ||
       categoryWriteRequestAdminCall?.adminCallState === AdminCallState.Request
   }"
@@ -11,25 +12,26 @@
     Admin / kategoria / nowa
   </h2>
 
-  <ng-container *ngIf="categoryAdminCall?.data as category">
-    <ng-container *ngIf="categoriesAdminCall?.data as categories">
-      <div class="u-admin-section u-admin-form">
-        <rr-shop-admin-category-form [category]="category" [categories]="categories"></rr-shop-admin-category-form>
+  <ng-container *ngIf="categoriesAdminCall?.data && categoryAdminCall?.data">
+    <div class="u-admin-section u-admin-form">
+      <rr-shop-admin-category-form
+        [categories]="categoriesAdminCall?.data"
+        [category]="categoryAdminCall?.data"
+      ></rr-shop-admin-category-form>
 
-        <div class="row">
-          <div></div>
-          <div class="col-xxs-9 col-xxs-offset-3 margin-bottom">
-            <rr-shop-clickable-action (actionClick)="create()" [label]="'Utwórz'"></rr-shop-clickable-action>
-          </div>
+      <div class="row">
+        <div></div>
+        <div class="col-xxs-9 col-xxs-offset-3 margin-bottom">
+          <rr-shop-clickable-action (actionClick)="create()" [label]="'Utwórz'"></rr-shop-clickable-action>
         </div>
       </div>
+    </div>
 
-      <div class="u-admin-section">
-        <h4>Surowe dane :)</h4>
-        <div>
-          <pre class="u-formatted-json">{{ category | json }}</pre>
-        </div>
+    <div class="u-admin-section">
+      <h4>Surowe dane :)</h4>
+      <div>
+        <pre class="u-formatted-json">{{ categoryAdminCall?.data | json }}</pre>
       </div>
-    </ng-container>
+    </div>
   </ng-container>
 </div>

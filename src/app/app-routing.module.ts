@@ -31,6 +31,11 @@ import { AdminProductListComponent } from './admin/pages/admin-product-list/admi
 import { AdminProductListModule } from './admin/pages/admin-product-list/admin-product-list.module';
 import { AdminProductComponent } from './admin/pages/admin-product/admin-product.component';
 import { AdminProductModule } from './admin/pages/admin-product/admin-product.module';
+import { AdminSupplyCreateComponent } from './admin/pages/admin-supply/admin-supply-create/admin-supply-create.component';
+import { AdminSupplyEditComponent } from './admin/pages/admin-supply/admin-supply-edit/admin-supply-edit.component';
+import { AdminSupplyListComponent } from './admin/pages/admin-supply-list/admin-supply-list.component';
+import { AdminSupplyListModule } from './admin/pages/admin-supply-list/admin-supply-list.module';
+import { AdminSupplyModule } from './admin/pages/admin-supply/admin-supply.module';
 import { CategoryComponent } from './pages/category/category.component';
 import { CategoryModule } from './pages/category/category.module';
 import { MainComponent } from './pages/main/main.component';
@@ -67,12 +72,15 @@ const routes: Routes = [
       { path: 'manufacturer/new', component: AdminManufacturerCreateComponent, pathMatch: 'full' },
       { path: 'order', component: AdminOrderListComponent, pathMatch: 'full' },
       { path: 'product', component: AdminProductListComponent, pathMatch: 'full' },
+      { path: 'supply', component: AdminSupplyListComponent, pathMatch: 'full' },
+      { path: 'supply/new', component: AdminSupplyCreateComponent, pathMatch: 'full' },
       { path: 'category/:id', component: AdminCategoryEditComponent },
       { path: 'distributor/:id', component: AdminDistributorEditComponent },
       { path: 'image/:id', component: AdminImageEditComponent },
       { path: 'manufacturer/:id', component: AdminManufacturerEditComponent },
       { path: 'order/:id', component: AdminOrderComponent },
-      { path: 'product/:id', component: AdminProductComponent }
+      { path: 'product/:id', component: AdminProductComponent },
+      { path: 'supply/:id', component: AdminSupplyEditComponent }
     ]
   },
   { path: '**', component: NotFoundComponent }
@@ -94,6 +102,8 @@ const routes: Routes = [
     AdminOrderModule,
     AdminProductListModule,
     AdminProductModule,
+    AdminSupplyListModule,
+    AdminSupplyModule,
     CategoryModule,
     MainModule,
     NotFoundModule,

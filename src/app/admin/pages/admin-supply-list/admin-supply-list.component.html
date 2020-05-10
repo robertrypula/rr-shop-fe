@@ -1,0 +1,78 @@
+<div
+  [ngClass]="{
+    'u-block-overlay': supplies?.adminCallState === AdminCallState.Request
+  }"
+>
+  <rr-shop-admin-menu></rr-shop-admin-menu>
+
+  <h2>Admin / lista towarów z dostaw</h2>
+
+  <div class="u-admin-section u-admin-buttons">
+    <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
+    <rr-shop-clickable-action
+      [clickableActionTheme]="ClickableActionTheme.Primary"
+      [clickableActionType]="ClickableActionType.RouterLink"
+      [label]="'Nowy towar z dostawy'"
+      [link]="'/admin/supply/new'"
+    ></rr-shop-clickable-action>
+  </div>
+
+  <div *ngIf="supplies?.data as d">
+    <div class="u-admin-section">
+      <h4>Lista towarów z dostaw</h4>
+      <div>
+        <table class="u-compact-table">
+          <tr>
+            <th>Id</th>
+            <th>Vat</th>
+            <th>Cena zakupu brutto</th>
+            <th>Data ważności</th>
+            <th>Czy dostępny</th>
+            <th>Produkt</th>
+            <th>Pozycja zamówienia</th>
+            <th>Utworzono</th>
+            <th>Zmodyfikowano</th>
+          </tr>
+          <tr
+            *ngFor="let item of d"
+            [ngClass]="{
+              'u-green': item?.orderItem?.order,
+              'u-gray': item.isUnavailable
+            }"
+          >
+            <td class="u-right">
+              <a [routerLink]="[item.id]">{{ item.id }}</a>
+            </td>
+            <td class="u-right">{{ item.vat }}</td>
+            <td class="u-right">{{ item.priceUnitGross | price }}</td>
+            <td>{{ item.bestBefore | dateCustom }}</td>
+            <td>
+              <ng-container *ngIf="item?.orderItem?.order; else noOrderUnavailable">
+                ---
+              </ng-container>
+              <ng-template #noOrderUnavailable>
+                {{ item.isUnavailable ? 'nie dostępny' : 'dostępny' }}
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="item?.product; else noProduct">
+                [{{ item?.product?.externalId | externalId }}]
+                {{ item?.product?.name }}
+              </ng-container>
+              <ng-template #noProduct>---</ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="item?.orderItem?.order; else noOrder">
+                <span class="u-monospace">{{ item?.orderItem?.order?.number }}</span> |
+                {{ item?.orderItem?.order?.updatedAt | dateCustom }}
+              </ng-container>
+              <ng-template #noOrder>---</ng-template>
+            </td>
+            <td>{{ item.createdAt | dateCustom }}</td>
+            <td>{{ item.updatedAt | dateCustom }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

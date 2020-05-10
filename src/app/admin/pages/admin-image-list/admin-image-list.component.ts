@@ -5,12 +5,12 @@ import { AdminCall, AdminCallState } from '../../models/admin-component.models';
 import { ClickableActionTheme, ClickableActionType } from '../../../components/clickable-action/clickable-action.model';
 
 @Component({
-  selector: 'rr-shop-admin-category-list',
-  templateUrl: './admin-category-list.component.html',
-  styleUrls: ['./admin-category-list.component.scss']
+  selector: 'rr-shop-admin-image-list',
+  templateUrl: './admin-image-list.component.html',
+  styleUrls: ['./admin-image-list.component.scss']
 })
-export class AdminCategoryListComponent extends AdminBaseComponent implements OnInit {
-  public categoriesAdminCall: AdminCall = this.getAdminCall<any[]>();
+export class AdminImageListComponent extends AdminBaseComponent implements OnInit {
+  public images: AdminCall = this.getAdminCall<any[]>();
 
   public readonly AdminCallState = AdminCallState;
   public readonly ClickableActionTheme = ClickableActionTheme;
@@ -21,6 +21,6 @@ export class AdminCategoryListComponent extends AdminBaseComponent implements On
   }
 
   public refresh(): void {
-    this.get(this.categoriesAdminCall, 'category').subscribe();
+    this.get(this.images, 'image').subscribe();
   }
 }

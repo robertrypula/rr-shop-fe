@@ -6,6 +6,11 @@ import { AdminCategoryEditComponent } from './admin/pages/admin-category/admin-c
 import { AdminCategoryListComponent } from './admin/pages/admin-category-list/admin-category-list.component';
 import { AdminCategoryListModule } from './admin/pages/admin-category-list/admin-category-list.module';
 import { AdminCategoryModule } from './admin/pages/admin-category/admin-category.module';
+import { AdminImageCreateComponent } from './admin/pages/admin-image/admin-image-create/admin-image-create.component';
+import { AdminImageEditComponent } from './admin/pages/admin-image/admin-image-edit/admin-image-edit.component';
+import { AdminImageListComponent } from './admin/pages/admin-image-list/admin-image-list.component';
+import { AdminImageListModule } from './admin/pages/admin-image-list/admin-image-list.module';
+import { AdminImageModule } from './admin/pages/admin-image/admin-image.module';
 import { AdminLoginComponent } from './admin/pages/admin-login/admin-login.component';
 import { AdminLoginModule } from './admin/pages/admin-login/admin-login.module';
 import { AdminOrderListComponent } from './admin/pages/admin-order-list/admin-order-list.component';
@@ -43,10 +48,13 @@ const routes: Routes = [
     children: [
       { path: '', component: AdminLoginComponent, pathMatch: 'full' },
       { path: 'category', component: AdminCategoryListComponent, pathMatch: 'full' },
+      { path: 'category/new', component: AdminCategoryCreateComponent, pathMatch: 'full' },
+      { path: 'image', component: AdminImageListComponent, pathMatch: 'full' },
+      { path: 'image/new', component: AdminImageCreateComponent, pathMatch: 'full' },
       { path: 'order', component: AdminOrderListComponent, pathMatch: 'full' },
       { path: 'product', component: AdminProductListComponent, pathMatch: 'full' },
-      { path: 'category/new', component: AdminCategoryCreateComponent, pathMatch: 'full' },
       { path: 'category/:id', component: AdminCategoryEditComponent },
+      { path: 'image/:id', component: AdminImageEditComponent },
       { path: 'order/:id', component: AdminOrderComponent },
       { path: 'product/:id', component: AdminProductComponent }
     ]
@@ -58,7 +66,9 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),
     AdminCategoryModule,
+    AdminImageModule,
     AdminCategoryListModule,
+    AdminImageListModule,
     AdminLoginModule,
     AdminOrderListModule,
     AdminOrderModule,

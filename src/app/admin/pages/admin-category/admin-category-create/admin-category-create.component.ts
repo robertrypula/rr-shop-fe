@@ -27,7 +27,7 @@ export class AdminCategoryCreateComponent extends AdminBaseCategoryComponent imp
   }
 
   public refresh(): void {
-    this.get(this.categoriesAdminCall, 'category').subscribe();
+    this.refreshRelations();
   }
 
   public create(): void {

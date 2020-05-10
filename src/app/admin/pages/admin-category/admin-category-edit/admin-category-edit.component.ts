@@ -18,7 +18,7 @@ export class AdminCategoryEditComponent extends AdminBaseCategoryComponent imple
 
   public refresh(): void {
     this.get(this.categoryAdminCall, `category/${this.route.snapshot.paramMap.get('id')}`).subscribe();
-    this.get(this.categoriesAdminCall, 'category').subscribe();
+    this.refreshRelations();
   }
 
   public save(): void {

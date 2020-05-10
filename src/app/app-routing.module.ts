@@ -6,6 +6,11 @@ import { AdminCategoryEditComponent } from './admin/pages/admin-category/admin-c
 import { AdminCategoryListComponent } from './admin/pages/admin-category-list/admin-category-list.component';
 import { AdminCategoryListModule } from './admin/pages/admin-category-list/admin-category-list.module';
 import { AdminCategoryModule } from './admin/pages/admin-category/admin-category.module';
+import { AdminDistributorCreateComponent } from './admin/pages/admin-distributor/admin-distributor-create/admin-distributor-create.component';
+import { AdminDistributorEditComponent } from './admin/pages/admin-distributor/admin-distributor-edit/admin-distributor-edit.component';
+import { AdminDistributorListComponent } from './admin/pages/admin-distributor-list/admin-distributor-list.component';
+import { AdminDistributorListModule } from './admin/pages/admin-distributor-list/admin-distributor-list.module';
+import { AdminDistributorModule } from './admin/pages/admin-distributor/admin-distributor.module';
 import { AdminImageCreateComponent } from './admin/pages/admin-image/admin-image-create/admin-image-create.component';
 import { AdminImageEditComponent } from './admin/pages/admin-image/admin-image-edit/admin-image-edit.component';
 import { AdminImageListComponent } from './admin/pages/admin-image-list/admin-image-list.component';
@@ -54,6 +59,8 @@ const routes: Routes = [
       { path: '', component: AdminLoginComponent, pathMatch: 'full' },
       { path: 'category', component: AdminCategoryListComponent, pathMatch: 'full' },
       { path: 'category/new', component: AdminCategoryCreateComponent, pathMatch: 'full' },
+      { path: 'distributor', component: AdminDistributorListComponent, pathMatch: 'full' },
+      { path: 'distributor/new', component: AdminDistributorCreateComponent, pathMatch: 'full' },
       { path: 'image', component: AdminImageListComponent, pathMatch: 'full' },
       { path: 'image/new', component: AdminImageCreateComponent, pathMatch: 'full' },
       { path: 'manufacturer', component: AdminManufacturerListComponent, pathMatch: 'full' },
@@ -61,6 +68,7 @@ const routes: Routes = [
       { path: 'order', component: AdminOrderListComponent, pathMatch: 'full' },
       { path: 'product', component: AdminProductListComponent, pathMatch: 'full' },
       { path: 'category/:id', component: AdminCategoryEditComponent },
+      { path: 'distributor/:id', component: AdminDistributorEditComponent },
       { path: 'image/:id', component: AdminImageEditComponent },
       { path: 'manufacturer/:id', component: AdminManufacturerEditComponent },
       { path: 'order/:id', component: AdminOrderComponent },
@@ -75,6 +83,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { useHash: true }),
     AdminCategoryListModule,
     AdminCategoryModule,
+    AdminDistributorListModule,
+    AdminDistributorModule,
     AdminImageListModule,
     AdminImageModule,
     AdminLoginModule,

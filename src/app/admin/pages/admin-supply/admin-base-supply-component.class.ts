@@ -11,7 +11,12 @@ export class AdminBaseSupplyComponent extends AdminBaseComponent {
 
   protected getSupplyWriteRequestBody(supply: any): any {
     return {
-      name: supply.name
+      bestBefore: supply.bestBefore,
+      isUnavailable: supply.isUnavailable,
+      notes: supply.notes,
+      priceUnitGross: supply.priceUnitGross,
+      productId: !supply.productId || supply.productId === 'null' ? null : +supply.productId,
+      vat: supply.vat
     };
   }
 

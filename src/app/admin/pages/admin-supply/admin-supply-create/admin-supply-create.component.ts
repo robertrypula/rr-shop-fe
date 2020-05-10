@@ -11,8 +11,13 @@ import { AdminCall } from '../../../models/admin-component.models';
 })
 export class AdminSupplyCreateComponent extends AdminBaseSupplyComponent implements OnInit {
   public supplyAdminCall: AdminCall = this.getAdminCall({
-    name: '',
-    id: null
+    bestBefore: this.getTodayNoon().toISOString(),
+    id: null,
+    isUnavailable: false,
+    notes: null,
+    priceUnitGross: null,
+    productId: null,
+    vat: null
   });
 
   public ngOnInit(): void {
@@ -33,5 +38,13 @@ export class AdminSupplyCreateComponent extends AdminBaseSupplyComponent impleme
         )
         .subscribe();
     }
+  }
+
+  protected getTodayNoon(): Date {
+    const date: Date = new Date();
+
+    date.setHours(12, 0, 0, 0);
+
+    return date;
   }
 }

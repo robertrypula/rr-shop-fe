@@ -1,0 +1,43 @@
+<div
+  [ngClass]="{
+    'u-block-overlay': manufacturers?.adminCallState === AdminCallState.Request
+  }"
+>
+  <rr-shop-admin-menu></rr-shop-admin-menu>
+
+  <h2>Admin / lista producentów</h2>
+
+  <div class="u-admin-section u-admin-buttons">
+    <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
+    <rr-shop-clickable-action
+      [clickableActionTheme]="ClickableActionTheme.Primary"
+      [clickableActionType]="ClickableActionType.RouterLink"
+      [label]="'Nowy producent'"
+      [link]="'/admin/manufacturer/new'"
+    ></rr-shop-clickable-action>
+  </div>
+
+  <div *ngIf="manufacturers?.data as d">
+    <div class="u-admin-section">
+      <h4>Obrazki</h4>
+      <div>
+        <table class="u-compact-table">
+          <tr>
+            <th>Id</th>
+            <th>Nazwa</th>
+            <th>Utworzono</th>
+            <th>Zmodyfikowano</th>
+          </tr>
+          <tr *ngFor="let item of d">
+            <td class="u-right">{{ item.id }}</td>
+            <td>
+              <a [routerLink]="[item.id]">{{ item.name }}</a>
+            </td>
+            <td>{{ item.createdAt | dateCustom }}</td>
+            <td>{{ item.updatedAt | dateCustom }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

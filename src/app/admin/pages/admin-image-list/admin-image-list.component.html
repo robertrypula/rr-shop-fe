@@ -23,11 +23,13 @@
       <div>
         <table class="u-compact-table">
           <tr>
-            <th>Lp.</th>
+            <th>Id</th>
             <th>Nazwa pliku (bez rozszerzenia)</th>
             <th>Produkt</th>
             <th>Kategoria</th>
             <th>Producent</th>
+            <th>Utworzono</th>
+            <th>Zmodyfikowano</th>
           </tr>
           <tr *ngFor="let item of d">
             <td class="u-right">{{ item.id }}</td>
@@ -36,7 +38,7 @@
             </td>
             <td>
               <ng-container *ngIf="item?.product?.name; else noProduct">
-                {{ item?.product?.name }}
+                [{{ item?.product?.externalId | externalId }}] {{ item?.product?.name }}
               </ng-container>
               <ng-template #noProduct>---</ng-template>
             </td>
@@ -52,6 +54,8 @@
               </ng-container>
               <ng-template #noManufacturer>---</ng-template>
             </td>
+            <td>{{ item.createdAt | dateCustom }}</td>
+            <td>{{ item.updatedAt | dateCustom }}</td>
           </tr>
         </table>
       </div>

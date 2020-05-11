@@ -2,36 +2,38 @@
   [ngClass]="{
     'u-block-overlay':
       categoriesAdminCall?.adminCallState === AdminCallState.Request ||
-      imageAdminCall?.adminCallState === AdminCallState.Request ||
-      imageWriteRequestAdminCall?.adminCallState === AdminCallState.Request ||
+      distributorsAdminCall?.adminCallState === AdminCallState.Request ||
       manufacturersAdminCall?.adminCallState === AdminCallState.Request ||
-      productsAdminCall?.adminCallState === AdminCallState.Request
+      productAdminCall?.adminCallState === AdminCallState.Request ||
+      productWriteRequestAdminCall?.adminCallState === AdminCallState.Request
   }"
 >
   <rr-shop-admin-menu></rr-shop-admin-menu>
 
-  <h2>Admin / obrazek / {{ imageAdminCall?.data?.filename }}</h2>
+  <h2>Admin / produkt / {{ productAdminCall?.data?.name }}</h2>
 
   <div class="u-admin-section u-admin-buttons">
     <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
     <rr-shop-clickable-action
       [clickableActionTheme]="ClickableActionTheme.Primary"
       [clickableActionType]="ClickableActionType.RouterLink"
-      [label]="'Nowy obrazek'"
-      [link]="'/admin/image/new'"
+      [label]="'Nowy produkt'"
+      [link]="'/admin/product/new'"
     ></rr-shop-clickable-action>
   </div>
 
   <ng-container
-    *ngIf="categoriesAdminCall?.data && imageAdminCall?.data && manufacturersAdminCall?.data && productsAdminCall?.data"
+    *ngIf="
+      categoriesAdminCall?.data && distributorsAdminCall?.data && manufacturersAdminCall?.data && productAdminCall?.data
+    "
   >
     <div class="u-admin-section u-admin-form">
-      <rr-shop-admin-image-form
+      <rr-shop-admin-product-form
         [categories]="categoriesAdminCall?.data"
-        [image]="imageAdminCall?.data"
+        [distributors]="distributorsAdminCall?.data"
         [manufacturers]="manufacturersAdminCall?.data"
-        [products]="productsAdminCall?.data"
-      ></rr-shop-admin-image-form>
+        [product]="productAdminCall?.data"
+      ></rr-shop-admin-product-form>
 
       <div class="row">
         <div></div>
@@ -44,7 +46,7 @@
     <div class="u-admin-section">
       <h4>Surowe dane :)</h4>
       <div>
-        <pre class="u-formatted-json">{{ imageAdminCall?.data | json }}</pre>
+        <pre class="u-formatted-json">{{ productAdminCall?.data | json }}</pre>
       </div>
     </div>
   </ng-container>

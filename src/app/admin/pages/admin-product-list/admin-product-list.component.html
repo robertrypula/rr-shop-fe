@@ -15,6 +15,12 @@
       [link]="cashRegisterCsvLink"
       label="Wygeneruj CSV na kasę fiskalną"
     ></rr-shop-clickable-action>
+    <rr-shop-clickable-action
+      [clickableActionTheme]="ClickableActionTheme.Primary"
+      [clickableActionType]="ClickableActionType.RouterLink"
+      [label]="'Nowy produkt'"
+      [link]="'/admin/product/new'"
+    ></rr-shop-clickable-action>
   </div>
 
   <div *ngIf="products?.data as d">
@@ -27,6 +33,7 @@
             <th>Nazwa</th>
             <th>Nazwa na kasie fiskalnej</th>
             <th>Producent</th>
+            <th>Dostawca</th>
             <th>Dostawy</th>
             <th>Zamówienia</th>
             <th>Dostępnych</th>
@@ -50,7 +57,9 @@
             <td>
               {{ item?.manufacturer?.name }}
             </td>
-
+            <td>
+              {{ item?.distributor?.name }}
+            </td>
             <td class="u-right" title="Sztuki z dostaw nie oznaczone jako niedostępne (od początku działalności)">
               {{ item?.supplies?.length }}
             </td>

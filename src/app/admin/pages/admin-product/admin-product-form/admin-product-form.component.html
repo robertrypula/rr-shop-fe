@@ -1,0 +1,192 @@
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-product-form-external-id">Numer na kasie</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <input id="admin-product-form-external-id" class="u-form-input" type="text" [value]="product.externalId" disabled />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-product-form-name">Nazwa</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <input id="admin-product-form-name" class="u-form-input" type="text" [(ngModel)]="product.name" />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-product-form-slug">Slug</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <input id="admin-product-form-slug" class="u-form-input" type="text" [value]="product.slug" disabled />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-product-form-name-cash-register">Nazwa na kasie</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <input
+      id="admin-product-form-name-cash-register"
+      class="u-form-input"
+      type="text"
+      [(ngModel)]="product.nameCashRegister"
+      [maxLength]="NAME_CASH_REGISTER_MAX_LENGTH"
+    />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-product-form-tags">Tagi (wyszukiwarka)</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <input id="admin-product-form-tags" class="u-form-input" type="text" [(ngModel)]="product.tags" />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-product-form-price-unit">Cena dla klienta</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <input
+      id="admin-product-form-price-unit"
+      class="u-form-input"
+      type="number"
+      step="0.01"
+      [(ngModel)]="product.priceUnit"
+    />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-product-form-price-unit-before-promotion">
+      Cena dla klienta przed promocją
+    </label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <input
+      id="admin-product-form-price-unit-before-promotion"
+      class="u-form-input"
+      type="number"
+      step="0.01"
+      [(ngModel)]="product.priceUnitBeforePromotion"
+    />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-product-form-notes">Notatki (widoczne tylko w adminie)</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <textarea
+      id="admin-product-form-notes"
+      class="u-form-input u-monospace"
+      type="text"
+      style="height: 100px;"
+      [(ngModel)]="product.notes"
+    ></textarea>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-product-form-description">Opis</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <textarea
+      id="admin-product-form-description"
+      class="u-form-input u-monospace"
+      type="text"
+      style="height: 400px; font-size: 11px;"
+      [(ngModel)]="product.description"
+    ></textarea>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-product-form-is-hidden">Czy ukryty</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <input id="admin-product-form-is-hidden" class="u-form-input" type="checkbox" [(ngModel)]="product.isHidden" />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-image-form-manufacturer-id">Producent</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <select class="u-form-input" id="admin-image-form-manufacturer-id" [(ngModel)]="product.manufacturerId">
+      <option [value]="null">-- brak --</option>
+      <option *ngFor="let item of manufacturers" [value]="item.id">{{ item.name }}</option>
+    </select>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-image-form-distributor-id">Dystrybutor</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <select class="u-form-input" id="admin-image-form-distributor-id" [(ngModel)]="product.distributorId">
+      <option [value]="null">-- brak --</option>
+      <option *ngFor="let item of distributors" [value]="item.id">{{ item.name }}</option>
+    </select>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-image-form-category-ids">Kategorie</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <select
+      class="u-form-input"
+      id="admin-image-form-category-ids"
+      [(ngModel)]="product.categoryIds"
+      multiple
+      style="height: 300px"
+    >
+      <option *ngFor="let item of categories" [value]="item.id">{{ item.name }}</option>
+    </select>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-product-form-created-at">Utworzono</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <input
+      id="admin-product-form-created-at"
+      class="u-form-input"
+      type="text"
+      [value]="product.createdAt | dateCustom"
+      disabled
+    />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-product-form-modified-at">Zmodyfikowano</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <input
+      id="admin-product-form-modified-at"
+      class="u-form-input"
+      type="text"
+      [value]="product.updatedAt | dateCustom"
+      disabled
+    />
+  </div>
+</div>

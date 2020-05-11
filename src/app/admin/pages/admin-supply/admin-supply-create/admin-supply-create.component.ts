@@ -11,13 +11,13 @@ import { AdminCall } from '../../../models/admin-component.models';
 })
 export class AdminSupplyCreateComponent extends AdminBaseSupplyComponent implements OnInit {
   public supplyAdminCall: AdminCall = this.getAdminCall({
-    bestBefore: this.getTodayNoon().toISOString(),
+    bestBefore: this.getSessionStorageKey('adminBestBefore', this.getTodayNoon().toISOString()),
     id: null,
     isUnavailable: false,
     notes: null,
-    priceUnitGross: null,
-    productId: null,
-    vat: null
+    priceUnitGross: this.getSessionStorageKey('adminPriceUnitGross'),
+    productId: this.getSessionStorageKey('adminProductId'),
+    vat: this.getSessionStorageKey('adminVat')
   });
 
   public ngOnInit(): void {

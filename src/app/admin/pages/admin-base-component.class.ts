@@ -147,4 +147,12 @@ export class AdminBaseComponent {
   protected formatError(error: any): string {
     return '\n\n' + JSON.stringify(error, null, 2);
   }
+
+  protected getSessionStorageKey(key: string, fallback: any = null): any {
+    return window.sessionStorage.getItem(key) ? window.sessionStorage.getItem(key) : fallback;
+  }
+
+  protected setSessionStorageKey(key: string, value: any): void {
+    window.sessionStorage.setItem(key, value);
+  }
 }

@@ -10,7 +10,7 @@ export class AdminBaseSupplyComponent extends AdminBaseComponent {
   public supplyWriteRequestAdminCall: AdminCall = this.getAdminCall();
 
   protected getSupplyWriteRequestBody(supply: any): any {
-    return {
+    const object: any = {
       bestBefore: supply.bestBefore,
       isUnavailable: supply.isUnavailable,
       notes: supply.notes,
@@ -18,6 +18,13 @@ export class AdminBaseSupplyComponent extends AdminBaseComponent {
       productId: !supply.productId || supply.productId === 'null' ? null : +supply.productId,
       vat: supply.vat
     };
+
+    this.setSessionStorageKey('adminBestBefore', object.bestBefore);
+    this.setSessionStorageKey('adminPriceUnitGross', object.priceUnitGross);
+    this.setSessionStorageKey('adminProductId', object.productId);
+    this.setSessionStorageKey('adminVat', object.vat);
+
+    return object;
   }
 
   protected refreshRelations(): void {

@@ -7,7 +7,18 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class AdminProductFormComponent implements OnInit {
   @Input()
+  public categories: any[];
+
+  @Input()
+  public distributors: any[];
+
+  @Input()
+  public manufacturers: any[];
+
+  @Input()
   public product: any;
+
+  public readonly CASH_REGISTER_NAME_MAX_LENGTH = 40;
 
   public constructor() {}
 

@@ -1,6 +1,9 @@
 <div
   [ngClass]="{
     'u-block-overlay':
+      categoriesAdminCall?.adminCallState === AdminCallState.Request ||
+      distributorsAdminCall?.adminCallState === AdminCallState.Request ||
+      manufacturersAdminCall?.adminCallState === AdminCallState.Request ||
       productAdminCall?.adminCallState === AdminCallState.Request ||
       productWriteRequestAdminCall?.adminCallState === AdminCallState.Request
   }"
@@ -19,9 +22,18 @@
     ></rr-shop-clickable-action>
   </div>
 
-  <ng-container *ngIf="productAdminCall?.data">
+  <ng-container
+    *ngIf="
+      categoriesAdminCall?.data && distributorsAdminCall?.data && manufacturersAdminCall?.data && productAdminCall?.data
+    "
+  >
     <div class="u-admin-section u-admin-form">
-      <rr-shop-admin-product-form [product]="productAdminCall?.data"></rr-shop-admin-product-form>
+      <rr-shop-admin-product-form
+        [categories]="categoriesAdminCall?.data"
+        [distributors]="distributorsAdminCall?.data"
+        [manufacturers]="manufacturersAdminCall?.data"
+        [product]="productAdminCall?.data"
+      ></rr-shop-admin-product-form>
 
       <div class="row">
         <div></div>

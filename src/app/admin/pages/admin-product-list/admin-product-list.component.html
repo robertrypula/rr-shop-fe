@@ -33,6 +33,7 @@
             <th>Nazwa</th>
             <th>Nazwa na kasie fiskalnej</th>
             <th>Producent</th>
+            <th>Dostawca</th>
             <th>Dostawy</th>
             <th>Zamówienia</th>
             <th>Dostępnych</th>
@@ -56,7 +57,9 @@
             <td>
               {{ item?.manufacturer?.name }}
             </td>
-
+            <td>
+              {{ item?.distributor?.name }}
+            </td>
             <td class="u-right" title="Sztuki z dostaw nie oznaczone jako niedostępne (od początku działalności)">
               {{ item?.supplies?.length }}
             </td>

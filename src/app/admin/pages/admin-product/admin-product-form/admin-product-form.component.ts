@@ -18,7 +18,7 @@ export class AdminProductFormComponent implements OnInit {
   @Input()
   public product: any;
 
-  public readonly CASH_REGISTER_NAME_MAX_LENGTH = 40;
+  public readonly NAME_CASH_REGISTER_MAX_LENGTH = 40;
 
   public constructor() {}
 

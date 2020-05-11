@@ -12,30 +12,18 @@ export class AdminBaseProductComponent extends AdminBaseComponent {
   public productWriteRequestAdminCall: AdminCall = this.getAdminCall();
 
   protected getProductWriteRequestBody(product: any): any {
-    /*
-                      externalId: number;
-                      name: string;
-                      tags: string;
-                      nameCashRegister: string;
-                      slug: string;
-                      description: string;
-                      priceUnit: number;
-                      priceUnitBeforePromotion: number;
-                      notes: string;
-                      isHidden: boolean;
-      distributor: Distributor;
-      manufacturer: Manufacturer;
-      categories: Category[];
-    */
-
     return {
-      name: product.name,
+      categoryIds: product.categoryIds || [],
       description: product.description,
-      priceUnit: product.priceUnit,
-      notes: product.notes,
+      distributor: !product.distributorId || product.distributorId === 'null' ? null : +product.distributorId,
       isHidden: product.isHidden,
       manufacturerId: !product.manufacturerId || product.manufacturerId === 'null' ? null : +product.manufacturerId,
-      distributor: !product.distributorId || product.distributorId === 'null' ? null : +product.distributorId
+      name: product.name,
+      nameCashRegister: product.nameCashRegister,
+      notes: product.notes,
+      priceUnit: product.priceUnit,
+      priceUnitBeforePromotion: product.priceUnitBeforePromotion,
+      tags: product.tags
     };
   }
 

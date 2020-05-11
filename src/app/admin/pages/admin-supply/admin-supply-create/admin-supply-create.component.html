@@ -1,0 +1,37 @@
+<div
+  [ngClass]="{
+    'u-block-overlay':
+      productsAdminCall?.adminCallState === AdminCallState.Request ||
+      supplyAdminCall?.adminCallState === AdminCallState.Request ||
+      supplyWriteRequestAdminCall?.adminCallState === AdminCallState.Request
+  }"
+>
+  <rr-shop-admin-menu></rr-shop-admin-menu>
+
+  <h2>
+    Admin / towar z dostawy / nowy
+  </h2>
+
+  <ng-container *ngIf="productsAdminCall?.data && supplyAdminCall?.data">
+    <div class="u-admin-section u-admin-form">
+      <rr-shop-admin-supply-form
+        [products]="productsAdminCall?.data"
+        [supply]="supplyAdminCall?.data"
+      ></rr-shop-admin-supply-form>
+
+      <div class="row">
+        <div></div>
+        <div class="col-xxs-9 col-xxs-offset-3 margin-bottom">
+          <rr-shop-clickable-action (actionClick)="create()" [label]="'Utwórz'"></rr-shop-clickable-action>
+        </div>
+      </div>
+    </div>
+
+    <div class="u-admin-section">
+      <h4>Surowe dane :)</h4>
+      <div>
+        <pre class="u-formatted-json">{{ supplyAdminCall?.data | json }}</pre>
+      </div>
+    </div>
+  </ng-container>
+</div>

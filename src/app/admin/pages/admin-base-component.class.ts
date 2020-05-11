@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -8,6 +8,7 @@ import { AdminCall, AdminCallState } from '../models/admin-component.models';
 import { BarFacadeService } from '../../store/facades/bar-facade.service';
 import { BarType } from '../../models/bar.model';
 import { BarService } from '../../services/bar.service';
+import { ClickableActionTheme, ClickableActionType } from '../../components/clickable-action/clickable-action.model';
 import { environment } from '../../../environments/environment';
 import { IconType } from '../../components/icon/icon.models';
 import { SizeImage, SizeImageContainer } from '../../models/image.model';
@@ -20,22 +21,25 @@ import { SizeImage, SizeImageContainer } from '../../models/image.model';
 @Injectable()
 export class AdminBaseComponent {
   public readonly AdminCallState = AdminCallState;
+  public readonly ClickableActionTheme = ClickableActionTheme;
+  public readonly ClickableActionType = ClickableActionType;
   public readonly IconType = IconType;
   public readonly SizeImage = SizeImage;
   public readonly SizeImageContainer = SizeImageContainer;
 
   public constructor(
+    protected barFacadeService: BarFacadeService,
+    protected barService: BarService,
+    protected changeDetectorRef: ChangeDetectorRef,
     protected http: HttpClient,
     protected route: ActivatedRoute,
-    protected changeDetectorRef: ChangeDetectorRef,
-    protected barService: BarService,
-    protected barFacadeService: BarFacadeService
+    protected router: Router
   ) {}
 
-  protected getAdminCall<T>(): AdminCall<T> {
+  protected getAdminCall<T>(data: T = null): AdminCall<T> {
     return {
       adminCallState: AdminCallState.Initial,
-      data: null,
+      data: data ? data : null,
       errorDetails: null
     };
   }

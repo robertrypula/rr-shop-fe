@@ -1,0 +1,64 @@
+<div
+  [ngClass]="{
+    'u-block-overlay': images?.adminCallState === AdminCallState.Request
+  }"
+>
+  <rr-shop-admin-menu></rr-shop-admin-menu>
+
+  <h2>Admin / lista obrazków</h2>
+
+  <div class="u-admin-section u-admin-buttons">
+    <rr-shop-clickable-action (actionClick)="refresh()" label="Odśwież"></rr-shop-clickable-action>
+    <rr-shop-clickable-action
+      [clickableActionTheme]="ClickableActionTheme.Primary"
+      [clickableActionType]="ClickableActionType.RouterLink"
+      [label]="'Nowy obrazek'"
+      [link]="'/admin/image/new'"
+    ></rr-shop-clickable-action>
+  </div>
+
+  <div *ngIf="images?.data as d">
+    <div class="u-admin-section">
+      <h4>Obrazki</h4>
+      <div>
+        <table class="u-compact-table">
+          <tr>
+            <th>Id</th>
+            <th>Nazwa pliku (bez rozszerzenia)</th>
+            <th>Produkt</th>
+            <th>Kategoria</th>
+            <th>Producent</th>
+            <th>Utworzono</th>
+            <th>Zmodyfikowano</th>
+          </tr>
+          <tr *ngFor="let item of d">
+            <td class="u-right">{{ item.id }}</td>
+            <td>
+              <a [routerLink]="[item.id]">{{ item.filename }}</a>
+            </td>
+            <td>
+              <ng-container *ngIf="item?.product?.name; else noProduct">
+                [{{ item?.product?.externalId | externalId }}] {{ item?.product?.name }}
+              </ng-container>
+              <ng-template #noProduct>---</ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="item?.category?.name; else noCategory">
+                {{ item?.category?.name }}
+              </ng-container>
+              <ng-template #noCategory>---</ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="item?.manufacturer?.name; else noManufacturer">
+                {{ item?.manufacturer?.name }}
+              </ng-container>
+              <ng-template #noManufacturer>---</ng-template>
+            </td>
+            <td>{{ item.createdAt | dateCustom }}</td>
+            <td>{{ item.updatedAt | dateCustom }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

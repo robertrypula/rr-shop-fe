@@ -30,7 +30,7 @@ export interface CategoryStore {
   content?: string;
   id: number;
   isNotClickable?: boolean;
-  isWithoutProducts?: boolean;
+  isHiddenListOfProducts?: boolean;
   name: string;
   parentId: number;
   slug?: string;

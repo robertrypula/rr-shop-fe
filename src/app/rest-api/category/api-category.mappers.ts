@@ -8,7 +8,7 @@ export const fromDto = (dto: CategoryDto): CategoryStore => {
     content: dto.content,
     id: dto.id,
     isNotClickable: dto.isNotClickable,
-    isWithoutProducts: dto.isWithoutProducts,
+    isHiddenListOfProducts: dto.isHiddenListOfProducts,
     name: dto.name,
     parentId: dto.parentId,
     slug: dto.slug,

@@ -15,7 +15,7 @@ export class AdminCategoryCreateComponent extends AdminBaseCategoryComponent imp
     id: null,
     isHidden: true,
     isNotClickable: false,
-    isWithoutProducts: false,
+    isHiddenListOfProducts: false,
     name: '',
     parentId: null,
     slug: '',

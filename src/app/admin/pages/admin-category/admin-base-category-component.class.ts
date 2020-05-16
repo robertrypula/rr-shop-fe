@@ -14,7 +14,7 @@ export class AdminBaseCategoryComponent extends AdminBaseComponent {
       content: category.content,
       isHidden: category.isHidden,
       isNotClickable: category.isNotClickable,
-      isWithoutProducts: category.isWithoutProducts,
+      isHiddenListOfProducts: category.isHiddenListOfProducts,
       name: category.name,
       parentId: !category.parentId || category.parentId === 'null' ? null : +category.parentId
     };

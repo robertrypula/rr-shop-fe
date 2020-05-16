@@ -2,3 +2,10 @@
 
 .Category {
 }
+
+.Category-categories,
+.Category-products {
+  > * {
+    display: block;
+  }
+}

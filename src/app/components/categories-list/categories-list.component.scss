@@ -1,0 +1,24 @@
+@import 'configs-and-mixins';
+
+.CategoryList {
+}
+
+.CategoryList-entry {
+  padding-top: $gutter-width;
+  padding-bottom: $gutter-width;
+  margin-bottom: 2 * $gutter-width;
+  border: 1px solid $light-gray-color;
+  border-radius: 20px;
+  transition: border 0.2s, background-color 0.2s;
+
+  img {
+    transition: transform 0.2s;
+  }
+
+  &:hover {
+    background-color: $light-gray-color;
+    img {
+      transform: scale(1.1);
+    }
+  }
+}

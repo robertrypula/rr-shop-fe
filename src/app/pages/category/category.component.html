@@ -1,19 +1,25 @@
 <div class="Category">
-  <ng-container *ngIf="(activeCategory$ | async)?.content; else withoutContent">
-    <div class="u-formatted-content" markdown [data]="(activeCategory$ | async)?.content"></div>
-  </ng-container>
+  <h2>
+    {{ (activeCategory$ | async)?.name }}
+  </h2>
+  <div class="Category-content">
+    <div
+      *ngIf="(activeCategory$ | async)?.content"
+      class="u-formatted-content"
+      markdown
+      [data]="(activeCategory$ | async)?.content"
+    ></div>
+  </div>
 
-  <ng-template #withoutContent>
-    <h2>
-      {{ (activeCategory$ | async)?.name }}
-    </h2>
-  </ng-template>
+  <div class="Category-categories">
+    <rr-shop-categories-list [categories]="activeCategoryChildren$ | async"></rr-shop-categories-list>
+  </div>
 
-  <ng-container *ngIf="!(activeCategory$ | async)?.isWithoutProducts">
+  <div *ngIf="!(activeCategory$ | async)?.isWithoutProducts" class="Category-products">
     <rr-shop-products-list
       [category]="activeCategory$ | async"
       [noProductsMessage]="'Brak produktów w tej kategorii'"
       [products]="productsFromActiveCategoryAndItsChildren$ | async"
     ></rr-shop-products-list>
-  </ng-container>
+  </div>
 </div>

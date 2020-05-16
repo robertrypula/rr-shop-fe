@@ -20,6 +20,16 @@ export const selectActiveCategoryStore = createSelector(
   }
 );
 
+export const selectActiveCategoryStoreChildren = createSelector(
+  selectActiveCategoryId,
+  selectCategoriesStore,
+  (activeCategoryId: number, categoriesStore: CategoryStore[]): CategoryStore[] => {
+    return categoriesStore.filter(
+      (categoryStore: CategoryStore): boolean => categoryStore.parentId === activeCategoryId
+    );
+  }
+);
+
 export const selectCategoriesStoreWithActiveLevel = createSelector(
   selectCategoriesStore,
   (categoriesStore: CategoryStore[]): CategoryStore[] => {

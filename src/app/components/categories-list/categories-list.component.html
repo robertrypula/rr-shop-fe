@@ -1,0 +1,21 @@
+<div class="CategoryList" *ngIf="categories.length">
+  <ng-container *ngFor="let category of categories; trackBy: trackBy; index as index">
+    <div class="CategoryList-entry row">
+      <div class="col-xxs-4">
+        <img src="https://via.placeholder.com/280" />
+      </div>
+      <div class="col-xxs-8">
+        <h3>{{ category.name }}</h3>
+        <div>
+          {{ category.content }}
+        </div>
+
+        <rr-shop-clickable-action
+          [label]="'Czytaj więcej'"
+          [clickableActionType]="ClickableActionType.RouterLink"
+          [link]="category | categoryUrl"
+        ></rr-shop-clickable-action>
+      </div>
+    </div>
+  </ng-container>
+</div>

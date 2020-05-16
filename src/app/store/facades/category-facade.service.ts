@@ -16,6 +16,9 @@ export class CategoryFacadeService {
   public activeCategory$: Observable<CategoryStore> = this.store.pipe(
     select(fromCategorySelectors.selectActiveCategoryStore)
   );
+  public activeCategoryChildren$: Observable<CategoryStore[]> = this.store.pipe(
+    select(fromCategorySelectors.selectActiveCategoryStoreChildren)
+  );
   public activeCategoryAndItsChildren$: Observable<CategoryStore[]> = this.store.pipe(
     select(fromCategorySelectors.selectActiveCategoryAndItsChildren)
   );

@@ -4,8 +4,12 @@ import { StructuralNode } from '../../models/category.model';
 export interface CategoryDto {
   content?: string;
   id: number;
-  isNotClickable?: boolean;
   isHiddenListOfProducts?: boolean;
+  isNotClickable?: boolean;
+  isVisibleListOfCategories?: boolean;
+  linkId?: number;
+  linkOpenInNewTab?: boolean;
+  linkText?: string;
   name: string;
   parentId: number;
   slug?: string;

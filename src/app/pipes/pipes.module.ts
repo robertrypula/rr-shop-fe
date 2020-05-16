@@ -8,8 +8,18 @@ import { ImagePipe } from './image/image.pipe';
 import { OrderStatusPipe } from './order-status/order-status.pipe';
 import { PricePipe } from './price/price.pipe';
 import { ProductUrlPipe } from './product-url/product-url.pipe';
+import { SafeHtmlPipe } from './safeHtml/safe-html.pipe';
 
-const pipes = [CategoryUrlPipe, DateCustomPipe, ExternalIdPipe, ImagePipe, OrderStatusPipe, PricePipe, ProductUrlPipe];
+const pipes = [
+  CategoryUrlPipe,
+  DateCustomPipe,
+  ExternalIdPipe,
+  ImagePipe,
+  OrderStatusPipe,
+  PricePipe,
+  ProductUrlPipe,
+  SafeHtmlPipe
+];
 
 @NgModule({
   declarations: [...pipes],

@@ -24,6 +24,8 @@ export interface ProductMediumDto extends ProductMinimalDto {
 
 export interface ProductFullDto extends ProductMediumDto {
   description: string;
+  descriptionDelivery: string;
+  isDeliveryOnlyOwn: boolean;
   type: Type;
   deliveryType: DeliveryType;
   paymentType: PaymentType;

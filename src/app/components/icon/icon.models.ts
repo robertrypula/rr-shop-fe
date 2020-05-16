@@ -8,6 +8,8 @@ export enum IconType {
   FasAngleDoubleUp = 'FasAngleDoubleUp',
   FasArrowCircleLeft = 'FasArrowCircleLeft',
   FasArrowCircleRight = 'FasArrowCircleRight',
+  FasArrowLeft = 'FasArrowLeft',
+  FasArrowRight = 'FasArrowRight',
   FasChevronDown = 'FasChevronDown',
   FasChevronUp = 'FasChevronUp',
   FasMinus = 'FasMinus',

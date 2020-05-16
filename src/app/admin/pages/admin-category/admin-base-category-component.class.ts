@@ -12,9 +12,14 @@ export class AdminBaseCategoryComponent extends AdminBaseComponent {
   protected getCategoryWriteRequestBody(category: any): any {
     return {
       content: category.content,
+      contentShort: category.contentShort,
       isHidden: category.isHidden,
-      isNotClickable: category.isNotClickable,
       isHiddenListOfProducts: category.isHiddenListOfProducts,
+      isNotClickable: category.isNotClickable,
+      isVisibleListOfCategories: category.isVisibleListOfCategories,
+      linkId: !category.linkId || category.linkId === 'null' ? null : +category.linkId,
+      linkOpenInNewTab: category.linkOpenInNewTab,
+      linkText: category.linkText,
       name: category.name,
       parentId: !category.parentId || category.parentId === 'null' ? null : +category.parentId
     };

@@ -1,1 +1,32 @@
-<img class="Slider xm-hidden" src="../../../assets/motto.jpg" width="2444" height="1268" />
+<div class="Slider">
+  <div class="Slider-viewport" (mouseenter)="intervalStop()" (mouseleave)="intervalReset()">
+    <div class="Slider-longBar" [ngStyle]="{ left: -(current * 100) + '%' }">
+      <div
+        *ngFor="let category of categories; trackBy: trackBy"
+        [innerHTML]="category.content | safeHtml"
+        class="Slider-content"
+      ></div>
+    </div>
+
+    <div *ngIf="categories?.length > 1" class="Slider-previous">
+      <div>
+        <rr-shop-clickable-action
+          (actionClick)="onPreviousClick()"
+          [clickableActionType]="ClickableActionType.Button"
+          [iconType]="IconType.FasArrowLeft"
+          [disabled]="isDisabledPrevious()"
+        ></rr-shop-clickable-action>
+      </div>
+    </div>
+    <div *ngIf="categories?.length > 1" class="Slider-next">
+      <div>
+        <rr-shop-clickable-action
+          (actionClick)="onNextClick()"
+          [clickableActionType]="ClickableActionType.Button"
+          [iconType]="IconType.FasArrowRight"
+          [disabled]="isDisabledNext()"
+        ></rr-shop-clickable-action>
+      </div>
+    </div>
+  </div>
+</div>

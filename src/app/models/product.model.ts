@@ -26,6 +26,8 @@ export interface ProductStore {
   name?: string;
   slug?: string;
   description?: string;
+  descriptionDelivery?: string;
+  isDeliveryOnlyOwn?: boolean;
   quantity?: number;
   priceUnit?: number;
   type?: Type;

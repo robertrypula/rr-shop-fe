@@ -15,7 +15,9 @@ export class AdminBaseProductComponent extends AdminBaseComponent {
     return {
       categoryIds: product.categoryIds || [],
       description: product.description,
+      descriptionDelivery: product.descriptionDelivery,
       distributorId: !product.distributorId || product.distributorId === 'null' ? null : +product.distributorId,
+      isDeliveryOnlyOwn: product.isDeliveryOnlyOwn,
       isHidden: product.isHidden,
       manufacturerId: !product.manufacturerId || product.manufacturerId === 'null' ? null : +product.manufacturerId,
       name: product.name,

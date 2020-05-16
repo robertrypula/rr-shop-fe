@@ -1,6 +1,6 @@
 <div class="Main">
-  <div class="Main-section">
-    <rr-shop-slider></rr-shop-slider>
+  <div *ngIf="(categoriesMainPageSlider$ | async)?.length" class="Main-section">
+    <rr-shop-slider [categories]="categoriesMainPageSlider$ | async"></rr-shop-slider>
   </div>
 
   <div class="Main-section">

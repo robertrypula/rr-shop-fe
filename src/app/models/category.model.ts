@@ -8,6 +8,8 @@ export enum StructuralNode {
   Footer = 'Footer',
   FooterMap = 'FooterMap',
   Header = 'Header',
+  MainPageCategories = 'MainPageCategories',
+  MainPageSlider = 'MainPageSlider',
   News = 'News',
   PageTemplates = 'PageTemplates',
   Payment = 'Payment',
@@ -26,11 +28,16 @@ export interface ActiveLevelUpdateEntry {
 // -----------------------------------------------------------------------------
 
 export interface CategoryStore {
-  activeLevel?: number;
+  activeLevel?: number; // not from BE - it's calculated on the frontend side
   content?: string;
+  contentShort?: string;
   id: number;
-  isNotClickable?: boolean;
   isHiddenListOfProducts?: boolean;
+  isNotClickable?: boolean;
+  isVisibleListOfCategories?: boolean;
+  linkId?: number;
+  linkOpenInNewTab?: boolean;
+  linkText?: string;
   name: string;
   parentId: number;
   slug?: string;

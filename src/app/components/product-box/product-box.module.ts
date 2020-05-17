@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
 import { OrderService } from '../../services/order.service';
 import { PipesModule } from '../../pipes/pipes.module';
-import { SliderImageModule } from '../slider-image/slider-image.module';
+import { SliderImageModule } from '../slider/slider-image/slider-image.module';
 
 import { ProductBoxCompactComponent } from './product-box-compact/product-box-compact.component';
 import { ProductBoxFullComponent } from './product-box-full/product-box-full.component';

@@ -1,0 +1,11 @@
+@import '../base-slider-component';
+
+:host {
+  display: block;
+}
+
+.SliderCategory {
+  width: 100%;
+  padding-bottom: 50%;
+  height: 0;
+}

@@ -6,7 +6,7 @@ import { MarkdownModule } from 'ngx-markdown';
 
 import { ClickableActionModule } from '../../components/clickable-action/clickable-action.module';
 import { PipesModule } from '../../pipes/pipes.module';
-import { SliderImageModule } from '../../components/slider-image/slider-image.module';
+import { SliderImageModule } from '../../components/slider/slider-image/slider-image.module';
 
 import { ProductComponent } from './product.component';
 

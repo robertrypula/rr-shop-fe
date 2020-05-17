@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { ClickableActionTheme } from '../clickable-action/clickable-action.model';
-import { IconType } from '../icon/icon.models';
-import { Image, SizeImage, SizeImageContainer, Transparency } from '../../models/image.model';
+import { ClickableActionTheme } from '../../clickable-action/clickable-action.model';
+import { IconType } from '../../icon/icon.models';
+import { Image, SizeImage, SizeImageContainer, Transparency } from '../../../models/image.model';
 
 @Component({
   selector: 'rr-shop-slider-image',

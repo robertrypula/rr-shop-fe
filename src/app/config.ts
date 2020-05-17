@@ -22,6 +22,8 @@ export const HEADER_STICKY_DESKTOP_MEDIUM_THRESHOLD = 69;
 export const HEADER_STICKY_DESKTOP_LARGE_THRESHOLD = 69;
 export const HEADER_STICKY_DESKTOP_EXTRA_LARGE_THRESHOLD = 69;
 
+export const SLIDER_INTERVAL = 5000;
+
 export const BREADCRUMBS_STRUCTURAL_NODES_LIMIT = [
   StructuralNode.Footer,
   StructuralNode.Header,

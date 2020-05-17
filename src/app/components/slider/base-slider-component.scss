@@ -1,13 +1,10 @@
-@import 'configs-and-mixins';
+@import 'src/styles/configs-and-mixins';
 
-.SliderCategory {
-  width: 100%;
-  padding-bottom: 50%;
-  height: 0;
+.BaseSlider {
   position: relative;
 }
 
-.SliderCategory-viewport {
+.BaseSlider-viewport {
   position: absolute;
   left: 0;
   right: 0;
@@ -16,22 +13,32 @@
   overflow: hidden;
 }
 
-.SliderCategory-longBar {
+.BaseSlider-longBar {
   transition: left 0.25s;
   position: absolute;
   width: 100 * 100%;
   height: 100%;
 }
 
-.SliderCategory-content {
+.BaseSlider-contentContainer {
   width: (1 / 100) * 100%;
   height: 100%;
   overflow: hidden;
+  position: relative;
   float: left;
 }
 
-.SliderCategory-previous,
-.SliderCategory-next {
+.BaseSlider-content {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.BaseSlider-previous,
+.BaseSlider-next {
   position: absolute;
   top: 50%;
   height: 0;
@@ -48,10 +55,10 @@
   }
 }
 
-.SliderCategory-previous {
+.BaseSlider-previous {
   left: 30px;
 }
 
-.SliderCategory-next {
+.BaseSlider-next {
   right: 30px;
 }

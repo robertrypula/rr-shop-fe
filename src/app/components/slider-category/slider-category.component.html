@@ -1,14 +1,14 @@
-<div class="Slider">
-  <div class="Slider-viewport" (mouseenter)="intervalStop()" (mouseleave)="intervalReset()">
-    <div class="Slider-longBar" [ngStyle]="{ left: -(current * 100) + '%' }">
+<div class="SliderCategory">
+  <div class="SliderCategory-viewport" (mouseenter)="intervalStop()" (mouseleave)="intervalReset()">
+    <div class="SliderCategory-longBar" [ngStyle]="{ left: -(current * 100) + '%' }">
       <div
         *ngFor="let category of categories; trackBy: trackBy"
         [innerHTML]="category.content | safeHtml"
-        class="Slider-content"
+        class="SliderCategory-content"
       ></div>
     </div>
 
-    <div *ngIf="categories?.length > 1" class="Slider-previous">
+    <div *ngIf="categories?.length > 1" class="SliderCategory-previous">
       <div>
         <rr-shop-clickable-action
           (actionClick)="onPreviousClick()"
@@ -18,7 +18,7 @@
         ></rr-shop-clickable-action>
       </div>
     </div>
-    <div *ngIf="categories?.length > 1" class="Slider-next">
+    <div *ngIf="categories?.length > 1" class="SliderCategory-next">
       <div>
         <rr-shop-clickable-action
           (actionClick)="onNextClick()"

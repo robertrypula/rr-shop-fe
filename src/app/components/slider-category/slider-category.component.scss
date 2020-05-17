@@ -1,13 +1,13 @@
 @import 'configs-and-mixins';
 
-.Slider {
+.SliderCategory {
   width: 100%;
   padding-bottom: 50%;
   height: 0;
   position: relative;
 }
 
-.Slider-viewport {
+.SliderCategory-viewport {
   position: absolute;
   left: 0;
   right: 0;
@@ -16,22 +16,22 @@
   overflow: hidden;
 }
 
-.Slider-longBar {
+.SliderCategory-longBar {
   transition: left 0.25s;
   position: absolute;
   width: 100 * 100%;
   height: 100%;
 }
 
-.Slider-content {
+.SliderCategory-content {
   width: (1 / 100) * 100%;
   height: 100%;
   overflow: hidden;
   float: left;
 }
 
-.Slider-previous,
-.Slider-next {
+.SliderCategory-previous,
+.SliderCategory-next {
   position: absolute;
   top: 50%;
   height: 0;
@@ -48,10 +48,10 @@
   }
 }
 
-.Slider-previous {
+.SliderCategory-previous {
   left: 30px;
 }
 
-.Slider-next {
+.SliderCategory-next {
   right: 30px;
 }

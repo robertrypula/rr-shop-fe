@@ -9,7 +9,7 @@
   <!-- TODO work on the conditions logic -->
 
   <img
-    *ngIf="!slider && images?.length === 1"
+    *ngIf="!slider && images?.length > 0"
     [attr.src]="images[0] | image: sizeImage"
     [attr.alt]="images[0].filename"
   />

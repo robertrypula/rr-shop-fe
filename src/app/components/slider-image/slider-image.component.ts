@@ -5,12 +5,12 @@ import { IconType } from '../icon/icon.models';
 import { Image, SizeImage, SizeImageContainer, Transparency } from '../../models/image.model';
 
 @Component({
-  selector: 'rr-shop-image',
-  templateUrl: './image.component.html',
-  styleUrls: ['./image.component.scss'],
+  selector: 'rr-shop-slider-image',
+  templateUrl: './slider-image.component.html',
+  styleUrls: ['./slider-image.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ImageComponent implements OnInit {
+export class SliderImageComponent implements OnInit {
   @Input()
   public images: Image[] = [];
 

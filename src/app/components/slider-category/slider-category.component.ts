@@ -7,12 +7,12 @@ import { ClickableActionType } from '../clickable-action/clickable-action.model'
 import { IconType } from '../icon/icon.models';
 
 @Component({
-  selector: 'rr-shop-slider',
-  templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.scss'],
+  selector: 'rr-shop-slider-category',
+  templateUrl: './slider-category.component.html',
+  styleUrls: ['./slider-category.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SliderComponent implements OnInit, OnDestroy {
+export class SliderCategoryComponent implements OnInit, OnDestroy {
   @Input()
   public categories: CategoryStore[];
 

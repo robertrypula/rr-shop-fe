@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { MarkdownModule } from 'ngx-markdown';
 
 import { ClickableActionModule } from '../../components/clickable-action/clickable-action.module';
-import { ImageModule } from '../../components/image/image.module';
 import { PipesModule } from '../../pipes/pipes.module';
+import { SliderImageModule } from '../../components/slider-image/slider-image.module';
 
 import { ProductComponent } from './product.component';
 
@@ -18,7 +18,7 @@ import { ProductComponent } from './product.component';
     CommonModule,
     FormsModule,
     HttpClientModule,
-    ImageModule,
+    SliderImageModule,
     MarkdownModule,
     PipesModule
   ]

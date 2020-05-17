@@ -106,7 +106,10 @@ export const selectCategoriesStoreBy = createSelector(
         const structuralNodeCategoryStore: CategoryStore = categoriesStore.find(
           (categoryStore: CategoryStore): boolean => categoryStore.structuralNode === props.structuralNode
         );
-        parentId = structuralNodeCategoryStore ? structuralNodeCategoryStore.id : null;
+        if (!structuralNodeCategoryStore) {
+          return [];
+        }
+        parentId = structuralNodeCategoryStore.id;
       } else if (props.parentId) {
         parentId = props.parentId;
       }

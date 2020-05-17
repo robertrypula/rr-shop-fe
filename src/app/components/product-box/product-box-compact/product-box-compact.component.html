@@ -1,11 +1,11 @@
 <div class="ProductBoxCompact" [ngClass]="{ 'ProductBoxCompact--inOrder': product.orderItem }">
   <a [routerLink]="product | productUrl: category" class="ProductBoxCompact-link">
-    <rr-shop-image
+    <rr-shop-slider-image
       [images]="product.images"
       [sizeImage]="SizeImage.Px0400"
       [sizeImageContainer]="SizeImageContainer.Px0200"
       class="ProductBoxCompact-image"
-    ></rr-shop-image>
+    ></rr-shop-slider-image>
     <span>{{ product.name }}</span>
   </a>
 

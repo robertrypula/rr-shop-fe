@@ -1,11 +1,11 @@
 <td class="OrderItemOverview-name">
   <div>
-    <rr-shop-image
+    <rr-shop-slider-image
       [images]="orderItem.productStore?.images"
       [sizeImage]="SizeImage.Px0128"
       [sizeImageContainer]="SizeImageContainer.Px0064"
       class="OrderItemOverview-image"
-    ></rr-shop-image>
+    ></rr-shop-slider-image>
     <div>
       <a [routerLink]="orderItem?.productStore | productUrl">
         {{ orderItem.productStore?.name }}

@@ -1,5 +1,5 @@
 <div
-  class="Image"
+  class="SliderImage"
   [ngClass]="{
     'Image-sizeContainer064px': sizeImageContainer === SizeImageContainer.Px0064,
     'Image-sizeContainer200px': sizeImageContainer === SizeImageContainer.Px0200,
@@ -9,12 +9,12 @@
   <!-- TODO work on the conditions logic -->
 
   <img
-    *ngIf="!slider && images?.length === 1"
+    *ngIf="!slider && images?.length > 0"
     [attr.src]="images[0] | image: sizeImage"
     [attr.alt]="images[0].filename"
   />
 
-  <div *ngIf="slider" class="Image-slider" [ngStyle]="{ left: -300 * position + 'px' }">
+  <div *ngIf="slider" class="SliderImage-slider" [ngStyle]="{ left: -300 * position + 'px' }">
     <a
       *ngFor="let image of images; trackBy: trackBy"
       [attr.href]="image | image: SizeImage.Px1600:Transparency.Disabled"
@@ -29,7 +29,7 @@
     (actionClick)="onLeftClick()"
     [clickableActionTheme]="ClickableActionTheme.TransparentDark"
     [iconType]="IconType.FasArrowCircleLeft"
-    class="Image-left"
+    class="SliderImage-left"
   ></rr-shop-clickable-action>
 
   <rr-shop-clickable-action
@@ -37,6 +37,6 @@
     (actionClick)="onRightClick()"
     [clickableActionTheme]="ClickableActionTheme.TransparentDark"
     [iconType]="IconType.FasArrowCircleRight"
-    class="Image-right"
+    class="SliderImage-right"
   ></rr-shop-clickable-action>
 </div>

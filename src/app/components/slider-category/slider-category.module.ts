@@ -4,11 +4,11 @@ import { NgModule } from '@angular/core';
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
 import { PipesModule } from '../../pipes/pipes.module';
 
-import { ImageComponent } from './image.component';
+import { SliderCategoryComponent } from './slider-category.component';
 
 @NgModule({
-  declarations: [ImageComponent],
-  exports: [ImageComponent],
+  declarations: [SliderCategoryComponent],
+  exports: [SliderCategoryComponent],
   imports: [CommonModule, ClickableActionModule, PipesModule]
 })
-export class ImageModule {}
+export class SliderCategoryModule {}

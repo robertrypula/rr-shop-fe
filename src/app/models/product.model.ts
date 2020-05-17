@@ -27,7 +27,8 @@ export interface ProductStore {
   slug?: string;
   description?: string;
   descriptionDelivery?: string;
-  isDeliveryOnlyOwn?: boolean;
+  isDeliveryBlockedCourier?: boolean;
+  isDeliveryBlockedParcelLocker?: boolean;
   quantity?: number;
   priceUnit?: number;
   type?: Type;

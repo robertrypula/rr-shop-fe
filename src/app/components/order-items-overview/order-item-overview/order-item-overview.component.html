@@ -11,7 +11,7 @@
         {{ orderItem.productStore?.name }}
       </a>
 
-      <div class="hidden-md hidden-lg hidden-xlg">
+      <div class="OrderItemOverview-mobileCalculationInfo hidden-md hidden-lg hidden-xlg">
         {{ orderItem.productStore?.priceUnit | price }}
         x
         {{ orderItem.quantity }}
@@ -40,10 +40,38 @@
       >
         Nie można dodać więcej sztuk
       </div>
+
+      <div
+        class="OrderItemOverview-descriptionDelivery u-formatted-content u-form-warning-container"
+        markdown
+        [data]="orderItem.productStore?.descriptionDelivery"
+      ></div>
+
+      <div
+        *ngIf="orderItem.productStore?.isDeliveryBlockedCourier"
+        class="OrderItemOverview-isDeliveryBlockedCourier"
+        [ngClass]="{
+          'u-form-warning-container': !orderItem?.order?.isDeliveryTypeBlockedCourierRuleFails(),
+          'u-form-error-container': orderItem?.order?.isDeliveryTypeBlockedCourierRuleFails()
+        }"
+      >
+        Brak możliwości wysyłki kurierem
+      </div>
+
+      <div
+        *ngIf="orderItem.productStore?.isDeliveryBlockedParcelLocker"
+        class="OrderItemOverview-isDeliveryBlockedParcelLocker"
+        [ngClass]="{
+          'u-form-warning-container': !orderItem?.order?.isDeliveryTypeBlockedParcelLockerRuleFails(),
+          'u-form-error-container': orderItem?.order?.isDeliveryTypeBlockedParcelLockerRuleFails()
+        }"
+      >
+        Brak możliwości wysyłki Paczkomatem
+      </div>
     </div>
   </div>
 
-  <div class="OrderItemOverview-aggregation hidden-md hidden-lg hidden-xlg">
+  <div class="OrderItemOverview-aggregation hidden-md hidden-lg hidden-xlg clearfix">
     <div>
       <rr-shop-clickable-action
         (actionClick)="remove(orderItem.id)"

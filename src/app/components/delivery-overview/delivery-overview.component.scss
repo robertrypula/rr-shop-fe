@@ -7,11 +7,15 @@
 }
 
 .DeliveryOverview-chooseParcelLocker {
-  padding-top: 16px;
   > div {
     line-height: 1.6em;
     a {
       cursor: pointer;
     }
   }
+}
+
+.DeliveryOverview-chooseParcelLocker,
+.DeliveryOverview-deliveryTypeBlocked {
+  padding-top: 16px;
 }

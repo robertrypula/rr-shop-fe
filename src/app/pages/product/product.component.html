@@ -19,27 +19,26 @@
       </div>
 
       <ng-container *ngIf="activeProduct.orderItem">
-        <div class="Product-alreadyInBasketQuantityAndActions">
-          <div class="Product-alreadyInBasketQuantity">
-            W koszyku: <b>{{ activeProduct.orderItem.quantity }}</b>
-          </div>
-          <div class="Product-alreadyInBasketActions">
-            <rr-shop-clickable-action
-              (actionClick)="remove(activeProduct.orderItem.id)"
-              [label]="'Usuń z koszyka'"
-              [iconType]="IconType.FarTrashAlt"
-            ></rr-shop-clickable-action>
-            <rr-shop-clickable-action
-              (actionClick)="quantityDecrement(activeProduct.orderItem.id)"
-              [disabled]="!activeProduct.orderItem.isQuantityDecrementActive()"
-              [iconType]="IconType.FasMinus"
-            ></rr-shop-clickable-action>
-            <rr-shop-clickable-action
-              (actionClick)="quantityIncrement(activeProduct.orderItem.id)"
-              [disabled]="!activeProduct.orderItem.isQuantityIncrementActive()"
-              [iconType]="IconType.FasPlus"
-            ></rr-shop-clickable-action>
-          </div>
+        <div class="Product-alreadyInBasketQuantity">
+          W koszyku: <b>{{ activeProduct.orderItem.quantity }}</b>
+        </div>
+
+        <div class="Product-alreadyInBasketActions">
+          <rr-shop-clickable-action
+            (actionClick)="remove(activeProduct.orderItem.id)"
+            [label]="'Usuń z koszyka'"
+            [iconType]="IconType.FarTrashAlt"
+          ></rr-shop-clickable-action>
+          <rr-shop-clickable-action
+            (actionClick)="quantityDecrement(activeProduct.orderItem.id)"
+            [disabled]="!activeProduct.orderItem.isQuantityDecrementActive()"
+            [iconType]="IconType.FasMinus"
+          ></rr-shop-clickable-action>
+          <rr-shop-clickable-action
+            (actionClick)="quantityIncrement(activeProduct.orderItem.id)"
+            [disabled]="!activeProduct.orderItem.isQuantityIncrementActive()"
+            [iconType]="IconType.FasPlus"
+          ></rr-shop-clickable-action>
         </div>
 
         <div
@@ -69,7 +68,25 @@
         </ng-template>
       </div>
 
-      <div class="u-formatted-content" markdown [data]="activeProduct.descriptionDelivery"></div>
+      <div
+        class="Product-descriptionDelivery u-formatted-content u-form-warning-container"
+        markdown
+        [data]="activeProduct.descriptionDelivery"
+      ></div>
+
+      <div
+        *ngIf="activeProduct.isDeliveryBlockedCourier"
+        class="Product-isDeliveryBlockedCourier u-form-warning-container"
+      >
+        Brak możliwości wysyłki kurierem
+      </div>
+
+      <div
+        *ngIf="activeProduct.isDeliveryBlockedParcelLocker"
+        class="Product-isDeliveryBlockedParcelLocker u-form-warning-container"
+      >
+        Brak możliwości wysyłki Paczkomatem
+      </div>
     </div>
   </div>
 

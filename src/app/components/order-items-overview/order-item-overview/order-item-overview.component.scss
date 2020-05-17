@@ -34,14 +34,14 @@ td {
       padding: 0 0 0 75px;
 
       @include viewport-desktop-medium-and-up {
-        padding: 12px 0 0 75px;
+        padding: 12px 0 12px 75px;
       }
 
       > a {
         display: block;
         padding: 0 0 8px 0;
       }
-      > div {
+      > .OrderItemOverview-mobileCalculationInfo {
         padding: 0 0 16px 0;
       }
     }
@@ -85,4 +85,9 @@ td {
 
 .OrderItemOverview-actions {
   width: 100px;
+}
+
+.OrderItemOverview-isDeliveryBlockedCourier.u-form-error-container,
+.OrderItemOverview-isDeliveryBlockedParcelLocker.u-form-error-container {
+  font-weight: bold;
 }

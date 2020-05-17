@@ -191,7 +191,7 @@ export class Order implements OrderStore {
       0
     );
 
-    return !deliveryType || (deliveryType === DeliveryType.InPostCourier && numberOfProductsBlockedCourier > 0);
+    return deliveryType === DeliveryType.InPostCourier && numberOfProductsBlockedCourier > 0;
   }
 
   public isDeliveryTypeBlockedParcelLockerRuleFails(): boolean {
@@ -203,9 +203,7 @@ export class Order implements OrderStore {
       0
     );
 
-    return (
-      !deliveryType || (deliveryType === DeliveryType.InPostParcelLocker && numberOfProductsBlockedParcelLocker > 0)
-    );
+    return deliveryType === DeliveryType.InPostParcelLocker && numberOfProductsBlockedParcelLocker > 0;
   }
 
   public isProductQuantityWithinTheLimitsInOrderItems(): boolean {

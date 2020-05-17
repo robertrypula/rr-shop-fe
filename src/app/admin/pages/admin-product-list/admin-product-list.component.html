@@ -34,11 +34,12 @@
             <th>Nazwa na kasie fiskalnej</th>
             <th>Producent</th>
             <th>Dostawca</th>
-            <th>Dostawy</th>
-            <th>Zamówienia</th>
-            <th>Dostępnych</th>
-            <th>Cena w sklepie</th>
-            <th>Widoczność</th>
+            <th title="Dostawy">Dwy</th>
+            <th title="Zamówienia">Zmw</th>
+            <th title="Dostępnych">Dst</th>
+            <th title="Cena w sklepie widoczna dla klienta">Cena</th>
+            <th title="Uwagi do dostawy">U</th>
+            <th title="Widoczny na stronie?">Wdcz</th>
           </tr>
           <tr
             *ngFor="let item of d"
@@ -73,11 +74,24 @@
             >
               <b>{{ item?.quantity }}</b>
             </td>
-            <td class="u-right">
+            <td class="u-right" title="Cena w sklepie widoczna dla klienta">
               {{ item?.priceUnit | price }}
             </td>
-            <td>
-              {{ item?.isHidden ? 'ukryty' : 'widoczny' }}
+            <td
+              [ngClass]="{
+                'u-red':
+                  item?.descriptionDelivery || item?.isDeliveryBlockedCourier || item?.isDeliveryBlockedParcelLocker
+              }"
+              title="Uwagi do dostawy"
+            >
+              {{
+                item?.descriptionDelivery || item?.isDeliveryBlockedCourier || item?.isDeliveryBlockedParcelLocker
+                  ? '!!'
+                  : ''
+              }}
+            </td>
+            <td [title]="item?.isHidden ? 'Ukryty' : 'Widoczny na stronie'">
+              {{ item?.isHidden ? 'nie' : 'tak' }}
             </td>
           </tr>
         </table>

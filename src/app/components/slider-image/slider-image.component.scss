@@ -1,10 +1,10 @@
 @import 'configs-and-mixins';
 
-.Image {
+.SliderImage {
   position: relative;
   overflow: hidden;
 
-  .Image-slider {
+  .SliderImage-slider {
     position: absolute;
     width: 19200px;
     left: 0;
@@ -18,43 +18,43 @@
     }
   }
 
-  .Image-left,
-  .Image-right {
+  .SliderImage-left,
+  .SliderImage-right {
     display: none;
     position: absolute;
     top: (300 - 40) * 0.5px;
   }
-  .Image-left {
+  .SliderImage-left {
     left: 0;
   }
-  .Image-right {
+  .SliderImage-right {
     right: 0;
   }
   &:hover {
-    .Image-left,
-    .Image-right {
+    .SliderImage-left,
+    .SliderImage-right {
       display: block;
     }
   }
 }
 
-.Image-sizeContainer064px,
-.Image-sizeContainer064px img,
-.Image-sizeContainer064px a {
+.SliderImage-sizeContainer064px,
+.SliderImage-sizeContainer064px img,
+.SliderImage-sizeContainer064px a {
   width: 64px;
   height: 64px;
 }
 
-.Image-sizeContainer200px,
-.Image-sizeContainer200px img,
-.Image-sizeContainer200px a {
+.SliderImage-sizeContainer200px,
+.SliderImage-sizeContainer200px img,
+.SliderImage-sizeContainer200px a {
   width: 200px;
   height: 200px;
 }
 
-.Image-sizeContainer300px,
-.Image-sizeContainer300px img,
-.Image-sizeContainer300px a {
+.SliderImage-sizeContainer300px,
+.SliderImage-sizeContainer300px img,
+.SliderImage-sizeContainer300px a {
   width: 300px;
   height: 300px;
 }

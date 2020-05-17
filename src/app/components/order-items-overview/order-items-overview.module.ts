@@ -4,9 +4,9 @@ import { RouterModule } from '@angular/router';
 import { MarkdownModule } from 'ngx-markdown';
 
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
-import { ImageModule } from '../image/image.module';
 import { NoContentModule } from '../no-content/no-content.module';
 import { PipesModule } from '../../pipes/pipes.module';
+import { SliderImageModule } from '../slider-image/slider-image.module';
 
 import { OrderItemOverviewComponent } from './order-item-overview/order-item-overview.component';
 import { OrderItemsOverviewComponent } from './order-items-overview.component';
@@ -19,7 +19,7 @@ import { OrderItemsOverviewComponent } from './order-items-overview.component';
     PipesModule,
     ClickableActionModule,
     RouterModule,
-    ImageModule,
+    SliderImageModule,
     NoContentModule,
     MarkdownModule
   ]

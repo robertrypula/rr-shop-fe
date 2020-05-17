@@ -127,6 +127,6 @@ export const selectShouldCallForProducts = createSelector(
   selectUrl,
   selectActiveCategoryStore,
   (url: string, activeCategoryStore: CategoryStore): boolean => {
-    return isOnCategoryRoute(url) && !activeCategoryStore.isWithoutProducts;
+    return isOnCategoryRoute(url) && !activeCategoryStore.isHiddenListOfProducts;
   }
 );

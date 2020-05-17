@@ -9,7 +9,7 @@
     </h2>
   </ng-template>
 
-  <ng-container *ngIf="!(activeCategory$ | async)?.isWithoutProducts">
+  <ng-container *ngIf="!(activeCategory$ | async)?.isHiddenListOfProducts">
     <rr-shop-products-list
       [category]="activeCategory$ | async"
       [noProductsMessage]="'Brak produktów w tej kategorii'"

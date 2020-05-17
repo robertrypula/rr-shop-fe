@@ -13,6 +13,22 @@
     </div>
   </div>
 
+  <div
+    *ngIf="(order$ | async)?.isDeliveryTypeBlockedCourierRuleFails()"
+    class="DeliveryOverview-deliveryTypeBlocked u-form-error-container"
+  >
+    Twój koszyk zawiera produkt(y), których nie można dostarczyć kurierem. Zaktualizuj koszyk lub wybierz inną metodę
+    dostawy.
+  </div>
+
+  <div
+    *ngIf="(order$ | async)?.isDeliveryTypeBlockedParcelLockerRuleFails()"
+    class="DeliveryOverview-deliveryTypeBlocked u-form-error-container"
+  >
+    Twój koszyk zawiera produkt(y), których nie można dostarczyć Paczkomatem. Zaktualizuj koszyk lub wybierz inną metodę
+    dostawy.
+  </div>
+
   <div class="DeliveryOverview-chooseParcelLocker" *ngIf="(order$ | async)?.isParcelLockerActive()">
     <div *ngIf="(order$ | async)?.parcelLocker; else chooseParcelLocker">
       Wybrany paczkomat:
@@ -31,7 +47,7 @@
 
   <ng-template #noDeliveries>
     <div class="DeliveryOverview-empty">
-      Brak dostaw - skontaktuj się z obługą sklepu
+      Brak dostaw - skontaktuj się z obsługą sklepu
     </div>
   </ng-template>
 </div>

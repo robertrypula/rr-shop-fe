@@ -14,7 +14,7 @@ import { Product } from '../../../models/product.model';
 })
 export class PaymentOverviewItemComponent implements OnInit {
   @Input()
-  public product: Product;
+  public product: Product; // NOTE delivery is modeled as product
 
   public readonly ClickableActionTheme = ClickableActionTheme;
   public readonly IconType = IconType;

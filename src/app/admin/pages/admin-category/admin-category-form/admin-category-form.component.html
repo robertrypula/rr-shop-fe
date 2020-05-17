@@ -57,7 +57,34 @@
 
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
-    <label class="u-form-label" for="admin-category-form-is-not-clickable">Czy nie klikalny</label>
+    <label class="u-form-label" for="admin-category-form-content-short">Krótki opis</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <textarea
+      id="admin-category-form-content-short"
+      class="u-form-input u-monospace"
+      type="text"
+      style="height: 200px; font-size: 11px;"
+      [(ngModel)]="category.contentShort"
+    ></textarea>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-category-form-parent-id">Rodzic</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <select class="u-form-input" id="admin-category-form-parent-id" [(ngModel)]="category.parentId">
+      <option [value]="null">-- brak --</option>
+      <option *ngFor="let item of categories" [value]="item.id">{{ item.name }}</option>
+    </select>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-category-form-is-not-clickable">Czy nie klikalny?</label>
   </div>
   <div class="col-xxs-9 margin-bottom">
     <input
@@ -71,21 +98,37 @@
 
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
-    <label class="u-form-label" for="admin-category-form-is-without-products">Czy bez produktów</label>
+    <label class="u-form-label" for="admin-category-form-is-hidden-list-of-products">Czy ukryć produkty?</label>
   </div>
   <div class="col-xxs-9 margin-bottom">
     <input
-      id="admin-category-form-is-without-products"
+      id="admin-category-form-is-hidden-list-of-products"
       class="u-form-input"
       type="checkbox"
-      [(ngModel)]="category.isWithoutProducts"
+      [(ngModel)]="category.isHiddenListOfProducts"
     />
   </div>
 </div>
 
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
-    <label class="u-form-label" for="admin-category-form-is-hidden">Czy ukryty</label>
+    <label class="u-form-label" for="admin-category-form-is-visible-list-of-categories"
+      >Czy pokazać podkategorie?</label
+    >
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <input
+      id="admin-category-form-is-visible-list-of-categories"
+      class="u-form-input"
+      type="checkbox"
+      [(ngModel)]="category.isVisibleListOfCategories"
+    />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-category-form-is-hidden">Czy ukryta?</label>
   </div>
   <div class="col-xxs-9 margin-bottom">
     <input id="admin-category-form-is-hidden" class="u-form-input" type="checkbox" [(ngModel)]="category.isHidden" />
@@ -94,10 +137,35 @@
 
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
-    <label class="u-form-label" for="admin-category-form-parent-id">Rodzic</label>
+    <label class="u-form-label" for="admin-category-form-link-text">Link - tekst</label>
   </div>
   <div class="col-xxs-9 margin-bottom">
-    <select class="u-form-input" id="admin-category-form-parent-id" [(ngModel)]="category.parentId">
+    <input id="admin-category-form-link-text" class="u-form-input" type="text" [(ngModel)]="category.linkText" />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-category-form-link-open-in-new-tab">
+      Link - czy otworzyć w nowej zakładce?
+    </label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <input
+      id="admin-category-form-link-open-in-new-tab"
+      class="u-form-input"
+      type="checkbox"
+      [(ngModel)]="category.linkOpenInNewTab"
+    />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-category-form-link-id">Link - strona docelowa</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <select class="u-form-input" id="admin-category-form-link-id" [(ngModel)]="category.linkId">
       <option [value]="null">-- brak --</option>
       <option *ngFor="let item of categories" [value]="item.id">{{ item.name }}</option>
     </select>

@@ -24,6 +24,9 @@ export interface ProductMediumDto extends ProductMinimalDto {
 
 export interface ProductFullDto extends ProductMediumDto {
   description: string;
+  descriptionDelivery: string;
+  isDeliveryBlockedCourier: boolean;
+  isDeliveryBlockedParcelLocker: boolean;
   type: Type;
   deliveryType: DeliveryType;
   paymentType: PaymentType;

@@ -12,10 +12,15 @@ import { AdminCall } from '../../../models/admin-component.models';
 export class AdminCategoryCreateComponent extends AdminBaseCategoryComponent implements OnInit {
   public categoryAdminCall: AdminCall = this.getAdminCall({
     content: '',
+    contentShort: '',
     id: null,
     isHidden: true,
+    isHiddenListOfProducts: false,
     isNotClickable: false,
-    isWithoutProducts: false,
+    isVisibleListOfCategories: false,
+    linkId: null,
+    linkOpenInNewTab: false,
+    linkText: '',
     name: '',
     parentId: null,
     slug: '',

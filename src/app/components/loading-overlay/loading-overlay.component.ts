@@ -9,5 +9,5 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 export class LoadingOverlayComponent implements OnInit {
   public constructor() {}
 
-  public ngOnInit() {}
+  public ngOnInit(): void {}
 }

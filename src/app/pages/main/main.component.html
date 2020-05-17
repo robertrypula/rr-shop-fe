@@ -1,5 +1,7 @@
 <div class="Main">
-  <img class="Main-motto" src="../../../assets/motto.jpg" width="2444" height="1268" />
+  <div *ngIf="(categoriesMainPageSlider$ | async)?.length" class="Main-section">
+    <rr-shop-slider [categories]="categoriesMainPageSlider$ | async"></rr-shop-slider>
+  </div>
 
   <div class="Main-section">
     <h2>

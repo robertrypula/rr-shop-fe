@@ -15,6 +15,10 @@ import { Product } from '../../models/product.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent implements OnInit {
+  public categoriesMainPageSlider$: Observable<
+    CategoryStore[]
+  > = this.categoryFacadeService.categoriesByStructuralNode$(StructuralNode.MainPageSlider);
+
   public categoryRecommended$: Observable<CategoryStore> = this.categoryFacadeService.categoryByStructuralNode$(
     StructuralNode.Recommended
   );

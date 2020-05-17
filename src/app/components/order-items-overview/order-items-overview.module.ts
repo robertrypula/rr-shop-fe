@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MarkdownModule } from 'ngx-markdown';
 
 import { ClickableActionModule } from '../clickable-action/clickable-action.module';
 import { ImageModule } from '../image/image.module';
@@ -13,6 +14,14 @@ import { OrderItemsOverviewComponent } from './order-items-overview.component';
 @NgModule({
   declarations: [OrderItemsOverviewComponent, OrderItemOverviewComponent],
   exports: [OrderItemsOverviewComponent],
-  imports: [CommonModule, PipesModule, ClickableActionModule, RouterModule, ImageModule, NoContentModule]
+  imports: [
+    CommonModule,
+    PipesModule,
+    ClickableActionModule,
+    RouterModule,
+    ImageModule,
+    NoContentModule,
+    MarkdownModule
+  ]
 })
 export class OrderItemsOverviewModule {}

@@ -137,3 +137,11 @@
     border-width: 0 !important;
   }
 }
+
+.ClickableAction--facebook {
+  > * {
+    background-color: $transparent-color;
+    color: $facebook-color;
+    border-width: 0 !important;
+  }
+}

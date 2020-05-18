@@ -5,6 +5,7 @@ export enum ClickableActionType {
 }
 
 export enum ClickableActionTheme {
+  Facebook = 'Facebook',
   Primary = 'Primary',
   Secondary = 'Secondary',
   TransparentBright = 'TransparentBright',

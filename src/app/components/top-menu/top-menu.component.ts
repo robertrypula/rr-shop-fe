@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 
 import { CategoryFacadeService } from '../../store/facades/category-facade.service';
 import { CategoryStore, StructuralNode } from '../../models/category.model';
+import { ClickableActionTheme, ClickableActionType } from '../clickable-action/clickable-action.model';
+import { IconType } from '../icon/icon.models';
 
 import { Align } from './top-menu.models';
 
@@ -20,6 +22,9 @@ export class TopMenuComponent implements OnInit {
   public isWide = false;
 
   public readonly Align = Align;
+  public readonly ClickableActionTheme = ClickableActionTheme;
+  public readonly ClickableActionType = ClickableActionType;
+  public readonly IconType = IconType;
 
   public categories$: Observable<CategoryStore[]> = this.categoryFacadeService.categoriesByStructuralNode$(
     StructuralNode.Header

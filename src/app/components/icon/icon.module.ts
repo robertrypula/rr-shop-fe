@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faFacebook as fabFacebook } from '@fortawesome/free-brands-svg-icons';
 import {
   faCheckCircle as farCheckCircle,
   faCircle as farCircle,
@@ -33,6 +34,7 @@ import { IconComponent } from './icon.component';
 export class IconModule {
   public constructor(library: FaIconLibrary) {
     library.addIcons(
+      fabFacebook,
       farCheckCircle,
       farCircle,
       farTimesCircle,

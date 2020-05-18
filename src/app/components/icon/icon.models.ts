@@ -1,5 +1,6 @@
 export enum IconType {
   CustomBasket = 'CustomBasket',
+  FabFacebook = 'FabFacebook',
   FarCheckCircle = 'FarCheckCircle',
   FarCircle = 'FarCircle',
   FarTimesCircle = 'FarTimesCircle',

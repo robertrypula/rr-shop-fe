@@ -2,7 +2,8 @@
 
 .TopMenu {
   ul,
-  li {
+  li,
+  a {
     display: inline-block;
   }
 
@@ -49,5 +50,19 @@
   }
   li:last-child {
     margin-right: 0;
+  }
+}
+
+.TopMenu-facebook {
+  > div {
+    display: block;
+    position: relative;
+    height: 16px;
+    width: 40px;
+    > * {
+      display: block;
+      position: absolute;
+      top: -12px;
+    }
   }
 }

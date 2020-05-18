@@ -1,6 +1,7 @@
 <div
   [ngClass]="{
     'ClickableAction--disabled': disabled,
+    'ClickableAction--facebook': clickableActionTheme === ClickableActionTheme.Facebook,
     'ClickableAction--primary': clickableActionTheme === ClickableActionTheme.Primary,
     'ClickableAction--secondary': clickableActionTheme === ClickableActionTheme.Secondary,
     'ClickableAction--transparentBright': clickableActionTheme === ClickableActionTheme.TransparentBright,

@@ -9,8 +9,15 @@
     <span>{{ product.name }}</span>
   </a>
 
-  <div class="ProductBoxCompact-price">
-    {{ product.priceUnit | price }}
+  <div *ngIf="product.priceUnitBeforePromotion" class="ProductBoxCompact-promotion">
+    Promocja
+  </div>
+
+  <div class="ProductBoxCompact-priceUnit">
+    <span *ngIf="product.priceUnitBeforePromotion" class="ProductBoxCompact-priceUnitBeforePromotion">
+      {{ product.priceUnitBeforePromotion | price }}
+    </span>
+    <span>{{ product.priceUnit | price }}</span>
   </div>
 
   <ng-container *ngIf="product.orderItem">

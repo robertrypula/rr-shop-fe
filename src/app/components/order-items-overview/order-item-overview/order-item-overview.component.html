@@ -11,12 +11,24 @@
         {{ orderItem.productStore?.name }}
       </a>
 
+      <div *ngIf="orderItem.productStore?.priceUnitBeforePromotion" class="OrderItemOverview-promotion">
+        Promocja
+      </div>
+
       <div class="OrderItemOverview-mobileCalculationInfo hidden-md hidden-lg hidden-xlg">
-        {{ orderItem.productStore?.priceUnit | price }}
-        x
-        {{ orderItem.quantity }}
-        =
-        {{ orderItem.getPriceTotalOriginal() | price }}
+        <span
+          *ngIf="orderItem.productStore?.priceUnitBeforePromotion"
+          class="OrderItemOverview-priceUnitBeforePromotion"
+        >
+          {{ orderItem.productStore?.priceUnitBeforePromotion | price }}
+        </span>
+        <span>
+          {{ orderItem.productStore?.priceUnit | price }}
+          x
+          {{ orderItem.quantity }}
+          =
+          {{ orderItem.getPriceTotalOriginal() | price }}
+        </span>
       </div>
 
       <div
@@ -107,15 +119,22 @@
     ></rr-shop-clickable-action>
   </div>
 </td>
-<td class="OrderItemOverview-price hidden-xxs hidden-xs hidden-sm">
-  <span>
-    {{ orderItem.productStore?.priceUnit | price }}
-  </span>
+<td class="OrderItemOverview-priceUnit hidden-xxs hidden-xs hidden-sm">
+  <div>
+    <span *ngIf="orderItem.productStore?.priceUnitBeforePromotion" class="OrderItemOverview-priceUnitBeforePromotion">
+      {{ orderItem.productStore?.priceUnitBeforePromotion | price }}
+    </span>
+    <span>
+      {{ orderItem.productStore?.priceUnit | price }}
+    </span>
+  </div>
 </td>
-<td class="OrderItemOverview-itemPrice hidden-xxs hidden-xs hidden-sm">
-  <span>
-    {{ orderItem.getPriceTotalOriginal() | price }}
-  </span>
+<td class="OrderItemOverview-priceTotalOriginal hidden-xxs hidden-xs hidden-sm">
+  <div>
+    <span>
+      {{ orderItem.getPriceTotalOriginal() | price }}
+    </span>
+  </div>
 </td>
 <td class="OrderItemOverview-actions hidden-xxs hidden-xs hidden-sm">
   <rr-shop-clickable-action

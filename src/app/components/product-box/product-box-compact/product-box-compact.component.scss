@@ -38,11 +38,28 @@
     }
   }
 
-  .ProductBoxCompact-price {
+  .ProductBoxCompact-promotion {
     font-size: 20px;
-    color: $product-box-price-color;
+    color: $green-color;
     font-weight: bold;
+    padding-top: $gutter-width;
+  }
+
+  .ProductBoxCompact-priceUnit {
     padding: $gutter-width 0;
+
+    > span {
+      display: inline-block;
+    }
+    > span.ProductBoxCompact-priceUnitBeforePromotion {
+      padding: 0 8px 0 0;
+      text-decoration: line-through;
+    }
+    > span:last-child {
+      font-size: 20px;
+      color: $product-box-price-color;
+      font-weight: bold;
+    }
   }
 
   .ProductBoxCompact-alreadyInBasketQuantity {

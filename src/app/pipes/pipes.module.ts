@@ -8,6 +8,7 @@ import { ImagePipe } from './image/image.pipe';
 import { OrderStatusPipe } from './order-status/order-status.pipe';
 import { PricePipe } from './price/price.pipe';
 import { ProductUrlPipe } from './product-url/product-url.pipe';
+import { QuantityTextPipe } from './quantity-text/quantity-text.pipe';
 import { SafeHtmlPipe } from './safeHtml/safe-html.pipe';
 
 const pipes = [
@@ -18,6 +19,7 @@ const pipes = [
   OrderStatusPipe,
   PricePipe,
   ProductUrlPipe,
+  QuantityTextPipe,
   SafeHtmlPipe
 ];
 

@@ -14,8 +14,25 @@
         {{ activeProduct?.manufacturer?.name }}
       </h2>
 
-      <div class="Product-price">
-        {{ activeProduct.priceUnit | price }}
+      <div *ngIf="activeProduct.priceUnitBeforePromotion" class="Product-promotion">
+        Promocja
+      </div>
+
+      <div class="Product-priceUnit">
+        <span>
+          {{ activeProduct.priceUnit | price }}
+        </span>
+        <ng-container *ngIf="activeProduct.priceUnitBeforePromotion">
+          <span>{{ activeProduct.priceUnitBeforePromotion | price }}</span>
+          <span>oszczędzasz {{ activeProduct.priceUnitBeforePromotion - activeProduct.priceUnit | price }}</span>
+        </ng-container>
+      </div>
+
+      <div *ngIf="activeProduct.quantity > 0" class="Product-quantityText">
+        <span>Dostępność:</span>
+        <b>
+          {{ activeProduct.quantity | quantityText }}
+        </b>
       </div>
 
       <ng-container *ngIf="activeProduct.orderItem">

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { CategoryStore } from '../../models/category.model';
 import * as fromPageSelectors from '../selectors/page.selectors';
 import { State } from '../reducers';
 
@@ -14,10 +13,6 @@ export class PageFacadeService {
     select(fromPageSelectors.selectIsLoadingOverlayVisible)
   );
   public isOnMainPageRoute$: Observable<boolean> = this.store.pipe(select(fromPageSelectors.selectIsOnMainPageRoute));
-
-  public mainPageSectionsCategories$: Observable<CategoryStore[]> = this.store.pipe(
-    select(fromPageSelectors.selectMainPageSectionsCategories)
-  );
 
   public constructor(protected store: Store<State>) {}
 }

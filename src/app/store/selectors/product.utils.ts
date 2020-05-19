@@ -7,7 +7,8 @@ import { toOrderItem } from './order.utils';
 
 export const getProductsStoreForGivenCategoriesStore = (
   productsStore: ProductStore[],
-  categoriesStore: CategoryStore[]
+  categoriesStore: CategoryStore[],
+  productIdToExclude: number = null
 ): ProductStore[] => {
   return categoriesStore.length
     ? productsStore.filter((product: ProductStore): boolean => {
@@ -23,6 +24,28 @@ export const getProductsStoreForGivenCategoriesStore = (
         return match;
       })
     : [];
+};
+
+export const getProductsForGivenCategoriesStore = (
+  productsStore: ProductStore[],
+  orderItemsStore: OrderItemStore[],
+  foundCategoriesStore: CategoryStore[],
+  limit: number,
+  productIdToExclude: number = null
+): Product[] => {
+  let productsStoreForGivenCategories: ProductStore[] = getProductsStoreForGivenCategoriesStore(
+    productsStore,
+    foundCategoriesStore,
+    productIdToExclude
+  );
+
+  if (limit !== Infinity) {
+    productsStoreForGivenCategories = productsStoreForGivenCategories.slice(0, limit);
+  }
+
+  return productsStoreForGivenCategories.map(
+    (productStore: ProductStore): Product => toProduct(productStore, orderItemsStore, productsStore)
+  );
 };
 
 export const toProduct = (

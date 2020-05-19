@@ -8,6 +8,18 @@ import { getCategoriesStoreFromLeafToRoot, getCategoryStoreAndItsChildren } from
 import { selectUrl } from './router.selectors';
 import { selectIsSmallDevice } from './viewport.selectors';
 
+const sortByName = (a: CategoryStore, b: CategoryStore): number => {
+  return a.name === b.name ? 0 : a.name > b.name ? 1 : -1;
+};
+
+const sortBySortOrder = (a: CategoryStore, b: CategoryStore): number => {
+  return a.sortOrder === b.sortOrder ? 0 : a.sortOrder < b.sortOrder ? 1 : -1;
+};
+
+const sortCategoriesHandler = (a: CategoryStore, b: CategoryStore): number => {
+  return sortBySortOrder(a, b) || sortByName(a, b);
+};
+
 export const selectActiveCategoryId = createSelector(selectUrl, (url: string): number => {
   return getCategoryId(url);
 });
@@ -77,7 +89,7 @@ export const selectActiveCategoryAndItsChildren = createSelector(
 
 export const selectCategoryStore = createSelector(
   selectCategoriesStore,
-  (categoriesStore: CategoryStore[], props: { id: number; structuralNode: StructuralNode }): CategoryStore => {
+  (categoriesStore: CategoryStore[], props: { categoryId: number; structuralNode: StructuralNode }): CategoryStore => {
     let foundCategoryStore: CategoryStore = null;
 
     if (props) {
@@ -85,9 +97,9 @@ export const selectCategoryStore = createSelector(
         foundCategoryStore = categoriesStore.find(
           (categoryStore: CategoryStore): boolean => categoryStore.structuralNode === props.structuralNode
         );
-      } else if (props.id) {
+      } else if (props.categoryId) {
         foundCategoryStore = categoriesStore.find(
-          (categoryStore: CategoryStore): boolean => categoryStore.id === props.id
+          (categoryStore: CategoryStore): boolean => categoryStore.id === props.categoryId
         );
       }
     }
@@ -96,6 +108,7 @@ export const selectCategoryStore = createSelector(
   }
 );
 
+// TODO -------
 export const selectCategoriesStoreBy = createSelector(
   selectCategoriesStore,
   (categoriesStore: CategoryStore[], props: { parentId: number; structuralNode: StructuralNode }): CategoryStore[] => {
@@ -115,9 +128,10 @@ export const selectCategoriesStoreBy = createSelector(
       }
     }
 
-    return props
+    return (props
       ? categoriesStore.filter((categoryStore: CategoryStore): boolean => categoryStore.parentId === parentId)
-      : categoriesStore;
+      : categoriesStore
+    ).sort(sortCategoriesHandler);
   }
 );
 

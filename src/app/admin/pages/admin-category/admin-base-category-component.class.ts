@@ -21,7 +21,8 @@ export class AdminBaseCategoryComponent extends AdminBaseComponent {
       linkOpenInNewTab: category.linkOpenInNewTab,
       linkText: category.linkText,
       name: category.name,
-      parentId: !category.parentId || category.parentId === 'null' ? null : +category.parentId
+      parentId: !category.parentId || category.parentId === 'null' ? null : +category.parentId,
+      sortOrder: category.sortOrder
     };
   }
 

@@ -11,10 +11,10 @@
     <div class="ProductsList-2ColumnsRowSeparator" *ngIf="index % 2 === 1"></div>
   </ng-container>
 
-  <div *ngIf="isCategoryButtonVisible" class="ProductsList-more">
+  <div *ngIf="isMoreProductsButtonVisible" class="ProductsList-more">
     <rr-shop-clickable-action
-      [label]="'Więcej z tej kategorii'"
       [clickableActionType]="ClickableActionType.RouterLink"
+      [label]="moreProductsButtonText ? moreProductsButtonText : 'Więcej z tej kategorii'"
       [link]="category | categoryUrl"
     ></rr-shop-clickable-action>
   </div>

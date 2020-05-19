@@ -24,7 +24,12 @@
     <ng-container [ngTemplateOutlet]="content"></ng-container>
   </button>
 
-  <a *ngSwitchCase="ClickableActionType.RouterLink" class="ClickableAction-routerLink" [routerLink]="link">
+  <a
+    *ngSwitchCase="ClickableActionType.RouterLink"
+    [routerLink]="link"
+    [target]="target"
+    class="ClickableAction-routerLink"
+  >
     <ng-container [ngTemplateOutlet]="content"></ng-container>
   </a>
 </div>

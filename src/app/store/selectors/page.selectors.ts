@@ -5,6 +5,7 @@ import { ApiCall } from '../../models/page.model';
 import { isOnMainPageRoute } from '../../utils/routing.utils';
 
 import { selectApiCallCategoriesAtInit, selectCategoriesStore } from './category-core.selectors';
+import { selectCategoriesStoreBy } from './category.selectors';
 import {
   selectApiCallCreateOrder,
   selectApiCallOrder,
@@ -65,15 +66,6 @@ export const selectIsLoadingOverlayVisible = createSelector(
     [ApiCall.Request].includes(apiCallPromoCode) ||
     isLoadingOverlayVisibleFromProductPerspective ||
     [ApiCall.Request].includes(apiCallSearch)
-);
-
-export const selectMainPageSectionsCategories = createSelector(
-  selectCategoriesStore,
-  (categoriesStore: CategoryStore[]): CategoryStore[] => {
-    return categoriesStore.filter((category: CategoryStore): boolean =>
-      [StructuralNode.Promotions, StructuralNode.Recommended].includes(category.structuralNode)
-    );
-  }
 );
 
 export const selectIsOnMainPageRoute = createSelector(selectUrl, (url: string): boolean => {

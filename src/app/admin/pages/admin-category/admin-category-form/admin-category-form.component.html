@@ -84,6 +84,15 @@
 
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
+    <label class="u-form-label" for="admin-category-form-sort-order">Sortowanie</label>
+  </div>
+  <div class="col-xxs-9 margin-bottom">
+    <input id="admin-category-form-sort-order" class="u-form-input" type="number" [(ngModel)]="category.sortOrder" />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxs-3 margin-bottom">
     <label class="u-form-label" for="admin-category-form-is-not-clickable">Czy nie klikalny?</label>
   </div>
   <div class="col-xxs-9 margin-bottom">
@@ -112,9 +121,9 @@
 
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
-    <label class="u-form-label" for="admin-category-form-is-visible-list-of-categories"
-      >Czy pokazać podkategorie?</label
-    >
+    <label class="u-form-label" for="admin-category-form-is-visible-list-of-categories">
+      Czy pokazać podkategorie?
+    </label>
   </div>
   <div class="col-xxs-9 margin-bottom">
     <input
@@ -144,6 +153,7 @@
   </div>
 </div>
 
+<!-- TODO remove it in next chance on FE and BE
 <div class="row">
   <div class="col-xxs-3 margin-bottom">
     <label class="u-form-label" for="admin-category-form-link-open-in-new-tab">
@@ -159,6 +169,7 @@
     />
   </div>
 </div>
+-->
 
 <div class="row">
   <div class="col-xxs-3 margin-bottom">

@@ -24,7 +24,8 @@ export class AdminCategoryCreateComponent extends AdminBaseCategoryComponent imp
     name: '',
     parentId: null,
     slug: '',
-    structuralNode: null
+    structuralNode: null,
+    sortOrder: 0
   });
 
   public ngOnInit(): void {

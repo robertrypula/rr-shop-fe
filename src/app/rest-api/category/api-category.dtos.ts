@@ -13,5 +13,6 @@ export interface CategoryDto {
   name: string;
   parentId: number;
   slug?: string;
+  sortOrder?: number;
   structuralNode?: StructuralNode;
 }

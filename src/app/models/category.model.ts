@@ -41,6 +41,7 @@ export interface CategoryStore {
   name: string;
   parentId: number;
   slug?: string;
+  sortOrder?: number;
   structuralNode?: StructuralNode;
 }
 

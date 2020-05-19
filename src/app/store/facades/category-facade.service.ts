@@ -36,6 +36,10 @@ export class CategoryFacadeService {
 
   public constructor(protected store: Store<State>) {}
 
+  public categoryByCategoryId$(categoryId: number): Observable<CategoryStore> {
+    return this.store.pipe(select(fromCategorySelectors.selectCategoryStore, { categoryId }));
+  }
+
   public categoryByStructuralNode$(structuralNode: StructuralNode): Observable<CategoryStore> {
     return this.store.pipe(select(fromCategorySelectors.selectCategoryStore, { structuralNode }));
   }

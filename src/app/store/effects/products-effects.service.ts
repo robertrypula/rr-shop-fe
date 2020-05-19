@@ -6,6 +6,7 @@ import { catchError, concatMap, filter, map, mergeMap, switchMap, tap, withLates
 
 import { ApiProductService } from '../../rest-api/product/api-product.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
+import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { PageFacadeService } from '../facades/page-facade.service';
 import * as fromPageActions from '../actions/page.actions';
 import { ProductFacadeService } from '../facades/product-facade.service';
@@ -112,14 +113,24 @@ export class ProductsEffects {
   public productsAtMainPageRequest$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromPageActions.productsAtMainPageRequest),
-      concatMap(action => of(action).pipe(withLatestFrom(this.pageFacadeService.mainPageSectionsCategories$))),
-      switchMap(([action, mainPageSectionsCategories]) =>
-        this.apiProductService.getProductsByCategoryIds(mainPageSectionsCategories.map(c => c.id)).pipe(
-          map((productsStore: ProductStore[]) => fromPageActions.productsAtMainPageSuccess({ productsStore })),
-          catchError((httpErrorResponse: HttpErrorResponse) =>
-            of(fromPageActions.productsAtMainPageFailure({ httpErrorResponse }))
-          )
+      concatMap(action =>
+        of(action).pipe(
+          withLatestFrom(this.categoryFacadeService.categoriesByStructuralNode$(StructuralNode.MainPageCategories))
         )
+      ),
+      switchMap(([action, mainPageSectionsCategories]) =>
+        this.apiProductService
+          .getProductsByCategoryIds(
+            mainPageSectionsCategories.map((category: CategoryStore): number =>
+              category.linkId ? category.linkId : category.id
+            )
+          )
+          .pipe(
+            map((productsStore: ProductStore[]) => fromPageActions.productsAtMainPageSuccess({ productsStore })),
+            catchError((httpErrorResponse: HttpErrorResponse) =>
+              of(fromPageActions.productsAtMainPageFailure({ httpErrorResponse }))
+            )
+          )
       )
     )
   );

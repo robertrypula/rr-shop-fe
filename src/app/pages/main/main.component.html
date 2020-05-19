@@ -3,27 +3,11 @@
     <rr-shop-slider-category [categories]="categoriesMainPageSlider$ | async"></rr-shop-slider-category>
   </div>
 
-  <div class="Main-section">
-    <h2>
-      {{ (categoryRecommended$ | async)?.name }}
-    </h2>
-    <rr-shop-products-list
-      [category]="categoryRecommended$ | async"
-      [isCategoryButtonVisible]="true"
-      [noProductsMessage]="'Brak produktów w tej kategorii'"
-      [products]="productsRecommended$ | async"
-    ></rr-shop-products-list>
-  </div>
-
-  <div class="Main-section">
-    <h2>
-      {{ (categoryPromotions$ | async)?.name }}
-    </h2>
-    <rr-shop-products-list
-      [category]="categoryPromotions$ | async"
-      [isCategoryButtonVisible]="true"
-      [noProductsMessage]="'Brak promocji - pracujemy nad tym, aby jak najszybciej się tutaj pojawiły :)'"
-      [products]="productsPromotions$ | async"
-    ></rr-shop-products-list>
+  <div *ngFor="let categoryMainPage of categoriesMainPage$ | async" class="Main-section">
+    <rr-shop-category-products
+      [category]="categoryMainPage"
+      [moreProductsButtonText]="categoryMainPage.linkText"
+      [productsLimit]="MAIN_PAGE_PRODUCTS_IN_SECTION_LIMIT"
+    ></rr-shop-category-products>
   </div>
 </div>

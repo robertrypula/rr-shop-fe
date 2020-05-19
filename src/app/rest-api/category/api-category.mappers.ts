@@ -16,6 +16,7 @@ export const fromDto = (dto: CategoryDto): CategoryStore => {
     name: dto.name,
     parentId: dto.parentId,
     slug: dto.slug,
+    sortOrder: dto.sortOrder,
     structuralNode: dto.structuralNode
   };
 };

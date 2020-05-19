@@ -28,12 +28,31 @@ export class ProductFacadeService {
     );
   }
 
+  public productsFromCategoryById$(
+    categoryId: number,
+    limit = Infinity,
+    productIdToExclude: number = null
+  ): Observable<Product[]> {
+    return this.store.pipe(
+      select(fromProductSelectors.selectProductsFromCategoryByCategoryId(categoryId, limit, productIdToExclude))
+    );
+  }
+
   public productsFromCategoryByStructuralNode$(
     structuralNode: StructuralNode,
     limit = Infinity
   ): Observable<Product[]> {
     return this.store.pipe(
       select(fromProductSelectors.selectProductsFromCategoryByStructuralNode(structuralNode, limit))
+    );
+  }
+
+  public productsFromCategoryLengthByCategoryId$(
+    categoryId: number,
+    productIdToExclude: number = null
+  ): Observable<number> {
+    return this.store.pipe(
+      select(fromProductSelectors.selectProductsFromCategoryLengthByCategoryId(categoryId, productIdToExclude))
     );
   }
 }

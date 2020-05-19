@@ -19,6 +19,7 @@ export const fromMediumDto = (dto: ProductMediumDto): ProductStore => {
     manufacturer: dto.manufacturer ? { name: dto.manufacturer.name } : null,
     name: dto.name,
     priceUnit: dto.priceUnit,
+    priceUnitBeforePromotion: dto.priceUnitBeforePromotion,
     quantity: dto.quantity,
     slug: dto.slug
   };
@@ -38,6 +39,7 @@ export const fromFullDto = (dto: ProductFullDto): ProductStore => {
     name: dto.name,
     paymentType: dto.paymentType,
     priceUnit: dto.priceUnit,
+    priceUnitBeforePromotion: dto.priceUnitBeforePromotion,
     quantity: dto.quantity,
     slug: dto.slug,
     type: dto.type

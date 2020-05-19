@@ -31,6 +31,7 @@ export interface ProductStore {
   isDeliveryBlockedParcelLocker?: boolean;
   quantity?: number;
   priceUnit?: number;
+  priceUnitBeforePromotion?: number;
   type?: Type;
   deliveryType?: DeliveryType;
   paymentType?: PaymentType;

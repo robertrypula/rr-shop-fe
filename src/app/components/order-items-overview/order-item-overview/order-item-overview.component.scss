@@ -43,9 +43,24 @@ td {
       }
       > .OrderItemOverview-mobileCalculationInfo {
         padding: 0 0 16px 0;
+
+        > span {
+          display: inline-block;
+        }
+        > span.OrderItemOverview-priceUnitBeforePromotion {
+          text-decoration: line-through;
+          padding: 0 8px 0 0;
+        }
       }
     }
   }
+}
+
+.OrderItemOverview-promotion {
+  font-size: 16px;
+  color: $green-color;
+  font-weight: bold;
+  padding-bottom: $gutter-width;
 }
 
 .OrderItemOverview-quantity {
@@ -70,15 +85,23 @@ td {
   }
 }
 
-.OrderItemOverview-price {
+.OrderItemOverview-priceUnit {
   width: 100px;
+  > div {
+    > span {
+      display: inline-block;
+    }
+    > span.OrderItemOverview-priceUnitBeforePromotion {
+      text-decoration: line-through;
+      padding: 0 8px 0 0;
+    }
+  }
 }
 
-.OrderItemOverview-price,
-.OrderItemOverview-itemPrice {
+.OrderItemOverview-priceUnit,
+.OrderItemOverview-priceTotalOriginal {
   width: 100px;
-  span {
-    display: inline-block;
+  > div {
     padding: 12px 0 0 0;
   }
 }

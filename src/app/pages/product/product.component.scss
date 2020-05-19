@@ -20,11 +20,32 @@
     margin-bottom: 24px;
   }
 
-  .Product-price {
+  .Product-promotion {
     font-size: 20px;
-    color: $product-box-price-color;
+    color: $green-color;
     font-weight: bold;
+  }
+
+  .Product-priceUnit {
     padding: 16px 0;
+
+    > span {
+      display: inline-block;
+    }
+
+    > span:first-child {
+      font-size: 20px;
+      color: $product-box-price-color;
+      font-weight: bold;
+    }
+    > span:nth-child(2) {
+      padding: 0 8px 0 24px;
+      text-decoration: line-through;
+    }
+  }
+
+  .Product-quantityText {
+    padding: 0 0 16px 0;
   }
 
   .Product-alreadyInBasketQuantity {

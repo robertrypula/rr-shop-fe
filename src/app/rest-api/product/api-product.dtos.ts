@@ -18,6 +18,7 @@ export interface ProductMediumDto extends ProductMinimalDto {
   slug: string;
   quantity: number;
   priceUnit: number;
+  priceUnitBeforePromotion: number;
   images: ImageDto[];
   manufacturer: ManufacturerDto;
 }

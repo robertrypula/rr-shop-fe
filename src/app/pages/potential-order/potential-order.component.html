@@ -1,9 +1,16 @@
 <div class="PotentialOrder">
-  <div class="PotentialOrder-section">
+  <div class="PotentialOrder-section PotentialOrder-products">
     <h2>Zawartość koszyka</h2>
     <rr-shop-order-items-overview
       [orderItems]="(potentialOrder$ | async)?.getOrderItemsByType([Type.Product])"
     ></rr-shop-order-items-overview>
+
+    <div class="PotentialOrder-summaryPriceNormal">
+      Produkty:
+      <span>
+        {{ (potentialOrder$ | async)?.getPriceTotalOriginal([Type.Product]) | price }}
+      </span>
+    </div>
   </div>
 
   <div class="row">

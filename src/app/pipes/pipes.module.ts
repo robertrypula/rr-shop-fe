@@ -8,6 +8,8 @@ import { ImagePipe } from './image/image.pipe';
 import { OrderStatusPipe } from './order-status/order-status.pipe';
 import { PricePipe } from './price/price.pipe';
 import { ProductUrlPipe } from './product-url/product-url.pipe';
+import { PromotionPricePipe } from './promotion-price/promotion-price.pipe';
+import { PromotionTextPipe } from './promotion-text/promotion-text.pipe';
 import { QuantityTextPipe } from './quantity-text/quantity-text.pipe';
 import { SafeHtmlPipe } from './safeHtml/safe-html.pipe';
 
@@ -19,6 +21,8 @@ const pipes = [
   OrderStatusPipe,
   PricePipe,
   ProductUrlPipe,
+  PromotionPricePipe,
+  PromotionTextPipe,
   QuantityTextPipe,
   SafeHtmlPipe
 ];

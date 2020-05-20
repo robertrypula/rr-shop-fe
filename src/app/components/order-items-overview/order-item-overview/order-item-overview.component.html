@@ -12,7 +12,7 @@
       </a>
 
       <div *ngIf="orderItem.productStore?.priceUnitBeforePromotion" class="OrderItemOverview-promotion">
-        Promocja
+        {{ orderItem.productStore.priceUnitBeforePromotion | promotionText }}
       </div>
 
       <div class="OrderItemOverview-mobileCalculationInfo hidden-md hidden-lg hidden-xlg">
@@ -20,7 +20,7 @@
           *ngIf="orderItem.productStore?.priceUnitBeforePromotion"
           class="OrderItemOverview-priceUnitBeforePromotion"
         >
-          {{ orderItem.productStore?.priceUnitBeforePromotion | price }}
+          {{ orderItem.productStore?.priceUnitBeforePromotion | promotionPrice | price }}
         </span>
         <span>
           {{ orderItem.productStore?.priceUnit | price }}
@@ -122,7 +122,7 @@
 <td class="OrderItemOverview-priceUnit hidden-xxs hidden-xs hidden-sm">
   <div>
     <span *ngIf="orderItem.productStore?.priceUnitBeforePromotion" class="OrderItemOverview-priceUnitBeforePromotion">
-      {{ orderItem.productStore?.priceUnitBeforePromotion | price }}
+      {{ orderItem.productStore?.priceUnitBeforePromotion | promotionPrice | price }}
     </span>
     <span>
       {{ orderItem.productStore?.priceUnit | price }}

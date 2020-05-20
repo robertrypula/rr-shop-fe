@@ -10,12 +10,12 @@
   </a>
 
   <div *ngIf="product.priceUnitBeforePromotion" class="ProductBoxCompact-promotion">
-    Promocja
+    {{ product.priceUnitBeforePromotion | promotionText }}
   </div>
 
   <div class="ProductBoxCompact-priceUnit">
     <span *ngIf="product.priceUnitBeforePromotion" class="ProductBoxCompact-priceUnitBeforePromotion">
-      {{ product.priceUnitBeforePromotion | price }}
+      {{ product.priceUnitBeforePromotion | promotionPrice | price }}
     </span>
     <span>{{ product.priceUnit | price }}</span>
   </div>

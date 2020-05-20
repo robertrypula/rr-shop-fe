@@ -15,7 +15,7 @@
       </h2>
 
       <div *ngIf="activeProduct.priceUnitBeforePromotion" class="Product-promotion">
-        Promocja
+        {{ activeProduct.priceUnitBeforePromotion | promotionText }}
       </div>
 
       <div class="Product-priceUnit">
@@ -23,8 +23,11 @@
           {{ activeProduct.priceUnit | price }}
         </span>
         <ng-container *ngIf="activeProduct.priceUnitBeforePromotion">
-          <span>{{ activeProduct.priceUnitBeforePromotion | price }}</span>
-          <span>oszczędzasz {{ activeProduct.priceUnitBeforePromotion - activeProduct.priceUnit | price }}</span>
+          <span>{{ activeProduct.priceUnitBeforePromotion | promotionPrice | price }}</span>
+          <span>
+            oszczędzasz
+            {{ (activeProduct.priceUnitBeforePromotion | promotionPrice) - activeProduct.priceUnit | price }}
+          </span>
         </ng-container>
       </div>
 

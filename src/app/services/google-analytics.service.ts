@@ -19,7 +19,9 @@ export class GoogleAnalyticsService {
   // ----
 
   protected getGaMeasurementId(): string {
-    return this.rrShopWindow.RR_SHOP_GA_MEASUREMENT_ID;
+    return typeof this.rrShopWindow.RR_SHOP_GA_MEASUREMENT_ID === 'string'
+      ? this.rrShopWindow.RR_SHOP_GA_MEASUREMENT_ID
+      : '';
   }
 
   protected push(...args: any): void {

@@ -10,14 +10,20 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-166899717-1"></script>
     <script>
+      window.RR_SHOP_GA_MEASUREMENT_ID = 'UA-166899717-1';
+
       function gtag() {
-        dataLayer.push(arguments);
+        typeof dataLayer !== 'undefined' && dataLayer.push(arguments);
       }
 
-      if (window.location.host === 'waleriana.pl' && (!localStorage || localStorage.getItem('disableGA') !== '1')) {
+      function isRrShopGaActive() {
+        return window.location.host === 'waleriana.pl' && (!localStorage || localStorage.getItem('disableGA') !== '1');
+      }
+
+      if (isRrShopGaActive()) {
         window.dataLayer = window.dataLayer || [];
         gtag('js', new Date());
-        gtag('config', 'UA-166899717-1');
+        gtag('config', window.RR_SHOP_GA_MEASUREMENT_ID);
       }
     </script>
 

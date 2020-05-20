@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { routerNavigatedAction } from '@ngrx/router-store';
 import { EMPTY, of } from 'rxjs';
-import { concatMap, filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { concatMap, filter, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { CategoryFacadeService } from '../facades/category-facade.service';
 import * as fromCategoryActions from '../actions/category.actions';
+import { GoogleAnalyticsService } from '../../services/google-analytics.service';
 import { ProductFacadeService } from '../facades/product-facade.service';
 import * as fromProductActions from '../actions/product.actions';
 import { RouterFacadeService } from '../facades/router-facade.service';
@@ -40,10 +41,22 @@ export class RouterEffects {
     )
   );
 
+  public triggerGoogleAnalytics = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromRouterActions.customRouterNavigated),
+      concatMap(action => of(action).pipe(withLatestFrom(this.routerFacadeService.url$))),
+      tap(([action, url]) => {
+        this.googleAnalyticsService.pushPagePath(url);
+      }),
+      mergeMap(() => EMPTY)
+    )
+  );
+
   public constructor(
     private actions$: Actions,
-    protected routerFacadeService: RouterFacadeService,
     protected categoryFacadeService: CategoryFacadeService,
-    protected productFacadeService: ProductFacadeService
+    protected googleAnalyticsService: GoogleAnalyticsService,
+    protected productFacadeService: ProductFacadeService,
+    protected routerFacadeService: RouterFacadeService
   ) {}
 }

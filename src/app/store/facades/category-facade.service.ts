@@ -17,13 +17,13 @@ export class CategoryFacadeService {
     select(fromCategorySelectors.selectActiveCategoryStore)
   );
   public activeCategoryAndItsChildren$: Observable<CategoryStore[]> = this.store.pipe(
-    select(fromCategorySelectors.selectActiveCategoryAndItsChildren)
+    select(fromCategorySelectors.selectActiveCategoryStoreAndItsChildren)
   );
   public activeLevelUpdateEntriesBasedOnRoute$: Observable<ActiveLevelUpdateEntry[]> = this.store.pipe(
     select(fromCategorySelectors.selectActiveLevelUpdateEntriesBasedOnRoute)
   );
   public categoriesWithActiveLevelSorted$: Observable<CategoryStore[]> = this.store.pipe(
-    select(fromCategorySelectors.selectCategoriesWithActiveLevelSorted)
+    select(fromCategorySelectors.selectCategoriesStoreWithActiveLevelSorted)
   );
   public categoryLength$: Observable<number> = this.store.pipe(select(selectCategoryStoreLength));
   public isCollapseExpandButtonVisible$: Observable<boolean> = this.store.pipe(

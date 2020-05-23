@@ -4,7 +4,7 @@
   *ngIf="(productsLimitedInLength$ | async) && (category$ | async)"
   [category]="category$ | async"
   [isMoreProductsButtonVisible]="(productsLength$ | async) > (productsLimitedInLength$ | async)?.length"
-  [moreProductsButtonText]="moreProductsButtonText"
+  [moreProductsButtonText]="category?.linkText"
   [noProductsMessage]="'Brak produktów w tej kategorii - pracujemy nad tym, aby jak najszybciej się tutaj pojawiły :)'"
   [products]="productsLimitedInLength$ | async"
 ></rr-shop-products-list>

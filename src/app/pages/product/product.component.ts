@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { CategoryFacadeService } from '../../store/facades/category-facade.service';
+import { CategoryStore } from '../../models/category.model';
 import { IconType } from '../../components/icon/icon.models';
 import { SizeImage, SizeImageContainer } from '../../models/image.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
@@ -22,6 +24,7 @@ export class ProductComponent implements OnInit {
   public readonly SizeImageContainer = SizeImageContainer;
 
   public constructor(
+    protected categoryFacadeService: CategoryFacadeService,
     protected productFacadeService: ProductFacadeService,
     protected orderService: OrderService,
     protected orderFacadeService: OrderFacadeService

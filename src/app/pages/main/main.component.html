@@ -6,7 +6,6 @@
   <div *ngFor="let categoryMainPage of categoriesMainPage$ | async" class="Main-section">
     <rr-shop-category-products
       [category]="categoryMainPage"
-      [moreProductsButtonText]="categoryMainPage.linkText"
       [productsLimit]="MAIN_PAGE_PRODUCTS_IN_SECTION_LIMIT"
     ></rr-shop-category-products>
   </div>

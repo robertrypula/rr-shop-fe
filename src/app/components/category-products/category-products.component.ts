@@ -19,9 +19,6 @@ export class CategoryProductsComponent implements OnInit {
   @Input()
   public productsLimit: number;
 
-  @Input()
-  public moreProductsButtonText: string;
-
   public category$: Observable<CategoryStore>;
   public productsLimitedInLength$: Observable<Product[]>;
   public productsLength$: Observable<number>;

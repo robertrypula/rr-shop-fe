@@ -8,11 +8,11 @@ import { ClickableActionModule } from '../../components/clickable-action/clickab
 import { PipesModule } from '../../pipes/pipes.module';
 import { SliderImageModule } from '../../components/slider/slider-image/slider-image.module';
 
-import { ProductComponent } from './product.component';
+import { ProductPageComponent } from './product-page.component';
 
 @NgModule({
-  declarations: [ProductComponent],
-  exports: [ProductComponent],
+  declarations: [ProductPageComponent],
+  exports: [ProductPageComponent],
   imports: [
     ClickableActionModule,
     CommonModule,
@@ -23,4 +23,4 @@ import { ProductComponent } from './product.component';
     PipesModule
   ]
 })
-export class ProductModule {}
+export class ProductPageModule {}

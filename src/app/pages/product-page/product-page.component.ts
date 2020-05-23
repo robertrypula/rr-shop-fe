@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { CategoryFacadeService } from '../../store/facades/category-facade.service';
-import { CategoryStore } from '../../models/category.model';
 import { IconType } from '../../components/icon/icon.models';
 import { SizeImage, SizeImageContainer } from '../../models/image.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
@@ -11,12 +10,12 @@ import { ProductFacadeService } from '../../store/facades/product-facade.service
 import { Product } from '../../models/product.model';
 
 @Component({
-  selector: 'rr-shop-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss'],
+  selector: 'rr-shop-product-page',
+  templateUrl: './product-page.component.html',
+  styleUrls: ['./product-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductComponent implements OnInit {
+export class ProductPageComponent implements OnInit {
   public activeProduct$: Observable<Product> = this.productFacadeService.activeProduct$;
 
   public readonly IconType = IconType;

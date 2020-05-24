@@ -15,6 +15,15 @@ export enum Status {
   Canceled = 'Canceled'
 }
 
+export interface OrderEntities {
+  [uuid: string]: OrderStore;
+}
+
+export interface OrderLocalStorage {
+  entities: OrderEntities;
+  lastOrderItemId: number;
+}
+
 // -----------------------------------------------------------------------------
 
 export interface OrderStore {

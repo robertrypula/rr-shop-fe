@@ -135,6 +135,34 @@ export class ProductsEffects {
     )
   );
 
+  // ---------------------------------------------------------------------------
+
+  /*
+  public triggerProductsAtProductRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromRouterActions.customRouterNavigated),
+      concatMap(action => of(action).pipe(withLatestFrom(this.productFacadeService.isOnProductRoute$))),
+      filter(([action, isOnProductRoute]): boolean => isOnProductRoute),
+      map(() => fromPageActions.productsAtProductRequest())
+    )
+  );
+
+  public productsAtProductRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromPageActions.productsAtProductRequest),
+      concatMap(action => of(action).pipe(withLatestFrom(this.productFacadeService.activeProduct$))),
+      switchMap(([action, activeProduct]) =>
+        this.apiProductService.getProductsByCategoryIds(activeProduct.categoryIds).pipe(
+          map((productsStore: ProductStore[]) => fromPageActions.productsAtProductSuccess({ productsStore })),
+          catchError((httpErrorResponse: HttpErrorResponse) =>
+            of(fromPageActions.productsAtProductFailure({ httpErrorResponse }))
+          )
+        )
+      )
+    )
+  );
+  */
+
   public constructor(
     private actions$: Actions,
     protected apiProductService: ApiProductService,

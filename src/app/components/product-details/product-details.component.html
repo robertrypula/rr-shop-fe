@@ -1,0 +1,119 @@
+<div class="Product">
+  <div class="row">
+    <div class="col-xxs-12 col-md-6 ProductDetails-imageContainer">
+      <rr-shop-slider-image
+        [images]="product.images"
+        [sizeImage]="SizeImage.Px0600"
+        [sizeImageContainer]="SizeImageContainer.Px0300"
+        [slider]="true"
+      ></rr-shop-slider-image>
+    </div>
+    <div class="col-xxs-12 col-md-6 ProductDetails-overviewContainer">
+      <h2>
+        {{ product.name }}<ng-container *ngIf="product?.manufacturer?.name">, </ng-container>
+        {{ product?.manufacturer?.name }}
+      </h2>
+
+      <div *ngIf="product.priceUnitBeforePromotion" class="ProductDetails-promotion">
+        {{ product.priceUnitBeforePromotion | promotionText }}
+      </div>
+
+      <div class="ProductDetails-priceUnit">
+        <span>
+          {{ product.priceUnit | price }}
+        </span>
+        <ng-container *ngIf="product.priceUnitBeforePromotion">
+          <span>{{ product.priceUnitBeforePromotion | promotionPrice | price }}</span>
+          <span>
+            oszczędzasz
+            {{ (product.priceUnitBeforePromotion | promotionPrice) - product.priceUnit | price }}
+          </span>
+        </ng-container>
+      </div>
+
+      <div *ngIf="product.quantity > 0" class="ProductDetails-quantityText">
+        <span>Dostępność:</span>
+        <b>
+          {{ product.quantity | quantityText }}
+        </b>
+      </div>
+
+      <ng-container *ngIf="product.orderItem">
+        <div class="ProductDetails-alreadyInBasketQuantity">
+          W koszyku: <b>{{ product.orderItem.quantity }}</b>
+        </div>
+
+        <div class="ProductDetails-alreadyInBasketActions">
+          <rr-shop-clickable-action
+            (actionClick)="remove(product.orderItem.id)"
+            [label]="'Usuń z koszyka'"
+            [iconType]="IconType.FarTrashAlt"
+          ></rr-shop-clickable-action>
+          <rr-shop-clickable-action
+            (actionClick)="quantityDecrement(product.orderItem.id)"
+            [disabled]="!product.orderItem.isQuantityDecrementActive()"
+            [iconType]="IconType.FasMinus"
+          ></rr-shop-clickable-action>
+          <rr-shop-clickable-action
+            (actionClick)="quantityIncrement(product.orderItem.id)"
+            [disabled]="!product.orderItem.isQuantityIncrementActive()"
+            [iconType]="IconType.FasPlus"
+          ></rr-shop-clickable-action>
+        </div>
+
+        <div
+          *ngIf="product.orderItem.isProductQuantityExceeded()"
+          class="ProductDetails-alreadyInBasketNotification u-form-error-container"
+        >
+          Niestety nie jest możliwe dodanie tylu sztuk tego produktu
+        </div>
+        <div
+          *ngIf="product.orderItem.isProductQuantityReached()"
+          class="ProductDetails-alreadyInBasketNotification u-form-warning-container"
+        >
+          Nie można dodać więcej sztuk
+        </div>
+      </ng-container>
+
+      <div *ngIf="!product.orderItem" class="ProductDetails-notInBasketYet">
+        <rr-shop-clickable-action
+          *ngIf="product.quantity > 0; else notAvailable"
+          (actionClick)="addToOrder(product)"
+          [label]="'Do koszyka'"
+          [iconType]="IconType.CustomBasket"
+        ></rr-shop-clickable-action>
+
+        <ng-template #notAvailable>
+          <span>Produkt niedostępny</span>
+        </ng-template>
+      </div>
+
+      <div
+        class="ProductDetails-descriptionDelivery u-formatted-content u-form-warning-container"
+        markdown
+        [data]="product.descriptionDelivery"
+      ></div>
+
+      <div
+        *ngIf="product.isDeliveryBlockedCourier"
+        class="ProductDetails-isDeliveryBlockedCourier u-form-warning-container"
+      >
+        Brak możliwości wysyłki kurierem
+      </div>
+
+      <div
+        *ngIf="product.isDeliveryBlockedParcelLocker"
+        class="ProductDetails-isDeliveryBlockedParcelLocker u-form-warning-container"
+      >
+        Brak możliwości wysyłki Paczkomatem
+      </div>
+    </div>
+  </div>
+
+  <div class="u-formatted-content ProductDetails-description" markdown [data]="product.description"></div>
+
+  <rr-shop-category-related-products
+    *ngFor="let categoryId of product?.categoryIds"
+    [categoryId]="categoryId"
+  ></rr-shop-category-related-products>
+</div>

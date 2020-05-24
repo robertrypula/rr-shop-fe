@@ -11,6 +11,7 @@ export interface State {
   apiCallProduct: ApiCall;
   apiCallProductsAtCategory: ApiCall;
   apiCallProductsAtInit: ApiCall;
+  apiCallProductsAtProduct: ApiCall;
   list: {
     [id: number]: ProductStore;
   };
@@ -20,37 +21,50 @@ export const initialState: State = {
   apiCallProduct: ApiCall.Initial,
   apiCallProductsAtCategory: ApiCall.Initial,
   apiCallProductsAtInit: ApiCall.Initial,
+  apiCallProductsAtProduct: ApiCall.Initial,
   list: {}
 };
 
 const productReducer = createReducer(
   initialState,
-  on(fromProductActions.productRequest, (state: State): State => ({ ...state, apiCallProduct: ApiCall.Request })),
-  on(
-    fromProductActions.productsAtCategoryRequest,
-    (state: State): State => ({ ...state, apiCallProductsAtCategory: ApiCall.Request })
-  ),
-  on(
-    fromProductActions.productsAtInitRequest,
-    (state: State): State => ({ ...state, apiCallProductsAtInit: ApiCall.Request })
-  ),
-  on(fromProductActions.productSuccess, (state: State): State => ({ ...state, apiCallProduct: ApiCall.Success })),
-  on(
-    fromProductActions.productsAtCategorySuccess,
-    (state: State): State => ({ ...state, apiCallProductsAtCategory: ApiCall.Success })
-  ),
-  on(
-    fromProductActions.productsAtInitSuccess,
-    (state: State): State => ({ ...state, apiCallProductsAtInit: ApiCall.Success })
-  ),
   on(fromProductActions.productFailure, (state: State): State => ({ ...state, apiCallProduct: ApiCall.Failure })),
+  on(fromProductActions.productRequest, (state: State): State => ({ ...state, apiCallProduct: ApiCall.Request })),
+  on(fromProductActions.productSuccess, (state: State): State => ({ ...state, apiCallProduct: ApiCall.Success })),
   on(
     fromProductActions.productsAtCategoryFailure,
     (state: State): State => ({ ...state, apiCallProductsAtCategory: ApiCall.Failure })
   ),
   on(
+    fromProductActions.productsAtCategoryRequest,
+    (state: State): State => ({ ...state, apiCallProductsAtCategory: ApiCall.Request })
+  ),
+  on(
+    fromProductActions.productsAtCategorySuccess,
+    (state: State): State => ({ ...state, apiCallProductsAtCategory: ApiCall.Success })
+  ),
+  on(
     fromProductActions.productsAtInitFailure,
     (state: State): State => ({ ...state, apiCallProductsAtInit: ApiCall.Failure })
+  ),
+  on(
+    fromProductActions.productsAtInitRequest,
+    (state: State): State => ({ ...state, apiCallProductsAtInit: ApiCall.Request })
+  ),
+  on(
+    fromProductActions.productsAtInitSuccess,
+    (state: State): State => ({ ...state, apiCallProductsAtInit: ApiCall.Success })
+  ),
+  on(
+    fromProductActions.productsAtProductFailure,
+    (state: State): State => ({ ...state, apiCallProductsAtProduct: ApiCall.Failure })
+  ),
+  on(
+    fromProductActions.productsAtProductRequest,
+    (state: State): State => ({ ...state, apiCallProductsAtProduct: ApiCall.Request })
+  ),
+  on(
+    fromProductActions.productsAtProductSuccess,
+    (state: State): State => ({ ...state, apiCallProductsAtProduct: ApiCall.Success })
   ),
   on(
     fromProductActions.productSuccess,
@@ -64,6 +78,7 @@ const productReducer = createReducer(
     fromPageActions.productsAtMainPageSuccess,
     fromProductActions.productsAtCategorySuccess,
     fromProductActions.productsAtInitSuccess,
+    fromProductActions.productsAtProductSuccess,
     fromSearchActions.searchSuccess,
     (state: State, { productsStore }): State => {
       const newState: State = { ...state, list: { ...state.list } };

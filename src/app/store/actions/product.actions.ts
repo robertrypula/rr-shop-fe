@@ -29,6 +29,18 @@ export const productsAtCategorySuccess = createAction(
 );
 
 export const productsAtCategoryFailure = createAction(
-  '[Product] At category failure',
+  '[Product] At product failure',
+  props<{ httpErrorResponse: HttpErrorResponse }>()
+);
+
+export const productsAtProductRequest = createAction('[Product] Related category products request');
+
+export const productsAtProductSuccess = createAction(
+  '[Product] Related category products success',
+  props<{ productsStore: ProductStore[] }>()
+);
+
+export const productsAtProductFailure = createAction(
+  '[Product] Related category products failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );

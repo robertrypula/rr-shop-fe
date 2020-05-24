@@ -22,9 +22,6 @@ import { Device, ViewportStatus } from '../models/viewport.model';
   providedIn: 'root'
 })
 export class ViewportService {
-  public device$: Observable<Device> = this.viewportFacadeService.device$;
-  public getFurtherNavigationIdOnlyAtSmallerDevices$: Observable<number> = this.viewportFacadeService
-    .getFurtherNavigationIdOnlyAtSmallerDevices$;
   public isScrolledDownThatHeaderIsNotVisible$: Observable<boolean> = this.viewportFacadeService
     .isScrolledDownThatHeaderIsNotVisible$;
   public viewportStatus$: Observable<ViewportStatus>;

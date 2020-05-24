@@ -68,7 +68,7 @@ export class OrderEffects {
       tap(action => {
         this.router.navigate(['/order', action.orderStore.uuid]).then();
         // TODO implement proper scroll mechanism
-        window.scrollTo && window.scrollTo(0, 120);
+        window.scrollTo && window.scrollTo(0, 0);
       }),
       switchMap(() => [
         fromOrderActions.resetOrders(),
@@ -85,7 +85,7 @@ export class OrderEffects {
       ofType(fromOrderActions.createOrderFailure),
       tap(() => {
         // TODO implement proper error handling it should check the response code
-        window.scrollTo && window.scrollTo(0, 120);
+        window.scrollTo && window.scrollTo(0, 0);
       }),
       switchMap(() => [
         fromOrderActions.potentialOrderLoad(),

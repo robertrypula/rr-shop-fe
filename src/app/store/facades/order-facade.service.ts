@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { selectApiCallPromoCode } from '../selectors/order-core.selectors';
 import * as fromOrderActions from '../actions/order.actions';
-import { Order } from '../../models/order.model';
+import { Order, OrderLocalStorage, OrderStore } from '../../models/order.model';
 import * as fromOrderSelectors from '../selectors/order.selectors';
 import { selectActiveOrder, selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.selectors';
 import { ApiCall } from '../../models/page.model';
@@ -99,6 +99,10 @@ export class OrderFacadeService {
 
   public setPromoCodeTextField(promoCodeTextField: string): void {
     this.store.dispatch(fromOrderActions.setPromoCodeTextField({ promoCodeTextField }));
+  }
+
+  public syncOrderLocalStorage(orderLocalStorage: OrderLocalStorage): void {
+    this.store.dispatch(fromOrderActions.syncOrderLocalStorage({ orderLocalStorage }));
   }
 
   public toggleLegalConfirmation(): void {

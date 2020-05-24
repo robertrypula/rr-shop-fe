@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 
-import { OrderStore } from '../../models/order.model';
+import { OrderLocalStorage, OrderStore } from '../../models/order.model';
 import { ProductStore } from '../../models/product.model';
 import { PromoCodeStore } from '../../models/promo-code.model';
 
@@ -71,6 +71,11 @@ export const resetOrders = createAction('[Order] Reset orders');
 export const setPromoCodeTextField = createAction(
   '[Order] Set promo code text field',
   props<{ promoCodeTextField: string }>()
+);
+
+export const syncOrderLocalStorage = createAction(
+  '[Order] Sync order local storage',
+  props<{ orderLocalStorage: OrderLocalStorage }>()
 );
 
 export const toggleLegalConfirmation = createAction('[Order] Toggle legal confirmation');

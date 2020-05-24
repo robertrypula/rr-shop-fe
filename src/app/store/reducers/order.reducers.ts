@@ -2,7 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 
 import { OrderItemStore } from '../../models/order-item.model';
 import * as fromOrderActions from '../actions/order.actions';
-import { OrderStore } from '../../models/order.model';
+import { OrderEntities, OrderStore } from '../../models/order.model';
 import { ApiCall } from '../../models/page.model';
 import { Type } from '../../models/product.model';
 
@@ -11,15 +11,13 @@ export interface State {
   apiCallOrder: ApiCall;
   apiCallPotentialOrderProducts: ApiCall;
   apiCallPromoCode: ApiCall;
-  entities: {
-    [uuid: string]: OrderStore;
-  };
+  entities: OrderEntities;
   lastOrderItemId: number;
 }
 
 export const POTENTIAL_ORDER_UUID = '-1';
 
-const initialEmptyOrder: { [uuid: string]: OrderStore } = {
+const initialEmptyOrder: OrderEntities = {
   [POTENTIAL_ORDER_UUID]: {
     uuid: `${POTENTIAL_ORDER_UUID}`,
     number: null,
@@ -348,6 +346,18 @@ const orderReducer = createReducer(
             promoCodeTextField
           }
         }
+      };
+    }
+  ),
+  on(
+    fromOrderActions.syncOrderLocalStorage,
+    (state: State, { orderLocalStorage }): State => {
+      return {
+        ...state,
+        entities: {
+          ...orderLocalStorage.entities
+        },
+        lastOrderItemId: orderLocalStorage.lastOrderItemId
       };
     }
   ),

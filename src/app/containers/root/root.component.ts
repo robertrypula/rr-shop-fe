@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+import { OrderFacadeService } from '../../store/facades/order-facade.service';
+import { OrderLocalStorage } from '../../models/order.model';
 import { PageFacadeService } from '../../store/facades/page-facade.service';
 import { ViewportService } from '../../services/viewport.service';
 
@@ -17,8 +19,18 @@ export class RootComponent {
 
   public isLoadingOverlayVisible$: Observable<boolean> = this.pageFacadeService.isLoadingOverlayVisible$;
 
-  public constructor(protected viewportService: ViewportService, protected pageFacadeService: PageFacadeService) {
+  public constructor(
+    protected viewportService: ViewportService,
+    protected pageFacadeService: PageFacadeService,
+    protected orderFacadeService: OrderFacadeService
+  ) {
     this.handleScrollIntoContent();
+  }
+
+  @HostListener('window:storage', ['$event'])
+  public handleSyncOrderLocalStorage(event: StorageEvent) {
+    console.log(event.newValue);
+    this.orderFacadeService.syncOrderLocalStorage(JSON.parse(event.newValue) as OrderLocalStorage);
   }
 
   protected handleScrollIntoContent(): void {

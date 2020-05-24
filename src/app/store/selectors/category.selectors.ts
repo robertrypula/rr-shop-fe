@@ -39,7 +39,7 @@ export const selectCategoriesStoreWithActiveLevel = createSelector(
   }
 );
 
-export const selectCategoriesWithActiveLevelSorted = createSelector(
+export const selectCategoriesStoreWithActiveLevelSorted = createSelector(
   selectCategoriesStoreWithActiveLevel,
   (categoriesStoreWithActiveLevel: CategoryStore[]): CategoryStore[] => {
     return categoriesStoreWithActiveLevel.sort((a: CategoryStore, b: CategoryStore): number =>
@@ -80,7 +80,7 @@ export const selectCategoryStoreAndItsChildren = createSelector(
     getCategoryStoreAndItsChildren(categoriesStore, props.categoryId)
 );
 
-export const selectActiveCategoryAndItsChildren = createSelector(
+export const selectActiveCategoryStoreAndItsChildren = createSelector(
   selectCategoriesStore,
   selectActiveCategoryId,
   (categoriesStore: CategoryStore[], activeCategoryId: number): CategoryStore[] =>

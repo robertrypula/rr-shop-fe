@@ -1,9 +1,9 @@
 @import 'configs-and-mixins';
 
-.Product {
+.ProductDetails {
 }
 
-.Product-imageContainer {
+.ProductDetails-imageContainer {
   margin-bottom: 2 * $gutter-width;
   > * {
     display: block;
@@ -13,20 +13,20 @@
   }
 }
 
-.Product-overviewContainer {
+.ProductDetails-overviewContainer {
   margin-bottom: 2 * $gutter-width;
 
   h2 {
     margin-bottom: 24px;
   }
 
-  .Product-promotion {
+  .ProductDetails-promotion {
     font-size: 20px;
     color: $green-color;
     font-weight: bold;
   }
 
-  .Product-priceUnit {
+  .ProductDetails-priceUnit {
     padding: 16px 0;
 
     > span {
@@ -44,16 +44,16 @@
     }
   }
 
-  .Product-quantityText {
+  .ProductDetails-quantityText {
     padding: 0 0 16px 0;
   }
 
-  .Product-alreadyInBasketQuantity {
+  .ProductDetails-alreadyInBasketQuantity {
     padding-bottom: 16px;
     display: block;
   }
 
-  .Product-alreadyInBasketActions {
+  .ProductDetails-alreadyInBasketActions {
     padding-bottom: 16px;
     > *:nth-child(2) {
       margin-left: 16px;
@@ -63,13 +63,13 @@
     }
   }
 
-  .Product-notInBasketYet,
-  .Product-alreadyInBasketNotification {
+  .ProductDetails-notInBasketYet,
+  .ProductDetails-alreadyInBasketNotification {
     padding-bottom: 16px;
   }
 }
 
-.Product-description {
+.ProductDetails-description {
   padding-top: 24px;
   margin-bottom: 64px;
   font-size: 14px;

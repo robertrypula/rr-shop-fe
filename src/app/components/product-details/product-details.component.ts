@@ -1,28 +1,27 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 
-import { IconType } from '../../components/icon/icon.models';
+import { CategoryFacadeService } from '../../store/facades/category-facade.service';
+import { IconType } from '../icon/icon.models';
 import { SizeImage, SizeImageContainer } from '../../models/image.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { OrderService } from '../../services/order.service';
-import { ProductFacadeService } from '../../store/facades/product-facade.service';
 import { Product } from '../../models/product.model';
 
 @Component({
-  selector: 'rr-shop-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'rr-shop-product-details',
+  templateUrl: './product-details.component.html',
+  styleUrls: ['./product-details.component.scss']
 })
-export class ProductComponent implements OnInit {
-  public activeProduct$: Observable<Product> = this.productFacadeService.activeProduct$;
+export class ProductDetailsComponent implements OnInit {
+  @Input()
+  public product: Product;
 
   public readonly IconType = IconType;
   public readonly SizeImage = SizeImage;
   public readonly SizeImageContainer = SizeImageContainer;
 
   public constructor(
-    protected productFacadeService: ProductFacadeService,
+    protected categoryFacadeService: CategoryFacadeService,
     protected orderService: OrderService,
     protected orderFacadeService: OrderFacadeService
   ) {}

@@ -47,15 +47,15 @@ import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { OrderPageModule } from './pages/order-page/order-page.module';
 import { PotentialOrderComponent } from './pages/potential-order/potential-order.component';
 import { PotentialOrderModule } from './pages/potential-order/potential-order.module';
-import { ProductComponent } from './pages/product/product.component';
-import { ProductModule } from './pages/product/product.module';
+import { ProductPageComponent } from './pages/product-page/product-page.component';
+import { ProductPageModule } from './pages/product-page/product-page.module';
 import { SearchComponent } from './pages/search/search.component';
 import { SearchModule } from './pages/search/search.module';
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full' },
   { path: 'c/:id/:slug', component: CategoryComponent },
-  { path: 'p/:id/:slug', component: ProductComponent },
+  { path: 'p/:id/:slug', component: ProductPageComponent },
   { path: 'order/:uuid', component: OrderPageComponent },
   { path: 'potential-order', component: PotentialOrderComponent },
   { path: 'search/:keywords', component: SearchComponent },
@@ -111,7 +111,7 @@ const routes: Routes = [
     NotFoundModule,
     OrderPageModule,
     PotentialOrderModule,
-    ProductModule,
+    ProductPageModule,
     SearchModule
   ],
   exports: [RouterModule]

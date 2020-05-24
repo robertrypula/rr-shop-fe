@@ -1,11 +1,9 @@
 import { createSelector } from '@ngrx/store';
 
-import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { ApiCall } from '../../models/page.model';
 import { isOnMainPageRoute } from '../../utils/routing.utils';
 
-import { selectApiCallCategoriesAtInit, selectCategoriesStore } from './category-core.selectors';
-import { selectCategoriesStoreBy } from './category.selectors';
+import { selectApiCallCategoriesAtInit } from './category-core.selectors';
 import {
   selectApiCallCreateOrder,
   selectApiCallOrder,
@@ -16,7 +14,8 @@ import { selectApiCallProductsAtMainPage } from './page-core.selectors';
 import {
   selectApiCallProduct,
   selectApiCallProductsAtCategory,
-  selectApiCallProductsAtInit
+  selectApiCallProductsAtInit,
+  selectApiCallProductsAtProduct
 } from './product-core.selectors';
 import { selectUrl } from './router.selectors';
 import { selectApiCallSearch } from './search-core.selectors';
@@ -34,18 +33,21 @@ const selectIsLoadingOverlayVisibleFromProductPerspective = createSelector(
   selectApiCallProductsAtCategory,
   selectApiCallProductsAtInit,
   selectApiCallProductsAtMainPage,
+  selectApiCallProductsAtProduct,
   (
     apiCallPotentialOrderProducts: ApiCall,
     apiCallProduct: ApiCall,
     apiCallProductsAtCategory: ApiCall,
     apiCallProductsAtInit: ApiCall,
-    apiCallProductsAtMainPage: ApiCall
+    apiCallProductsAtMainPage: ApiCall,
+    apiCallProductsAtProduct: ApiCall
   ): boolean =>
     [ApiCall.Initial, ApiCall.Request].includes(apiCallProductsAtInit) ||
     [ApiCall.Request].includes(apiCallPotentialOrderProducts) ||
     [ApiCall.Request].includes(apiCallProduct) ||
     [ApiCall.Request].includes(apiCallProductsAtCategory) ||
-    [ApiCall.Request].includes(apiCallProductsAtMainPage)
+    [ApiCall.Request].includes(apiCallProductsAtMainPage) ||
+    [ApiCall.Request].includes(apiCallProductsAtProduct)
 );
 
 export const selectIsLoadingOverlayVisible = createSelector(

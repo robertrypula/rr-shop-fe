@@ -6,7 +6,7 @@ import { Product, ProductStore } from '../../models/product.model';
 import { getProductId, isOnProductRoute } from '../../utils/routing.utils';
 
 import { selectCategoriesStore } from './category-core.selectors';
-import { selectActiveCategoryAndItsChildren, selectCategoryStoreAndItsChildren } from './category.selectors';
+import { selectActiveCategoryStoreAndItsChildren, selectCategoryStoreAndItsChildren } from './category.selectors';
 import { selectOrderItemsStore } from './order-core.selectors';
 import { selectProductsStore } from './product-core.selectors';
 import {
@@ -20,25 +20,29 @@ export const selectUrlProductId = createSelector(selectUrl, (url: string): numbe
   return getProductId(url);
 });
 
+export const selectActiveProductStore = createSelector(
+  selectProductsStore,
+  selectUrlProductId,
+  (productsStore: ProductStore[], urlProductId: number): ProductStore => {
+    return urlProductId
+      ? productsStore.find((productStore: ProductStore): boolean => productStore.id === urlProductId)
+      : null;
+  }
+);
+
 export const selectActiveProduct = createSelector(
+  selectActiveProductStore,
   selectProductsStore,
   selectOrderItemsStore,
-  selectUrlProductId,
-  (productsStore: ProductStore[], orderItemsStore: OrderItemStore[], urlProductId: number): Product => {
-    return urlProductId
-      ? toProduct(
-          productsStore.find((productStore: ProductStore): boolean => productStore.id === urlProductId),
-          orderItemsStore,
-          productsStore
-        )
-      : null;
+  (activeProductStore: ProductStore, productsStore: ProductStore[], orderItemsStore: OrderItemStore[]): Product => {
+    return activeProductStore ? toProduct(activeProductStore, orderItemsStore, productsStore) : null;
   }
 );
 
 export const selectProductsFromActiveCategoryAndItsChildren = createSelector(
   selectProductsStore,
   selectOrderItemsStore,
-  selectActiveCategoryAndItsChildren,
+  selectActiveCategoryStoreAndItsChildren,
   (
     productsStore: ProductStore[],
     orderItemsStore: OrderItemStore[],

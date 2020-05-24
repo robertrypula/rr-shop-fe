@@ -27,6 +27,12 @@ export const selectIsSmallDevice = createSelector(selectDevice, (device: Device)
   SMALL_DEVICE_DEFINITION.includes(device)
 );
 
+export const selectGetFurtherNavigationIdAtEveryDevices = createSelector(
+  selectIsSmallDevice,
+  selectNavigationId,
+  (isDeviceSmall: boolean, navigationId: number): number => (navigationId > 1 ? navigationId : 0)
+);
+
 export const selectGetFurtherNavigationIdOnlyAtSmallerDevices = createSelector(
   selectIsSmallDevice,
   selectNavigationId,

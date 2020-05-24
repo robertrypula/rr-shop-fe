@@ -5,7 +5,7 @@ import { tap } from 'rxjs/operators';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { OrderLocalStorage } from '../../models/order.model';
 import { PageFacadeService } from '../../store/facades/page-facade.service';
-import { ViewportService } from '../../services/viewport.service';
+import { ViewportFacadeService } from '../../store/facades/viewport-facade.service';
 
 @Component({
   selector: 'rr-shop-root',
@@ -20,7 +20,7 @@ export class RootComponent {
   public isLoadingOverlayVisible$: Observable<boolean> = this.pageFacadeService.isLoadingOverlayVisible$;
 
   public constructor(
-    protected viewportService: ViewportService,
+    protected viewportFacadeService: ViewportFacadeService,
     protected pageFacadeService: PageFacadeService,
     protected orderFacadeService: OrderFacadeService
   ) {
@@ -34,13 +34,15 @@ export class RootComponent {
   }
 
   protected handleScrollIntoContent(): void {
-    this.viewportService.getFurtherNavigationIdOnlyAtSmallerDevices$
+    this.viewportFacadeService.selectGetFurtherNavigationIdAtEveryDevices$
       .pipe(
         tap((furtherNavigationIdOnlyAtSmallerDevices: number): void => {
           furtherNavigationIdOnlyAtSmallerDevices &&
             this.content &&
             this.content.nativeElement &&
-            this.content.nativeElement.scrollIntoView({});
+            window.scrollTo &&
+            window.scrollTo(0, 0);
+          // this.content.nativeElement.scrollIntoView({});
         })
       )
       .subscribe();

@@ -1,4 +1,6 @@
-<h2>{{ (category$ | async)?.name }}</h2>
+<h2>
+  <a [routerLink]="category$ | async | categoryUrl">{{ (category$ | async)?.name }}</a>
+</h2>
 
 <rr-shop-products-list
   *ngIf="(productsLimitedInLength$ | async) && (category$ | async)"

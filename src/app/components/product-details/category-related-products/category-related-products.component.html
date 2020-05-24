@@ -1,5 +1,7 @@
-<rr-shop-category-products
-  *ngIf="(category | async)?.id && (category | async)?.id"
-  [category]="category | async"
-  [productsLimit]="4"
-></rr-shop-category-products>
+<div class="CategoryRelatedProducts">
+  <rr-shop-category-products
+    *ngIf="(category | async)?.id && (category | async)?.id"
+    [category]="category | async"
+    [productsLimit]="4"
+  ></rr-shop-category-products>
+</div>

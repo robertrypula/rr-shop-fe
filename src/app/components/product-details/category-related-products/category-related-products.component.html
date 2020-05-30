@@ -2,6 +2,6 @@
   <rr-shop-category-products
     *ngIf="(category | async)?.id && (category | async)?.id"
     [category]="category | async"
-    [productsLimit]="4"
+    [productsLimit]="CATEGORY_RELATED_PRODUCTS_LIMIT"
   ></rr-shop-category-products>
 </div>

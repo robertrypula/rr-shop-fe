@@ -24,7 +24,6 @@ const initialEmptyOrder: OrderEntities = {
     status: null,
     // ---
     isClientDetailsFormActive: true,
-    isClientDetailsFormValid: false,
     email: null,
     phone: null,
     name: null,
@@ -238,8 +237,7 @@ const orderReducer = createReducer(
           ...state.entities,
           [POTENTIAL_ORDER_UUID]: {
             ...state.entities[POTENTIAL_ORDER_UUID],
-            isClientDetailsFormActive: true,
-            isClientDetailsFormValid: false
+            isClientDetailsFormActive: true
           }
         }
       };

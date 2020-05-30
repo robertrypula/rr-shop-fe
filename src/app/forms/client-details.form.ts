@@ -1,6 +1,5 @@
 interface ClientDetailsForm {
   isClientDetailsFormActive: boolean;
-  isClientDetailsFormValid: boolean;
   email: string;
   phone: string;
   name: string;

@@ -1,7 +1,9 @@
 <div class="ClientDetails">
   <form
+    (ngSubmit)="clientDetailsOnSave()"
     *ngIf="(clientDetailsForm$ | async)?.isClientDetailsFormActive; else readOnly"
     [formGroup]="clientDetailsFormGroup"
+    autocomplete="on"
     class="PromoCode-form"
     id="client-details-form"
     novalidate
@@ -11,15 +13,18 @@
         <!-- --- -->
         <div class="row">
           <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label u-form-label-required" for="client-details-form-email">Email</label>
+            <label class="u-form-label u-form-label-required" for="client-details-form-email">
+              Email
+            </label>
           </div>
           <div class="col-xxs-8 margin-bottom">
             <input
-              autocomplete="client-details-form-email"
-              id="client-details-form-email"
+              autocomplete="email"
               class="u-form-input"
-              type="text"
               formControlName="email"
+              id="client-details-form-email"
+              name="email"
+              type="text"
               [ngClass]="{
                 'u-form-input--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.email.errors
               }"
@@ -43,105 +48,18 @@
         <!-- --- -->
         <div class="row">
           <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label u-form-label-required" for="client-details-form-name">Imię</label>
+            <label class="u-form-label u-form-label-required" for="client-details-form-phone">
+              Telefon
+            </label>
           </div>
           <div class="col-xxs-8 margin-bottom">
             <input
-              autocomplete="client-details-form-name"
-              id="client-details-form-name"
+              autocomplete="tel"
               class="u-form-input"
-              type="text"
-              formControlName="name"
-              [ngClass]="{
-                'u-form-input--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.name.errors
-              }"
-            />
-            <div
-              class="u-form-error-container"
-              *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.name.errors"
-            >
-              <div *ngIf="clientDetailsFormGroup.controls.name.errors.required">
-                Pole imię nie może być puste
-              </div>
-              <div *ngIf="clientDetailsFormGroup.controls.name.errors.maxlength as maxlength">
-                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- --- -->
-        <div class="row">
-          <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label u-form-label-required" for="client-details-form-surname">Nazwisko</label>
-          </div>
-          <div class="col-xxs-8 margin-bottom">
-            <input
-              autocomplete="client-details-form-surname"
-              id="client-details-form-surname"
-              class="u-form-input"
-              type="text"
-              formControlName="surname"
-              [ngClass]="{
-                'u-form-input--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.surname.errors
-              }"
-            />
-            <div
-              class="u-form-error-container"
-              *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.surname.errors"
-            >
-              <div *ngIf="clientDetailsFormGroup.controls.surname.errors.required">
-                Pole nazwisko nie może być puste
-              </div>
-              <div *ngIf="clientDetailsFormGroup.controls.surname.errors.maxlength as maxlength">
-                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- --- -->
-        <div class="row">
-          <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label" for="client-details-form-comments">Komentarz</label>
-          </div>
-          <div class="col-xxs-8 margin-bottom">
-            <textarea
-              autocomplete="client-details-form-comments"
-              id="client-details-form-comments"
-              class="u-form-input"
-              type="text"
-              formControlName="comments"
-              [ngClass]="{
-                'u-form-input--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.comments.errors
-              }"
-            ></textarea>
-            <div
-              class="u-form-error-container"
-              *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.comments.errors"
-            >
-              <div *ngIf="clientDetailsFormGroup.controls.comments.errors.required">
-                Pole miasto nie może być puste
-              </div>
-              <div *ngIf="clientDetailsFormGroup.controls.comments.errors.maxlength as maxlength">
-                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- ---------------------- -->
-      <div class="col-xxs-12 col-md-6">
-        <!-- --- -->
-        <div class="row">
-          <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label u-form-label-required" for="client-details-form-phone">Telefon</label>
-          </div>
-          <div class="col-xxs-8 margin-bottom">
-            <input
-              autocomplete="client-details-form-phone"
-              id="client-details-form-phone"
-              class="u-form-input"
-              type="text"
               formControlName="phone"
+              id="client-details-form-phone"
+              name="phone"
+              type="text"
               [ngClass]="{
                 'u-form-input--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.phone.errors
               }"
@@ -162,15 +80,92 @@
         <!-- --- -->
         <div class="row">
           <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label u-form-label-required" for="client-details-form-address">Ulica i nr</label>
+            <label class="u-form-label u-form-label-required" for="client-details-form-fname">
+              Imię
+            </label>
           </div>
           <div class="col-xxs-8 margin-bottom">
             <input
-              autocomplete="client-details-form-address"
-              id="client-details-form-address"
+              autocomplete="given-name"
               class="u-form-input"
+              formControlName="fname"
+              id="client-details-form-fname"
+              name="fname"
               type="text"
+              [ngClass]="{
+                'u-form-input--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.fname.errors
+              }"
+            />
+            <div
+              class="u-form-error-container"
+              *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.fname.errors"
+            >
+              <div *ngIf="clientDetailsFormGroup.controls.fname.errors.required">
+                Pole imię nie może być puste
+              </div>
+              <div *ngIf="clientDetailsFormGroup.controls.fname.errors.maxlength as maxlength">
+                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- --- -->
+        <div class="row">
+          <div class="col-xxs-4 margin-bottom">
+            <label class="u-form-label u-form-label-required" for="client-details-form-lname">
+              Nazwisko
+            </label>
+          </div>
+          <div class="col-xxs-8 margin-bottom">
+            <input
+              autocomplete="family-name"
+              class="u-form-input"
+              formControlName="lname"
+              id="client-details-form-lname"
+              name="lname"
+              type="text"
+              [ngClass]="{
+                'u-form-input--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.lname.errors
+              }"
+            />
+            <div
+              class="u-form-error-container"
+              *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.lname.errors"
+            >
+              <div *ngIf="clientDetailsFormGroup.controls.lname.errors.required">
+                Pole nazwisko nie może być puste
+              </div>
+              <div *ngIf="clientDetailsFormGroup.controls.lname.errors.maxlength as maxlength">
+                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- --- -->
+      </div>
+      <!-- ---------------------- -->
+      <div class="col-xxs-12 col-md-6">
+        <!-- --- -->
+        <div class="row">
+          <div class="col-xxs-4 margin-bottom">
+            <label
+              class="u-form-label"
+              for="client-details-form-address"
+              [ngClass]="{
+                'u-form-label-required': isDynamicControlRequired
+              }"
+            >
+              Adres
+            </label>
+          </div>
+          <div class="col-xxs-8 margin-bottom">
+            <input
+              autocomplete="street-address"
+              class="u-form-input"
               formControlName="address"
+              id="client-details-form-address"
+              name="address"
+              type="text"
               [ngClass]="{
                 'u-form-input--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.address.errors
               }"
@@ -180,7 +175,7 @@
               *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.address.errors"
             >
               <div *ngIf="clientDetailsFormGroup.controls.address.errors.required">
-                Pole ulica i numer nie może być puste
+                Pole adres nie może być puste
               </div>
               <div *ngIf="clientDetailsFormGroup.controls.address.errors.maxlength as maxlength">
                 Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
@@ -191,27 +186,36 @@
         <!-- --- -->
         <div class="row">
           <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label u-form-label-required" for="client-details-form-zipCode">Kod</label>
+            <label
+              class="u-form-label"
+              for="client-details-form-zip"
+              [ngClass]="{
+                'u-form-label-required': isDynamicControlRequired
+              }"
+            >
+              Kod pocztowy
+            </label>
           </div>
           <div class="col-xxs-8 margin-bottom">
             <input
-              autocomplete="client-details-form-zipCode"
-              id="client-details-form-zipCode"
+              autocomplete="postal-code"
               class="u-form-input"
+              formControlName="zip"
+              id="client-details-form-zip"
+              name="zip"
               type="text"
-              formControlName="zipCode"
               [ngClass]="{
-                'u-form-input--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.zipCode.errors
+                'u-form-input--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.zip.errors
               }"
             />
             <div
               class="u-form-error-container"
-              *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.zipCode.errors"
+              *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.zip.errors"
             >
-              <div *ngIf="clientDetailsFormGroup.controls.zipCode.errors.required">
-                Pole kod nie może być puste
+              <div *ngIf="clientDetailsFormGroup.controls.zip.errors.required">
+                Pole kod pocztowy nie może być puste
               </div>
-              <div *ngIf="clientDetailsFormGroup.controls.zipCode.errors.maxlength as maxlength">
+              <div *ngIf="clientDetailsFormGroup.controls.zip.errors.maxlength as maxlength">
                 Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
               </div>
             </div>
@@ -220,15 +224,24 @@
         <!-- --- -->
         <div class="row">
           <div class="col-xxs-4 margin-bottom">
-            <label class="u-form-label u-form-label-required" for="client-details-form-city">Miasto</label>
+            <label
+              class="u-form-label"
+              for="client-details-form-city"
+              [ngClass]="{
+                'u-form-label-required': isDynamicControlRequired
+              }"
+            >
+              Miasto
+            </label>
           </div>
           <div class="col-xxs-8 margin-bottom">
             <input
-              autocomplete="client-details-form-city"
-              id="client-details-form-city"
+              autocomplete="address-level2"
               class="u-form-input"
-              type="text"
               formControlName="city"
+              id="client-details-form-city"
+              name="city"
+              type="text"
               [ngClass]="{
                 'u-form-input--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.city.errors
               }"
@@ -247,10 +260,42 @@
           </div>
         </div>
         <!-- --- -->
+        <div class="row">
+          <div class="col-xxs-4 margin-bottom">
+            <label class="u-form-label" for="client-details-form-comments">
+              Komentarz
+            </label>
+          </div>
+          <div class="col-xxs-8 margin-bottom">
+            <textarea
+              autocomplete="off"
+              class="u-form-input"
+              formControlName="comments"
+              id="client-details-form-comments"
+              name="comments"
+              type="text"
+              [ngClass]="{
+                'u-form-input--invalid': clientDetailsSubmitted && clientDetailsFormGroup.controls.comments.errors
+              }"
+            ></textarea>
+            <div
+              class="u-form-error-container"
+              *ngIf="clientDetailsSubmitted && clientDetailsFormGroup.controls.comments.errors"
+            >
+              <div *ngIf="clientDetailsFormGroup.controls.comments.errors.required">
+                Pole miasto nie może być puste
+              </div>
+              <div *ngIf="clientDetailsFormGroup.controls.comments.errors.maxlength as maxlength">
+                Do pola wprowadzono zbyt dużo znaków ({{ maxlength.actualLength }}/{{ maxlength.requiredLength }})
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- --- -->
       </div>
     </div>
 
-    <rr-shop-clickable-action (actionClick)="clientDetailsOnSave()" [label]="'Dalej'"></rr-shop-clickable-action>
+    <rr-shop-clickable-action [label]="'Dalej'"></rr-shop-clickable-action>
   </form>
 
   <ng-template #readOnly>
@@ -258,8 +303,12 @@
       <div>{{ clientDetailsForm.email }}</div>
       <div>{{ clientDetailsForm.phone }}</div>
       <div>{{ clientDetailsForm.name }} {{ clientDetailsForm.surname }}</div>
-      <div>{{ clientDetailsForm.address }}</div>
-      <div>{{ clientDetailsForm.zipCode }} {{ clientDetailsForm.city }}</div>
+
+      <ng-container *ngIf="(deliveryTypeByOrderUuid$ | async) !== DeliveryType.Own">
+        <div>{{ clientDetailsForm.address }}</div>
+        <div>{{ clientDetailsForm.zipCode }} {{ clientDetailsForm.city }}</div>
+      </ng-container>
+
       <div *ngIf="clientDetailsForm.comments as comments" class="ClientDetails-readOnlyComments">{{ comments }}</div>
     </div>
 

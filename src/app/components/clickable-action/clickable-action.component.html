@@ -20,6 +20,7 @@
     (keyup.enter)="onActionClick($event)"
     *ngSwitchCase="ClickableActionType.Button"
     class="ClickableAction-button"
+    type="{{ buttonType === ButtonType.Submit ? 'submit' : 'button' }}"
   >
     <ng-container [ngTemplateOutlet]="content"></ng-container>
   </button>

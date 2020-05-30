@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 
+import { ButtonType } from '../clickable-action/clickable-action.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
 import { DeliveryType } from '../../models/product.model';
@@ -37,6 +38,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
   public readonly maxLengthInputZipCode = 6;
   public readonly maxLengthTextArea = 1000;
 
+  public readonly ButtonType = ButtonType;
   public readonly DeliveryType = DeliveryType;
 
   protected unsubscribe$ = new Subject<void>();

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
@@ -18,6 +18,9 @@ import { DeliveryType } from '../../models/product.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientDetailsComponent implements OnInit, OnDestroy {
+  @Input()
+  public isClientDetailsSectionValid: boolean;
+
   public clientDetailsForm$: Observable<ClientDetailsForm> = this.orderFacadeService.clientDetailsFormByUuid$(
     `${POTENTIAL_ORDER_UUID}`
   );

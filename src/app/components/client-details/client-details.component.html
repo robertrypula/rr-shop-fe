@@ -314,4 +314,9 @@
 
     <rr-shop-clickable-action (actionClick)="clientDetailsOnEdit()" [label]="'Edytuj'"></rr-shop-clickable-action>
   </ng-template>
+
+  <div *ngIf="!isClientDetailsSectionValid" class="ClientDetails-sectionError u-form-error-container">
+    By dostarczyć paczkę Kurierem prosimy o kliknięcie w przycisk 'Edytuj' i podanie dodatkowo adresu, kodu pocztowego i
+    miasta.
+  </div>
 </div>

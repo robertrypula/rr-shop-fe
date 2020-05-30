@@ -148,9 +148,9 @@ export class Order implements OrderStore {
   public isClientDetailsSectionValid(): boolean {
     const deliveryType: DeliveryType = this.getDeliveryType();
 
-    return deliveryType === DeliveryType.Own
-      ? !!(this.email && this.phone && this.name && this.surname)
-      : !!(this.email && this.phone && this.name && this.surname && this.address && this.zipCode && this.city);
+    return deliveryType === DeliveryType.InPostCourier
+      ? !!(this.email && this.phone && this.name && this.surname && this.address && this.zipCode && this.city)
+      : !!(this.email && this.phone && this.name && this.surname);
   }
 
   public isPromoCodeSectionValid(): boolean {

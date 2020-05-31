@@ -109,10 +109,10 @@
       </div>
 
       <div class="ProductDetails-relatedArticles">
-        <rr-shop-related-articles
-          *ngFor="let categoryId of product?.categoryIds"
-          [categoryId]="categoryId"
-        ></rr-shop-related-articles>
+        <!-- TODO Product/Articles connection needs to be refactored -->
+        <ng-container *ngFor="let category of product.categories">
+          <rr-shop-related-articles *ngIf="category.contentShort" [categoryId]="category.id"></rr-shop-related-articles>
+        </ng-container>
       </div>
     </div>
   </div>

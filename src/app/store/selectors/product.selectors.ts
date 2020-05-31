@@ -20,7 +20,7 @@ export const selectUrlProductId = createSelector(selectUrl, (url: string): numbe
   return getProductId(url);
 });
 
-export const selectActiveProductStore = createSelector(
+const selectActiveProductStore = createSelector(
   selectProductsStore,
   selectUrlProductId,
   (productsStore: ProductStore[], urlProductId: number): ProductStore => {
@@ -34,8 +34,14 @@ export const selectActiveProduct = createSelector(
   selectActiveProductStore,
   selectProductsStore,
   selectOrderItemsStore,
-  (activeProductStore: ProductStore, productsStore: ProductStore[], orderItemsStore: OrderItemStore[]): Product => {
-    return activeProductStore ? toProduct(activeProductStore, orderItemsStore, productsStore) : null;
+  selectCategoriesStore,
+  (
+    activeProductStore: ProductStore,
+    productsStore: ProductStore[],
+    orderItemsStore: OrderItemStore[],
+    categoriesStore: CategoryStore[]
+  ): Product => {
+    return activeProductStore ? toProduct(activeProductStore, orderItemsStore, productsStore, categoriesStore) : null;
   }
 );
 

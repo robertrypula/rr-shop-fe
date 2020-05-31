@@ -71,13 +71,14 @@
 
 .ProductDetails-relatedArticles {
   padding-top: $gutter-width;
+  > *:not(:first-child) {
+    display: none;
+  }
 }
 
 .ProductDetails-description {
   padding-top: 24px;
   margin-bottom: 64px;
-  font-size: 14px;
-  line-height: 1.6em;
   ::ng-deep h4 {
     margin-top: 10px;
     margin-bottom: 8px;

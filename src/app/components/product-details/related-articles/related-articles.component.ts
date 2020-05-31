@@ -15,7 +15,9 @@ export class RelatedArticlesComponent implements OnInit {
   @Input()
   public categoryId: number;
 
-  public category$: Observable<CategoryStore>;
+  // TODO Product/Articles connection needs to be refactored
+  // public category$: Observable<CategoryStore>;
+  public categoryArticles$: Observable<CategoryStore>;
 
   public readonly ClickableActionTheme = ClickableActionTheme;
   public readonly IconType = IconType;
@@ -24,6 +26,7 @@ export class RelatedArticlesComponent implements OnInit {
   public constructor(protected categoryFacadeService: CategoryFacadeService) {}
 
   public ngOnInit(): void {
-    this.category$ = this.categoryFacadeService.categoryWithParentByCategoryId$(this.categoryId);
+    // this.category$ = this.categoryFacadeService.categoryWithParentByCategoryId$(this.categoryId);
+    this.categoryArticles$ = this.categoryFacadeService.categoryByStructuralNode$(StructuralNode.Articles);
   }
 }

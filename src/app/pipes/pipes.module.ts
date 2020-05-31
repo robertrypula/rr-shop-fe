@@ -12,6 +12,7 @@ import { PromotionPricePipe } from './promotion-price/promotion-price.pipe';
 import { PromotionTextPipe } from './promotion-text/promotion-text.pipe';
 import { QuantityTextPipe } from './quantity-text/quantity-text.pipe';
 import { SafeHtmlPipe } from './safeHtml/safe-html.pipe';
+import { ImageCategoryPipe } from './image/image-category.pipe';
 
 const pipes = [
   CategoryUrlPipe,
@@ -28,8 +29,8 @@ const pipes = [
 ];
 
 @NgModule({
-  declarations: [...pipes],
-  exports: [...pipes],
+  declarations: [...pipes, ImageCategoryPipe],
+  exports: [...pipes, ImageCategoryPipe],
   imports: [CommonModule]
 })
 export class PipesModule {}

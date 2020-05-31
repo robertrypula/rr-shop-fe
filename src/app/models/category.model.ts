@@ -1,3 +1,5 @@
+import { Image } from "./image.model";
+
 export enum StructuralNode {
   Articles = 'Articles',
   BestSellers = 'BestSellers',
@@ -32,6 +34,7 @@ export interface CategoryStore {
   content?: string;
   contentShort?: string;
   id: number;
+  images?: Image[]; // TODO it should be imagesStore
   isHiddenListOfProducts?: boolean;
   isNotClickable?: boolean;
   isVisibleListOfCategories?: boolean;

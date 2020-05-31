@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { CategoryStore } from '../../models/category.model';
 import { ClickableActionType } from '../clickable-action/clickable-action.model';
-import { Product } from '../../models/product.model';
+import { SizeImage } from '../../models/image.model';
 
 @Component({
   selector: 'rr-shop-categories-list',
@@ -14,6 +14,7 @@ export class CategoriesListComponent implements OnInit {
   public categories: CategoryStore[];
 
   public readonly ClickableActionType = ClickableActionType;
+  public readonly SizeImage = SizeImage;
 
   public constructor() {}
 

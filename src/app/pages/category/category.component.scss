@@ -3,6 +3,38 @@
 .Category {
 }
 
+.Category-content {
+  img.Category-contentImage {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  @include viewport-phone-vertical-and-up {
+    img.Category-contentImage {
+      max-width: 250px;
+      max-height: 250px;
+      margin: 0 auto $gutter-width auto;
+    }
+  }
+
+  @include viewport-tablet-and-up {
+    img.Category-contentImage {
+      float: right;
+      max-width: 220px;
+      max-height: 220px;
+      margin: 0 0 $gutter-width 2 * $gutter-width;
+    }
+  }
+
+  @include viewport-desktop-medium-and-up {
+    img.Category-contentImage {
+      max-width: 290px;
+      max-height: 290px;
+    }
+  }
+}
+
 .Category-categories,
 .Category-products {
   > * {

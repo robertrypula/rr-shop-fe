@@ -1,19 +1,36 @@
 <div class="Category">
-  <ng-container *ngIf="(activeCategory$ | async)?.content; else withoutContent">
-    <div class="u-formatted-content" markdown [data]="(activeCategory$ | async)?.content"></div>
-  </ng-container>
+  <h2>
+    {{ (activeCategory$ | async)?.name }}
+  </h2>
 
-  <ng-template #withoutContent>
-    <h2>
-      {{ (activeCategory$ | async)?.name }}
-    </h2>
-  </ng-template>
+  <div class="Category-content">
+    <img
+      *ngIf="(activeCategory$ | async)?.images?.length > 0"
+      [attr.alt]="((activeCategory$ | async)?.images)[0].filename"
+      [attr.src]="((activeCategory$ | async)?.images)[0] | imageCategory: SizeImage.Px0600"
+      class="Category-contentImage"
+      height="600"
+      width="600"
+    />
+    <div
+      *ngIf="(activeCategory$ | async)?.content"
+      class="u-formatted-content"
+      markdown
+      [data]="(activeCategory$ | async)?.content"
+    ></div>
 
-  <ng-container *ngIf="!(activeCategory$ | async)?.isHiddenListOfProducts">
+    <div class="clearfix"></div>
+  </div>
+
+  <div *ngIf="(activeCategory$ | async)?.isVisibleListOfCategories" class="Category-categories">
+    <rr-shop-categories-list [categories]="activeCategoryChildren$ | async"></rr-shop-categories-list>
+  </div>
+
+  <div *ngIf="!(activeCategory$ | async)?.isHiddenListOfProducts" class="Category-products">
     <rr-shop-products-list
       [category]="activeCategory$ | async"
       [noProductsMessage]="'Brak produktów w tej kategorii'"
       [products]="productsFromActiveCategoryAndItsChildren$ | async"
     ></rr-shop-products-list>
-  </ng-container>
+  </div>
 </div>

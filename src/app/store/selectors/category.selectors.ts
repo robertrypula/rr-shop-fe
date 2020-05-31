@@ -32,6 +32,16 @@ export const selectActiveCategoryStore = createSelector(
   }
 );
 
+export const selectActiveCategoryStoreChildren = createSelector(
+  selectActiveCategoryId,
+  selectCategoriesStore,
+  (activeCategoryId: number, categoriesStore: CategoryStore[]): CategoryStore[] => {
+    return categoriesStore.filter(
+      (categoryStore: CategoryStore): boolean => categoryStore.parentId === activeCategoryId
+    );
+  }
+);
+
 export const selectCategoriesStoreWithActiveLevel = createSelector(
   selectCategoriesStore,
   (categoriesStore: CategoryStore[]): CategoryStore[] => {
@@ -107,6 +117,26 @@ export const selectCategoryStore = createSelector(
     return foundCategoryStore;
   }
 );
+
+export const selectCategoryStoreWithParentByCategoryId = (categoryId: number) =>
+  createSelector(
+    selectCategoriesStore,
+    (categoriesStore: CategoryStore[]): CategoryStore => {
+      let foundCategoryStore: CategoryStore = categoriesStore.find(
+        (categoryStore: CategoryStore): boolean => categoryStore.id === categoryId
+      );
+
+      if (foundCategoryStore) {
+        // TODO this is hack, will be fixed when store object will be moved to ORM like instance
+        foundCategoryStore = { ...foundCategoryStore };
+        foundCategoryStore.parent = categoriesStore.find(
+          (categoryStore: CategoryStore): boolean => categoryStore.id === foundCategoryStore.parentId
+        );
+      }
+
+      return foundCategoryStore;
+    }
+  );
 
 // TODO -------
 export const selectCategoriesStoreBy = createSelector(

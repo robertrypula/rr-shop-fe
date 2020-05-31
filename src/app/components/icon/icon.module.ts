@@ -5,6 +5,7 @@ import { faFacebook as fabFacebook } from '@fortawesome/free-brands-svg-icons';
 import {
   faCheckCircle as farCheckCircle,
   faCircle as farCircle,
+  faLightbulb as farLightbulb,
   faTimesCircle as farTimesCircle,
   faTrashAlt as farTrashAlt
 } from '@fortawesome/free-regular-svg-icons';
@@ -37,6 +38,7 @@ export class IconModule {
       fabFacebook,
       farCheckCircle,
       farCircle,
+      farLightbulb,
       farTimesCircle,
       farTrashAlt,
       fasAngleDoubleDown,

@@ -1,0 +1,25 @@
+<div class="CategoryList" *ngIf="categories.length">
+  <div *ngFor="let category of categories; trackBy: trackBy" class="CategoryList-entry">
+    <div class="CategoryList-entryStandaloneHeader">
+      <h3>{{ category.name }}</h3>
+    </div>
+    <div class="CategoryList-entryImage">
+      <img
+        *ngIf="category.images?.length > 0"
+        [attr.src]="category.images[0] | imageCategory: SizeImage.Px0600"
+        [attr.alt]="category.images[0].filename"
+        width="600"
+        height="600"
+      />
+    </div>
+    <div class="CategoryList-entryContent">
+      <h3>{{ category.name }}</h3>
+      <div class="u-formatted-content" markdown [data]="category.contentShort"></div>
+      <rr-shop-clickable-action
+        [label]="'Czytaj więcej'"
+        [clickableActionType]="ClickableActionType.RouterLink"
+        [link]="category | categoryUrl"
+      ></rr-shop-clickable-action>
+    </div>
+  </div>
+</div>

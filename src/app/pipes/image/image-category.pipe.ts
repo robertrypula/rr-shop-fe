@@ -4,16 +4,16 @@ import { environment } from '../../../environments/environment';
 import { Image, SizeImage, Transparency } from '../../models/image.model';
 
 @Pipe({
-  name: 'image'
+  name: 'imageCategory'
 })
-export class ImagePipe implements PipeTransform {
+export class ImageCategoryPipe implements PipeTransform {
   public transform(
     image: Image,
     sizeImage: SizeImage = SizeImage.Full,
-    transparency: Transparency = Transparency.Enabled
+    transparency: Transparency = Transparency.Disabled
   ): string {
     return [
-      `${environment.urlStatic}products/${this.getSizeDirectory(sizeImage)}/`,
+      `${environment.urlStatic}categories/${this.getSizeDirectory(sizeImage)}/`,
       `${image.filename}.${this.getExtension(transparency)}`
     ].join('');
   }
@@ -30,16 +30,10 @@ export class ImagePipe implements PipeTransform {
 
   protected getSizeDirectory(sizeImage: SizeImage): string {
     switch (sizeImage) {
-      case SizeImage.Full: // TODO probably not used
+      case SizeImage.Full:
         return 'full';
-      case SizeImage.Px0128:
-        return '0128px';
-      case SizeImage.Px0400:
-        return '0400px';
       case SizeImage.Px0600:
         return '0600px';
-      case SizeImage.Px1600:
-        return '1600px';
       default:
         return '';
     }

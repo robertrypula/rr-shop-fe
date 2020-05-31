@@ -16,6 +16,9 @@ export class CategoryFacadeService {
   public activeCategory$: Observable<CategoryStore> = this.store.pipe(
     select(fromCategorySelectors.selectActiveCategoryStore)
   );
+  public activeCategoryChildren$: Observable<CategoryStore[]> = this.store.pipe(
+    select(fromCategorySelectors.selectActiveCategoryStoreChildren)
+  );
   public activeCategoryAndItsChildren$: Observable<CategoryStore[]> = this.store.pipe(
     select(fromCategorySelectors.selectActiveCategoryStoreAndItsChildren)
   );
@@ -50,6 +53,10 @@ export class CategoryFacadeService {
 
   public categoriesByParentId$(parentId: number): Observable<CategoryStore[]> {
     return this.store.pipe(select(fromCategorySelectors.selectCategoriesStoreBy, { parentId }));
+  }
+
+  public categoryWithParentByCategoryId$(categoryId: number): Observable<CategoryStore> {
+    return this.store.pipe(select(fromCategorySelectors.selectCategoryStoreWithParentByCategoryId(categoryId)));
   }
 
   public setIsCollapsed(newValue: boolean): void {

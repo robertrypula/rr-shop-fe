@@ -107,6 +107,13 @@
       >
         Brak możliwości wysyłki Paczkomatem
       </div>
+
+      <div class="ProductDetails-relatedArticles">
+        <rr-shop-related-articles
+          *ngFor="let categoryId of product?.categoryIds"
+          [categoryId]="categoryId"
+        ></rr-shop-related-articles>
+      </div>
     </div>
   </div>
 

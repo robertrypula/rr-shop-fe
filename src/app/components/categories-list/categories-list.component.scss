@@ -1,0 +1,66 @@
+@import 'configs-and-mixins';
+
+.CategoryList {
+}
+
+.CategoryList-entry {
+  padding: $gutter-width;
+  margin-bottom: 2 * $gutter-width;
+  border: 1px solid $light-gray-color;
+  background-color: $light-gray-color;
+  border-radius: 20px;
+  transition: border 0.2s, background-color 0.2s;
+  position: relative;
+
+  img {
+    transition: transform 0.2s;
+    display: block;
+  }
+
+  &:hover {
+    background-color: $light-gray-color;
+    img {
+      transform: scale(1.01);
+    }
+  }
+}
+
+@include viewport-phone-vertical-and-up {
+  .CategoryList-entryImage {
+    margin-bottom: $gutter-width;
+    img {
+      margin: 0 auto;
+      width: 100%;
+      height: 100%;
+      max-width: 300px;
+      max-height: 300px;
+    }
+  }
+
+  .CategoryList-entryContent {
+    > h3 {
+      display: none;
+    }
+    > div {
+      margin-bottom: $gutter-width;
+    }
+  }
+}
+
+@include viewport-desktop-medium-and-up {
+  .CategoryList-entryStandaloneHeader {
+    display: none;
+  }
+  .CategoryList-entryImage {
+    position: absolute;
+    top: $gutter-width;
+    left: $gutter-width;
+  }
+  .CategoryList-entryContent {
+    padding-left: 320px;
+    min-height: 300px;
+    > h3 {
+      display: block;
+    }
+  }
+}

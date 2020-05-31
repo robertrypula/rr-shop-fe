@@ -1,0 +1,12 @@
+<h2>
+  <a [routerLink]="category$ | async | categoryUrl">{{ (category$ | async)?.name }}</a>
+</h2>
+
+<rr-shop-products-list
+  *ngIf="(productsLimitedInLength$ | async) && (category$ | async)"
+  [category]="category$ | async"
+  [isMoreProductsButtonVisible]="(productsLength$ | async) > (productsLimitedInLength$ | async)?.length"
+  [moreProductsButtonText]="category?.linkText"
+  [noProductsMessage]="'Brak produktów w tej kategorii - pracujemy nad tym, aby jak najszybciej się tutaj pojawiły :)'"
+  [products]="productsLimitedInLength$ | async"
+></rr-shop-products-list>

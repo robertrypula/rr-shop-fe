@@ -1,3 +1,8 @@
+export enum ButtonType {
+  Button = 'Button',
+  Submit = 'Submit'
+}
+
 export enum ClickableActionType {
   Anchor = 'Anchor',
   Button = 'Button',
@@ -5,6 +10,7 @@ export enum ClickableActionType {
 }
 
 export enum ClickableActionTheme {
+  Facebook = 'Facebook',
   Primary = 'Primary',
   Secondary = 'Secondary',
   TransparentBright = 'TransparentBright',

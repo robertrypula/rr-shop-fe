@@ -34,18 +34,33 @@ td {
       padding: 0 0 0 75px;
 
       @include viewport-desktop-medium-and-up {
-        padding: 12px 0 0 75px;
+        padding: 12px 0 12px 75px;
       }
 
       > a {
         display: block;
         padding: 0 0 8px 0;
       }
-      > div {
+      > .OrderItemOverview-mobileCalculationInfo {
         padding: 0 0 16px 0;
+
+        > span {
+          display: inline-block;
+        }
+        > span.OrderItemOverview-priceUnitBeforePromotion {
+          text-decoration: line-through;
+          padding: 0 8px 0 0;
+        }
       }
     }
   }
+}
+
+.OrderItemOverview-promotion {
+  font-size: 16px;
+  color: $green-color;
+  font-weight: bold;
+  padding-bottom: $gutter-width;
 }
 
 .OrderItemOverview-quantity {
@@ -70,19 +85,32 @@ td {
   }
 }
 
-.OrderItemOverview-price {
+.OrderItemOverview-priceUnit {
   width: 100px;
+  > div {
+    > span {
+      display: inline-block;
+    }
+    > span.OrderItemOverview-priceUnitBeforePromotion {
+      text-decoration: line-through;
+      padding: 0 8px 0 0;
+    }
+  }
 }
 
-.OrderItemOverview-price,
-.OrderItemOverview-itemPrice {
+.OrderItemOverview-priceUnit,
+.OrderItemOverview-priceTotalOriginal {
   width: 100px;
-  span {
-    display: inline-block;
+  > div {
     padding: 12px 0 0 0;
   }
 }
 
 .OrderItemOverview-actions {
   width: 100px;
+}
+
+.OrderItemOverview-isDeliveryBlockedCourier.u-form-error-container,
+.OrderItemOverview-isDeliveryBlockedParcelLocker.u-form-error-container {
+  font-weight: bold;
 }

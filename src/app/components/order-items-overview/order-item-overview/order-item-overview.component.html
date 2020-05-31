@@ -1,22 +1,34 @@
 <td class="OrderItemOverview-name">
   <div>
-    <rr-shop-image
+    <rr-shop-slider-image
       [images]="orderItem.productStore?.images"
       [sizeImage]="SizeImage.Px0128"
       [sizeImageContainer]="SizeImageContainer.Px0064"
       class="OrderItemOverview-image"
-    ></rr-shop-image>
+    ></rr-shop-slider-image>
     <div>
       <a [routerLink]="orderItem?.productStore | productUrl">
         {{ orderItem.productStore?.name }}
       </a>
 
-      <div class="hidden-md hidden-lg hidden-xlg">
-        {{ orderItem.productStore?.priceUnit | price }}
-        x
-        {{ orderItem.quantity }}
-        =
-        {{ orderItem.getPriceTotalOriginal() | price }}
+      <div *ngIf="orderItem.productStore?.priceUnitBeforePromotion" class="OrderItemOverview-promotion">
+        {{ orderItem.productStore.priceUnitBeforePromotion | promotionText }}
+      </div>
+
+      <div class="OrderItemOverview-mobileCalculationInfo hidden-md hidden-lg hidden-xlg">
+        <span
+          *ngIf="orderItem.productStore?.priceUnitBeforePromotion"
+          class="OrderItemOverview-priceUnitBeforePromotion"
+        >
+          {{ orderItem.productStore?.priceUnitBeforePromotion | promotionPrice | price }}
+        </span>
+        <span>
+          {{ orderItem.productStore?.priceUnit | price }}
+          x
+          {{ orderItem.quantity }}
+          =
+          {{ orderItem.getPriceTotalOriginal() | price }}
+        </span>
       </div>
 
       <div
@@ -40,10 +52,38 @@
       >
         Nie można dodać więcej sztuk
       </div>
+
+      <div
+        class="OrderItemOverview-descriptionDelivery u-formatted-content u-form-warning-container"
+        markdown
+        [data]="orderItem.productStore?.descriptionDelivery"
+      ></div>
+
+      <div
+        *ngIf="orderItem.productStore?.isDeliveryBlockedCourier"
+        class="OrderItemOverview-isDeliveryBlockedCourier"
+        [ngClass]="{
+          'u-form-warning-container': !orderItem?.order?.isDeliveryTypeBlockedCourierRuleFails(),
+          'u-form-error-container': orderItem?.order?.isDeliveryTypeBlockedCourierRuleFails()
+        }"
+      >
+        Brak możliwości wysyłki kurierem
+      </div>
+
+      <div
+        *ngIf="orderItem.productStore?.isDeliveryBlockedParcelLocker"
+        class="OrderItemOverview-isDeliveryBlockedParcelLocker"
+        [ngClass]="{
+          'u-form-warning-container': !orderItem?.order?.isDeliveryTypeBlockedParcelLockerRuleFails(),
+          'u-form-error-container': orderItem?.order?.isDeliveryTypeBlockedParcelLockerRuleFails()
+        }"
+      >
+        Brak możliwości wysyłki Paczkomatem
+      </div>
     </div>
   </div>
 
-  <div class="OrderItemOverview-aggregation hidden-md hidden-lg hidden-xlg">
+  <div class="OrderItemOverview-aggregation hidden-md hidden-lg hidden-xlg clearfix">
     <div>
       <rr-shop-clickable-action
         (actionClick)="remove(orderItem.id)"
@@ -79,15 +119,22 @@
     ></rr-shop-clickable-action>
   </div>
 </td>
-<td class="OrderItemOverview-price hidden-xxs hidden-xs hidden-sm">
-  <span>
-    {{ orderItem.productStore?.priceUnit | price }}
-  </span>
+<td class="OrderItemOverview-priceUnit hidden-xxs hidden-xs hidden-sm">
+  <div>
+    <span *ngIf="orderItem.productStore?.priceUnitBeforePromotion" class="OrderItemOverview-priceUnitBeforePromotion">
+      {{ orderItem.productStore?.priceUnitBeforePromotion | promotionPrice | price }}
+    </span>
+    <span>
+      {{ orderItem.productStore?.priceUnit | price }}
+    </span>
+  </div>
 </td>
-<td class="OrderItemOverview-itemPrice hidden-xxs hidden-xs hidden-sm">
-  <span>
-    {{ orderItem.getPriceTotalOriginal() | price }}
-  </span>
+<td class="OrderItemOverview-priceTotalOriginal hidden-xxs hidden-xs hidden-sm">
+  <div>
+    <span>
+      {{ orderItem.getPriceTotalOriginal() | price }}
+    </span>
+  </div>
 </td>
 <td class="OrderItemOverview-actions hidden-xxs hidden-xs hidden-sm">
   <rr-shop-clickable-action

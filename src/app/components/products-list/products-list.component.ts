@@ -18,7 +18,10 @@ export class ProductsListComponent implements OnInit {
   public category: CategoryStore = null;
 
   @Input()
-  public isCategoryButtonVisible = false;
+  public isMoreProductsButtonVisible = false;
+
+  @Input()
+  public moreProductsButtonText: string;
 
   @Input()
   public noProductsMessage: string;

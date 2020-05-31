@@ -6,35 +6,43 @@ import { Product, ProductStore } from '../../models/product.model';
 import { getProductId, isOnProductRoute } from '../../utils/routing.utils';
 
 import { selectCategoriesStore } from './category-core.selectors';
-import { selectActiveCategoryAndItsChildren, selectCategoryStoreAndItsChildren } from './category.selectors';
+import { selectActiveCategoryStoreAndItsChildren, selectCategoryStoreAndItsChildren } from './category.selectors';
 import { selectOrderItemsStore } from './order-core.selectors';
 import { selectProductsStore } from './product-core.selectors';
-import { getProductsStoreForGivenCategoriesStore, toProduct } from './product.utils';
+import {
+  getProductsForGivenCategoriesStore,
+  getProductsStoreForGivenCategoriesStore,
+  toProduct
+} from './product.utils';
 import { selectUrl } from './router.selectors';
 
 export const selectUrlProductId = createSelector(selectUrl, (url: string): number => {
   return getProductId(url);
 });
 
+export const selectActiveProductStore = createSelector(
+  selectProductsStore,
+  selectUrlProductId,
+  (productsStore: ProductStore[], urlProductId: number): ProductStore => {
+    return urlProductId
+      ? productsStore.find((productStore: ProductStore): boolean => productStore.id === urlProductId)
+      : null;
+  }
+);
+
 export const selectActiveProduct = createSelector(
+  selectActiveProductStore,
   selectProductsStore,
   selectOrderItemsStore,
-  selectUrlProductId,
-  (productsStore: ProductStore[], orderItemsStore: OrderItemStore[], urlProductId: number): Product => {
-    return urlProductId
-      ? toProduct(
-          productsStore.find((productStore: ProductStore): boolean => productStore.id === urlProductId),
-          orderItemsStore,
-          productsStore
-        )
-      : null;
+  (activeProductStore: ProductStore, productsStore: ProductStore[], orderItemsStore: OrderItemStore[]): Product => {
+    return activeProductStore ? toProduct(activeProductStore, orderItemsStore, productsStore) : null;
   }
 );
 
 export const selectProductsFromActiveCategoryAndItsChildren = createSelector(
   selectProductsStore,
   selectOrderItemsStore,
-  selectActiveCategoryAndItsChildren,
+  selectActiveCategoryStoreAndItsChildren,
   (
     productsStore: ProductStore[],
     orderItemsStore: OrderItemStore[],
@@ -45,27 +53,51 @@ export const selectProductsFromActiveCategoryAndItsChildren = createSelector(
     )
 );
 
+export const selectProductsFromCategoryByCategoryId = (
+  categoryId: number,
+  limit = Infinity,
+  productIdToExclude: number = null
+) =>
+  createSelector(
+    selectProductsStore,
+    selectOrderItemsStore,
+    selectCategoriesStore,
+    (productsStore: ProductStore[], orderItemsStore: OrderItemStore[], categoriesStore: CategoryStore[]): Product[] => {
+      return getProductsForGivenCategoriesStore(
+        productsStore,
+        orderItemsStore,
+        categoriesStore.filter((category: CategoryStore): boolean => category.id === categoryId),
+        limit,
+        productIdToExclude
+      );
+    }
+  );
+
 export const selectProductsFromCategoryByStructuralNode = (structuralNode: StructuralNode, limit = Infinity) =>
   createSelector(
     selectProductsStore,
     selectOrderItemsStore,
     selectCategoriesStore,
     (productsStore: ProductStore[], orderItemsStore: OrderItemStore[], categoriesStore: CategoryStore[]): Product[] => {
-      const categoriesStoreByStructuralNode: CategoryStore[] = categoriesStore.filter(
-        (category: CategoryStore): boolean => category.structuralNode === structuralNode
-      );
-      let productsStoreForGivenCategories: ProductStore[] = getProductsStoreForGivenCategoriesStore(
+      return getProductsForGivenCategoriesStore(
         productsStore,
-        categoriesStoreByStructuralNode
+        orderItemsStore,
+        categoriesStore.filter((category: CategoryStore): boolean => category.structuralNode === structuralNode),
+        limit
       );
+    }
+  );
 
-      if (limit !== Infinity) {
-        productsStoreForGivenCategories = productsStoreForGivenCategories.slice(0, limit);
-      }
-
-      return productsStoreForGivenCategories.map(
-        (productStore: ProductStore): Product => toProduct(productStore, orderItemsStore, productsStore)
-      );
+export const selectProductsFromCategoryLengthByCategoryId = (categoryId: number, productIdToExclude: number = null) =>
+  createSelector(
+    selectProductsStore,
+    selectCategoriesStore,
+    (productsStore: ProductStore[], categoriesStore: CategoryStore[]): number => {
+      return getProductsStoreForGivenCategoriesStore(
+        productsStore,
+        categoriesStore.filter((category: CategoryStore): boolean => category.id === categoryId),
+        productIdToExclude
+      ).length;
     }
   );
 

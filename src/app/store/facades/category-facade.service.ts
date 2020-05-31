@@ -20,13 +20,13 @@ export class CategoryFacadeService {
     select(fromCategorySelectors.selectActiveCategoryStoreChildren)
   );
   public activeCategoryAndItsChildren$: Observable<CategoryStore[]> = this.store.pipe(
-    select(fromCategorySelectors.selectActiveCategoryAndItsChildren)
+    select(fromCategorySelectors.selectActiveCategoryStoreAndItsChildren)
   );
   public activeLevelUpdateEntriesBasedOnRoute$: Observable<ActiveLevelUpdateEntry[]> = this.store.pipe(
     select(fromCategorySelectors.selectActiveLevelUpdateEntriesBasedOnRoute)
   );
   public categoriesWithActiveLevelSorted$: Observable<CategoryStore[]> = this.store.pipe(
-    select(fromCategorySelectors.selectCategoriesWithActiveLevelSorted)
+    select(fromCategorySelectors.selectCategoriesStoreWithActiveLevelSorted)
   );
   public categoryLength$: Observable<number> = this.store.pipe(select(selectCategoryStoreLength));
   public isCollapseExpandButtonVisible$: Observable<boolean> = this.store.pipe(
@@ -38,6 +38,10 @@ export class CategoryFacadeService {
   );
 
   public constructor(protected store: Store<State>) {}
+
+  public categoryByCategoryId$(categoryId: number): Observable<CategoryStore> {
+    return this.store.pipe(select(fromCategorySelectors.selectCategoryStore, { categoryId }));
+  }
 
   public categoryByStructuralNode$(structuralNode: StructuralNode): Observable<CategoryStore> {
     return this.store.pipe(select(fromCategorySelectors.selectCategoryStore, { structuralNode }));

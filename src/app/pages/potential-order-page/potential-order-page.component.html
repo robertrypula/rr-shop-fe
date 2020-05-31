@@ -1,0 +1,8 @@
+<div class="PotentialOrder">
+  <rr-shop-potential-order
+    *ngIf="(potentialOrder$ | async) && (privacyPolicy$ | async) && (regulations$ | async)"
+    [order]="potentialOrder$ | async"
+    [categoryPrivacyPolicy]="privacyPolicy$ | async"
+    [categoryRegulations]="regulations$ | async"
+  ></rr-shop-potential-order>
+</div>

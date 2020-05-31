@@ -13,9 +13,12 @@ export class AdminProductCreateComponent extends AdminBaseProductComponent imple
   public productAdminCall: AdminCall = this.getAdminCall({
     categories: [],
     description: null,
+    descriptionDelivery: null,
     distributor: null,
     externalId: null,
     id: null,
+    isDeliveryBlockedCourier: true,
+    isDeliveryBlockedParcelLocker: true,
     isHidden: true,
     manufacturer: null,
     name: null,

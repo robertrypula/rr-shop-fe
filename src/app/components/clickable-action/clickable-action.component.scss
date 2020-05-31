@@ -17,7 +17,7 @@
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
-  padding: 0 8px 0 8px;
+  padding: 0 7px 0 7px;
   transition: transform 0.2s;
 
   &:hover {
@@ -134,6 +134,14 @@
   > * {
     background-color: $clickable-action-transparent-background-color;
     color: $clickable-action-transparent-color;
+    border-width: 0 !important;
+  }
+}
+
+.ClickableAction--facebook {
+  > * {
+    background-color: $transparent-color;
+    color: $facebook-color;
     border-width: 0 !important;
   }
 }

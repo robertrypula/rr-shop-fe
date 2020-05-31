@@ -24,7 +24,6 @@ export const toOrder = (orderStore: OrderStore, productsStore: ProductStore[]): 
 export const extractClientDetailsForm = (orderStore: OrderStore): ClientDetailsForm => {
   return {
     isClientDetailsFormActive: orderStore.isClientDetailsFormActive,
-    isClientDetailsFormValid: orderStore.isClientDetailsFormValid,
     email: orderStore.email,
     phone: orderStore.phone,
     name: orderStore.name,
@@ -43,7 +42,7 @@ export const toOrderItem = (orderItemStore: OrderItemStore, productsStore: Produ
   orderItem.productStore = (productsStore || []).find(
     (productStore: ProductStore): boolean => productStore.id === orderItemStore.productId
   );
-  // TODO add product member and create product object - currently it's ProductEnriched
+  // TODO add product member and create product object
 
   return orderItem;
 };

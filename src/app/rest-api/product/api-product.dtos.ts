@@ -18,12 +18,16 @@ export interface ProductMediumDto extends ProductMinimalDto {
   slug: string;
   quantity: number;
   priceUnit: number;
+  priceUnitBeforePromotion: number;
   images: ImageDto[];
   manufacturer: ManufacturerDto;
 }
 
 export interface ProductFullDto extends ProductMediumDto {
   description: string;
+  descriptionDelivery: string;
+  isDeliveryBlockedCourier: boolean;
+  isDeliveryBlockedParcelLocker: boolean;
   type: Type;
   deliveryType: DeliveryType;
   paymentType: PaymentType;

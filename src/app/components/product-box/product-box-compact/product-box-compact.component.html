@@ -1,40 +1,46 @@
 <div class="ProductBoxCompact" [ngClass]="{ 'ProductBoxCompact--inOrder': product.orderItem }">
   <a [routerLink]="product | productUrl: category" class="ProductBoxCompact-link">
-    <rr-shop-image
+    <rr-shop-slider-image
       [images]="product.images"
       [sizeImage]="SizeImage.Px0400"
       [sizeImageContainer]="SizeImageContainer.Px0200"
       class="ProductBoxCompact-image"
-    ></rr-shop-image>
+    ></rr-shop-slider-image>
     <span>{{ product.name }}</span>
   </a>
 
-  <div class="ProductBoxCompact-price">
-    {{ product.priceUnit | price }}
+  <div *ngIf="product.priceUnitBeforePromotion" class="ProductBoxCompact-promotion">
+    {{ product.priceUnitBeforePromotion | promotionText }}
+  </div>
+
+  <div class="ProductBoxCompact-priceUnit">
+    <span *ngIf="product.priceUnitBeforePromotion" class="ProductBoxCompact-priceUnitBeforePromotion">
+      {{ product.priceUnitBeforePromotion | promotionPrice | price }}
+    </span>
+    <span>{{ product.priceUnit | price }}</span>
   </div>
 
   <ng-container *ngIf="product.orderItem">
-    <div class="ProductBoxCompact-alreadyInBasketQuantityAndActions">
-      <div class="ProductBoxCompact-alreadyInBasketQuantity">
-        W koszyku: <b>{{ product.orderItem.quantity }}</b>
-      </div>
-      <div class="ProductBoxCompact-alreadyInBasketActions">
-        <rr-shop-clickable-action
-          *ngIf="!product.orderItem.isQuantityDecrementActive()"
-          (actionClick)="remove(product.orderItem.id)"
-          [iconType]="IconType.FarTrashAlt"
-        ></rr-shop-clickable-action>
-        <rr-shop-clickable-action
-          *ngIf="product.orderItem.isQuantityDecrementActive()"
-          (actionClick)="quantityDecrement(product.orderItem.id)"
-          [iconType]="IconType.FasMinus"
-        ></rr-shop-clickable-action>
-        <rr-shop-clickable-action
-          (actionClick)="quantityIncrement(product.orderItem.id)"
-          [disabled]="!product.orderItem.isQuantityIncrementActive()"
-          [iconType]="IconType.FasPlus"
-        ></rr-shop-clickable-action>
-      </div>
+    <div class="ProductBoxCompact-alreadyInBasketQuantity">
+      W koszyku: <b>{{ product.orderItem.quantity }}</b>
+    </div>
+
+    <div class="ProductBoxCompact-alreadyInBasketActions">
+      <rr-shop-clickable-action
+        *ngIf="!product.orderItem.isQuantityDecrementActive()"
+        (actionClick)="remove(product.orderItem.id)"
+        [iconType]="IconType.FarTrashAlt"
+      ></rr-shop-clickable-action>
+      <rr-shop-clickable-action
+        *ngIf="product.orderItem.isQuantityDecrementActive()"
+        (actionClick)="quantityDecrement(product.orderItem.id)"
+        [iconType]="IconType.FasMinus"
+      ></rr-shop-clickable-action>
+      <rr-shop-clickable-action
+        (actionClick)="quantityIncrement(product.orderItem.id)"
+        [disabled]="!product.orderItem.isQuantityIncrementActive()"
+        [iconType]="IconType.FasPlus"
+      ></rr-shop-clickable-action>
     </div>
 
     <div

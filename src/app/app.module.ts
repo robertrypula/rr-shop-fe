@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
@@ -30,7 +30,8 @@ import { routerStateConfig } from './store/reducers/router.reducers';
     ],
     AppRoutingModule,
     BrowserModule,
-    MarkdownModule.forRoot(),
+    HttpClientModule,
+    MarkdownModule.forRoot({ loader: HttpClient }),
     RootModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],

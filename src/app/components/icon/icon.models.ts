@@ -1,5 +1,6 @@
 export enum IconType {
   CustomBasket = 'CustomBasket',
+  FabFacebook = 'FabFacebook',
   FarCheckCircle = 'FarCheckCircle',
   FarCircle = 'FarCircle',
   FarTimesCircle = 'FarTimesCircle',
@@ -8,6 +9,8 @@ export enum IconType {
   FasAngleDoubleUp = 'FasAngleDoubleUp',
   FasArrowCircleLeft = 'FasArrowCircleLeft',
   FasArrowCircleRight = 'FasArrowCircleRight',
+  FasArrowLeft = 'FasArrowLeft',
+  FasArrowRight = 'FasArrowRight',
   FasChevronDown = 'FasChevronDown',
   FasChevronUp = 'FasChevronUp',
   FasMinus = 'FasMinus',

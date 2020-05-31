@@ -34,3 +34,8 @@ export const selectApiCallProductsAtInit = createSelector(
   selectProductFeature,
   (productFeature: fromProductReducers.State): ApiCall => productFeature.apiCallProductsAtInit
 );
+
+export const selectApiCallProductsAtProduct = createSelector(
+  selectProductFeature,
+  (productFeature: fromProductReducers.State): ApiCall => productFeature.apiCallProductsAtProduct
+);

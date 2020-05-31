@@ -1,0 +1,42 @@
+<div
+  class="SliderImage"
+  [ngClass]="{
+    'SliderImage-sizeContainer064px': sizeImageContainer === SizeImageContainer.Px0064,
+    'SliderImage-sizeContainer200px': sizeImageContainer === SizeImageContainer.Px0200,
+    'SliderImage-sizeContainer300px': sizeImageContainer === SizeImageContainer.Px0300
+  }"
+>
+  <!-- TODO work on the conditions logic -->
+
+  <img
+    *ngIf="!slider && images?.length > 0"
+    [attr.src]="images[0] | image: sizeImage"
+    [attr.alt]="images[0].filename"
+  />
+
+  <div *ngIf="slider" class="SliderImage-slider" [ngStyle]="{ left: -300 * position + 'px' }">
+    <a
+      *ngFor="let image of images; trackBy: trackBy"
+      [attr.href]="image | image: SizeImage.Px1600:Transparency.Disabled"
+      target="_blank"
+    >
+      <img [attr.src]="image | image: sizeImage" [attr.alt]="image.filename" />
+    </a>
+  </div>
+
+  <rr-shop-clickable-action
+    *ngIf="slider && images?.length > 1"
+    (actionClick)="onLeftClick()"
+    [clickableActionTheme]="ClickableActionTheme.TransparentDark"
+    [iconType]="IconType.FasArrowCircleLeft"
+    class="SliderImage-left"
+  ></rr-shop-clickable-action>
+
+  <rr-shop-clickable-action
+    *ngIf="slider && images?.length > 1"
+    (actionClick)="onRightClick()"
+    [clickableActionTheme]="ClickableActionTheme.TransparentDark"
+    [iconType]="IconType.FasArrowCircleRight"
+    class="SliderImage-right"
+  ></rr-shop-clickable-action>
+</div>

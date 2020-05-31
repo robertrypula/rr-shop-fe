@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faFacebook as fabFacebook } from '@fortawesome/free-brands-svg-icons';
 import {
   faCheckCircle as farCheckCircle,
   faCircle as farCircle,
@@ -12,6 +13,8 @@ import {
   faAngleDoubleUp as fasAngleDoubleUp,
   faArrowCircleLeft as fasArrowCircleLeft,
   faArrowCircleRight as fasArrowCircleRight,
+  faArrowLeft as fasArrowLeft,
+  faArrowRight as fasArrowRight,
   faChevronDown as fasChevronDown,
   faChevronUp as fasChevronUp,
   faMinus as fasMinus,
@@ -31,6 +34,7 @@ import { IconComponent } from './icon.component';
 export class IconModule {
   public constructor(library: FaIconLibrary) {
     library.addIcons(
+      fabFacebook,
       farCheckCircle,
       farCircle,
       farTimesCircle,
@@ -39,6 +43,8 @@ export class IconModule {
       fasAngleDoubleUp,
       fasArrowCircleLeft,
       fasArrowCircleRight,
+      fasArrowLeft,
+      fasArrowRight,
       fasChevronDown,
       fasChevronUp,
       fasMinus,

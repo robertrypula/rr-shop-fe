@@ -7,6 +7,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
+    <!--
+      RrShop - simple e-commerce solution written from scratch in TypeScript
+
+      https://github.com/robertrypula/rr-shop-fe
+      https://github.com/robertrypula/rr-shop-be
+
+      (c) Robert Rypuła 2020
+    -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-166899717-1"></script>
+    <script>
+      window.RR_SHOP_GA_MEASUREMENT_ID = 'UA-166899717-1';
+
+      function gtag() {
+        typeof dataLayer !== 'undefined' && dataLayer.push(arguments);
+      }
+
+      function isRrShopGaActive() {
+        return (
+          window.location.host.indexOf('waleriana.pl') === 0 &&
+          (!localStorage || localStorage.getItem('disableGA') !== '1')
+        );
+      }
+
+      if (isRrShopGaActive()) {
+        window.dataLayer = window.dataLayer || [];
+        gtag('js', new Date());
+        gtag('config', window.RR_SHOP_GA_MEASUREMENT_ID);
+      }
+    </script>
+
     <script src="https://geowidget.easypack24.net/js/sdk-for-javascript.js"></script>
     <script type="text/javascript">
       window.easyPackAsyncInit = function() {

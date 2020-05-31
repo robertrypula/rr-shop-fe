@@ -1,6 +1,7 @@
 <div
   [ngClass]="{
     'ClickableAction--disabled': disabled,
+    'ClickableAction--facebook': clickableActionTheme === ClickableActionTheme.Facebook,
     'ClickableAction--primary': clickableActionTheme === ClickableActionTheme.Primary,
     'ClickableAction--secondary': clickableActionTheme === ClickableActionTheme.Secondary,
     'ClickableAction--transparentBright': clickableActionTheme === ClickableActionTheme.TransparentBright,
@@ -19,11 +20,17 @@
     (keyup.enter)="onActionClick($event)"
     *ngSwitchCase="ClickableActionType.Button"
     class="ClickableAction-button"
+    type="{{ buttonType === ButtonType.Submit ? 'submit' : 'button' }}"
   >
     <ng-container [ngTemplateOutlet]="content"></ng-container>
   </button>
 
-  <a *ngSwitchCase="ClickableActionType.RouterLink" class="ClickableAction-routerLink" [routerLink]="link">
+  <a
+    *ngSwitchCase="ClickableActionType.RouterLink"
+    [routerLink]="link"
+    [target]="target"
+    class="ClickableAction-routerLink"
+  >
     <ng-container [ngTemplateOutlet]="content"></ng-container>
   </a>
 </div>

@@ -63,12 +63,12 @@
           >
             <td>{{ index + 1 }}</td>
             <td>
-              <rr-shop-image
+              <rr-shop-slider-image
                 *ngIf="orderItem.type === Type.Product"
                 [images]="orderItem.product.images"
                 [sizeImage]="SizeImage.Px0128"
                 [sizeImageContainer]="SizeImageContainer.Px0064"
-              ></rr-shop-image>
+              ></rr-shop-slider-image>
             </td>
             <td>
               <div class="clearfix admin-order-item-header">

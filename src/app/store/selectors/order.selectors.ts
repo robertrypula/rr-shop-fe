@@ -3,7 +3,7 @@ import { createSelector } from '@ngrx/store';
 import { StructuralNode } from '../../models/category.model';
 import { OrderItem, OrderItemStore } from '../../models/order-item.model';
 import { Order, OrderStore } from '../../models/order.model';
-import { Product, ProductStore, Type } from '../../models/product.model';
+import { DeliveryType, Product, ProductStore, Type } from '../../models/product.model';
 import { getOrderUuid, isOnOrderRoute, isOnPotentialOrderRoute } from '../../utils/routing.utils';
 
 import { selectOrderItemsStore, selectOrdersStore } from './order-core.selectors';
@@ -46,6 +46,19 @@ export const selectClientDetailsFormByUuid = (uuid: string) =>
       );
 
       return foundOrderStore ? extractClientDetailsForm(foundOrderStore) : null;
+    }
+  );
+
+export const selectDeliveryTypeByOrderUuid = (uuid: string) =>
+  createSelector(
+    selectOrdersStore,
+    selectProductsStore,
+    (ordersStore: OrderStore[], productsStore: ProductStore[]): DeliveryType => {
+      const foundOrderStore: OrderStore = ordersStore.find(
+        (orderStore: OrderStore): boolean => orderStore.uuid === uuid
+      );
+
+      return foundOrderStore ? toOrder(foundOrderStore, productsStore).getDeliveryType() : null;
     }
   );
 

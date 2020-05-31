@@ -13,5 +13,17 @@
         {{ category.name }}
       </a>
     </li>
+
+    <li class="TopMenu-facebook">
+      <div>
+        <rr-shop-clickable-action
+          [clickableActionTheme]="ClickableActionTheme.Facebook"
+          [clickableActionType]="ClickableActionType.Anchor"
+          [iconType]="IconType.FabFacebook"
+          [target]="'_blank'"
+          [link]="'https://www.facebook.com/walerianapl'"
+        ></rr-shop-clickable-action>
+      </div>
+    </li>
   </ul>
 </div>

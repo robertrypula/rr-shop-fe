@@ -15,6 +15,15 @@ export enum Status {
   Canceled = 'Canceled'
 }
 
+export interface OrderEntities {
+  [uuid: string]: OrderStore;
+}
+
+export interface OrderLocalStorage {
+  entities: OrderEntities;
+  lastOrderItemId: number;
+}
+
 // -----------------------------------------------------------------------------
 
 export interface OrderStore {
@@ -23,7 +32,6 @@ export interface OrderStore {
   status?: Status;
   // ---
   isClientDetailsFormActive?: boolean;
-  isClientDetailsFormValid?: boolean;
   email?: string;
   phone?: string;
   name?: string;
@@ -55,7 +63,6 @@ export class Order implements OrderStore {
   public status: Status;
   // ---
   public isClientDetailsFormActive: boolean;
-  public isClientDetailsFormValid: boolean;
   public email: string;
   public phone?: string;
   public name?: string;
@@ -94,7 +101,6 @@ export class Order implements OrderStore {
     this.status = orderStore.status;
     // ---
     this.isClientDetailsFormActive = orderStore.isClientDetailsFormActive;
-    this.isClientDetailsFormValid = orderStore.isClientDetailsFormValid;
     this.email = orderStore.email;
     this.phone = orderStore.phone;
     this.name = orderStore.name;
@@ -129,7 +135,9 @@ export class Order implements OrderStore {
   public isDeliverySectionValid(): boolean {
     return (
       this.getOrderItemsByType([Type.Delivery]).length === 1 &&
-      (this.isParcelLockerActive() ? !!this.parcelLocker : true)
+      (this.isParcelLockerActive() ? !!this.parcelLocker : true) &&
+      !this.isDeliveryTypeBlockedCourierRuleFails() &&
+      !this.isDeliveryTypeBlockedParcelLockerRuleFails()
     );
   }
 
@@ -138,7 +146,13 @@ export class Order implements OrderStore {
   }
 
   public isClientDetailsSectionValid(): boolean {
-    return this.isClientDetailsFormValid;
+    const deliveryType: DeliveryType = this.getDeliveryType();
+    const isFormValid: boolean =
+      deliveryType === DeliveryType.InPostCourier
+        ? !!(this.email && this.phone && this.name && this.surname && this.address && this.zipCode && this.city)
+        : !!(this.email && this.phone && this.name && this.surname);
+
+    return !this.isClientDetailsFormActive && isFormValid;
   }
 
   public isPromoCodeSectionValid(): boolean {
@@ -180,6 +194,30 @@ export class Order implements OrderStore {
 
   // ---
 
+  public isDeliveryTypeBlockedCourierRuleFails(): boolean {
+    const deliveryType: DeliveryType = this.getDeliveryType();
+    const productOrderItems: OrderItem[] = this.getOrderItemsByType([Type.Product]);
+    const numberOfProductsBlockedCourier: number = productOrderItems.reduce(
+      (accumulator: number, current: OrderItem): number =>
+        accumulator + (current.productStore && current.productStore.isDeliveryBlockedCourier ? 1 : 0),
+      0
+    );
+
+    return deliveryType === DeliveryType.InPostCourier && numberOfProductsBlockedCourier > 0;
+  }
+
+  public isDeliveryTypeBlockedParcelLockerRuleFails(): boolean {
+    const deliveryType: DeliveryType = this.getDeliveryType();
+    const productOrderItems: OrderItem[] = this.getOrderItemsByType([Type.Product]);
+    const numberOfProductsBlockedParcelLocker: number = productOrderItems.reduce(
+      (accumulator: number, current: OrderItem): number =>
+        accumulator + (current.productStore && current.productStore.isDeliveryBlockedParcelLocker ? 1 : 0),
+      0
+    );
+
+    return deliveryType === DeliveryType.InPostParcelLocker && numberOfProductsBlockedParcelLocker > 0;
+  }
+
   public isProductQuantityWithinTheLimitsInOrderItems(): boolean {
     const numberOfExceedingProducts: number = this.getOrderItemsByType([Type.Product]).reduce(
       (accumulator: number, current: OrderItem): number => accumulator + (current.isProductQuantityExceeded() ? 1 : 0),
@@ -195,7 +233,8 @@ export class Order implements OrderStore {
     return (
       deliveryOrderItems.length === 1 &&
       deliveryOrderItems[0].productStore &&
-      deliveryOrderItems[0].productStore.deliveryType === DeliveryType.InPostParcelLocker
+      deliveryOrderItems[0].productStore.deliveryType === DeliveryType.InPostParcelLocker &&
+      !this.isDeliveryTypeBlockedParcelLockerRuleFails()
     );
   }
 
@@ -220,6 +259,14 @@ export class Order implements OrderStore {
 
   public isStoredOnTheBackend(): boolean {
     return this.uuid !== POTENTIAL_ORDER_UUID;
+  }
+
+  public getDeliveryType(): DeliveryType {
+    const deliveryOrderItems: OrderItem[] = this.getOrderItemsByType([Type.Delivery]);
+
+    return deliveryOrderItems.length === 1 && deliveryOrderItems[0].productStore
+      ? deliveryOrderItems[0].productStore.deliveryType
+      : null;
   }
 
   public getOrderItemsByType(types: Type[]): OrderItem[] {

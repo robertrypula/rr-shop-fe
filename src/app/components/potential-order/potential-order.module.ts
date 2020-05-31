@@ -14,9 +14,7 @@ import { PotentialOrderComponent } from './potential-order.component';
 
 @NgModule({
   declarations: [PotentialOrderComponent],
-  exports: [
-    PotentialOrderComponent
-  ],
+  exports: [PotentialOrderComponent],
   imports: [
     CommonModule,
     DeliveryOverviewModule,

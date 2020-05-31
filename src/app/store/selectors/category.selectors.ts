@@ -118,6 +118,26 @@ export const selectCategoryStore = createSelector(
   }
 );
 
+export const selectCategoryStoreWithParentByCategoryId = (categoryId: number) =>
+  createSelector(
+    selectCategoriesStore,
+    (categoriesStore: CategoryStore[]): CategoryStore => {
+      let foundCategoryStore: CategoryStore = categoriesStore.find(
+        (categoryStore: CategoryStore): boolean => categoryStore.id === categoryId
+      );
+
+      if (foundCategoryStore) {
+        // TODO this is hack, will be fixed when store object will be moved to ORM like instance
+        foundCategoryStore = { ...foundCategoryStore };
+        foundCategoryStore.parent = categoriesStore.find(
+          (categoryStore: CategoryStore): boolean => categoryStore.id === foundCategoryStore.parentId
+        );
+      }
+
+      return foundCategoryStore;
+    }
+  );
+
 // TODO -------
 export const selectCategoriesStoreBy = createSelector(
   selectCategoriesStore,

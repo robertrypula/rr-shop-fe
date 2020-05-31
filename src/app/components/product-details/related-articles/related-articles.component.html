@@ -1,0 +1,10 @@
+<ng-container *ngIf="category$ | async as category">
+  <ng-container *ngIf="category?.parent?.structuralNode === StructuralNode.Articles">
+    <a [routerLink]="category | categoryUrl">
+      <rr-shop-icon [width]="24" [height]="24" [iconType]="IconType.FarLightbulb"></rr-shop-icon>
+      <span>
+        {{ category.name }}
+      </span>
+    </a>
+  </ng-container>
+</ng-container>

@@ -43,6 +43,7 @@ export interface CategoryStore {
   linkText?: string;
   name: string;
   parentId: number;
+  parent?: CategoryStore; // TODO move this relation to object
   slug?: string;
   sortOrder?: number;
   structuralNode?: StructuralNode;

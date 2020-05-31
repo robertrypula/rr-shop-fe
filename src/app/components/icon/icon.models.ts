@@ -3,6 +3,7 @@ export enum IconType {
   FabFacebook = 'FabFacebook',
   FarCheckCircle = 'FarCheckCircle',
   FarCircle = 'FarCircle',
+  FarLightbulb = 'FarLightbulb',
   FarTimesCircle = 'FarTimesCircle',
   FarTrashAlt = 'FarTrashAlt',
   FasAngleDoubleDown = 'FasAngleDoubleDown',

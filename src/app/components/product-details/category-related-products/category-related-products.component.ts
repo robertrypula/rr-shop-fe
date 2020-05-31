@@ -14,13 +14,13 @@ export class CategoryRelatedProductsComponent implements OnInit {
   @Input()
   public categoryId: number;
 
-  public category: Observable<CategoryStore>;
+  public category$: Observable<CategoryStore>;
 
   public readonly CATEGORY_RELATED_PRODUCTS_LIMIT: number = CATEGORY_RELATED_PRODUCTS_LIMIT;
 
   public constructor(protected categoryFacadeService: CategoryFacadeService) {}
 
   public ngOnInit(): void {
-    this.category = this.categoryFacadeService.categoryByCategoryId$(this.categoryId);
+    this.category$ = this.categoryFacadeService.categoryWithParentByCategoryId$(this.categoryId);
   }
 }

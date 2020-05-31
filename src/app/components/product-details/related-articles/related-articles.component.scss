@@ -1,0 +1,19 @@
+@import 'configs-and-mixins';
+
+a {
+  position: relative;
+  display: block;
+
+  > *:first-child {
+    display: block;
+    position: absolute;
+  }
+
+  > *:last-child {
+    display: block;
+    padding-left: 30px;
+    padding-top: 4px;
+    min-height: 24px;
+    margin-bottom: $gutter-width;
+  }
+}

@@ -45,8 +45,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { NotFoundModule } from './pages/not-found/not-found.module';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { OrderPageModule } from './pages/order-page/order-page.module';
-import { PotentialOrderComponent } from './pages/potential-order/potential-order.component';
-import { PotentialOrderModule } from './pages/potential-order/potential-order.module';
+import { PotentialOrderPageComponent } from './pages/potential-order-page/potential-order-page.component';
+import { PotentialOrderPageModule } from './pages/potential-order-page/potential-order-page.module';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { ProductPageModule } from './pages/product-page/product-page.module';
 import { SearchComponent } from './pages/search/search.component';
@@ -57,7 +57,7 @@ const routes: Routes = [
   { path: 'c/:id/:slug', component: CategoryComponent },
   { path: 'p/:id/:slug', component: ProductPageComponent },
   { path: 'order/:uuid', component: OrderPageComponent },
-  { path: 'potential-order', component: PotentialOrderComponent },
+  { path: 'potential-order', component: PotentialOrderPageComponent },
   { path: 'search/:keywords', component: SearchComponent },
   {
     path: 'admin',
@@ -110,7 +110,7 @@ const routes: Routes = [
     MainModule,
     NotFoundModule,
     OrderPageModule,
-    PotentialOrderModule,
+    PotentialOrderPageModule,
     ProductPageModule,
     SearchModule
   ],

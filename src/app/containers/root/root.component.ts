@@ -29,7 +29,6 @@ export class RootComponent {
 
   @HostListener('window:storage', ['$event'])
   public handleSyncOrderLocalStorage(event: StorageEvent) {
-    console.log(event.newValue);
     this.orderFacadeService.syncOrderLocalStorage(JSON.parse(event.newValue) as OrderLocalStorage);
   }
 
@@ -42,7 +41,7 @@ export class RootComponent {
             this.content.nativeElement &&
             window.scrollTo &&
             window.scrollTo(0, 0);
-          // this.content.nativeElement.scrollIntoView({});
+          // this.content.nativeElement.scrollIntoView({}); TODO clean this
         })
       )
       .subscribe();

@@ -8,7 +8,7 @@ import { Order, OrderLocalStorage, OrderStore } from '../../models/order.model';
 import * as fromOrderSelectors from '../selectors/order.selectors';
 import { selectActiveOrder, selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.selectors';
 import { ApiCall } from '../../models/page.model';
-import { Product } from '../../models/product.model';
+import { DeliveryType, Product } from '../../models/product.model';
 import { State } from '../reducers';
 
 @Injectable({
@@ -33,6 +33,10 @@ export class OrderFacadeService {
 
   public clientDetailsFormByUuid$(uuid: string): Observable<ClientDetailsForm> {
     return this.store.pipe(select(fromOrderSelectors.selectClientDetailsFormByUuid(uuid)));
+  }
+
+  public deliveryTypeByOrderUuid$(uuid: string): Observable<DeliveryType> {
+    return this.store.pipe(select(fromOrderSelectors.selectDeliveryTypeByOrderUuid(uuid)));
   }
 
   public orderByUuid$(uuid: string): Observable<Order> {

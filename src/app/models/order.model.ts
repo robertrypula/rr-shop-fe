@@ -32,7 +32,6 @@ export interface OrderStore {
   status?: Status;
   // ---
   isClientDetailsFormActive?: boolean;
-  isClientDetailsFormValid?: boolean;
   email?: string;
   phone?: string;
   name?: string;
@@ -64,7 +63,6 @@ export class Order implements OrderStore {
   public status: Status;
   // ---
   public isClientDetailsFormActive: boolean;
-  public isClientDetailsFormValid: boolean;
   public email: string;
   public phone?: string;
   public name?: string;
@@ -103,7 +101,6 @@ export class Order implements OrderStore {
     this.status = orderStore.status;
     // ---
     this.isClientDetailsFormActive = orderStore.isClientDetailsFormActive;
-    this.isClientDetailsFormValid = orderStore.isClientDetailsFormValid;
     this.email = orderStore.email;
     this.phone = orderStore.phone;
     this.name = orderStore.name;
@@ -149,7 +146,13 @@ export class Order implements OrderStore {
   }
 
   public isClientDetailsSectionValid(): boolean {
-    return this.isClientDetailsFormValid;
+    const deliveryType: DeliveryType = this.getDeliveryType();
+    const isFormValid: boolean =
+      deliveryType === DeliveryType.InPostCourier
+        ? !!(this.email && this.phone && this.name && this.surname && this.address && this.zipCode && this.city)
+        : !!(this.email && this.phone && this.name && this.surname);
+
+    return !this.isClientDetailsFormActive && isFormValid;
   }
 
   public isPromoCodeSectionValid(): boolean {

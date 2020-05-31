@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { CategoryFacadeService } from '../../../store/facades/category-facade.service';
 import { CategoryStore } from '../../../models/category.model';
+import { CATEGORY_RELATED_PRODUCTS_LIMIT } from '../../../config';
 
 @Component({
   selector: 'rr-shop-category-related-products',
@@ -14,6 +15,8 @@ export class CategoryRelatedProductsComponent implements OnInit {
   public categoryId: number;
 
   public category: Observable<CategoryStore>;
+
+  public readonly CATEGORY_RELATED_PRODUCTS_LIMIT: number = CATEGORY_RELATED_PRODUCTS_LIMIT;
 
   public constructor(protected categoryFacadeService: CategoryFacadeService) {}
 

@@ -1,3 +1,8 @@
+export enum ButtonType {
+  Button = 'Button',
+  Submit = 'Submit'
+}
+
 export enum ClickableActionType {
   Anchor = 'Anchor',
   Button = 'Button',

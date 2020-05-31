@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 
 import { IconType } from '../icon/icon.models';
 
-import { ClickableActionTheme, ClickableActionType } from './clickable-action.model';
+import { ButtonType, ClickableActionTheme, ClickableActionType } from './clickable-action.model';
 
 @Component({
   selector: 'rr-shop-clickable-action',
@@ -19,9 +19,11 @@ export class ClickableActionComponent implements OnInit {
   @Input() public link: string = null;
   @Input() public target = '_self';
   @Input() public number: number = null;
+  @Input() public buttonType: ButtonType = ButtonType.Button;
 
   @Output() public actionClick: EventEmitter<Event> = new EventEmitter();
 
+  public readonly ButtonType = ButtonType;
   public readonly ClickableActionTheme = ClickableActionTheme;
   public readonly ClickableActionType = ClickableActionType;
 

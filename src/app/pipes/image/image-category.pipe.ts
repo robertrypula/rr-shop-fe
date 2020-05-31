@@ -30,10 +30,10 @@ export class ImageCategoryPipe implements PipeTransform {
 
   protected getSizeDirectory(sizeImage: SizeImage): string {
     switch (sizeImage) {
-      case SizeImage.Full:
-        return 'full';
       case SizeImage.Px0600:
-        return '0600px';
+        return '0600x0600';
+      case SizeImage.Px2400:
+        return '2400x0880';
       default:
         return '';
     }

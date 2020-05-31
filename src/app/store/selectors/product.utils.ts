@@ -51,7 +51,8 @@ export const getProductsForGivenCategoriesStore = (
 export const toProduct = (
   productStore: ProductStore,
   orderItemsStore: OrderItemStore[],
-  productsStore: ProductStore[] = null
+  productsStore: ProductStore[] = null,
+  categoriesStore: CategoryStore[] = null
 ): Product => {
   if (!productStore) {
     return null;
@@ -68,6 +69,11 @@ export const toProduct = (
           a.sortOrder === b.sortOrder ? 0 : a.sortOrder < b.sortOrder ? -1 : 1
         )
       : [],
-    orderItem: foundOrderItemStore ? toOrderItem(foundOrderItemStore, productsStore) : null
+    orderItem: foundOrderItemStore ? toOrderItem(foundOrderItemStore, productsStore) : null,
+    categories: categoriesStore
+      ? categoriesStore.filter((categoryStory: CategoryStore): boolean =>
+          productStore.categoryIds.includes(categoryStory.id)
+        )
+      : []
   };
 };

@@ -3,7 +3,8 @@ export enum SizeImage {
   Px0128 = 'Px0128',
   Px0400 = 'Px0400',
   Px0600 = 'Px0600',
-  Px1600 = 'Px1600'
+  Px1600 = 'Px1600',
+  Px2400 = 'Px2400'
 }
 
 export enum SizeImageContainer {

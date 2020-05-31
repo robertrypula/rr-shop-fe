@@ -7,10 +7,10 @@
     <img
       *ngIf="(activeCategory$ | async)?.images?.length > 0"
       [attr.alt]="((activeCategory$ | async)?.images)[0].filename"
-      [attr.src]="((activeCategory$ | async)?.images)[0] | imageCategory: SizeImage.Px0600"
+      [attr.src]="((activeCategory$ | async)?.images)[0] | imageCategory: SizeImage.Px2400"
       class="Category-contentImage"
-      height="600"
-      width="600"
+      height="880"
+      width="2400"
     />
     <div
       *ngIf="(activeCategory$ | async)?.content"

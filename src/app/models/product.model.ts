@@ -1,3 +1,4 @@
+import { CategoryStore } from './category.model';
 import { Image } from './image.model';
 import { Manufacturer } from './manufacturer.model';
 import { OrderItem } from './order-item.model';
@@ -47,4 +48,5 @@ export interface Product extends ProductStore {
   // NOTE: actually products have OneToMany relation to orderItems but I limited it to only
   // on single 'basket' which have one entry per product (multiple products are modeled as quantity)
   orderItem: OrderItem;
+  categories?: CategoryStore[];
 }

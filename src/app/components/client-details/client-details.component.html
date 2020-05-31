@@ -295,7 +295,16 @@
       </div>
     </div>
 
-    <rr-shop-clickable-action [buttonType]="ButtonType.Submit" [label]="'Dalej'"></rr-shop-clickable-action>
+    <div class="row">
+      <div class="col-xxs-5">
+        <rr-shop-clickable-action [buttonType]="ButtonType.Submit" [label]="'Dalej'"></rr-shop-clickable-action>
+      </div>
+      <div class="col-xxs-7">
+        <div class="ClientDetails-requiredInfo">
+          * pola wymagane
+        </div>
+      </div>
+    </div>
   </form>
 
   <ng-template #readOnly>
@@ -313,10 +322,10 @@
     </div>
 
     <rr-shop-clickable-action (actionClick)="clientDetailsOnEdit()" [label]="'Edytuj'"></rr-shop-clickable-action>
-  </ng-template>
 
-  <div *ngIf="!isClientDetailsSectionValid" class="ClientDetails-sectionError u-form-error-container">
-    By dostarczyć paczkę Kurierem prosimy o kliknięcie w przycisk 'Edytuj' i podanie dodatkowo adresu, kodu pocztowego i
-    miasta.
-  </div>
+    <div *ngIf="!isClientDetailsSectionValid" class="ClientDetails-sectionError u-form-error-container">
+      By dostarczyć paczkę Kurierem prosimy o kliknięcie w przycisk 'Edytuj' i podanie dodatkowo adresu, kodu pocztowego
+      i miasta.
+    </div>
+  </ng-template>
 </div>

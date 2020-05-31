@@ -147,10 +147,12 @@ export class Order implements OrderStore {
 
   public isClientDetailsSectionValid(): boolean {
     const deliveryType: DeliveryType = this.getDeliveryType();
+    const isFormValid: boolean =
+      deliveryType === DeliveryType.InPostCourier
+        ? !!(this.email && this.phone && this.name && this.surname && this.address && this.zipCode && this.city)
+        : !!(this.email && this.phone && this.name && this.surname);
 
-    return deliveryType === DeliveryType.InPostCourier
-      ? !!(this.email && this.phone && this.name && this.surname && this.address && this.zipCode && this.city)
-      : !!(this.email && this.phone && this.name && this.surname);
+    return !this.isClientDetailsFormActive && isFormValid;
   }
 
   public isPromoCodeSectionValid(): boolean {

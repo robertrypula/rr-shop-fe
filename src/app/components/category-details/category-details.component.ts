@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { CategoryUrlPipe } from '../../pipes/category-url/category-url.pipe';
 import { CategoryStore } from '../../models/category.model';
+import { IconType } from '../icon/icon.models';
 import { SizeImage } from '../../models/image.model';
 import { Product, ProductSortBy } from '../../models/product.model';
 
@@ -22,7 +25,17 @@ export class CategoryDetailsComponent implements OnInit {
   @Input()
   public categoryChildren: CategoryStore[];
 
+  public readonly IconType = IconType;
+  public readonly ProductSortBy = ProductSortBy;
   public readonly SizeImage = SizeImage;
 
+  public constructor(protected router: Router, protected categoryUrlPipe: CategoryUrlPipe) {}
+
   public ngOnInit(): void {}
+
+  public onProductSortByChange(productSortBy: ProductSortBy): void {
+    const url: string = this.categoryUrlPipe.transform(this.category, productSortBy);
+
+    this.router.navigate([url]).then();
+  }
 }

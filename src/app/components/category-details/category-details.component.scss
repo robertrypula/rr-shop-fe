@@ -35,3 +35,22 @@
     display: block;
   }
 }
+
+.CategoryDetails-sortBy {
+  text-align: right;
+  > div {
+    position: relative;
+    > *:first-child {
+      display: inline-block;
+      padding: 6px 35px 6px 15px;
+      border-radius: 20px;
+      appearance: none;
+    }
+    > *:last-child {
+      display: block;
+      position: absolute;
+      top: 15px;
+      right: 17px;
+    }
+  }
+}

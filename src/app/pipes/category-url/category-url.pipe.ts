@@ -14,16 +14,16 @@ import {
   name: 'categoryUrl'
 })
 export class CategoryUrlPipe implements PipeTransform {
-  public transform(categoryStore: CategoryStore, sortBy: ProductSortBy = ProductSortBy.None): string {
+  public transform(categoryStore: CategoryStore, productSortBy: ProductSortBy = ProductSortBy.None): string {
     const categoryId: string = categoryStore ? `${categoryStore.id}` : '';
     const slug: string = categoryStore ? categoryStore.slug : '';
-    const urlSortBy: string = this.getUrlSortBy(sortBy);
+    const urlSortBy: string = this.getUrlSortBy(productSortBy);
 
     return `/c/${categoryId}/${slug}/${urlSortBy}`;
   }
 
-  protected getUrlSortBy(sortBy: ProductSortBy): string {
-    switch (sortBy) {
+  protected getUrlSortBy(productSortBy: ProductSortBy): string {
+    switch (productSortBy) {
       case ProductSortBy.None:
         return URL_SORT_BY_NONE;
       case ProductSortBy.NameAscending:

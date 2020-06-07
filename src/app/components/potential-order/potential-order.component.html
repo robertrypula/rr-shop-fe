@@ -4,7 +4,7 @@
   <rr-shop-order-items-overview [orderItems]="order.getOrderItemsByType([Type.Product])"></rr-shop-order-items-overview>
 
   <div class="PotentialOrder-summaryPriceNormal">
-    Produkty:
+    Wartość koszyka:
     <span>
       {{ order.getPriceTotalOriginal([Type.Product]) | price }}
     </span>

@@ -5,16 +5,24 @@ import { MarkdownModule } from 'ngx-markdown';
 
 import { CategoriesListModule } from '../categories-list/categories-list.module';
 import { CategoryUrlPipe } from '../../pipes/category-url/category-url.pipe';
+import { IconModule } from '../icon/icon.module';
 import { PipesModule } from '../../pipes/pipes.module';
 import { ProductsListModule } from '../products-list/products-list.module';
 
 import { CategoryDetailsComponent } from './category-details.component';
-import { IconModule } from "../icon/icon.module";
 
 @NgModule({
   declarations: [CategoryDetailsComponent],
   exports: [CategoryDetailsComponent],
-  imports: [CategoriesListModule, CommonModule, FormsModule, MarkdownModule, ProductsListModule, PipesModule, IconModule],
+  imports: [
+    CategoriesListModule,
+    CommonModule,
+    FormsModule,
+    MarkdownModule,
+    ProductsListModule,
+    PipesModule,
+    IconModule
+  ],
   providers: [CategoryUrlPipe]
 })
 export class CategoryDetailsModule {}

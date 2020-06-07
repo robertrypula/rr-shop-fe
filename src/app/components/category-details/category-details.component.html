@@ -1,0 +1,39 @@
+<div class="CategoryDetails">
+  <div class="row">
+    <div class="col-xxs-7">
+      <h2>
+        {{ category.name }}
+      </h2>
+    </div>
+    <div class="col-xxs-5">
+      test
+      {{ productSortBy | json }}
+    </div>
+  </div>
+
+  <div class="CategoryDetails-content">
+    <img
+      *ngIf="category.images?.length > 0"
+      [attr.alt]="category.images[0].filename"
+      [attr.src]="category.images[0] | imageCategory: SizeImage.Px2400"
+      class="CategoryDetails-contentImage"
+      height="880"
+      width="2400"
+    />
+    <div *ngIf="category.content" class="u-formatted-content" markdown [data]="category.content"></div>
+
+    <div class="clearfix"></div>
+  </div>
+
+  <div *ngIf="category.isVisibleListOfCategories" class="CategoryDetails-categories">
+    <rr-shop-categories-list [categories]="categoryChildren"></rr-shop-categories-list>
+  </div>
+
+  <div *ngIf="!category.isHiddenListOfProducts" class="CategoryDetails-products">
+    <rr-shop-products-list
+      [category]="category"
+      [noProductsMessage]="'Brak produktów w tej kategorii'"
+      [products]="products"
+    ></rr-shop-products-list>
+  </div>
+</div>

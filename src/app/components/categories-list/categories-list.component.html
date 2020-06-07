@@ -1,4 +1,4 @@
-<div class="CategoryList" *ngIf="categories.length">
+<div class="CategoryList" *ngIf="categories?.length">
   <div *ngFor="let category of categories; trackBy: trackBy" class="CategoryList-entry">
     <div class="CategoryList-entryStandaloneHeader">
       <h3>{{ category.name }}</h3>

@@ -1,13 +1,13 @@
 import { createSelector } from '@ngrx/store';
 
 import { ActiveLevelUpdateEntry, CategoryStore, StructuralNode } from '../../models/category.model';
+import { ProductSortBy } from '../../models/product.model';
 import { getCategoryId, getCategoryProductSortBy, isOnCategoryRoute } from '../../utils/routing.utils';
 
 import { selectCategoriesStore } from './category-core.selectors';
 import { getCategoriesStoreFromLeafToRoot, getCategoryStoreAndItsChildren } from './category.utils';
 import { selectUrl } from './router.selectors';
 import { selectIsSmallDevice } from './viewport.selectors';
-import { ProductSortBy } from '../../models/product.model';
 
 const sortByName = (a: CategoryStore, b: CategoryStore): number => {
   return a.name === b.name ? 0 : a.name > b.name ? 1 : -1;

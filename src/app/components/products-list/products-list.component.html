@@ -1,4 +1,4 @@
-<div class="row" *ngIf="products.length; else noProducts">
+<div class="row" *ngIf="products?.length; else noProducts">
   <ng-container *ngFor="let product of products; trackBy: trackBy; index as index">
     <rr-shop-product-box-compact
       [product]="product"

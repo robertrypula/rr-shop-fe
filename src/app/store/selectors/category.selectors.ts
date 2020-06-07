@@ -1,12 +1,13 @@
 import { createSelector } from '@ngrx/store';
 
 import { ActiveLevelUpdateEntry, CategoryStore, StructuralNode } from '../../models/category.model';
-import { getCategoryId, isOnCategoryRoute } from '../../utils/routing.utils';
+import { getCategoryId, getCategoryProductSortBy, isOnCategoryRoute } from '../../utils/routing.utils';
 
 import { selectCategoriesStore } from './category-core.selectors';
 import { getCategoriesStoreFromLeafToRoot, getCategoryStoreAndItsChildren } from './category.utils';
 import { selectUrl } from './router.selectors';
 import { selectIsSmallDevice } from './viewport.selectors';
+import { ProductSortBy } from '../../models/product.model';
 
 const sortByName = (a: CategoryStore, b: CategoryStore): number => {
   return a.name === b.name ? 0 : a.name > b.name ? 1 : -1;
@@ -23,6 +24,13 @@ const sortCategoriesHandler = (a: CategoryStore, b: CategoryStore): number => {
 export const selectActiveCategoryId = createSelector(selectUrl, (url: string): number => {
   return getCategoryId(url);
 });
+
+export const selectActiveCategoryProductSortBy = createSelector(
+  selectUrl,
+  (url: string): ProductSortBy => {
+    return getCategoryProductSortBy(url);
+  }
+);
 
 export const selectActiveCategoryStore = createSelector(
   selectActiveCategoryId,

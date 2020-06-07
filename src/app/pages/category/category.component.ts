@@ -5,7 +5,7 @@ import { CategoryFacadeService } from '../../store/facades/category-facade.servi
 import { CategoryStore } from '../../models/category.model';
 import { SizeImage } from '../../models/image.model';
 import { ProductFacadeService } from '../../store/facades/product-facade.service';
-import { Product } from '../../models/product.model';
+import { Product, ProductSortBy } from '../../models/product.model';
 
 @Component({
   selector: 'rr-shop-category',
@@ -14,6 +14,8 @@ import { Product } from '../../models/product.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryComponent implements OnInit {
+  public activeCategoryProductSortBy$: Observable<ProductSortBy> = this.categoryFacadeService
+    .activeCategoryProductSortBy$;
   public activeCategory$: Observable<CategoryStore> = this.categoryFacadeService.activeCategory$;
   public activeCategoryChildren$: Observable<CategoryStore[]> = this.categoryFacadeService.activeCategoryChildren$;
   public productsFromActiveCategoryAndItsChildren$: Observable<Product[]> = this.productFacadeService

@@ -54,7 +54,7 @@ import { SearchModule } from './pages/search/search.module';
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full' },
-  { path: 'c/:id/:slug', component: CategoryComponent },
+  { path: 'c/:id/:slug/:sortBy', component: CategoryComponent },
   { path: 'p/:id/:slug', component: ProductPageComponent },
   { path: 'order/:uuid', component: OrderPageComponent },
   { path: 'potential-order', component: PotentialOrderPageComponent },

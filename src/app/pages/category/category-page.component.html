@@ -1,0 +1,9 @@
+<div class="CategoryPage">
+  <rr-shop-category-details
+    *ngIf="activeCategory$ | async"
+    [category]="activeCategory$ | async"
+    [categoryChildren]="activeCategoryChildren$ | async"
+    [products]="productsFromActiveCategoryAndItsChildren$ | async"
+    [productSortBy]="activeCategoryProductSortBy$ | async"
+  ></rr-shop-category-details>
+</div>

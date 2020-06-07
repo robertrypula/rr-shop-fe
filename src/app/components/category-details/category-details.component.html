@@ -1,0 +1,47 @@
+<div class="CategoryDetails">
+  <div class="row">
+    <div class="col-xxs-12 col-md-7 col-lg-8 col-xlg-9">
+      <h2>
+        {{ category.name }}
+      </h2>
+    </div>
+    <div class="CategoryDetails-sortBy col-xxs-12 col-md-5 col-lg-4 col-xlg-3">
+      <div>
+        <select class="u-form-input" [ngModel]="productSortBy" (ngModelChange)="onProductSortByChange($event)">
+          <option [value]="ProductSortBy.None">Wybierz sortowanie</option>
+          <option [value]="ProductSortBy.NameAscending">Nazwa A-Z</option>
+          <option [value]="ProductSortBy.NameDescending">Nazwa Z-A</option>
+          <option [value]="ProductSortBy.PriceAscending">Cena rosnąco</option>
+          <option [value]="ProductSortBy.PriceDescending">Cena malejąco</option>
+        </select>
+        <rr-shop-icon [iconType]="IconType.FasChevronDown" width="8" height="8"></rr-shop-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="CategoryDetails-content">
+    <img
+      *ngIf="category.images?.length > 0"
+      [attr.alt]="category.images[0].filename"
+      [attr.src]="category.images[0] | imageCategory: SizeImage.Px2400"
+      class="CategoryDetails-contentImage"
+      height="880"
+      width="2400"
+    />
+    <div *ngIf="category.content" class="u-formatted-content" markdown [data]="category.content"></div>
+
+    <div class="clearfix"></div>
+  </div>
+
+  <div *ngIf="category.isVisibleListOfCategories" class="CategoryDetails-categories">
+    <rr-shop-categories-list [categories]="categoryChildren"></rr-shop-categories-list>
+  </div>
+
+  <div *ngIf="!category.isHiddenListOfProducts" class="CategoryDetails-products">
+    <rr-shop-products-list
+      [category]="category"
+      [noProductsMessage]="'Brak produktów w tej kategorii'"
+      [products]="products"
+    ></rr-shop-products-list>
+  </div>
+</div>

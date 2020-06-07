@@ -24,13 +24,14 @@ const pipes = [
   ProductUrlPipe,
   PromotionPricePipe,
   PromotionTextPipe,
+  ImageCategoryPipe,
   QuantityTextPipe,
   SafeHtmlPipe
 ];
 
 @NgModule({
-  declarations: [...pipes, ImageCategoryPipe],
-  exports: [...pipes, ImageCategoryPipe],
+  declarations: [...pipes],
+  exports: [...pipes],
   imports: [CommonModule]
 })
 export class PipesModule {}

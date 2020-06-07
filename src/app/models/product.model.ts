@@ -20,6 +20,20 @@ export enum PaymentType {
   PayU = 'PayU'
 }
 
+export enum ProductSortBy {
+  None = 'None',
+  NameAscending = 'NameAscending',
+  NameDescending = 'NameDescending',
+  PriceAscending = 'PriceAscending',
+  PriceDescending = 'PriceDescending'
+}
+
+export const URL_SORT_BY_NONE = '-';
+export const URL_SORT_BY_NAME_ASCENDING = 'name-asc';
+export const URL_SORT_BY_NAME_DESCENDING = 'name-desc';
+export const URL_SORT_BY_PRICE_ASCENDING = 'price-asc';
+export const URL_SORT_BY_PRICE_DESCENDING = 'price-desc';
+
 // -----------------------------------------------------------------------------
 
 export interface ProductStore {

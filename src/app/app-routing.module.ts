@@ -37,8 +37,8 @@ import { AdminSupplyEditComponent } from './admin/pages/admin-supply/admin-suppl
 import { AdminSupplyListComponent } from './admin/pages/admin-supply-list/admin-supply-list.component';
 import { AdminSupplyListModule } from './admin/pages/admin-supply-list/admin-supply-list.module';
 import { AdminSupplyModule } from './admin/pages/admin-supply/admin-supply.module';
-import { CategoryComponent } from './pages/category/category.component';
-import { CategoryModule } from './pages/category/category.module';
+import { CategoryPageComponent } from './pages/category/category-page.component';
+import { CategoryPageModule } from './pages/category/category-page.module';
 import { MainComponent } from './pages/main/main.component';
 import { MainModule } from './pages/main/main.module';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -54,7 +54,7 @@ import { SearchModule } from './pages/search/search.module';
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full' },
-  { path: 'c/:id/:slug', component: CategoryComponent },
+  { path: 'c/:id/:slug/:sortBy', component: CategoryPageComponent },
   { path: 'p/:id/:slug', component: ProductPageComponent },
   { path: 'order/:uuid', component: OrderPageComponent },
   { path: 'potential-order', component: PotentialOrderPageComponent },
@@ -106,7 +106,7 @@ const routes: Routes = [
     AdminProductModule,
     AdminSupplyListModule,
     AdminSupplyModule,
-    CategoryModule,
+    CategoryPageModule,
     MainModule,
     NotFoundModule,
     OrderPageModule,

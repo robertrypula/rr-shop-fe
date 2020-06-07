@@ -2,11 +2,15 @@ import { createSelector } from '@ngrx/store';
 
 import { CategoryStore, StructuralNode } from '../../models/category.model';
 import { OrderItemStore } from '../../models/order-item.model';
-import { Product, ProductStore } from '../../models/product.model';
+import { Product, ProductSortBy, ProductStore } from '../../models/product.model';
 import { getProductId, isOnProductRoute } from '../../utils/routing.utils';
 
 import { selectCategoriesStore } from './category-core.selectors';
-import { selectActiveCategoryStoreAndItsChildren, selectCategoryStoreAndItsChildren } from './category.selectors';
+import {
+  selectActiveCategoryProductSortBy,
+  selectActiveCategoryStoreAndItsChildren,
+  selectCategoryStoreAndItsChildren
+} from './category.selectors';
 import { selectOrderItemsStore } from './order-core.selectors';
 import { selectProductsStore } from './product-core.selectors';
 import {
@@ -15,6 +19,14 @@ import {
   toProduct
 } from './product.utils';
 import { selectUrl } from './router.selectors';
+
+const sortByName = (a: Product, b: Product): number => {
+  return a.name === b.name ? 0 : a.name > b.name ? 1 : -1;
+};
+
+const sortByPrice = (a: Product, b: Product): number => {
+  return a.priceUnit === b.priceUnit ? 0 : a.priceUnit < b.priceUnit ? -1 : 1;
+};
 
 export const selectUrlProductId = createSelector(selectUrl, (url: string): number => {
   return getProductId(url);
@@ -49,14 +61,35 @@ export const selectProductsFromActiveCategoryAndItsChildren = createSelector(
   selectProductsStore,
   selectOrderItemsStore,
   selectActiveCategoryStoreAndItsChildren,
+  selectActiveCategoryProductSortBy,
   (
     productsStore: ProductStore[],
     orderItemsStore: OrderItemStore[],
-    activeCategoryAndItsChildren: CategoryStore[]
-  ): Product[] =>
-    getProductsStoreForGivenCategoriesStore(productsStore, activeCategoryAndItsChildren).map(
-      (productStore: ProductStore): Product => toProduct(productStore, orderItemsStore, productsStore)
-    )
+    activeCategoryAndItsChildren: CategoryStore[],
+    activeCategoryProductSortBy: ProductSortBy
+  ): Product[] => {
+    const products: Product[] = getProductsStoreForGivenCategoriesStore(
+      productsStore,
+      activeCategoryAndItsChildren
+    ).map((productStore: ProductStore): Product => toProduct(productStore, orderItemsStore, productsStore));
+
+    switch (activeCategoryProductSortBy) {
+      case ProductSortBy.NameAscending:
+        products.sort(sortByName);
+        break;
+      case ProductSortBy.NameDescending:
+        products.sort(sortByName).reverse();
+        break;
+      case ProductSortBy.PriceAscending:
+        products.sort(sortByPrice);
+        break;
+      case ProductSortBy.PriceDescending:
+        products.sort(sortByPrice).reverse();
+        break;
+    }
+
+    return products;
+  }
 );
 
 export const selectProductsFromCategoryByCategoryId = (

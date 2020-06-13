@@ -5,7 +5,7 @@
         {{ category.name }}
       </h2>
     </div>
-    <div class="CategoryDetails-sortBy col-xxs-12 col-md-5 col-lg-4 col-xlg-3">
+    <div *ngIf="!category.isHiddenListOfProducts" class="CategoryDetails-sortBy col-xxs-12 col-md-5 col-lg-4 col-xlg-3">
       <div>
         <select class="u-form-input" [ngModel]="productSortBy" (ngModelChange)="onProductSortByChange($event)">
           <option [value]="ProductSortBy.None">Wybierz sortowanie</option>

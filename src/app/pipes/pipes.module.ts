@@ -12,21 +12,23 @@ import { ProductUrlPipe } from './product-url/product-url.pipe';
 import { PromotionPricePipe } from './promotion-price/promotion-price.pipe';
 import { PromotionTextPipe } from './promotion-text/promotion-text.pipe';
 import { QuantityTextPipe } from './quantity-text/quantity-text.pipe';
-import { SafeHtmlPipe } from './safeHtml/safe-html.pipe';
+import { SafeHtmlPipe } from './safe-html/safe-html.pipe';
+import { StripWhitespacesPipe } from './strip-whitespaces/strip-whitespaces.pipe';
 
 const pipes = [
   CategoryUrlPipe,
   DateCustomPipe,
   ExternalIdPipe,
+  ImageCategoryPipe,
   ImagePipe,
   OrderStatusPipe,
   PricePipe,
   ProductUrlPipe,
   PromotionPricePipe,
   PromotionTextPipe,
-  ImageCategoryPipe,
   QuantityTextPipe,
-  SafeHtmlPipe
+  SafeHtmlPipe,
+  StripWhitespacesPipe
 ];
 
 @NgModule({

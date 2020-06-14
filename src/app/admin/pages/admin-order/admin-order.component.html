@@ -52,9 +52,9 @@
             <th>Lp.</th>
             <th>Obrazek</th>
             <th>Nazwa</th>
-            <th>Cena oryg.</th>
+            <th>Cena <br />ze strony</th>
             <th>Liczba</th>
-            <th>Cena</th>
+            <th>Cena <br />po rabacie</th>
             <th>Wartość</th>
           </tr>
           <tr
@@ -71,7 +71,7 @@
               ></rr-shop-slider-image>
             </td>
             <td>
-              <div class="clearfix admin-order-item-header">
+              <div class="clearfix AdminOrder-header">
                 {{ orderItem.name }}
                 <strong>{{ orderItem.product.externalId }}</strong>
               </div>
@@ -109,7 +109,9 @@
                     <td>{{ supply.createdAt | dateCustom }}</td>
                     <td>{{ supply.updatedAt | dateCustom }}</td>
                     <td>
-                      {{ supply?.orderItem?.id === orderItem.id ? '' : supply?.orderItem?.order?.number }}
+                      {{
+                        supply?.orderItem?.id === orderItem.id ? 'to które widzisz' : supply?.orderItem?.order?.number
+                      }}
                     </td>
                     <td>
                       {{
@@ -128,7 +130,25 @@
                 </table>
               </ng-container>
             </td>
-            <td>{{ orderItem.priceUnitOriginal | price }}</td>
+            <td
+              [ngClass]="{
+                'u-red': orderItem.priceUnitBeforePromotionOriginal
+              }"
+            >
+              <div>
+                {{ orderItem.priceUnitOriginal | price }}
+              </div>
+              <div *ngIf="orderItem.priceUnitBeforePromotionOriginal" class="AdminOrder-priceReduction">
+                <ng-container *ngIf="orderItem.priceUnitBeforePromotionOriginal > 0; else outlet">
+                  <div>Promocja</div>
+                  <div>{{ -orderItem.priceUnitBeforePromotionOriginal | price }}</div>
+                </ng-container>
+                <ng-template #outlet>
+                  <div>Outlet</div>
+                  <div>{{ -orderItem.priceUnitBeforePromotionOriginal | price }}</div>
+                </ng-template>
+              </div>
+            </td>
             <td>{{ orderItem.quantity }}</td>
             <td>{{ orderItem.priceUnitSelling | price }}</td>
             <td>{{ orderItem.priceUnitSelling * orderItem.quantity | price }}</td>
@@ -151,7 +171,13 @@
           </tr>
           <tr>
             <td>Rabat kwotowy</td>
-            <td>{{ getPriceTotalOriginalSellingDifference(d.orderItems) | price }}</td>
+            <td
+              [ngClass]="{
+                'u-red': getPriceTotalOriginalSellingDifference(d.orderItems)
+              }"
+            >
+              {{ getPriceTotalOriginalSellingDifference(d.orderItems) | price }}
+            </td>
           </tr>
         </table>
       </div>

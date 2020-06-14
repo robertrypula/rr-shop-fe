@@ -89,9 +89,10 @@
       </div>
 
       <div
+        *ngIf="product.descriptionDelivery | stripWhitespaces"
+        [data]="product.descriptionDelivery"
         class="ProductDetails-descriptionDelivery u-formatted-content u-form-warning-container"
         markdown
-        [data]="product.descriptionDelivery"
       ></div>
 
       <div

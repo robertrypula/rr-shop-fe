@@ -1,11 +1,18 @@
 @import 'configs-and-mixins';
 
-.admin-order-item-header {
+.AdminOrder-header {
   font-size: 20px;
   line-height: 1em;
   strong {
     float: right;
     display: inline-block;
+  }
+}
+
+.AdminOrder-priceReduction {
+  padding-top: 8px;
+  > div:last-child {
+    text-decoration: line-through;
   }
 }
 

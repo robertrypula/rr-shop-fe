@@ -31,15 +31,16 @@
           <tr>
             <th>Lp.</th>
             <th>Nazwa</th>
-            <th>Nazwa na kasie fiskalnej</th>
+            <!--<th>Nazwa na kasie fiskalnej</th>-->
             <th>Producent</th>
             <th>Dostawca</th>
             <th title="Dostawy">Dwy</th>
             <th title="Zamówienia">Zmw</th>
             <th title="Dostępnych">Dst</th>
             <th title="Cena w sklepie widoczna dla klienta">Cena</th>
+            <th title="Uwagi do ceny">C</th>
             <th title="Uwagi do dostawy">U</th>
-            <th title="Widoczny na stronie?">Wdcz</th>
+            <th title="Widoczny na stronie?">Wdc</th>
           </tr>
           <tr
             *ngFor="let item of d"
@@ -52,9 +53,11 @@
             <td>
               <a [routerLink]="[item.id]">{{ item.name }}</a>
             </td>
+            <!--
             <td class="u-monospace">
               {{ item?.nameCashRegister }}
             </td>
+            -->
             <td>
               {{ item?.manufacturer?.name }}
             </td>
@@ -79,16 +82,45 @@
             </td>
             <td
               [ngClass]="{
-                'u-red':
-                  item?.descriptionDelivery || item?.isDeliveryBlockedCourier || item?.isDeliveryBlockedParcelLocker
+                'u-red': item?.priceUnitBeforePromotion
               }"
-              title="Uwagi do dostawy"
-            >
-              {{
-                item?.descriptionDelivery || item?.isDeliveryBlockedCourier || item?.isDeliveryBlockedParcelLocker
-                  ? '!!'
+              title="{{
+                item?.priceUnitBeforePromotion
+                  ? item.priceUnitBeforePromotion > 0
+                    ? 'Promocja, pierwotna cena: ' + (item.priceUnitBeforePromotion | price)
+                    : 'Outlet, pierwotna cena: ' + (-item.priceUnitBeforePromotion | price)
                   : ''
-              }}
+              }}"
+            >
+              <ng-container *ngIf="item?.priceUnitBeforePromotion">
+                <ng-container *ngIf="item.priceUnitBeforePromotion > 0; else outlet">
+                  [P]
+                </ng-container>
+                <ng-template #outlet>
+                  [O]
+                </ng-template>
+              </ng-container>
+            </td>
+            <td
+              [ngClass]="{
+                'u-red':
+                  (item?.descriptionDelivery | stripWhitespaces) ||
+                  item?.isDeliveryBlockedCourier ||
+                  item?.isDeliveryBlockedParcelLocker
+              }"
+              title="{{
+                (item?.descriptionDelivery | stripWhitespaces) ? item?.descriptionDelivery : 'Uwagi do dostawy'
+              }}"
+            >
+              <ng-container
+                *ngIf="
+                  (item?.descriptionDelivery | stripWhitespaces) ||
+                  item?.isDeliveryBlockedCourier ||
+                  item?.isDeliveryBlockedParcelLocker
+                "
+              >
+                !!!
+              </ng-container>
             </td>
             <td [title]="item?.isHidden ? 'Ukryty' : 'Widoczny na stronie'">
               {{ item?.isHidden ? 'nie' : 'tak' }}

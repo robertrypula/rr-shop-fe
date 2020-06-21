@@ -1,4 +1,7 @@
 <div class="AdminMenu">
+  <div>
+    {{ expirationSeconds$ | async | json }}
+  </div>
   <ng-container *ngIf="expirationSeconds$ | async; else adminLoginLink">
     <a [routerLink]="'/admin/order'" [routerLinkActive]="'AdminMenu-link--active'">Zamówienia</a>
     <a [routerLink]="'/admin/product'" [routerLinkActive]="'AdminMenu-link--active'">Produkty</a>

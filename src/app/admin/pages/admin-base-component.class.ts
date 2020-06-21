@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 import { AdminCall, AdminCallState } from '../models/admin-component.models';
 import { BarFacadeService } from '../../store/facades/bar-facade.service';
@@ -56,18 +56,31 @@ export class AdminBaseComponent {
           this.barService.showSuccess('Pobieranie danych zakończone sukcesem :)');
           this.changeDetectorRef.markForCheck();
         },
-        (error: any): void => {
-          adminCall.adminCallState = AdminCallState.Failure;
-          adminCall.errorDetails = error && error.error ? error.error : null;
-          this.barFacadeService.show(
-            `Wystąpił błąd przy pobieraniu danych... :(${this.formatError(adminCall.errorDetails)}`,
-            BarType.Error
-          );
-          this.changeDetectorRef.markForCheck();
-        }
+        // (error: any): void => {
+        //   adminCall.adminCallState = AdminCallState.Failure;
+        //   adminCall.errorDetails = error && error.error ? error.error : null;
+        //   this.barFacadeService.show(
+        //     `Wystąpił błąd przy pobieraniu danych... :(${this.formatError(adminCall.errorDetails)}`,
+        //     BarType.Error
+        //   );
+        //   this.changeDetectorRef.markForCheck();
+        // }
       )
     );
   }
+  /*
+        catchError((error: HttpErrorResponse) => {
+        adminCall.adminCallState = AdminCallState.Failure;
+        adminCall.errorDetails = error && error.error ? error.error : null;
+        this.barFacadeService.show(
+          `Wystąpił błąd przy pobieraniu danych... :(${this.formatError(adminCall.errorDetails)}`,
+          BarType.Error
+        );
+        this.changeDetectorRef.markForCheck();
+
+        return throwError(error.message);
+      })
+   */
 
   protected post<T, U>(adminCall: AdminCall<T>, path: string, body: U): Observable<T> {
     adminCall.adminCallState = AdminCallState.Request;

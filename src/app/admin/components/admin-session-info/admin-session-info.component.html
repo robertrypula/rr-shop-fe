@@ -11,7 +11,7 @@
   <ng-container *ngIf="expirationSeconds > 0; else toLate">
     <div>
       Sesja wygaśnie za:
-      {{ expirationSeconds }}
+      <b>{{ expirationSeconds | timeLeft }}</b>
     </div>
   </ng-container>
   <ng-template #toLate>

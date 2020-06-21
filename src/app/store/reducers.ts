@@ -3,6 +3,7 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 
 import { environment } from '../../environments/environment';
 
+import * as fromAuthorization from './reducers/authorization.reducers';
 import * as fromBar from './reducers/bar.reducers';
 import * as fromCategory from './reducers/category.reducers';
 import * as fromOrder from './reducers/order.reducers';
@@ -13,6 +14,7 @@ import * as fromSearch from './reducers/search.reducers';
 import * as fromViewport from './reducers/viewport.reducers';
 
 export interface State {
+  authorization: fromAuthorization.State;
   bar: fromBar.State;
   category: fromCategory.State;
   order: fromOrder.State;
@@ -24,6 +26,7 @@ export interface State {
 }
 
 export const reducers: ActionReducerMap<State> = {
+  authorization: fromAuthorization.reducer,
   bar: fromBar.reducer,
   category: fromCategory.reducer,
   order: fromOrder.reducer,

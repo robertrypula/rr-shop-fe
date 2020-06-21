@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 
 import { AuthInterceptor } from '../../rest-api/auth.interceptor';
 import { environment } from '../../../../environments/environment';
+import { AuthorizationFacadeService } from '../../../store/facades/authorization-facade.service';
 
 // Based on: https://jasonwatmore.com/post/2019/06/26/angular-8-basic-http-authentication-tutorial-example
 // Other nice example: https://loiane.com/2017/08/angular-reactive-forms-trigger-validation-on-submit/
@@ -21,7 +22,12 @@ export class AdminLoginComponent implements OnInit {
   public formGroup: FormGroup;
   public submitted = false;
 
-  public constructor(protected formBuilder: FormBuilder, protected http: HttpClient, protected router: Router) {}
+  public constructor(
+    protected formBuilder: FormBuilder,
+    protected http: HttpClient,
+    protected router: Router,
+    protected authorizationFacadeService: AuthorizationFacadeService
+  ) {}
 
   public ngOnInit(): void {
     this.buildForm();
@@ -42,7 +48,8 @@ export class AdminLoginComponent implements OnInit {
       .pipe(
         tap(
           (response: { token: string }): void => {
-            window.localStorage.setItem(AuthInterceptor.LOCAL_STORAGE_TOKEN_KEY, response.token);
+            // actually it should be in RxJs effect but whole admin was written without store at all so all is fine
+            this.authorizationFacadeService.setToken(response.token);
             this.redirectToAdminFeature();
           },
           (error: any): void => {

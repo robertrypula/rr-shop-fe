@@ -1,0 +1,22 @@
+<div
+  *ngIf="expirationSeconds !== null"
+  class="AdminSessionInfo"
+  [ngClass]="{
+    'AdminSessionInfo--ok': expirationSeconds > 15,
+    'AdminSessionInfo--closeToExpire': expirationSeconds > 5 && expirationSeconds <= 15,
+    'AdminSessionInfo--lastMoments': expirationSeconds > 0 && expirationSeconds <= 5,
+    'AdminSessionInfo--expired': expirationSeconds <= 0
+  }"
+>
+  <ng-container *ngIf="expirationSeconds > 0; else toLate">
+    <div>
+      Sesja wygaśnie za:
+      {{ expirationSeconds }}
+    </div>
+  </ng-container>
+  <ng-template #toLate>
+    <div>
+      Sesja wygasła - utracisz dane przy próbie zapisu!
+    </div>
+  </ng-template>
+</div>

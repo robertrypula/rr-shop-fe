@@ -55,32 +55,19 @@ export class AdminBaseComponent {
           adminCall.data = data;
           this.barService.showSuccess('Pobieranie danych zakończone sukcesem :)');
           this.changeDetectorRef.markForCheck();
+        },
+        (error: any): void => {
+          adminCall.adminCallState = AdminCallState.Failure;
+          adminCall.errorDetails = error && error.error ? error.error : null;
+          this.barFacadeService.show(
+            `Wystąpił błąd przy pobieraniu danych... :(${this.formatError(adminCall.errorDetails)}`,
+            BarType.Error
+          );
+          this.changeDetectorRef.markForCheck();
         }
-        // (error: any): void => {
-        //   adminCall.adminCallState = AdminCallState.Failure;
-        //   adminCall.errorDetails = error && error.error ? error.error : null;
-        //   this.barFacadeService.show(
-        //     `Wystąpił błąd przy pobieraniu danych... :(${this.formatError(adminCall.errorDetails)}`,
-        //     BarType.Error
-        //   );
-        //   this.changeDetectorRef.markForCheck();
-        // }
       )
     );
   }
-  /*
-        catchError((error: HttpErrorResponse) => {
-        adminCall.adminCallState = AdminCallState.Failure;
-        adminCall.errorDetails = error && error.error ? error.error : null;
-        this.barFacadeService.show(
-          `Wystąpił błąd przy pobieraniu danych... :(${this.formatError(adminCall.errorDetails)}`,
-          BarType.Error
-        );
-        this.changeDetectorRef.markForCheck();
-
-        return throwError(error.message);
-      })
-   */
 
   protected post<T, U>(adminCall: AdminCall<T>, path: string, body: U): Observable<T> {
     adminCall.adminCallState = AdminCallState.Request;

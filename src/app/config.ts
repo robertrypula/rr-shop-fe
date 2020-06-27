@@ -1,6 +1,9 @@
 import { StructuralNode } from './models/category.model';
 import { Device } from './models/viewport.model';
 
+export const ADMIN_SESSION_WARNING_CLOSE_TO_EXPIRE = 10 * 60;
+export const ADMIN_SESSION_WARNING_LAST_MOMENTS = 10;
+
 export const CURRENCY = 'zł'; // TODO make it dynamic in future
 export const CLOUD_HIDE_DELAY = 2000;
 export const CLOUD_SHOW_DELAY = 250;

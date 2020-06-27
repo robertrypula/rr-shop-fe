@@ -6,6 +6,8 @@ import { AuthorizationFacadeService } from '../../../store/facades/authorization
 import { getExpirationSeconds } from '../../../utils/authorization.utils';
 import { ClickableActionType } from '../../../components/clickable-action/clickable-action.model';
 
+const ONE_SECOND_NYQUIST_FREQUENCY_INTERVAL = 500;
+
 @Component({
   selector: 'rr-shop-admin-menu',
   templateUrl: './admin-menu.component.html',
@@ -17,7 +19,7 @@ export class AdminMenuComponent implements OnInit, OnDestroy {
 
   public readonly ClickableActionType = ClickableActionType;
 
-  protected timer: Observable<number> = interval(500);
+  protected timer: Observable<number> = interval(ONE_SECOND_NYQUIST_FREQUENCY_INTERVAL);
   protected unsubscribe$ = new Subject<void>();
 
   public constructor(
@@ -42,7 +44,6 @@ export class AdminMenuComponent implements OnInit, OnDestroy {
         map(([mergedValue, expirationTime]) => getExpirationSeconds(expirationTime)),
         distinctUntilChanged(),
         tap((expirationSeconds: number): void => {
-          console.log(expirationSeconds);
           this.expirationSeconds$.next(expirationSeconds);
           this.changeDetectorRef.detectChanges();
         })

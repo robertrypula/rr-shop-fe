@@ -2,9 +2,11 @@
   *ngIf="expirationSeconds !== null"
   class="AdminSessionInfo"
   [ngClass]="{
-    'AdminSessionInfo--ok': expirationSeconds > 15,
-    'AdminSessionInfo--closeToExpire': expirationSeconds > 5 && expirationSeconds <= 15,
-    'AdminSessionInfo--lastMoments': expirationSeconds > 0 && expirationSeconds <= 5,
+    'AdminSessionInfo--ok': expirationSeconds > ADMIN_SESSION_WARNING_CLOSE_TO_EXPIRE,
+    'AdminSessionInfo--closeToExpire':
+      expirationSeconds > ADMIN_SESSION_WARNING_LAST_MOMENTS &&
+      expirationSeconds <= ADMIN_SESSION_WARNING_CLOSE_TO_EXPIRE,
+    'AdminSessionInfo--lastMoments': expirationSeconds > 0 && expirationSeconds <= ADMIN_SESSION_WARNING_LAST_MOMENTS,
     'AdminSessionInfo--expired': expirationSeconds <= 0
   }"
 >

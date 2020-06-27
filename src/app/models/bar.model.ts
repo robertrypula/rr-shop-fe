@@ -1,7 +1,13 @@
+import { LocalStorage } from './local-storage.model';
+
 export enum BarType {
   Error = 'Error',
   Notification = 'Notification',
   Success = 'Success'
+}
+
+export interface BarLocalStorage extends LocalStorage {
+  isCookieModalVisible: boolean;
 }
 
 // -----------------------------------------------------------------------------

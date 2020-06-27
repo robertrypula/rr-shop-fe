@@ -2,8 +2,11 @@ import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromBarActions from '../actions/bar.actions';
 import { BarStore } from '../../models/bar.model';
+import { LocalStorageKey } from '../../models/local-storage.model';
 
 export interface State {
+  localStorageKey: LocalStorageKey;
+  // ----
   entities: {
     [id: number]: BarStore;
   };
@@ -11,6 +14,8 @@ export interface State {
 }
 
 export const initialState: State = {
+  localStorageKey: LocalStorageKey.Bar,
+  // ----
   entities: {},
   isCookieModalVisible: true
 };

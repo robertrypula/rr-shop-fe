@@ -1,12 +1,17 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromAuthorizationActions from '../actions/authorization.actions';
+import { LocalStorageKey } from '../../models/local-storage.model';
 
 export interface State {
+  localStorageKey: LocalStorageKey;
+  // ----
   token: string;
 }
 
 export const initialState: State = {
+  localStorageKey: LocalStorageKey.Authorization,
+  // ----
   token: null
 };
 

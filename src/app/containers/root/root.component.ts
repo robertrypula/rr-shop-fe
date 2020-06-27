@@ -2,6 +2,11 @@ import { ChangeDetectionStrategy, Component, ElementRef, HostListener, ViewChild
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+import { AuthorizationFacadeService } from '../../store/facades/authorization-facade.service';
+import { AuthorizationLocalStorage } from '../../models/authorization.model';
+import { BarFacadeService } from '../../store/facades/bar-facade.service';
+import { BarLocalStorage } from '../../models/bar.model';
+import { LocalStorage, LocalStorageKey } from '../../models/local-storage.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { OrderLocalStorage } from '../../models/order.model';
 import { PageFacadeService } from '../../store/facades/page-facade.service';
@@ -21,6 +26,8 @@ export class RootComponent {
 
   public constructor(
     protected viewportFacadeService: ViewportFacadeService,
+    protected authorizationFacadeService: AuthorizationFacadeService,
+    protected barFacadeService: BarFacadeService,
     protected pageFacadeService: PageFacadeService,
     protected orderFacadeService: OrderFacadeService
   ) {
@@ -29,7 +36,27 @@ export class RootComponent {
 
   @HostListener('window:storage', ['$event'])
   public handleSyncOrderLocalStorage(event: StorageEvent) {
-    this.orderFacadeService.syncOrderLocalStorage(JSON.parse(event.newValue) as OrderLocalStorage);
+    try {
+      const newValue: LocalStorage = JSON.parse(event.newValue);
+
+      switch (newValue.localStorageKey) {
+        case LocalStorageKey.Authorization:
+          console.log('authorization!!!!!!!!!!!!!', newValue as AuthorizationLocalStorage);
+          this.authorizationFacadeService.setToken((newValue as AuthorizationLocalStorage).token);
+          break;
+        case LocalStorageKey.Bar:
+          console.log('bar!!!!!!!!!!!!!', newValue as BarLocalStorage);
+          // (newValue as AuthorizationLocalStorage).token
+          this.barFacadeService.acceptCookies();
+          break;
+        case LocalStorageKey.Order:
+          console.log('order!!!!!!!!!!!!!', newValue as OrderLocalStorage);
+          this.orderFacadeService.syncOrderLocalStorage(newValue as OrderLocalStorage);
+          break;
+      }
+    } catch (error) {
+      // nothing here
+    }
   }
 
   protected handleScrollIntoContent(): void {

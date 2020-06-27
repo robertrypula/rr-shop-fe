@@ -1,6 +1,7 @@
 import { getNormalizedPrice } from '../utils/math.utils';
 import { POTENTIAL_ORDER_UUID } from '../store/reducers/order.reducers';
 
+import { LocalStorage } from './local-storage.model';
 import { OrderItem, OrderItemStore } from './order-item.model';
 import { Payment, PaymentStore } from './payment.model';
 import { DeliveryType, PaymentType, Type } from './product.model';
@@ -19,7 +20,7 @@ export interface OrderEntities {
   [uuid: string]: OrderStore;
 }
 
-export interface OrderLocalStorage {
+export interface OrderLocalStorage extends LocalStorage {
   entities: OrderEntities;
   lastOrderItemId: number;
 }

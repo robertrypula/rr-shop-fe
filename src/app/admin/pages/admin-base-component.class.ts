@@ -84,10 +84,7 @@ export class AdminBaseComponent {
         (error: any): void => {
           adminCall.adminCallState = AdminCallState.Failure;
           adminCall.errorDetails = error && error.error ? error.error : null;
-          this.barFacadeService.show(
-            `Wystąpił błąd... :(${this.formatError(adminCall.errorDetails)}`,
-            BarType.Error
-          );
+          this.barFacadeService.show(`Wystąpił błąd... :(${this.formatError(adminCall.errorDetails)}`, BarType.Error);
           this.changeDetectorRef.markForCheck();
         }
       )

@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 
 import { AuthInterceptor } from '../../rest-api/auth.interceptor';
-import { environment } from '../../../../environments/environment';
 import { AuthorizationFacadeService } from '../../../store/facades/authorization-facade.service';
+import { environment } from '../../../../environments/environment';
 
 // Based on: https://jasonwatmore.com/post/2019/06/26/angular-8-basic-http-authentication-tutorial-example
 // Other nice example: https://loiane.com/2017/08/angular-reactive-forms-trigger-validation-on-submit/

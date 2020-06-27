@@ -55,7 +55,7 @@ export class AdminBaseComponent {
           adminCall.data = data;
           this.barService.showSuccess('Pobieranie danych zakończone sukcesem :)');
           this.changeDetectorRef.markForCheck();
-        },
+        }
         // (error: any): void => {
         //   adminCall.adminCallState = AdminCallState.Failure;
         //   adminCall.errorDetails = error && error.error ? error.error : null;

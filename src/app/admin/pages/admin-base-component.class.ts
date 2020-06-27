@@ -44,11 +44,11 @@ export class AdminBaseComponent {
     };
   }
 
-  protected get<T>(adminCall: AdminCall<T>, path: string): Observable<T> {
+  protected get<T>(adminCall: AdminCall<T>, path: string, adminUrl = true): Observable<T> {
     adminCall.adminCallState = AdminCallState.Request;
     adminCall.errorDetails = null;
 
-    return this.http.get<T>(`${environment.urlApi}admin/${path}`).pipe(
+    return this.http.get<T>(this.getUrl(adminUrl, path)).pipe(
       tap(
         (data: T): void => {
           adminCall.adminCallState = AdminCallState.Success;
@@ -69,11 +69,11 @@ export class AdminBaseComponent {
     );
   }
 
-  protected post<T, U>(adminCall: AdminCall<T>, path: string, body: U): Observable<T> {
+  protected post<T, U>(adminCall: AdminCall<T>, path: string, body: U, adminUrl = true): Observable<T> {
     adminCall.adminCallState = AdminCallState.Request;
     adminCall.errorDetails = null;
 
-    return this.http.post<T>(`${environment.urlApi}admin/${path}`, body).pipe(
+    return this.http.post<T>(this.getUrl(adminUrl, path), body).pipe(
       tap(
         (data: T): void => {
           adminCall.adminCallState = AdminCallState.Success;
@@ -85,7 +85,7 @@ export class AdminBaseComponent {
           adminCall.adminCallState = AdminCallState.Failure;
           adminCall.errorDetails = error && error.error ? error.error : null;
           this.barFacadeService.show(
-            `Wystąpił błąd przy tworzeniu nowego obiektu... :(${this.formatError(adminCall.errorDetails)}`,
+            `Wystąpił błąd... :(${this.formatError(adminCall.errorDetails)}`,
             BarType.Error
           );
           this.changeDetectorRef.markForCheck();
@@ -94,11 +94,11 @@ export class AdminBaseComponent {
     );
   }
 
-  protected patch<T, U>(adminCall: AdminCall<T>, path: string, body: U): Observable<T> {
+  protected patch<T, U>(adminCall: AdminCall<T>, path: string, body: U, adminUrl = true): Observable<T> {
     adminCall.adminCallState = AdminCallState.Request;
     adminCall.errorDetails = null;
 
-    return this.http.patch<T>(`${environment.urlApi}admin/${path}`, body).pipe(
+    return this.http.patch<T>(this.getUrl(adminUrl, path), body).pipe(
       tap(
         (data: T): void => {
           adminCall.adminCallState = AdminCallState.Success;
@@ -119,11 +119,11 @@ export class AdminBaseComponent {
     );
   }
 
-  protected delete<T>(adminCall: AdminCall<T>, path: string): Observable<T> {
+  protected delete<T>(adminCall: AdminCall<T>, path: string, adminUrl = true): Observable<T> {
     adminCall.adminCallState = AdminCallState.Request;
     adminCall.errorDetails = null;
 
-    return this.http.delete<T>(`${environment.urlApi}admin/${path}`).pipe(
+    return this.http.delete<T>(this.getUrl(adminUrl, path)).pipe(
       tap(
         (data: T): void => {
           adminCall.adminCallState = AdminCallState.Success;
@@ -146,6 +146,10 @@ export class AdminBaseComponent {
 
   protected formatError(error: any): string {
     return '\n\n' + JSON.stringify(error, null, 2);
+  }
+
+  protected getUrl(adminUrl: boolean, path: string): string {
+    return `${environment.urlApi}${adminUrl ? 'admin/' : ''}${path}`;
   }
 
   protected getSessionStorageKey(key: string, fallback: any = null): any {

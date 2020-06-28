@@ -1,12 +1,15 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
+import { LocalStorageKey } from '../../models/local-storage.model';
 import { OrderItemStore } from '../../models/order-item.model';
 import * as fromOrderActions from '../actions/order.actions';
-import { OrderEntities, OrderStore } from '../../models/order.model';
+import { OrderEntities } from '../../models/order.model';
 import { ApiCall } from '../../models/page.model';
 import { Type } from '../../models/product.model';
 
 export interface State {
+  localStorageKey: LocalStorageKey;
+  // ----
   apiCallCreateOrder: ApiCall;
   apiCallOrder: ApiCall;
   apiCallPotentialOrderProducts: ApiCall;
@@ -45,6 +48,8 @@ const initialEmptyOrder: OrderEntities = {
 };
 
 export const initialState: State = {
+  localStorageKey: LocalStorageKey.Order,
+  // ----
   apiCallCreateOrder: ApiCall.Initial,
   apiCallOrder: ApiCall.Initial,
   apiCallPotentialOrderProducts: ApiCall.Initial,

@@ -25,3 +25,11 @@ export const getFormattedDate = (
     `${hour}${timeSeparator}${minute}${timeSeparator}${second}`
   ].join('');
 };
+
+export const getFormattedTimeLeft = (seconds: number): string => {
+  const minutes: number = Math.floor(seconds / 60);
+  const formattedMinutes: string = ('00' + minutes).slice(-2);
+  const formattedSeconds: string = ('00' + (seconds - minutes * 60)).slice(-2);
+
+  return `${formattedMinutes} min ${formattedSeconds} s`;
+};

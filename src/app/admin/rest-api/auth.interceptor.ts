@@ -8,38 +8,47 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, first, flatMap, tap } from 'rxjs/operators';
+
+import { AuthorizationFacadeService } from '../../store/facades/authorization-facade.service';
+
+// https://antonyderham.me/post/angular-ngrx-auth-interceptor/
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthInterceptor implements HttpInterceptor {
-  public static readonly LOCAL_STORAGE_TOKEN_KEY = 'token';
-
-  public constructor(protected router: Router) {}
+  public constructor(protected router: Router, protected authorizationFacadeService: AuthorizationFacadeService) {}
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token: string = window.localStorage.getItem(AuthInterceptor.LOCAL_STORAGE_TOKEN_KEY) || '-';
-
-    return next.handle(request.clone({ setHeaders: { Authorization: `Bearer ${token}` } })).pipe(
+    return this.authorizationFacadeService.token$.pipe(
+      first(),
+      flatMap(
+        (requestToken: string): Observable<HttpEvent<any>> =>
+          next.handle(request.clone({ setHeaders: { Authorization: `Bearer ${requestToken ? requestToken : '-'}` } }))
+      ),
       tap(
-        (event: HttpEvent<any>) => {
+        (event: HttpEvent<any>): void => {
           if (event instanceof HttpResponse) {
-            // const token: string = event.headers.get('Authorization');
-            // console.log(event.headers);
-            // TODO investigate why response header is not visible and refresh it in localStorage
-            // https://github.com/angular/angular/issues/18563
-            // https://github.com/angular/angular/issues/20554
+            this.setTokenWhenValid(event.headers.get('Authorization'));
           }
         },
-        (error: any) => {
+        (error: any): void => {
           if (error instanceof HttpErrorResponse && error.status === 401) {
-            window.localStorage.removeItem(AuthInterceptor.LOCAL_STORAGE_TOKEN_KEY);
+            this.authorizationFacadeService.setToken(null);
             this.router.navigate(['/admin']).then();
+          } else {
+            this.setTokenWhenValid(error && error.headers && error.headers.get('Authorization'));
           }
         }
       )
     );
+  }
+
+  protected setTokenWhenValid(responseToken: string): void {
+    if (responseToken) {
+      this.authorizationFacadeService.setToken(responseToken);
+    }
   }
 }

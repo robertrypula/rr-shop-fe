@@ -1,11 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 
-import { AuthInterceptor } from '../../rest-api/auth.interceptor';
-import { environment } from '../../../../environments/environment';
+import { AdminBaseComponent } from '../admin-base-component.class';
+import { AdminCall } from '../../models/admin-component.models';
+import { AuthorizationFacadeService } from '../../../store/facades/authorization-facade.service';
+import { AuthorizationRequestBody, AuthorizationResponseBody } from '../../models/authorization.models';
+import { BarFacadeService } from '../../../store/facades/bar-facade.service';
+import { BarService } from '../../../services/bar.service';
+import { ButtonType } from '../../../components/clickable-action/clickable-action.model';
 
 // Based on: https://jasonwatmore.com/post/2019/06/26/angular-8-basic-http-authentication-tutorial-example
 // Other nice example: https://loiane.com/2017/08/angular-reactive-forms-trigger-validation-on-submit/
@@ -16,12 +21,28 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./admin-login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminLoginComponent implements OnInit {
+export class AdminLoginComponent extends AdminBaseComponent implements OnInit {
   public error: any;
   public formGroup: FormGroup;
   public submitted = false;
 
-  public constructor(protected formBuilder: FormBuilder, protected http: HttpClient, protected router: Router) {}
+  public loginAdminCall: AdminCall = this.getAdminCall();
+
+  public readonly ButtonType = ButtonType;
+
+  public constructor(
+    barFacadeService: BarFacadeService,
+    barService: BarService,
+    changeDetectorRef: ChangeDetectorRef,
+    http: HttpClient,
+    route: ActivatedRoute,
+    router: Router,
+
+    protected formBuilder: FormBuilder,
+    protected authorizationFacadeService: AuthorizationFacadeService
+  ) {
+    super(barFacadeService, barService, changeDetectorRef, http, route, router);
+  }
 
   public ngOnInit(): void {
     this.buildForm();
@@ -34,22 +55,18 @@ export class AdminLoginComponent implements OnInit {
       return;
     }
 
-    this.http
-      .post<{ token: string }>(`${environment.urlApi}auth/login`, {
-        username: this.formGroup.controls.username.value,
-        password: this.formGroup.controls.password.value
-      })
+    this.post<AuthorizationResponseBody, AuthorizationRequestBody>(
+      this.loginAdminCall,
+      'auth/login',
+      this.getAuthorizationRequestBody(),
+      false
+    )
       .pipe(
-        tap(
-          (response: { token: string }): void => {
-            window.localStorage.setItem(AuthInterceptor.LOCAL_STORAGE_TOKEN_KEY, response.token);
-            this.redirectToAdminFeature();
-          },
-          (error: any): void => {
-            this.submitted = false;
-            this.error = error;
-          }
-        )
+        tap((response: AuthorizationResponseBody) => {
+          // actually it should be in RxJs effect but whole admin was written without store at all so all is fine
+          this.authorizationFacadeService.setToken(response.token);
+          this.redirectToAdminFeature();
+        })
       )
       .subscribe();
   }
@@ -59,6 +76,13 @@ export class AdminLoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+  }
+
+  protected getAuthorizationRequestBody(): AuthorizationRequestBody {
+    return {
+      username: this.formGroup.controls.username.value,
+      password: this.formGroup.controls.password.value
+    };
   }
 
   protected redirectToAdminFeature(): void {

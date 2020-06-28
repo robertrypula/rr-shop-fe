@@ -14,6 +14,7 @@ import { PromotionTextPipe } from './promotion-text/promotion-text.pipe';
 import { QuantityTextPipe } from './quantity-text/quantity-text.pipe';
 import { SafeHtmlPipe } from './safe-html/safe-html.pipe';
 import { StripWhitespacesPipe } from './strip-whitespaces/strip-whitespaces.pipe';
+import { TimeLeftPipe } from './time-left/time-left.pipe';
 
 const pipes = [
   CategoryUrlPipe,
@@ -28,7 +29,8 @@ const pipes = [
   PromotionTextPipe,
   QuantityTextPipe,
   SafeHtmlPipe,
-  StripWhitespacesPipe
+  StripWhitespacesPipe,
+  TimeLeftPipe
 ];
 
 @NgModule({

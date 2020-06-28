@@ -3,53 +3,70 @@
 <h2>Admin / logowanie</h2>
 
 <div class="AdminLogin">
-  <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate id="admin-login-form">
-    <div class="row margin-bottom">
-      <div class="col-xxs-4 AdminLogin-label">
-        <label class="form-label" for="username">Login:</label>
+  <form
+    (ngSubmit)="onSubmit()"
+    *ngIf="formGroup"
+    [formGroup]="formGroup"
+    autocomplete="on"
+    id="admin-login-form"
+    novalidate
+  >
+    <div class="row">
+      <div class="col-xxs-4 margin-bottom">
+        <label class="u-form-label" for="login-form-username">
+          Login
+        </label>
       </div>
-      <div class="col-xxs-8">
+      <div class="col-xxs-8 margin-bottom">
         <input
-          [ngClass]="{ 'form-input--invalid': submitted && formGroup.controls.username.errors }"
-          autocomplete="admin-login"
-          class="form-input"
+          autocomplete="username"
+          class="u-form-input"
           formControlName="username"
-          id="username"
+          id="login-form-username"
+          name="username"
           type="text"
+          [ngClass]="{
+            'u-form-input--invalid': submitted && formGroup.controls.username.errors
+          }"
         />
-      </div>
-    </div>
-
-    <div class="row margin-bottom">
-      <div class="col-xxs-4 AdminLogin-label">
-        <label class="form-label" for="password">Hasło:</label>
-      </div>
-      <div class="col-xxs-8">
-        <input
-          [ngClass]="{ 'form-input--invalid': submitted && formGroup.controls.password.errors }"
-          autocomplete="admin-password"
-          class="form-input"
-          formControlName="password"
-          id="password"
-          type="password"
-        />
-      </div>
-    </div>
-
-    <div class="row margin-bottom">
-      <div class="col-xxs-4"></div>
-      <div class="col-xxs-8">
-        <div *ngIf="error">
-          <div>Błąd logowania</div>
-          <div>{{ error?.error?.errorMessage }}</div>
+        <div class="u-form-error-container" *ngIf="submitted && formGroup.controls.username.errors">
+          <div *ngIf="formGroup.controls.username.errors.required">
+            Pole email nie może być puste
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="row margin-bottom">
-      <div class="col-xxs-4"></div>
-      <div class="col-xxs-8">
-        <button [disabled]="submitted" type="submit">Zaloguj</button>
+    <div class="row">
+      <div class="col-xxs-4 margin-bottom">
+        <label class="u-form-label" for="login-form-password">
+          Hasło
+        </label>
+      </div>
+      <div class="col-xxs-8 margin-bottom">
+        <input
+          autocomplete="password"
+          class="u-form-input"
+          formControlName="password"
+          id="login-form-password"
+          name="password"
+          type="password"
+          [ngClass]="{
+            'u-form-input--invalid': submitted && formGroup.controls.password.errors
+          }"
+        />
+        <div class="u-form-error-container" *ngIf="submitted && formGroup.controls.password.errors">
+          <div *ngIf="formGroup.controls.password.errors.required">
+            Pole email nie może być puste
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xxs-4 margin-bottom"></div>
+      <div class="col-xxs-8 margin-bottom">
+        <rr-shop-clickable-action [buttonType]="ButtonType.Submit" [label]="'Zaloguj'"></rr-shop-clickable-action>
       </div>
     </div>
   </form>

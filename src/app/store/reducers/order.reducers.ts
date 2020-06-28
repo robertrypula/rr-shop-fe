@@ -4,8 +4,8 @@ import { LocalStorageKey } from '../../models/local-storage.model';
 import { OrderItemStore } from '../../models/order-item.model';
 import * as fromOrderActions from '../actions/order.actions';
 import { OrderEntities } from '../../models/order.model';
-import { ApiCall } from '../../models/page.model';
 import { Type } from '../../models/product.model';
+import { ApiCall } from '../../models/root.model';
 
 export interface State {
   localStorageKey: LocalStorageKey;

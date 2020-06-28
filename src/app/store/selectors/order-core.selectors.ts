@@ -4,8 +4,8 @@ import { OrderItemStore } from '../../models/order-item.model';
 import { OrderStore } from '../../models/order.model';
 import * as fromOrderReducers from '../reducers/order.reducers';
 import { POTENTIAL_ORDER_UUID } from '../reducers/order.reducers';
-import { ApiCall } from '../../models/page.model';
 import { State } from '../reducers';
+import { ApiCall } from '../../models/root.model';
 import { getAsArrayUuid } from '../../utils/transfomation.utils';
 
 export const selectOrderFeature = (state: State): fromOrderReducers.State => state.order;

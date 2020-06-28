@@ -15,6 +15,10 @@
  * import for `ngExpressEngine`.
  */
 
+// https://stackoverflow.com/questions/46219720/angular-universal-generate-404-and-other-http-codes-header
+// https://willtaylor.blog/angular-universal-gotchas/
+// https://blog.angular-university.io/angular-universal/
+
 import * as express from 'express';
 import { join } from 'path';
 import 'zone.js/dist/zone-node';

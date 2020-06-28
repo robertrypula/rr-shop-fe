@@ -10,6 +10,9 @@ export const CLOUD_SHOW_DELAY = 250;
 export const BAR_SUCCESS_MESSAGE_HIDE_DELAY = 800;
 export const H1_TEXT = 'Waleriana.pl - internetowy sklep zielarsko-medyczny';
 
+export const SEO_TITLE = (additionalText: string = null): string =>
+  `Waleriana.pl${additionalText ? ' - ' + additionalText : ''}`;
+
 export const CATEGORY_RELATED_PRODUCTS_LIMIT = 4;
 export const MAIN_PAGE_PRODUCTS_IN_SECTION_LIMIT = 8;
 

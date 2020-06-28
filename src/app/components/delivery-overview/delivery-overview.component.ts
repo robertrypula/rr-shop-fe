@@ -7,6 +7,7 @@ import { Order } from '../../models/order.model';
 import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
 import { ProductFacadeService } from '../../store/facades/product-facade.service';
 import { Product } from '../../models/product.model';
+import { RootService } from '../../services/root.service';
 
 @Component({
   selector: 'rr-shop-delivery-overview',
@@ -22,21 +23,29 @@ export class DeliveryOverviewComponent implements OnInit, OnDestroy {
 
   public constructor(
     protected productFacadeService: ProductFacadeService,
-    protected orderFacadeService: OrderFacadeService
+    protected orderFacadeService: OrderFacadeService,
+    protected rootService: RootService
   ) {}
 
   public ngOnInit(): void {
-    (window as any).onInPostParcelLockerChange = (parcelLocker: string): void => {
-      this.onInPostParcelLockerChange(parcelLocker);
-    };
+    if (this.rootService.isPlatformBrowser) {
+      this.rootService.rrShopWindow.onInPostParcelLockerChange = (parcelLocker: string): void => {
+        this.onInPostParcelLockerChange(parcelLocker);
+      };
+    }
   }
 
   public ngOnDestroy(): void {
-    (window as any).onInPostParcelLockerChange = null;
+    if (this.rootService.isPlatformBrowser) {
+      this.rootService.rrShopWindow.onInPostParcelLockerChange = null;
+    }
   }
 
   public onChooseParcelLockerClick(): void {
-    (window as any).openInPostParcelLockerModal && (window as any).openInPostParcelLockerModal(900, 600);
+    if (this.rootService.isPlatformBrowser) {
+      this.rootService.rrShopWindow.openInPostParcelLockerModal &&
+        this.rootService.rrShopWindow.openInPostParcelLockerModal(900, 600);
+    }
   }
 
   protected onInPostParcelLockerChange(parcelLocker: string): void {

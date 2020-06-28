@@ -5,11 +5,11 @@ import { tap } from 'rxjs/operators';
 import { AuthorizationFacadeService } from '../../store/facades/authorization-facade.service';
 import { AuthorizationLocalStorage } from '../../models/authorization.model';
 import { BarFacadeService } from '../../store/facades/bar-facade.service';
-import { BarLocalStorage } from '../../models/bar.model';
 import { LocalStorage, LocalStorageKey } from '../../models/local-storage.model';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { OrderLocalStorage } from '../../models/order.model';
 import { PageFacadeService } from '../../store/facades/page-facade.service';
+import { RootService } from '../../services/root.service';
 import { ViewportFacadeService } from '../../store/facades/viewport-facade.service';
 
 @Component({
@@ -29,7 +29,8 @@ export class RootComponent {
     protected authorizationFacadeService: AuthorizationFacadeService,
     protected barFacadeService: BarFacadeService,
     protected pageFacadeService: PageFacadeService,
-    protected orderFacadeService: OrderFacadeService
+    protected orderFacadeService: OrderFacadeService,
+    protected rootService: RootService
   ) {
     this.handleScrollIntoContent();
   }
@@ -57,14 +58,14 @@ export class RootComponent {
   }
 
   protected handleScrollIntoContent(): void {
-    this.viewportFacadeService.selectGetFurtherNavigationIdAtEveryDevices$
+    this.viewportFacadeService.selectGetFurtherNavigationIdAtEveryDevice$
       .pipe(
-        tap((furtherNavigationIdOnlyAtSmallerDevices: number): void => {
-          furtherNavigationIdOnlyAtSmallerDevices &&
-            this.content &&
-            this.content.nativeElement &&
-            window.scrollTo &&
-            window.scrollTo(0, 0);
+        tap((furtherNavigationIdAtEveryDevice: number): void => {
+          furtherNavigationIdAtEveryDevice &&
+            this.rootService.isPlatformBrowser &&
+            this.rootService.rrShopWindow.scrollTo(0, 0);
+          // this.content &&
+          // this.content.nativeElement &&
           // this.content.nativeElement.scrollIntoView({}); TODO clean this
         })
       )

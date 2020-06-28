@@ -7,9 +7,9 @@ import * as fromOrderActions from '../actions/order.actions';
 import { Order, OrderLocalStorage, OrderStore } from '../../models/order.model';
 import * as fromOrderSelectors from '../selectors/order.selectors';
 import { selectActiveOrder, selectIsOnOrderRoute, selectUrlOrderUuid } from '../selectors/order.selectors';
-import { ApiCall } from '../../models/page.model';
 import { DeliveryType, Product } from '../../models/product.model';
 import { State } from '../reducers';
+import { ApiCall } from '../../models/root.model';
 
 @Injectable({
   providedIn: 'root'

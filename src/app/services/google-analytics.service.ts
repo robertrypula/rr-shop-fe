@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 
-import { RrShopWindow } from '../models/page.model';
+import { RrShopWindow } from '../models/root.model';
 
-import { PageService } from './page.service';
+import { RootService } from './root.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoogleAnalyticsService {
-  protected rrShopWindow: RrShopWindow = this.pageService.getRrShopWindow();
+  protected readonly rrShopWindow: RrShopWindow = this.rootService.rrShopWindow;
 
-  public constructor(protected pageService: PageService) {}
+  public constructor(protected rootService: RootService) {}
 
   public pushPagePath(pagePath: string): void {
     this.push('config', this.getGaMeasurementId(), { page_path: pagePath });
@@ -19,13 +19,13 @@ export class GoogleAnalyticsService {
   // ----
 
   protected getGaMeasurementId(): string {
-    return typeof this.rrShopWindow.RR_SHOP_GA_MEASUREMENT_ID === 'string'
+    return this.rootService.isPlatformBrowser && typeof this.rrShopWindow.RR_SHOP_GA_MEASUREMENT_ID === 'string'
       ? this.rrShopWindow.RR_SHOP_GA_MEASUREMENT_ID
       : '';
   }
 
   protected push(...args: any): void {
-    if (typeof this.rrShopWindow.gtag === 'function') {
+    if (this.rootService.isPlatformBrowser && typeof this.rrShopWindow.gtag === 'function') {
       this.rrShopWindow.gtag(...args);
     }
   }

@@ -17,8 +17,8 @@
     "u:i": "yarn upgrade-interactive --latest",
     "compile:server": "webpack --config webpack.server.config.js --progress --colors",
     "serve:ssr": "node dist/server",
-    "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
-    "build:client-and-server-bundles": "ng build --prod && ng run rr-shop-fe:server:production --bundleDependencies all"
+    "build:ssr": "yarn build:client-and-server-bundles && yarn compile:server",
+    "build:client-and-server-bundles": "yarn build:prod && ng run rr-shop-fe:server:production --bundleDependencies all"
   },
   "private": true,
   "resolutions": {

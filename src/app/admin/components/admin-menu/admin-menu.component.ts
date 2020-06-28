@@ -5,6 +5,7 @@ import { concatMap, distinctUntilChanged, map, takeUntil, tap, withLatestFrom } 
 import { AuthorizationFacadeService } from '../../../store/facades/authorization-facade.service';
 import { getExpirationSeconds } from '../../../utils/authorization.utils';
 import { ClickableActionType } from '../../../components/clickable-action/clickable-action.model';
+import { RootService } from '../../../services/root.service';
 
 const ONE_SECOND_NYQUIST_FREQUENCY_INTERVAL = 500;
 
@@ -22,7 +23,10 @@ export class AdminMenuComponent implements OnInit, OnDestroy {
   protected timer: Observable<number> = interval(ONE_SECOND_NYQUIST_FREQUENCY_INTERVAL);
   protected unsubscribe$ = new Subject<void>();
 
-  public constructor(protected authorizationFacadeService: AuthorizationFacadeService) {}
+  public constructor(
+    protected authorizationFacadeService: AuthorizationFacadeService,
+    protected rootService: RootService
+  ) {}
 
   public ngOnInit() {
     this.intervalStart();
@@ -34,16 +38,20 @@ export class AdminMenuComponent implements OnInit, OnDestroy {
   }
 
   public intervalStart(): void {
-    merge(this.timer, this.authorizationFacadeService.expirationTime$)
-      .pipe(
-        takeUntil(this.unsubscribe$),
-        concatMap(mergedValue => of(mergedValue).pipe(withLatestFrom(this.authorizationFacadeService.expirationTime$))),
-        map(([mergedValue, expirationTime]) => getExpirationSeconds(expirationTime)),
-        distinctUntilChanged(),
-        tap((expirationSeconds: number): void => {
-          this.expirationSeconds$.next(expirationSeconds);
-        })
-      )
-      .subscribe();
+    if (this.rootService.isPlatformBrowser) {
+      merge(this.timer, this.authorizationFacadeService.expirationTime$)
+        .pipe(
+          takeUntil(this.unsubscribe$),
+          concatMap(mergedValue =>
+            of(mergedValue).pipe(withLatestFrom(this.authorizationFacadeService.expirationTime$))
+          ),
+          map(([mergedValue, expirationTime]) => getExpirationSeconds(expirationTime)),
+          distinctUntilChanged(),
+          tap((expirationSeconds: number): void => {
+            this.expirationSeconds$.next(expirationSeconds);
+          })
+        )
+        .subscribe();
+    }
   }
 }

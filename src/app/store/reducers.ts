@@ -1,8 +1,6 @@
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
-import { environment } from '../../environments/environment';
-
 import * as fromAuthorization from './reducers/authorization.reducers';
 import * as fromBar from './reducers/bar.reducers';
 import * as fromCategory from './reducers/category.reducers';
@@ -44,10 +42,9 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
       { bar: ['localStorageKey', 'isCookieModalVisible'] },
       { order: ['localStorageKey', 'entities', 'lastOrderItemId'] }
     ],
-    rehydrate: true
+    rehydrate: true,
+    checkStorageAvailability: true
   })(reducer);
 }
 
-export const metaReducers: MetaReducer<State>[] = !environment.production
-  ? [localStorageSyncReducer]
-  : [localStorageSyncReducer];
+export const metaReducers: MetaReducer<State>[] = [localStorageSyncReducer];

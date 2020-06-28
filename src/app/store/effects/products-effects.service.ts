@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY, of } from 'rxjs';
 import { catchError, concatMap, filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
@@ -7,6 +8,7 @@ import { catchError, concatMap, filter, map, mergeMap, switchMap, tap, withLates
 import { ApiProductService } from '../../rest-api/product/api-product.service';
 import { CategoryFacadeService } from '../facades/category-facade.service';
 import { CategoryStore, StructuralNode } from '../../models/category.model';
+import { SEO_TITLE } from '../../config';
 import { PageFacadeService } from '../facades/page-facade.service';
 import * as fromPageActions from '../actions/page.actions';
 import { ProductFacadeService } from '../facades/product-facade.service';
@@ -40,11 +42,11 @@ export class ProductsEffects {
     )
   );
 
-  public productRequestSuccess$ = createEffect(() =>
+  public seoTitleUpdateAtProduct$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromProductActions.productSuccess),
       tap(action => {
-        // window.scrollTo && window.scrollTo(0, 0);
+        this.title.setTitle(SEO_TITLE(action.productStore.name));
       }),
       mergeMap(() => EMPTY)
     )
@@ -73,6 +75,22 @@ export class ProductsEffects {
           )
         )
       )
+    )
+  );
+
+  public seoTitleUpdateAtCategory$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromRouterActions.customRouterNavigated),
+      concatMap(action =>
+        of(action).pipe(
+          withLatestFrom(this.categoryFacadeService.activeCategory$, this.categoryFacadeService.isOnCategoryRoute$)
+        )
+      ),
+      filter(([action, activeCategory, isOnCategoryRoute]): boolean => isOnCategoryRoute),
+      tap(([action, activeCategory, isOnCategoryRoute]) => {
+        this.title.setTitle(SEO_TITLE(activeCategory.name));
+      }),
+      mergeMap(() => EMPTY)
     )
   );
 
@@ -135,6 +153,18 @@ export class ProductsEffects {
     )
   );
 
+  public seoTitleUpdateAtMainPage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromRouterActions.customRouterNavigated),
+      concatMap(action => of(action).pipe(withLatestFrom(this.pageFacadeService.isOnMainPageRoute$))),
+      filter(([action, isOnMainPageRoute]): boolean => isOnMainPageRoute),
+      tap(() => {
+        this.title.setTitle(SEO_TITLE());
+      }),
+      mergeMap(() => EMPTY)
+    )
+  );
+
   // ---------------------------------------------------------------------------
 
   public triggerProductsAtProductRequest$ = createEffect(() =>
@@ -166,6 +196,7 @@ export class ProductsEffects {
     protected apiProductService: ApiProductService,
     protected categoryFacadeService: CategoryFacadeService,
     protected pageFacadeService: PageFacadeService,
-    protected productFacadeService: ProductFacadeService
+    protected productFacadeService: ProductFacadeService,
+    protected title: Title
   ) {}
 }

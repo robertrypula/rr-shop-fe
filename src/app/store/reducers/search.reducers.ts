@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { ApiCall } from '../../models/page.model';
 import { ProductStore } from '../../models/product.model';
+import { ApiCall } from '../../models/root.model';
 import * as fromSearchActions from '../actions/search.actions';
 
 export interface State {

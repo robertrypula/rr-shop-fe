@@ -11,6 +11,7 @@ import { AuthorizationRequestBody, AuthorizationResponseBody } from '../../model
 import { BarFacadeService } from '../../../store/facades/bar-facade.service';
 import { BarService } from '../../../services/bar.service';
 import { ButtonType } from '../../../components/clickable-action/clickable-action.model';
+import { RootService } from '../../../services/root.service';
 
 // Based on: https://jasonwatmore.com/post/2019/06/26/angular-8-basic-http-authentication-tutorial-example
 // Other nice example: https://loiane.com/2017/08/angular-reactive-forms-trigger-validation-on-submit/
@@ -37,11 +38,11 @@ export class AdminLoginComponent extends AdminBaseComponent implements OnInit {
     http: HttpClient,
     route: ActivatedRoute,
     router: Router,
-
+    rootService: RootService,
     protected formBuilder: FormBuilder,
     protected authorizationFacadeService: AuthorizationFacadeService
   ) {
-    super(barFacadeService, barService, changeDetectorRef, http, route, router);
+    super(barFacadeService, barService, changeDetectorRef, http, route, router, rootService);
   }
 
   public ngOnInit(): void {

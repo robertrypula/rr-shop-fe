@@ -12,8 +12,8 @@ import * as fromViewportSelectors from '../selectors/viewport.selectors';
 })
 export class ViewportFacadeService {
   public device$: Observable<Device> = this.store.pipe(select(fromViewportSelectors.selectDevice));
-  public selectGetFurtherNavigationIdAtEveryDevices$: Observable<number> = this.store.pipe(
-    select(fromViewportSelectors.selectGetFurtherNavigationIdAtEveryDevices)
+  public selectGetFurtherNavigationIdAtEveryDevice$: Observable<number> = this.store.pipe(
+    select(fromViewportSelectors.selectGetFurtherNavigationIdAtEveryDevice)
   );
   public getFurtherNavigationIdOnlyAtSmallerDevices$: Observable<number> = this.store.pipe(
     select(fromViewportSelectors.selectGetFurtherNavigationIdOnlyAtSmallerDevices)

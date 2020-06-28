@@ -41,16 +41,13 @@ export class RootComponent {
 
       switch (newValue.localStorageKey) {
         case LocalStorageKey.Authorization:
-          console.log('authorization!!!!!!!!!!!!!', newValue as AuthorizationLocalStorage);
           this.authorizationFacadeService.setToken((newValue as AuthorizationLocalStorage).token);
           break;
         case LocalStorageKey.Bar:
-          console.log('bar!!!!!!!!!!!!!', newValue as BarLocalStorage);
-          // (newValue as AuthorizationLocalStorage).token
-          this.barFacadeService.acceptCookies();
+          // (newValue as BarLocalStorage).isCookieModalVisible
+          this.barFacadeService.acceptCookies(); // NOTE actually it should be setIsCookieModalVisible
           break;
         case LocalStorageKey.Order:
-          console.log('order!!!!!!!!!!!!!', newValue as OrderLocalStorage);
           this.orderFacadeService.syncOrderLocalStorage(newValue as OrderLocalStorage);
           break;
       }

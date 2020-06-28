@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { interval, merge, Observable, of, Subject } from 'rxjs';
 import { concatMap, distinctUntilChanged, map, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 
@@ -22,10 +22,7 @@ export class AdminMenuComponent implements OnInit, OnDestroy {
   protected timer: Observable<number> = interval(ONE_SECOND_NYQUIST_FREQUENCY_INTERVAL);
   protected unsubscribe$ = new Subject<void>();
 
-  public constructor(
-    protected authorizationFacadeService: AuthorizationFacadeService,
-    protected changeDetectorRef: ChangeDetectorRef
-  ) {}
+  public constructor(protected authorizationFacadeService: AuthorizationFacadeService) {}
 
   public ngOnInit() {
     this.intervalStart();
@@ -45,7 +42,6 @@ export class AdminMenuComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
         tap((expirationSeconds: number): void => {
           this.expirationSeconds$.next(expirationSeconds);
-          this.changeDetectorRef.detectChanges();
         })
       )
       .subscribe();

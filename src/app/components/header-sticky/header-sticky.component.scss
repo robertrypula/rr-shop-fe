@@ -1,4 +1,4 @@
-@import 'configs-and-mixins';
+@import '~src/styles/configs-and-mixins';
 
 .HeaderSticky-phoneVertical {
   display: none;
@@ -156,11 +156,11 @@
           margin-right: $gutter-width;
 
           @include viewport-desktop-medium-only {
-            width: 230px;
+            width: 200px;
           }
 
           @include viewport-desktop-large-only {
-            width: 380px;
+            width: 340px;
           }
 
           @include viewport-desktop-extra-large-and-up {

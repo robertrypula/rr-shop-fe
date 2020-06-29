@@ -7,7 +7,7 @@ import { IconType } from '../icon/icon.models';
 import { OrderFacadeService } from '../../store/facades/order-facade.service';
 import { Order } from '../../models/order.model';
 import { POTENTIAL_ORDER_UUID } from '../../store/reducers/order.reducers';
-import { ApiCall } from '../../models/page.model';
+import { ApiCall } from '../../models/root.model';
 
 @Component({
   selector: 'rr-shop-promo-code',

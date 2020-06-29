@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 
-import { ApiCall } from '../../models/page.model';
 import { State } from '../reducers';
+import { ApiCall } from '../../models/root.model';
 import * as fromSearchReducers from '../reducers/search.reducers';
 
 export const selectSearchFeature = (state: State): fromSearchReducers.State => state.search;

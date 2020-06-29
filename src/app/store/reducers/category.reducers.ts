@@ -2,7 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromCategoryActions from '../actions/category.actions';
 import { ActiveLevelUpdateEntry, CategoryStore } from '../../models/category.model';
-import { ApiCall } from '../../models/page.model';
+import { ApiCall } from '../../models/root.model';
 
 export interface State {
   apiCallCategoriesAtInit: ApiCall;

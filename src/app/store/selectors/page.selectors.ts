@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import { ApiCall } from '../../models/page.model';
+import { ApiCall } from '../../models/root.model';
 import { isOnMainPageRoute } from '../../utils/routing.utils';
 
 import { selectApiCallCategoriesAtInit } from './category-core.selectors';

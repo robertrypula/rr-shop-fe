@@ -2,9 +2,9 @@ import { Action, createReducer, on } from '@ngrx/store';
 
 import * as fromOrderActions from '../actions/order.actions';
 import * as fromPageActions from '../actions/page.actions';
-import { ApiCall } from '../../models/page.model';
 import * as fromProductActions from '../actions/product.actions';
 import { ProductStore } from '../../models/product.model';
+import { ApiCall } from '../../models/root.model';
 import * as fromSearchActions from '../actions/search.actions';
 
 export interface State {

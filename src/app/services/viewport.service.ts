@@ -18,6 +18,8 @@ import {
 import { ViewportFacadeService } from '../store/facades/viewport-facade.service';
 import { Device, ViewportStatus } from '../models/viewport.model';
 
+import { RootService } from './root.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,16 +33,28 @@ export class ViewportService {
   protected viewportStatusSubject$: Subject<ViewportStatus> = new Subject();
 
   // TODO try to migrate things to facade
-  public constructor(protected viewportFacadeService: ViewportFacadeService) {
+  public constructor(protected viewportFacadeService: ViewportFacadeService, protected rootService: RootService) {
     this.viewportStatus$ = this.viewportStatusSubject$.asObservable().pipe(distinctUntilChanged());
     this.configureStoreActionsDispatching();
     this.attachWindowEvents();
   }
 
   public getViewportStatus(): ViewportStatus {
-    const scrollTop: number = window.pageYOffset || document.documentElement.scrollTop;
-    const width: number = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    const height: number = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    const scrollTop: number = this.rootService.isPlatformBrowser
+      ? this.rootService.rrShopWindow.pageYOffset || this.rootService.rrShopDocument.documentElement.scrollTop
+      : 0;
+    const width: number = this.rootService.isPlatformBrowser
+      ? Math.max(
+          this.rootService.rrShopDocument.documentElement.clientWidth,
+          this.rootService.rrShopWindow.innerWidth || 0
+        )
+      : 0;
+    const height: number = this.rootService.isPlatformBrowser
+      ? Math.max(
+          this.rootService.rrShopDocument.documentElement.clientHeight,
+          this.rootService.rrShopWindow.innerHeight || 0
+        )
+      : 0;
 
     return {
       height,
@@ -50,12 +64,14 @@ export class ViewportService {
   }
 
   protected attachWindowEvents(): void {
-    fromEvent(window, 'scroll', { passive: true })
-      .pipe(tap(this.update.bind(this)))
-      .subscribe();
-    fromEvent(window, 'resize', { passive: true })
-      .pipe(tap(this.update.bind(this)))
-      .subscribe();
+    if (this.rootService.isPlatformBrowser) {
+      fromEvent(this.rootService.rrShopWindow, 'scroll', { passive: true })
+        .pipe(tap(this.update.bind(this)))
+        .subscribe();
+      fromEvent(this.rootService.rrShopWindow, 'resize', { passive: true })
+        .pipe(tap(this.update.bind(this)))
+        .subscribe();
+    }
 
     this.update();
   }

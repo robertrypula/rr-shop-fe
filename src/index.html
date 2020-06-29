@@ -19,8 +19,6 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-166899717-1"></script>
     <script>
-      window.RR_SHOP_GA_MEASUREMENT_ID = 'UA-166899717-1';
-
       function gtag() {
         typeof dataLayer !== 'undefined' && dataLayer.push(arguments);
       }
@@ -32,37 +30,43 @@
         );
       }
 
-      if (isRrShopGaActive()) {
-        window.dataLayer = window.dataLayer || [];
-        gtag('js', new Date());
-        gtag('config', window.RR_SHOP_GA_MEASUREMENT_ID);
+      if (typeof window !== 'undefined') {
+        window.RR_SHOP_GA_MEASUREMENT_ID = 'UA-166899717-1';
+
+        if (isRrShopGaActive()) {
+          window.dataLayer = window.dataLayer || [];
+          gtag('js', new Date());
+          gtag('config', window.RR_SHOP_GA_MEASUREMENT_ID);
+        }
       }
     </script>
 
     <script src="https://geowidget.easypack24.net/js/sdk-for-javascript.js"></script>
     <script type="text/javascript">
-      window.easyPackAsyncInit = function() {
-        easyPack.init({
-          defaultLocale: 'pl',
-          mapType: 'osm',
-          searchType: 'osm',
-          points: {
-            types: ['parcel_locker']
-          },
-          map: {
-            initialTypes: ['parcel_locker']
-          }
-        });
-      };
-      window.openInPostParcelLockerModal = function(width, height) {
-        easyPack.modalMap(
-          function(point, modal) {
-            modal.closeModal();
-            window.onInPostParcelLockerChange && window.onInPostParcelLockerChange(point.name);
-          },
-          { width: width, height: height }
-        );
-      };
+      if (typeof window !== 'undefined') {
+        window.easyPackAsyncInit = function() {
+          easyPack.init({
+            defaultLocale: 'pl',
+            mapType: 'osm',
+            searchType: 'osm',
+            points: {
+              types: ['parcel_locker']
+            },
+            map: {
+              initialTypes: ['parcel_locker']
+            }
+          });
+        };
+        window.openInPostParcelLockerModal = function(width, height) {
+          easyPack.modalMap(
+            function(point, modal) {
+              modal.closeModal();
+              window.onInPostParcelLockerChange && window.onInPostParcelLockerChange(point.name);
+            },
+            { width: width, height: height }
+          );
+        };
+      }
     </script>
     <link rel="stylesheet" href="https://geowidget.easypack24.net/css/easypack.css" />
   </head>

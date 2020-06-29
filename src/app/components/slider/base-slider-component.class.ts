@@ -5,12 +5,13 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { ClickableActionType } from '../clickable-action/clickable-action.model';
 import { SLIDER_INTERVAL } from '../../config';
 import { IconType } from '../icon/icon.models';
+import { RootService } from '../../services/root.service';
 
 @Injectable()
 export abstract class BaseSliderComponent {
   public current = 0;
 
-  public constructor(protected changeDetectorRef: ChangeDetectorRef) {}
+  public constructor(protected changeDetectorRef: ChangeDetectorRef, protected rootService: RootService) {}
 
   public readonly ClickableActionType = ClickableActionType;
   public readonly IconType = IconType;
@@ -48,12 +49,14 @@ export abstract class BaseSliderComponent {
   }
 
   public intervalStart(): void {
-    this.timer
-      .pipe(
-        takeUntil(this.unsubscribe$),
-        tap(() => this.timeTick())
-      )
-      .subscribe();
+    if (this.rootService.isPlatformBrowser) {
+      this.timer
+        .pipe(
+          takeUntil(this.unsubscribe$),
+          tap(() => this.timeTick())
+        )
+        .subscribe();
+    }
   }
 
   public intervalReset(): void {

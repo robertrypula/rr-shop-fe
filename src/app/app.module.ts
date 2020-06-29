@@ -29,7 +29,7 @@ import { routerStateConfig } from './store/reducers/router.reducers';
       StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
     ],
     AppRoutingModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
     RootModule

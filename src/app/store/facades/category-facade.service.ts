@@ -6,6 +6,7 @@ import { selectCategoryStoreLength, selectIsListCollapsed } from '../selectors/c
 import * as fromCategoryActions from '../actions/category.actions';
 import { ActiveLevelUpdateEntry, CategoryStore, StructuralNode } from '../../models/category.model';
 import * as fromCategorySelectors from '../selectors/category.selectors';
+import { selectIsOnCategoryRoute } from '../selectors/category.selectors';
 import { ProductSortBy } from '../../models/product.model';
 import { State } from '../reducers';
 
@@ -38,6 +39,7 @@ export class CategoryFacadeService {
     select(fromCategorySelectors.selectIsCollapseExpandButtonVisible)
   );
   public isListCollapsed$: Observable<boolean> = this.store.pipe(select(selectIsListCollapsed));
+  public isOnCategoryRoute$: Observable<boolean> = this.store.pipe(select(selectIsOnCategoryRoute));
   public shouldCallForProducts$: Observable<boolean> = this.store.pipe(
     select(fromCategorySelectors.selectShouldCallForProducts)
   );

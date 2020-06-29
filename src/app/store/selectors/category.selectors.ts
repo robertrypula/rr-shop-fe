@@ -2,7 +2,12 @@ import { createSelector } from '@ngrx/store';
 
 import { ActiveLevelUpdateEntry, CategoryStore, StructuralNode } from '../../models/category.model';
 import { ProductSortBy } from '../../models/product.model';
-import { getCategoryId, getCategoryProductSortBy, isOnCategoryRoute } from '../../utils/routing.utils';
+import {
+  getCategoryId,
+  getCategoryProductSortBy,
+  isOnCategoryRoute,
+  isOnProductRoute
+} from '../../utils/routing.utils';
 
 import { selectCategoriesStore } from './category-core.selectors';
 import { getCategoriesStoreFromLeafToRoot, getCategoryStoreAndItsChildren } from './category.utils';
@@ -185,3 +190,5 @@ export const selectShouldCallForProducts = createSelector(
     return isOnCategoryRoute(url) && !activeCategoryStore.isHiddenListOfProducts;
   }
 );
+
+export const selectIsOnCategoryRoute = createSelector(selectUrl, (url: string): boolean => isOnCategoryRoute(url));

@@ -1,8 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { AdminCall, AdminCallState } from '../models/admin-component.models';
 import { BarFacadeService } from '../../store/facades/bar-facade.service';
@@ -12,6 +12,7 @@ import { ClickableActionTheme, ClickableActionType } from '../../components/clic
 import { environment } from '../../../environments/environment';
 import { IconType } from '../../components/icon/icon.models';
 import { SizeImage, SizeImageContainer } from '../../models/image.model';
+import { RootService } from '../../services/root.service';
 
 /**
  * It's not following any of the best practices but I wrote this Admin in 1 hour :)
@@ -33,7 +34,8 @@ export class AdminBaseComponent {
     protected changeDetectorRef: ChangeDetectorRef,
     protected http: HttpClient,
     protected route: ActivatedRoute,
-    protected router: Router
+    protected router: Router,
+    protected rootService: RootService
   ) {}
 
   protected getAdminCall<T>(data: T = null): AdminCall<T> {
@@ -150,10 +152,12 @@ export class AdminBaseComponent {
   }
 
   protected getSessionStorageKey(key: string, fallback: any = null): any {
-    return window.sessionStorage.getItem(key) ? window.sessionStorage.getItem(key) : fallback;
+    return this.rootService.isPlatformBrowser && this.rootService.rrShopWindow.sessionStorage.getItem(key)
+      ? this.rootService.rrShopWindow.sessionStorage.getItem(key)
+      : fallback;
   }
 
   protected setSessionStorageKey(key: string, value: any): void {
-    window.sessionStorage.setItem(key, value);
+    this.rootService.isPlatformBrowser && this.rootService.rrShopWindow.sessionStorage.setItem(key, value);
   }
 }
